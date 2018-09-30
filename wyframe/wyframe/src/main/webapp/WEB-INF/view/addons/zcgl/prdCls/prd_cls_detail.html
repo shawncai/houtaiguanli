@@ -1,0 +1,101 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal">
+
+			<input type="hidden" id="prd_cls_id"
+				   value="${xgt_goods_prd_cls.prd_cls_id}">
+
+			<div class="row">
+
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="prd_cls_nm" name="分类名称" underline="true" value="${xgt_goods_prd_cls.prd_cls_nm}" readonly="readonly"/>
+				</div>
+
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="clsName" name="上级分类" readonly="readonly" underline="true"
+							hiddenValue="${xgt_goods_prd_cls.par_prd_cls_id}" value="${pClsName}"
+							clickFun="Xgt_goods_clsIdDlg.showClsSelectTree(); return false;"
+							style="background-color: #ffffff !important" selectFlag="true"
+							selectId="clsTreeDiv" selectTreeId="clsareaTree"
+							selectStyle="width:402px !important;margin-left: 94px" readonly="readonly" />
+					<!--<div class="input-group">-->
+					<!--<div class="input-group-btn">-->
+					<!--<button data-toggle="dropdown" class="btn btn-white dropdown-toggle"-->
+					<!--type="button">上级物品分类-->
+					<!--</button>-->
+					<!--</div>-->
+					<!--<input class="form-control" id="clsName" name="clsName"-->
+					<!--value="$(clsNm)"-->
+					<!--type="text"-->
+					<!--readonly="readonly"-->
+					<!--onclick="Xgt_goods_clsIdDlg.showClsSelectTree(); return false;"-->
+					<!--style="background-color: #ffffff !important;"-->
+					<!--&gt;-->
+					<!--<input class="form-control" type="hidden" id="par_prd_cls_id" value="39">-->
+
+					<!--<div id="clsTreeDiv" style="left:109px!important;display: none; position: absolute; z-index: 200;">-->
+					<!--<ul id="clsareaTree" class="ztree tree-box" style="width:402px !important;margin-left: 94px"></ul>-->
+					<!--</div>-->
+					<!--</div>-->
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<div class="form-group">
+						<label class="col-sm-4 control-label col-xs-6 ">分类代码：</label>
+						<div class="col-sm-7 col-xs-12">
+							<input class="form-control" id="cls_code" name="cls_code" value="${xgt_goods_prd_cls.cls_code}"
+								   type="text" onkeyup="value=value.replace(/[\W]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" readonly="readonly">
+						</div>
+					</div>
+				</div>
+
+
+				<div class="col-sm-6 col-xs-6">
+					<div class="form-group">
+						<div class="checkbox i-checks col-sm-4 control-label col-xs-6">
+							<label >
+								<input id="product" type="checkBox" value="" >
+								<input type="text" id="sn_flg" value="${xgt_goods_prd_cls.sn_flg}" hidden="hidden" >
+								<i></i> 系列号
+							</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-12 col-xs-12">
+					<#inputzcc1 id="prd_cls_alias" name="分类说明" underline="true" value="${xgt_goods_prd_cls.prd_cls_alias}" readonly="readonly"/>
+				</div>
+			</div>
+			<div class="row btn-group-m-t">
+				<div class="row btn-group-m-t">
+					<div class="col-sm-12 col-xs-12 text-center">
+						<#button btnCss="danger" name="返回" id="cancel" icon="fa-eraser"
+								clickFun="Xgt_goods_prd_clsInfoDlg.close()" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/prdCls/js/xgt_goods_prd_cls_info.js"></script>
+<script>
+    window.onload=function () {
+        var pan =$('#sn_flg').val();
+        if(pan==1){
+            $("#product").attr("checked",true);
+        }
+    }
+
+    function dianan(){
+        if($("input[type='checkbox']").is(':checked')){
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+    $("#product").change(function() {
+        $('#sn_flg').val(dianan());
+    });
+</script>
+
+@}

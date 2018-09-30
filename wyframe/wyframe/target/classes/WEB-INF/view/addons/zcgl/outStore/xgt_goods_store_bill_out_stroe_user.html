@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="${ctxPath}/static/favicon.ico"> 
+    <link href="${ctxPath}/static/css_chuku/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="${ctxPath}/static/css_chuku/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="${ctxPath}/static/css_chuku/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link href="${ctxPath}/static/css_chuku/animate.css" rel="stylesheet">
+    <link href="${ctxPath}/static/css_chuku/style.css?v=4.1.0" rel="stylesheet">
+    
+
+</head>
+
+<body class="gray-bg">
+	
+	<div class="col-sm-12">
+                        <!-- Example Toolbar -->
+                        <div class="example-wrap">
+                            <h4 class="example-title" style="text-align: center;font-size: 30px;">经手人搜索</h4>
+                            <div class="example">
+                                <div class=" hidden-xs" id="staff_seachToolbar" role="group">
+                                    <button type="button" class="btn btn-primary " id="staff_add" >
+                                        <i class="fa fa-plus"></i> 新增
+                                    </button>
+                                </div>
+                                <table id="staff_seach" data-mobile-responsive="true" >
+                                    <thead>
+                                        <tr>
+                                        	<th data-field="state" data-radio="true"></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <div class="col-md-6 text-right">
+                                
+                                    <button type="button" class="btn btn-primary " id="item_info_btn_add" >
+                                        	确认
+                                    </button>
+                               </div>
+                                <div class="col-md-6 ">
+                                    <button type="button" class=" btn btn-danger " id="item_info_btn_close" >
+                                        	取消
+                                    </button>
+                                
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Example Toolbar -->
+                    </div>
+
+	    <script src="${ctxPath}/static/js_chuku/jquery.min.js?v=2.1.4"></script>
+    <script src="${ctxPath}/static/js_chuku/bootstrap.min.js?v=3.3.6"></script>
+<script src="${ctxPath}/static/js_chuku/layer1/layer.js"></script>
+<script src="${ctxPath}/static/js_chuku/Feng.js"></script>
+<script src="${ctxPath}/static/js_chuku/ajaxobject.js"></script>
+    <!-- 自定义js -->
+    <!-- Bootstrap table -->
+    <script src="${ctxPath}/static/js_chuku/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="${ctxPath}/static/js_chuku/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+    <script src="${ctxPath}/static/js_chuku/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+
+    <!-- Peity -->
+<script src="${ctxPath}/static/js_chuku/bootstrap-table-object.js"></script>
+    <script src="${ctxPath}/static/js_chuku/staff_seach.js"></script>
+    <!--统计代码，可删除-->
+
+</body>
+
+</html>

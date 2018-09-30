@@ -1,0 +1,39 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <form class="form-horizontal" id="signupForm">
+            <input type="hidden" id="prd_unit_id" value="">
+            <div class="col-sm-6 b-r">
+                <div class="input-group">
+                    <div class="input-group-btn">
+                        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                                type="button">单位名称
+                        </button>
+                    </div>
+                    <input id="prd_unit_nm" class="form-control" name="danwei"/>
+
+                </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <div class="input-group-btn">
+                        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                                type="button">单位别名
+                        </button>
+                    </div>
+                    <input id="prd_unit_alias" class="form-control" name="bieming"/>
+
+                </div>
+            </div>
+
+        </form>
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="Xgt_goods_prd_unitInfo.add()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="Xgt_goods_prd_unitInfoDlg.close()"/>
+                </div>
+            </div>
+    </div>
+<script src="${ctxPath}/static/addons/zcgl/prdUnit/js/xgt_goods_prd_unit_info.js"></script>
+@}

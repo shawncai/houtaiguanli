@@ -1,0 +1,30 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <form class="form-horizontal" id="signupForm">
+
+             <input type="hidden" id="shop_id" value="${bs_shop.shop_id}">
+				
+			 <div class="row">
+                                             <#inputCol2 id='shop_no' name='商品编码' value='${bs_shop.shop_no}' />
+                                             <#inputCol2 id='shop_nm' name='商品名称' value='${bs_shop.shop_nm}' />
+                                             <#inputCol2 id='shop_weigth' name='商品重量' value='${bs_shop.shop_weigth}' />
+                                             <#inputCol2 id='shop_spec' name='商品规格' value='${bs_shop.shop_spec}' />
+                                             <#inputCol2 id='shop_no_num' name='商品条码' value='${bs_shop.shop_no_num}' />
+                                             <#inputCol2 id='shop_unit' name='商品单位' value='${bs_shop.shop_unit}' />
+                                             
+                                             
+                                             
+                                             
+                           </div>
+            <div class="row btn-group-m-t text-center">
+                <div class="col-sm-10">
+                    <#submit btnCss="info" iName="提交" id="ensure" icon="fa-check" clickFun="validate();Bs_shopInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="Bs_shopInfoDlg.close()"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zsh/bs_shop/js/bs_shop_info.js"></script>
+@}

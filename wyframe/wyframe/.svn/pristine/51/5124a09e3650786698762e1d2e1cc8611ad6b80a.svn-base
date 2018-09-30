@@ -1,0 +1,35 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>企业管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="cpn_nm" name="名称" placeholder="企业名称/企业注册号"/>
+                            </div>
+                            <div class="col-sm-3">
+                                <#select id="cpn_st" name="企业状态"  />
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="Xyd_cpn.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="Xyd_cpnTableToolbar" role="group">
+                             @if(shiro.hasPermission("/xyd_cpn/detail")){
+                                <#button name="详情" icon="fa-file-code-o" clickFun="Xyd_cpn.openXyd_cpnDetail()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="Xyd_cpnTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/xydcpn/js/xyd_cpnReviewe.js"></script>
+@}

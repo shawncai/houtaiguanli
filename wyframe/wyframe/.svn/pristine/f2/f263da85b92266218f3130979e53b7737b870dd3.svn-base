@@ -1,0 +1,647 @@
+package wy.addons.zsh.wsdl.service.impl;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import net.sf.json.JSONObject;
+import org.springframework.stereotype.Service;
+import wy.addons.zsh.bs_bill.dao.Bs_billDao;
+import wy.addons.zsh.bs_send_channel.dao.Bs_send_channelDao;
+import wy.addons.zsh.bs_shop.dao.Bs_shopDao;
+import wy.addons.zsh.wsdl.service.IWsdlService;
+import wy.core.util.DateUtil;
+import wy.core.util.DesUtil;
+import wy.core.util.Tools;
+import wy.xydframe.sysArea.dao.Sys_areaDao;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+/**
+ * Created by Administrator on 2018/4/16 0016.
+ */
+@Service
+public class WsdlServiceImpl implements IWsdlService {
+
+    @Resource
+    Sys_areaDao sys_areaDao;
+
+    @Resource
+    Bs_billDao bs_billDao;
+
+    @Resource
+    Bs_shopDao bs_shopDao;
+
+    @Resource
+    Bs_send_channelDao bs_send_channelDao;
+    /**
+     * 获取认证信息
+     *
+     * @param requestMap
+     *            请求参数Map
+     * @param request
+     * @param response
+     * @param requestJsonData
+     *            请求参数Json格式
+     * @return
+     * @throws Exception
+     */
+    public String token(HttpServletRequest request,
+                        HttpServletResponse response, Map<String, Object> requestMap,
+                        JSONObject requestJsonData) throws Exception {
+        Gson responseGson = new GsonBuilder().disableHtmlEscaping().create();
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        // 返回结果code message
+        String code = "";
+        String message = "";
+      Map<String,Object> map = new HashMap<String,Object>();
+        try {
+            // 1.获取请求参数
+            String saleSysId = requestMap.get("sale_sys_id").toString();
+            String saleUserId = requestMap.get("sale_user_id").toString();
+            map.put("sale_sys_id", saleSysId);
+            map.put("sale_user_id", saleUserId);
+            // 2.验证请求信息
+//			if (validateSysUser(saleSysId, saleUserId)) {
+            if (sys_areaDao.queryByChnlIdNM(map).size()!=0) {
+                // 3.处理业务
+                String tokenId = createTokenId(saleSysId, saleUserId);
+                System.out.println(tokenId + "__________________");
+                // 4.处理返回信息
+                map.put("token_id", tokenId);
+                map.put("date", new Date());
+                if (sys_areaDao.queryTokenBoolean(map).size() > 0) {
+                    // 修改token
+                    sys_areaDao.changeToken(map);
+                } else {
+                    // 增加token
+                    sys_areaDao.saveToken(map);
+                }
+                resultMap.put("token_id", tokenId);
+                code = "10000";
+                message = "连接成功，可正常使用";
+            } else {
+                code = "40003";
+                message = "连接失败，不可用";
+            }
+        } catch (Exception e) {
+            code = "40000";
+            message = "请求参数错误";
+        }
+        // 结果返回
+        resultMap.put("code", code);
+        resultMap.put("message", message);
+        // 返回json格式
+        return responseGson.toJson(resultMap);
+    }
+
+    /**
+     * 验证认证信息
+     *
+     * @param saleSysId
+     * @param saleUserId
+     * @param tokenId
+     * @return
+     * @throws Exception
+     */
+    private boolean validateSysUserToken(String saleSysId, String saleUserId,
+                                         String tokenId) throws Exception {
+
+        return validateSysUser(saleSysId, saleUserId)
+                && validateTokenId(saleSysId, saleUserId, tokenId);
+    }
+
+    /**
+     * 验证认证信息有效性
+     *
+     * @param saleSysId
+     * @param saleUserId
+     * @return
+     * @throws Exception
+     */
+    private boolean validateSysUser(String saleSysId, String saleUserId)
+            throws Exception {
+        try {
+            Map<String,Object> pd = new HashMap<String,Object>();
+            List<Map<String,Object>> list = sys_areaDao.queryByChnlIdNM(pd);
+            return list.size()>0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * 验证tokenId
+     *
+     * @param saleSysId
+     * @param saleUserId
+     * @param tokenId
+     * @return
+     * @throws Exception
+     */
+    private boolean validateTokenId(String saleSysId, String saleUserId,
+                                    String tokenId) throws Exception {
+        String strToken = saleSysId + DateUtil.getDays() + saleUserId;
+        String newTokenId = DesUtil.encode(strToken);
+
+        return newTokenId.equals(tokenId);
+    }
+
+    /**
+     * 创建一个tokenId
+     *
+     * @param saleSysId
+     * @param saleUserId
+     * @return
+     * @throws Exception
+     */
+    private String createTokenId(String saleSysId, String saleUserId)
+            throws Exception {
+        // 当天有效
+        String strToken = saleSysId + DateUtil.getTime() + saleUserId;
+        // 自定义加密方式
+        String tokenId = DesUtil.encode(strToken);
+
+        return tokenId;
+    }
+
+    /**
+     * 认证token_id
+     *
+     * @param saleSysId
+     * @param saleUserId
+     * @param tokenId
+     * @return
+     */
+    private boolean queryToken(String saleSysId, String saleUserId,
+                               String tokenId) {
+
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("tokenId", tokenId);
+        map.put("saleSysId", saleSysId);
+        map.put("saleUserId", saleUserId);
+        // 检查Token认证
+        List<Map<String,Object>> tokenList;
+        try {
+            tokenList = sys_areaDao.queryToken(map);
+            System.err.println("tokenList:"+tokenList);
+            return tokenList.size() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * 查询地区列表接口
+     *
+     * @param request
+     * @param response
+     * @param requestMap
+     *            //请求参数Map
+     * @param requestJsonData
+     *            //请求json格式
+     * @return
+     * @throws Exception
+     */
+    public String area(HttpServletRequest request,
+                       HttpServletResponse response, Map<String, Object> requestMap,
+                       JSONObject requestJsonData) throws Exception {
+        // 修改json字符串
+        Gson responseGson = new GsonBuilder().disableHtmlEscaping().create();
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        // 返回结果code message area_object
+        String code = "";
+        String message = "";
+        Object area_object = null;
+        try {
+            // 1.获取请求参数
+            String saleSysId = requestMap.get("sale_sys_id").toString();
+            String saleUserId = requestMap.get("sale_user_id").toString();
+            String tokenId = requestMap.get("token_id").toString();
+            String area_name = requestMap.get("area_name").toString();
+            if (queryToken(saleSysId, saleUserId, tokenId)) {
+                // 判断area_name
+                Map<String,Object> map = new HashMap<String,Object>();
+                List<Map<String,Object>> nameList = null;
+                if ("all".equalsIgnoreCase(area_name) || "".equals(area_name)) {
+                    nameList = sys_areaDao.queryAllArea(map);
+                    // 非空或all则作为参数执行else
+                } else {
+                    map.put("AREA_NAME", area_name);
+                    nameList = sys_areaDao.queryByAreaName(map);
+                }
+                resultMap.put("area_object", nameList);
+                code = "10000";
+                message = "连接成功";
+            } else {
+                code = "40021";
+                message = "连接失败";
+            }
+        } catch (Exception e) {
+            code = "40000";
+            message = "请求参数错误";
+            e.printStackTrace();
+        }
+        // 结果返回
+        resultMap.put("code", code);
+        resultMap.put("message", message);
+        // 返回json格式
+        return responseGson.toJson(resultMap);
+    }
+
+    /**
+     * shop接口
+     *
+     * @param request
+     * @param response
+     * @param requestMap
+     * @param requestJsonData
+     * @return
+     * @throws Exception
+     */
+    public String shop(HttpServletRequest request,
+                       HttpServletResponse response, Map<String, Object> requestMap,
+                       JSONObject requestJsonData) throws Exception {
+        // 修改json字符串
+        Gson responseGson = new GsonBuilder().disableHtmlEscaping().create();
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        // 返回结果code message area_object
+        String code = "";
+        String message = "";
+        try {
+            // 1.获取请求参数
+            String saleSysId = requestMap.get("sale_sys_id").toString();
+            String saleUserId = requestMap.get("sale_user_id").toString();
+            String tokenId = requestMap.get("token_id").toString();
+            String shopName = requestMap.get("shop_name").toString();
+            if (queryToken(saleSysId, saleUserId, tokenId)) {
+                // 判断area_name
+                Map<String,Object> pd = new HashMap<String,Object>();
+                List<Map<String,Object>> shopList = null;
+                if ("all".equalsIgnoreCase(shopName) || "".equals(shopName)) {
+                    shopList = bs_shopDao.listAllShop(pd);
+                    // 非空或all则作为参数执行else
+                } else {
+                    pd.put("shopName", shopName);
+                    shopList = bs_shopDao.findByShopName(pd);
+                }
+                resultMap.put("shop_object", shopList);
+                code = "10000";
+                message = "连接成功";
+            } else {
+                code = "40021";
+                message = "连接失败";
+            }
+        } catch (Exception e) {
+            code = "40000";
+            message = "请求参数错误";
+            e.printStackTrace();
+        }
+        // 结果返回
+        resultMap.put("code", code);
+        resultMap.put("message", message);
+        return responseGson.toJson(resultMap);
+    }
+
+    /**
+     * add_bill接口
+     *
+     * @param request
+     * @param response
+     * @param requestMap
+     * @param requestJsonData
+     * @return
+     * @throws Exception
+     */
+    public String add_bill(HttpServletRequest request,
+                           HttpServletResponse response, Map<String, Object> requestMap,
+                           JSONObject requestJsonData) throws Exception {
+        // 修改json字符串
+        Gson responseGson = new GsonBuilder().disableHtmlEscaping().create();
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        // 返回结果code message area_object
+        String code = "";
+        String message = "";
+        try {
+            // 1.获取请求参数
+            String saleSysId = requestMap.get("sale_sys_id").toString();
+            String saleUserId = requestMap.get("sale_user_id").toString();
+            String tokenId = requestMap.get("token_id").toString();
+            String cardNo = requestMap.get("card_no").toString();
+            String billNo = requestMap.get("bill_no").toString();
+            String buyDt = requestMap.get("buy_dt").toString();
+            String payFlgId = requestMap.get("pay_flg_id").toString();
+            String totalNum = requestMap.get("total_num").toString();
+            String totalMoney = requestMap.get("total_money").toString();
+            String accessMem = requestMap.get("access_mem").toString();
+            String accessPhone = requestMap.get("access_phone").toString();
+            String accessAddrDsc = requestMap.get("access_addr_dsc").toString();
+            String userRemarks = requestMap.get("user_remarks").toString();
+            String areaId = requestMap.get("area_id").toString();
+            List<Map> shopObject = (ArrayList<Map>) requestMap
+                    .get("shop_object");
+            if (queryToken(saleSysId, saleUserId, tokenId)) {
+
+                // 判断订单是否已存在
+                Map<String,Object> pd = new HashMap<String,Object>();
+                if (!queryBill(billNo)) {
+                    pd.put("billNo", billNo);
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd HH:mm:SS");
+                    pd.put("buyDt", Tools.date2Str(sdf.parse(buyDt)));
+                    pd.put("payFlgId", payFlgId);
+                    pd.put("totalNum", totalNum);
+                    pd.put("totalMoney", totalMoney);
+                    pd.put("accessMem", accessMem);
+                    pd.put("accessPhone", accessPhone);
+                    pd.put("accessAddrDsc", accessAddrDsc);
+                    pd.put("userRemarks", userRemarks);
+                    pd.put("areaId", areaId);
+                    pd.put("cardNo", cardNo);
+                    pd.put("saleSysId", saleSysId);
+                    pd.put("crtDt", new Date());
+
+                    Map<String,Object> paramAreaId=new HashMap<String,Object>();
+                    paramAreaId.put("AREA_ID", areaId);
+
+                    List<Map<String,Object>> findAreaId = bs_send_channelDao.findAreaId(paramAreaId);
+
+                    //根据areaId 查询temp 8 sendCountNum 10配送数量
+                    List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
+                    Integer temp = Integer.parseInt(totalNum);
+                    for (Map<String,Object> sci : findAreaId) {
+
+                        Integer sendCountNum= (Integer) sci.get("SEND_CHNL_NUM");
+
+                        System.out.println("配送商配送数量:" + sendCountNum);
+                        System.out.println("配送商范围符:" + sci.get("SEND_CHNL_FLG").toString());
+
+                        switch ( sci.get("SEND_CHNL_FLG").toString() ) {
+                            //大于
+                            case "1":
+                                if ( temp > sendCountNum  ) {
+                                    System.out.println("订单自动匹配大于方法！！！");
+                                    list.add(sci);
+                                }
+                                break;
+                            //大于等于
+                            case "2":
+                                if ( temp >= sendCountNum ) {
+                                    System.out.println("订单自动匹配大于等于方法！！！");
+                                    list.add(sci);
+                                }
+                                break;
+                            //小于
+                            case "3":
+                                if ( temp < sendCountNum ) {
+                                    System.out.println("订单自动匹配小于方法！！！");
+                                    list.add(sci);
+                                }
+                                break;
+                            //小于等于
+                            case "4":
+                                if ( temp <= sendCountNum ) {
+                                    System.out.println("订单自动匹配小于等于方法！！！");
+                                    list.add(sci);
+                                }
+                                break;
+                        }
+                    }
+					/* Random random = new Random();
+				     pd.put("SEND_CHNL_ID", list.get( random.nextInt(list.size())).get("SEND_CHNL_ID"));*/
+                    try {
+                        if(list.size()<=0){
+                            pd.put("SEND_CHNL_ID",null);
+                        }else{
+                        pd.put("SEND_CHNL_ID", list.get((int)(Math.random()*(list.size()))).get("SEND_CHNL_ID"));
+//						pd.put("SEND_CHNL_ID", list.get((int)(Math.random()*(list.size()-1))).get("SEND_CHNL_ID"));
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    bs_billDao.addBill(pd);
+                    // 根据订单编号和用户ID查询订单
+                    Map<String,Object> param=new HashMap<String,Object>();
+                    param.put("BILL_NO", billNo.toString());
+                    Map<String,Object> findById = bs_billDao.findByBillNo(param);
+                    System.out.println(findById.get("bill_id"));
+                    for (Map map : shopObject) {
+                        Map<String,Object> pdMap = new HashMap<String,Object>();
+                        Object shop_id =  map.get("shop_id");
+                        pdMap.put("bill_id", findById.get("bill_id"));
+                        pdMap.put("shop_name", map.get("shop_name"));
+                        pdMap.put("zsh_shop_no", map.get("zsh_shop_no"));
+                        pdMap.put("shop_id",shop_id);
+                        pdMap.put("shop_num", map.get("shop_num"));
+                        pdMap.put("shop_price", map.get("shop_price"));
+                        pdMap.put("areaId", areaId);
+                        bs_billDao.saveShopDt(pdMap);
+                        Map<String,Object> pdNo = new  HashMap<String,Object>();
+                        pdNo.put("shop_id", shop_id);
+                        pdNo.put("bill_id", findById.get("bill_id"));
+                        bs_billDao.changeShopNoNUM(pdNo);
+                    }
+                    code = "10000";
+                    message = "新增成功";
+                } else {
+                    code = "40019";
+                    message = "该订单号已经送过，请不要重复送";
+                }
+            } else {
+                code = "40021";
+                message = "新增失败";
+            }
+        } catch (Exception e) {
+            code = "40000";
+            message = "请求参数错误";
+            e.printStackTrace();
+        }
+        // 结果返回
+        resultMap.put("code", code);
+        resultMap.put("message", message);
+        // 返回json格式
+        return responseGson.toJson(resultMap);
+    }
+
+    /**
+     * 判断订单是否已存在
+     *
+     * @param billNo
+     * @return
+     */
+    private boolean queryBill(String billNo) {
+        Map<String,Object> pd = new HashMap<String,Object>();
+        pd.put("billNo", billNo);
+        try {
+            List<Map<String,Object>> list = bs_billDao.queryBillBoolean(pd);
+            if (list.size() > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+    /**
+     * 判断订单是否已配送
+     *
+     * @param billNo
+     * @return
+     */
+    private String queryBillState(String billNo) {
+        Map<String,Object> pd = new HashMap<String,Object>();
+        pd.put("billNo", billNo);
+        try {
+            List<Map<String,Object>> list = bs_billDao.queryBillBoolean(pd);
+            return list.get(0).get("send_st").toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+    /**
+     * del_bill接口
+     *
+     * @param request
+     * @param response
+     * @param requestMap
+     * @param requestJsonData
+     * @return
+     * @throws Exception
+     */
+    public String del_bill(HttpServletRequest request,
+                           HttpServletResponse response, Map<String, Object> requestMap,
+                           JSONObject requestJsonData) throws Exception {
+        // 修改json字符串
+        Gson responseGson = new GsonBuilder().disableHtmlEscaping().create();
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        // 返回结果code message area_object
+        String code = "";
+        String message = "";
+        try {
+            // 1.获取请求参数
+            String saleSysId = requestMap.get("sale_sys_id").toString();
+            String saleUserId = requestMap.get("sale_user_id").toString();
+            String tokenId = requestMap.get("token_id").toString();
+            String billNo = requestMap.get("bill_no").toString();
+            String operFlg = requestMap.get("oper_flg").toString();
+
+            if (queryToken(saleSysId, saleUserId, tokenId)&&operFlg.equals("1")) {
+
+                // 判断订单是否已配送
+                Map<String,Object> pd = new HashMap<String,Object>();
+                pd.put("billNo", billNo);
+                if ("1".equals(queryBillState(billNo))) {
+                    bs_billDao.delBill(pd);
+                    code = "10000";
+                    message = "撤单成功";
+                } else {
+                    code = "40019";
+                    message = "该订单号已经配送，无法撤单";
+                }
+            } else {
+                code = "40021";
+                message = "操作失败";
+            }
+        } catch (Exception e) {
+            code = "40000";
+            message = "请求参数错误";
+            e.printStackTrace();
+        }
+        // 结果返回
+        resultMap.put("code", code);
+        resultMap.put("message", message);
+        // 返回json格式
+        return responseGson.toJson(resultMap);
+    }
+
+    /**
+     * check_send接口,配送查询
+     *
+     * @param request
+     * @param response
+     * @param requestMap
+     * @param requestJsonData
+     * @return
+     * @throws Exception
+     */
+    public String check_send(HttpServletRequest request,
+                             HttpServletResponse response, Map<String, Object> requestMap,
+                             JSONObject requestJsonData) throws Exception {
+        // 修改json字符串
+        Gson responseGson = new GsonBuilder().disableHtmlEscaping().create();
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        // 返回结果code message area_object
+        String code = "";
+        String message = "";
+        try {
+            // 1.获取请求参数
+            String saleSysId = requestMap.get("sale_sys_id").toString();
+            String saleUserId = requestMap.get("sale_user_id").toString();
+            String tokenId = requestMap.get("token_id").toString();
+            String billNo = requestMap.get("bill_no").toString();
+            if (queryToken(saleSysId, saleUserId, tokenId)) {
+                // 判断订单是否存在
+                Map<String,Object> pd = new HashMap<String,Object>();
+                pd.put("billNo", billNo);
+                if (queryBill(billNo)) {
+                    List<Map<String,Object>> list = bs_billDao.queryBill(pd);//查询订单信息
+                    System.out.println(list);
+                    for (Map<String,Object> pageData : list) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMdd HH:mm:SS");
+                        resultMap.put("send_st", pageData.get("send_st"));
+                        try {
+                            resultMap.put("send_cre_dt", sdf.format(pageData.get("send_cre_dt")));
+                        } catch (Exception e) {
+                            resultMap.put("send_cre_dt", "");
+                        }
+                        resultMap.put("send_chnl_id", pageData.get("SEND_CHNL_ID"));
+                        resultMap.put("send_remarks", pageData.get("send_remark"));
+                        Map<String,Object> pdd = new HashMap<String,Object>();
+                        if(pageData.get("SEND_CHNL_ID")==null){
+                            resultMap.put("send_phone", "");
+                            resultMap.put("send_chnl_nm", "");
+                        }else{
+                            pdd.put("send_chnl_id", pageData.get("SEND_CHNL_ID"));
+                            Map<String,Object> sendPd  =bs_billDao.querySend(pdd);
+                            resultMap.put("send_phone", sendPd.get("SEND_CHNL_PHOE"));
+                            resultMap.put("send_chnl_nm", sendPd.get("send_CHNL_NM"));
+                            resultMap.put("send_cre_dt",sendPd.get("send_cre_dt"));
+                        }
+                    }
+
+                    code = "10000";
+                    message = "操作成功";
+                } else {
+                    code = "40022";
+                    message = "该订单号不存在";
+                }
+            } else {
+                code = "40021";
+                message = "操作失败";
+            }
+        } catch (Exception e) {
+            code = "40000";
+            message = "请求参数错误";
+            e.printStackTrace();
+        }
+        // 结果返回
+        resultMap.put("code", code);
+        resultMap.put("message", message);
+        // 返回json格式
+        return responseGson.toJson(resultMap);
+    }
+
+}

@@ -1,0 +1,62 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+           <input type="hidden" id="area_id" value="${sys_area.area_id}">
+
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <#inputzcc5 id="areaName" name="上级地区" underline="true" readonly="readonly"
+                            hidden="par_area_id"  hiddenValue="${sys_area.par_area_id}" value="${pAreaName}"
+                            clickFun="Sys_areaInfoDlg.showAreaSelectTree(); return false;"
+                            style="background-color: #ffffff !important;"
+                            selectFlag="true" selectId="areaTreeDiv" selectTreeId="areaTree" selectStyle="width:418px !important;"/>
+                </div>
+                <div class="col-sm-12 col-xs-12">
+                    <#inputzcc5 id="area_nm" name="地址名称" underline="true" value="${sys_area.area_nm}" readonly="readonly"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-12 col-xs-12 text-center">
+                    <button type="submit" name="submit" class="btn btn-info " onclick="Sys_areaInfoDlg.close()" id="ensure">
+                        <i class="fa fa-check"></i>&nbsp;确定
+                    </button>
+
+                    <#button btnCss="danger" name="关闭" id="cancel" icon="fa-eraser"
+                            clickFun="Sys_areaInfoDlg.close()" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/xydframe/sys_area/sys_area_info.js"></script>
+<script>
+
+	/**
+	 *参数表页面table
+	 */
+	var Sys_area_detail = {
+	    id: "detailTable",	//表格id
+	    seItem: null,		//选中的条目
+	    table: null,
+	    layerIndex: -1
+	};
+
+	/**
+	 * 初始化表格的列
+	 */
+	Sys_area_detail.initColumn = function () {
+	    return [
+	        {field: 'selectItem', checkbox: true}
+	    ];
+	    
+	};
+	var id = $("#area_id").val();
+	var defaultColunmss = Sys_area_detail.initColumn();
+    var tabless = new BSTable(Sys_area_detail.id, "/sys_area/detail/"+id, defaultColunmss);
+    tabless.setPaginationType("client");
+  	Sys_area_detail.table = tabless.init();
+</script>
+@}

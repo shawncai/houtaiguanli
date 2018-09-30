@@ -1,0 +1,100 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<form class="form-horizontal"  id="signupForm">
+
+			<input type="hidden" id="item_id" value="">
+
+			<div class="row">
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="item_nm" name="栏目名称" underline="true" />
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzccc  id="itemPname" name="上级栏目" underline="true" hiddenValue="${wyItemId}" value="${wyItemNm}"
+							hidden="par_item_id" readonly="readonly"
+							clickFun="Xgt_wy_itemIdDlg.showItemSelectTree(); return false;"
+							style="background-color: #ffffff !important;" selectFlag="true"
+							selectId="itemTreeDiv" selectTreeId="itemareaTree"
+							selectStyle="width:588px !important;" />
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="item_nm_alias" name="栏目别名" underline="true" />
+				</div>
+
+				<div class="col-sm-6 col-xs-6">
+					<#selectxiala id="item_cls" name="栏目分类" map="${wyItemCls}" underline="true" />
+				</div>
+
+				<div class="col-sm-12 col-xs-12">
+					<#inputzcc1 id="item_dsc" name="栏目描述" underline="true" />
+				</div>
+			</div>
+
+			<div class="row btn-group-m-t">
+				<div class="col-sm-12 col-xs-12 text-center">
+					<button type="submit" name="submit" class="btn btn-info " onclick="Xgt_wy_itemInfo.add()" id="ensure">
+						<i class="fa fa-check"></i>&nbsp;提交
+					</button>
+					<button type="button" class="btn btn-danger " onclick="Xgt_wy_itemInfoDlg.close()" id="cancel">
+						<i class="fa fa-eraser"></i>&nbsp;取消
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/wyitem/js/xgt_wy_item_info.js"></script>
+<script src="${ctxPath}/static/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="${ctxPath}/static/js/plugins/validate/messages_zh.min.js"></script>
+
+<script>
+    $().ready(function() {
+        var e = "<i class='fa fa-times-circle'></i> ";
+        $("#signupForm").validate({
+            rules: {
+                itemPname: {
+                    required: !0,
+                },
+                item_nm: {
+                    required: !0,
+                },
+                item_nm_alias: {
+                    required: !0,
+                },
+                oper_user: {
+                    required: !0,
+                },
+            },
+            messages: {
+                itemPname: {
+                    required: e + "请选择上级栏目",
+                },
+                item_nm: {
+                    required: e + "请输入栏目名称",
+                },
+
+                item_nm_alias: {
+                    required: e + "请输入栏目别名",
+                },
+                oper_user: {
+                    required: e + "请输入操作人",
+                },
+
+            },
+            showErrors: function (errorMap, errorList) {
+                var msg = "";
+                $.each(errorList, function (i, v) {
+                    //msg += (v.message + "\r\n");
+                    //在此处用了layer的方法,显示效果更美观
+                    layer.tips(v.message, v.element, { tips:[2,'red'],time: 2000 });
+                    return false;
+                });
+            },
+			/* 失去焦点时不验证 */
+            onfocusout: false
+        })
+
+    });
+</script>
+@}
+

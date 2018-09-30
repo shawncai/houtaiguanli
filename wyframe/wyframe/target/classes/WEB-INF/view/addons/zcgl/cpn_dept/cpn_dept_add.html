@@ -1,0 +1,76 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-content" >
+		<form class="form-horizontal" id="signupForm">
+
+			<input type="hidden" id="cpn_dept_id" value="">
+
+			<div class="row">
+
+				<div class="col-sm-12 col-xs-12">
+					<#inputzcc5 id="cpndNm" hidden="par_cpn_dept_id" hiddenValue="${deptId}" value="${deptNm}" name="上级部门" readonly="readonly" underline="true"
+							clickFun="Xyd_cpn_deptInfoDlg.showCpnSelectTree(); return false;"
+							style="background-color: #ffffff !important;" selectFlag="true"
+							selectId="cpnTreeDiv" selectTreeId="cpnareaTree"
+							selectStyle="width:213px !important;margin-left: 239px" />
+				</div>
+				<div class="col-sm-12 col-xs-12">
+					<#inputzcc5 id="cpn_dept_nm" name="部门名称" underline="true" />
+				</div>
+				<div class="col-sm-12 col-xs-12">
+					<#inputzcc5 id="cpn_dept_code" name="简称" underline="true" />
+				</div>
+
+			</div>
+			<div class="row btn-group-m-t">
+				<div class="col-sm-12 col-xs-12 text-center">
+					<button type="submit" name="submit" class="btn btn-info " onclick="Xyd_cpn_deptInfo.add()" id="ensure">
+						<i class="fa fa-check"></i>&nbsp;提交
+					</button>
+
+					<#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser"
+							clickFun="Xyd_cpn_deptInfoDlg.close()" />
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/cpn_dept/js/xyd_cpn_dept_info.js"></script>
+<script src="${ctxPath}/static/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="${ctxPath}/static/js/plugins/validate/messages_zh.min.js"></script>
+<script>
+    $().ready(function() {
+        var e = "<i class='fa fa-times-circle'></i> ";
+        $("#signupForm").validate({
+            rules: {
+                cpn_dept_nm: {
+                    required: !0,
+                },
+                cpn_dept_code: {
+                    required: !0,
+                },
+            },
+            messages: {
+                cpn_dept_nm: {
+                    required: e + "部门名称",
+                },
+                cpn_dept_code: {
+                    required: e + "部门标准编码",
+                },
+            },
+            showErrors: function (errorMap, errorList) {
+                var msg = "";
+                $.each(errorList, function (i, v) {
+                    //msg += (v.message + "\r\n");
+                    //在此处用了layer的方法,显示效果更美观
+                    layer.tips(v.message, v.element, { tips:[2,'red'],time: 2000 });
+                    return false;
+                });
+            },
+			/* 失去焦点时不验证 */
+            onfocusout: false
+        })
+
+    });
+</script>
+@}

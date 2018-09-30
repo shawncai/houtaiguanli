@@ -1,0 +1,153 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<form class="form-horizontal" id="signupForm">
+
+
+			<input type="hidden" id="cpn_store_id"
+				   value="${xyd_cpn_store.cpn_store_id}">
+
+			<div class="row">
+
+				<div class="col-sm-6 col-xs-6">
+					<#selectBranch3 id="cpn_branch_id" name="分支机构" value="${xyd_cpn_store.cpn_branch_id}"
+							map="${cpnBranchList}"
+							underline="true" />
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="cpn_store_nm" name="仓库名称" underline="true" value="${xyd_cpn_store.cpn_store_nm}"/>
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="cpndNm" name="上级仓库" readonly="readonly"
+							underline="true" hiddenValue="${xyd_cpn_store.par_store_id}"
+							value="${pCpnBranchNm}"
+							clickFun="Xyd_cpn_storeInfoDlg.showCpnSelectTree(); return false;"
+							style="background-color: #ffffff !important;" selectFlag="true"
+							selectId="cpnTreeDiv" selectTreeId="cpnareaTree"
+							selectStyle="width:588px !important;" />
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="cpn_store_no" name="仓库标准编码" underline="true" value="${xyd_cpn_store.cpn_store_no}"/>
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="man_man" name="联系人" underline="true" value="${xyd_cpn_store.man_man}"/>
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="man_phone" name="联系人电话" underline="true" value="${xyd_cpn_store.man_phone}"/>
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="man_email" name="联系人邮箱" underline="true" value="${xyd_cpn_store.man_email}"/>
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="man_address" name="联系人地址" underline="true" value="${xyd_cpn_store.man_address}"/>
+				</div>
+
+				<#selectBranch id="st_id" name="状态" map="${cpnStoreStList}"
+						value="${xyd_cpn_store.st_id}" underline="true" />
+
+				<div class="col-sm-12 col-xs-12">
+					<#inputzcc1 id="remarks" name="备注" underline="true" value="${xyd_cpn_store.remarks}"/>
+				</div>
+			</div>
+			<div class="row btn-group-m-t">
+
+
+
+				<div class="col-sm-12 col-xs-12 text-center">
+					<button type="submit" name="submit" class="btn btn-info " onclick="Xyd_cpn_storeInfoDlg.editSubmit()" id="ensure">
+						<i class="fa fa-check"></i>&nbsp;提交
+					</button>
+					<#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser"
+							clickFun="Xyd_cpn_storeInfoDlg.close()" />
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/cpn_store/js/xyd_cpn_store_info.js"></script>
+<script src="${ctxPath}/static/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="${ctxPath}/static/js/plugins/validate/messages_zh.min.js"></script>
+<script>
+    jQuery.validator.addMethod("isMobile", function(value, element) {
+        var length = value.length;
+        var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
+        return this.optional(element) || (length == 11 && mobile.test(value));
+    }, "请正确填写您的手机号码");
+    $().ready(function() {
+        var e = "<i class='fa fa-times-circle'></i> ";
+        $("#signupForm").validate({
+            rules: {
+                cpn_store_nm: {
+                    required: !0,
+                },
+                man_man: {
+                    required: !0,
+                },
+                cpn_store_no: {
+                    required: !0,
+                },
+                cpndNm: {
+                    required: !0,
+                },
+                man_email: {
+                    required: !0,
+                    email:true
+                },
+                man_address: {
+                    required: !0,
+                },
+                man_phone: {
+                    required: !0,
+                    minlength : 11,
+                    isMobile : true
+                },
+                remarks: {
+                    required: !0,
+                },
+
+            },
+            messages: {
+                cpn_store_nm: {
+                    required: e + "请输入仓库名称",
+                },
+                man_man: {
+                    required: e + "请输入联系人",
+                },
+                cpn_store_no: {
+                    required: e + "请输入仓库标准编码",
+                },
+                cpndNm: {
+                    required: e + "请输入上级仓库",
+                },
+                man_email: {
+                    required: e + "请输入联系人邮箱",
+                },
+                man_address: {
+                    required: e + "请输入联系人地址",
+                },
+                man_phone: {
+                    required: e + "请输入联系人电话",
+                    minlength : "确认手机不能小于11个字符",
+                    isMobile : "请正确填写您的手机号码"
+                },
+                remarks: {
+                    required: e + "请输入备注",
+                },
+            },
+            showErrors: function (errorMap, errorList) {
+                var msg = "";
+                $.each(errorList, function (i, v) {
+                    //msg += (v.message + "\r\n");
+                    //在此处用了layer的方法,显示效果更美观
+                    layer.tips(v.message, v.element, { tips:[2,'red'],time: 2000 });
+                    return false;
+                });
+            },
+			/* 失去焦点时不验证 */
+            onfocusout: false
+        })
+
+    });
+</script>
+@}

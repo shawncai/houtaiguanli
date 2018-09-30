@@ -1,0 +1,25 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+           <input type="hidden" id="sub_id" value="${xgt_subject.sub_id}">
+
+      		 <div class="row">
+                       <#inputcol1 id='sub_nm' name='科目名称' value='${xgt_subject.sub_nm}' readonly='readonly'/>
+                       
+                       <#selectCol1 id='xyd_st_id' name='状态' map='${map3}' value='${xgt_subject.xyd_st_id}' />
+                       <#inputcol1 id='xyd_cre_dt' name='创建日期' value='${xgt_subject.xyd_cre_dt}' readonly='readonly'/>
+                       <#inputcol1 id='xyd_up_dt' name='修改日期' value='${xgt_subject.xyd_up_dt}' readonly='readonly'/>
+                       <#inputcol1 id='id' name='操作用户' value='${xgt_subject.id}' readonly='readonly'/>
+                                 </div>
+            <div class="row btn-group-m-t text-center">
+                <div class="col-sm-10">
+                    <#button btnCss="danger" name="关闭" id="cancel" icon="fa-eraser" clickFun="Xgt_subjectInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/fxb/xgt_subject/js/xgt_subject_info.js"></script>
+@}

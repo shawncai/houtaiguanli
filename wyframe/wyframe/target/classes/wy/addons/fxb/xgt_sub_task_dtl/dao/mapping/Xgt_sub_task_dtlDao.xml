@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.fxb.xgt_sub_task_dtl.dao.Xgt_sub_task_dtlDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.fxb.xgt_sub_task_dtl.model.Xgt_sub_task_dtl">
+	<id column="task_dtl_id" property="task_dtl_id" />
+	<result column="id" property="id" />
+	<result column="sub_qp_id" property="sub_qp_id" />
+	<result column="task_obj_id" property="task_obj_id" />
+	<result column="user_ask" property="user_ask" />
+	<result column="right_ask" property="right_ask" />
+	<result column="right_errof_flg" property="right_errof_flg" />
+	<result column="mdi_dt" property="mdi_dt" />
+	<result column="cre_dt" property="cre_dt" />
+	<result column="cpn_id" property="cpn_id" />
+	<result column="st_id" property="st_id" />
+	</resultMap>
+	
+
+	
+	<!-- 通过Id查询任务详情 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select * from xgt_sub_task_dtl
+		where task_dtl_id = #{xgt_sub_task_dtlId}
+	</select>
+
+		<!-- 任务详情列表 -->
+    	<select id="list" resultType="map">
+    		select xgt_sub_task_dtl.*,user.name,xyd_cpn.cpn_nm from xgt_sub_task_dtl
+                    LEFT JOIN user on xgt_sub_task_dtl.id =user.id
+                    LEFT JOIN xyd_cpn on xgt_sub_task_dtl.cpn_id =xyd_cpn.cpn_id
+            where 1=1
+    		<if test="condition != null and condition != ''">
+            and (1&lt;1)
+            </if>
+            <if test="st_id != null and st_id !=0">
+            and xgt_sub_task_dtl.st_id=#{st_id}
+             </if>
+    		order by task_dtl_id desc
+    	</select>
+        <select id="getMap1" resultType="map">
+              select name name,id num from user
+        </select>
+        <select id="getMap9" resultType="map">
+              select cpn_nm name,cpn_id num from xyd_cpn
+        </select>
+        <update id="deleteByIds" parameterType="list">
+            UPDATE xgt_sub_task_dtl SET xyd_st_id = -1 where task_dtl_id in
+           <foreach collection="list" item="item" open="(" separator="," close=")">
+                   #{item}
+             </foreach>
+        </update>
+</mapper>

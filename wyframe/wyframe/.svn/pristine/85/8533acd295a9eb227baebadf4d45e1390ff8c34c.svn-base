@@ -1,0 +1,74 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+    <form class="form-horizontal" id="signupForm">
+        
+            <input type="hidden" id="area_id" value="">
+            
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+            		<#inputzcc5 id="areaName" name="上级地区" underline="true" hiddenValue="${areaId}" value="${areaNm}"
+            		hidden="par_area_id" readonly="readonly" 
+            		clickFun="Sys_areaInfoDlg.showAreaSelectTree(); return false;" 
+                	style="background-color: #ffffff !important;"
+                	selectFlag="true" selectId="areaTreeDiv" selectTreeId="areaTree" selectStyle="width:418px !important;"/>
+                	
+            	</div>
+                <div class="col-sm-12 col-xs-12">
+            		<#inputzcc5 id="area_nm" name="地址名称" underline="true"/>
+            	</div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-12 col-xs-12 text-center">
+                    <button type="submit" name="submit" class="btn btn-info " onclick="Sys_areaInfo.add()" id="ensure">
+                        <i class="fa fa-check"></i>&nbsp;提交
+                    </button>
+
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser"
+                            clickFun="Sys_areaInfoDlg.close()" />
+                </div>
+
+            </div>
+    </form>
+    </div>
+</div>
+<script src="${ctxPath}/static/xydframe/sys_area/sys_area_info.js"></script>
+        <script src="${ctxPath}/static/js/plugins/validate/jquery.validate.min.js"></script>
+        <script src="${ctxPath}/static/js/plugins/validate/messages_zh.min.js"></script>
+        <script>
+            $().ready(function() {
+                var e = "<i class='fa fa-times-circle'></i> ";
+                $("#signupForm").validate({
+                    rules: {
+                        area_nm: {
+                            required: !0,
+                        },
+                        areaName: {
+                            required: !0,
+                        },
+                    },
+                    messages: {
+                        area_nm: {
+                            required: e + "请输入地址名称",
+                        },
+                        areaName: {
+                            required: e + "请选择上级地区",
+                        },
+                    },
+                    showErrors: function (errorMap, errorList) {
+                        var msg = "";
+                        $.each(errorList, function (i, v) {
+                            //msg += (v.message + "\r\n");
+                            //在此处用了layer的方法,显示效果更美观
+                            layer.tips(v.message, v.element, { tips:[2,'red'],time: 2000 });
+                            return false;
+                        });
+                    },
+                    /* 失去焦点时不验证 */
+                    onfocusout: false
+                })
+
+            });
+        </script>
+        @}

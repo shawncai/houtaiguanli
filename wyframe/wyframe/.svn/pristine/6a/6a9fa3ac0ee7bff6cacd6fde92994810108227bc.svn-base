@@ -1,0 +1,11 @@
+package wy.addons.zsh.bs_shop.service;
+
+/**
+ * 商品Service
+ *
+ * @author wyFrame
+ * @Date 2018-07-25 14:33:23
+ */
+public interface IBs_shopService {
+
+}

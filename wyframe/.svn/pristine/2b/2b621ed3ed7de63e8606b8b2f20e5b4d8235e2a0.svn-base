@@ -1,0 +1,120 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+           <input type="hidden" id="cpn_id" value="${xyd_cpn.cpn_id}">
+
+           <table class="table table-striped table-bordered table-hover" style="font-size:16px;">
+                <tbody>
+                 <tr>
+                <td class="td_title" style="text-align:center ">企业分类</td>
+            	<td class="td_content" style="text-align:center "><input id="cpn_cata_id" hiddenValue="${xyd_cpn.cpn_cata_id}" value="${cpnCataNmByCpnId}" readonly="readonly" class="form-control"/></td>
+           		<td class="td_title" style="text-align:center ">企业注册号</td>
+                <td class="td_content" style="text-align:center "><input id="cpn_code" value="${xyd_cpn.cpn_code}" readonly="readonly" class="form-control"/></td>
+                </tr>
+                <tr>
+                <td class="td_title" style="text-align:center ">企业名称</td>
+            	<td class="td_content" style="text-align:center "><input id="cpn_nm" value="${xyd_cpn.cpn_nm}" readonly="readonly" class="form-control"/></td>
+           		<td class="td_title" style="text-align:center ">企业法人</td>
+                <td class="td_content" style="text-align:center "><input id="cpn_main_nm" value="${xyd_cpn.cpn_main_nm}" readonly="readonly" class="form-control"/></td>
+                </tr>
+                <tr>
+                <td class="td_title" style="text-align:center ">企业法人联系方式</td>
+            	<td class="td_content" style="text-align:center "><input id="cpn_main_phone" value="${xyd_cpn.cpn_main_phone}" readonly="readonly" class="form-control"/></td>
+           		<td class="td_title" style="text-align:center ">企业法人邮箱</td>
+                <td class="td_content" style="text-align:center "><input id="cpn_main_mail" value="${xyd_cpn.cpn_main_mail}" readonly="readonly" class="form-control"/></td>
+                </tr>
+                <tr>
+                <td class="td_title" style="text-align:center ">办公地区</td>
+            	<td class="td_content" style="text-align:center "><input id="work_area_id" hiddenValue="${xyd_cpn.work_area_id}" value="${workAreaName}" readonly="readonly" class="form-control"/></td>
+           		<td class="td_title" style="text-align:center ">办公地址</td>
+                <td class="td_content" style="text-align:center "><input id="work_address" value="${xyd_cpn.work_address}" readonly="readonly" class="form-control"/></td>
+                </tr>
+                <tr>
+                <td class="td_title" style="text-align:center ">注册地区</td>
+            	<td class="td_content" style="text-align:center "><input id="code_area_id" hiddenValue="${xyd_cpn.code_area_id}" value="${codeArteaName}" readonly="readonly" class="form-control"/></td>
+           		<td class="td_title" style="text-align:center ">注册地址</td>
+                <td class="td_content" style="text-align:center "><input id="code_address" value="${xyd_cpn.code_address}" readonly="readonly" class="form-control"/></td>
+                </tr>
+                <tr>
+                <td class="td_title" style="text-align:center ">申请人</td>
+            	<td class="td_content" style="text-align:center "><input id="cpn_acc_nm" value="${xyd_cpn.cpn_acc_nm}" readonly="readonly" class="form-control"/></td>
+           		<td class="td_title" style="text-align:center ">申请人手机号</td>
+                <td class="td_content" style="text-align:center "><input id="cpn_acc_phone" value="${xyd_cpn.cpn_acc_phone}" readonly="readonly" class="form-control"/></td>
+                </tr>
+                <tr>
+                <td class="td_title" style="text-align:center ">申请人邮箱</td>
+            	<td class="td_content" style="text-align:center "><input id="cpn_acc_mail" value="${xyd_cpn.cpn_acc_mail}" readonly="readonly" class="form-control"/></td>
+           		<td class="td_title" style="text-align:center ">申请人身份证号</td>
+                <td class="td_content" style="text-align:center "><input id="cpn_acc_card_no" value="${xyd_cpn.cpn_acc_card_no}" readonly="readonly" class="form-control"/></td>
+                </tr>
+                <tr>
+                <td class="td_title" style="text-align:center ">申请人身份证正面照</td>
+            	<td class="td_content" style="text-align:center ">
+            	<input id="cpn_acc_card_url1" value="${xyd_cpn.cpn_acc_card_url1}" readonly="readonly" class="form-control"/>
+<!--             	<img src="${newCardUrl1}" height="200" width="200"> -->
+            	</td>
+           		<td class="td_title" style="text-align:center ">申请人身份证反面照</td>
+                <td class="td_content" style="text-align:center ">
+                <input id="cpn_acc_card_url2" value="${xyd_cpn.cpn_acc_card_url2}" readonly="readonly" class="form-control"/>
+                </td>
+                </tr>
+                <tr>
+                <td class="td_title" style="text-align:center ">企业工商照</td>
+            	<td class="td_content" style="text-align:center ">
+            	<input id="cpn_code_url" value="${xyd_cpn.cpn_code_url}" readonly="readonly" class="form-control"/>
+            	</td>
+           		<td class="td_title" style="text-align:center ">企业状态</td>
+                <td class="td_content" style="text-align:center "><input id="cpn_st" hiddenValue="${xyd_cpn.cpn_st}" value="${cpn_st}" readonly="readonly" class="form-control"/></td>
+                </tr>
+                <tr>
+                <td class="td_title" style="text-align:center ">企业审批状态</td>
+            	<td class="td_content" style="text-align:center "><input id="cp_sp_st" hiddenValue="${xyd_cpn.cp_sp_st}" value="${cp_sp_st}" readonly="readonly" class="form-control"/></td>
+           		<td class="td_title" style="text-align:center ">审批人</td>
+                <td class="td_content" style="text-align:center "><input id="sp_user_id" value="${xyd_cpn.sp_user_id}" readonly="readonly" class="form-control"/></td>
+                </tr>
+                <tr>
+                <td class="td_title" style="text-align:center ">发展人</td>
+            	<td class="td_content" style="text-align:center "><input id="sale_user_id" value="${xyd_cpn.sale_user_id}" readonly="readonly" class="form-control"/></td>
+                </tr>
+                </tbody>
+                </table>
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="确定" id="ensure" icon="fa-check" clickFun="Xyd_cpnInfoDlg.close()"/>
+                    <#button btnCss="danger" name="关闭" id="cancel" icon="fa-eraser" clickFun="Xyd_cpnInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/xydcpn/js/xyd_cpn_info.js"></script>
+<script>
+
+	/**
+	 *参数表页面table
+	 */
+	var Xyd_cpn_detail = {
+	    id: "detailTable",	//表格id
+	    seItem: null,		//选中的条目
+	    table: null,
+	    layerIndex: -1
+	};
+
+	/**
+	 * 初始化表格的列
+	 */
+	Xyd_cpn_detail.initColumn = function () {
+	    return [
+	        {field: 'selectItem', checkbox: true}
+	    ];
+	    
+	};
+	var id = $("#cpn_id").val();
+	var defaultColunmss = Xyd_cpn_detail.initColumn();
+    var tabless = new BSTable(Xyd_cpn_detail.id, "/xyd_cpn/detail/"+id, defaultColunmss);
+    tabless.setPaginationType("client");
+  	Xyd_cpn_detail.table = tabless.init();
+</script>
+@}

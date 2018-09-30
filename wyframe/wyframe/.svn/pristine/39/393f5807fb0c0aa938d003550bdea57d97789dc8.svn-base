@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="wynewzsh:war">
+    <output-path>$PROJECT_DIR$/wynewzsh/target</output-path>
+    <root id="archive" name="wynewzsh-1.0.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="wynewzsh:war exploded" />
+    </root>
+  </artifact>
+</component>

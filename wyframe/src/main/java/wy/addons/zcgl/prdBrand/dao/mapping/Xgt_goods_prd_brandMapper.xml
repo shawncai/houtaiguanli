@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.prdBrand.dao.Xgt_goods_prd_brandMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.zcgl.prdBrand.model.Xgt_goods_prd_brand">
+	<id column="prd_brand_id" property="prd_brand_id" />
+	<result column="prd_brand_remarks" property="prd_brand_remarks" />
+		<result column="par_prd_brand_id" property="par_prd_brand_id" />
+	<result column="prd_brand_nm" property="prd_brand_nm" />
+	<result column="prd_brand_alias" property="prd_brand_alias" />
+	<result column="cpn_id" property="cpn_id" />
+	<result column="cpn_branch_id" property="cpn_branch_id" />
+	<result column="st_id" property="st_id" />
+	<result column="oper_user" property="oper_user" />
+	</resultMap>
+</mapper>

@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.rest.addons.zsh.bs_bill.dao.Bs_billDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="wy.rest.addons.zsh.bs_bill.model.Bs_bill">
+        <id column="bill_id" property="bill_id"/>
+        <result column="bill_no" property="bill_no"/>
+        <result column="buy_dt" property="buy_dt"/>
+        <result column="pay_dt" property="pay_dt"/>
+        <result column="total_money" property="total_money"/>
+        <result column="access_mem" property="access_mem"/>
+        <result column="access_addr_desc" property="access_addr_desc"/>
+        <result column="access_phone" property="access_phone"/>
+        <result column="area_id" property="area_id"/>
+        <result column="city_id" property="city_id"/>
+        <result column="send_chnl_id" property="send_chnl_id"/>
+        <result column="lu_user" property="lu_user"/>
+        <result column="send_dt" property="send_dt"/>
+        <result column="bill_st_id" property="bill_st_id"/>
+        <result column="staff_user" property="staff_user"/>
+        <result column="crt_dt" property="crt_dt"/>
+        <result column="prov_id" property="prov_id"/>
+        <result column="user_remark" property="user_remark"/>
+        <result column="remarks" property="remarks"/>
+        <result column="send_st" property="send_st"/>
+        <result column="send_user" property="send_user"/>
+        <result column="send_cre_dt" property="send_cre_dt"/>
+        <result column="send_remark" property="send_remark"/>
+        <result column="total_num" property="total_num"/>
+        <result column="card_no" property="card_no"/>
+        <result column="src_bill_no" property="src_bill_no"/>
+        <result column="new_area_desc" property="new_area_desc"/>
+        <result column="xyd_st_id" property="xyd_st_id"/>
+        <result column="xyd_cre_dt" property="xyd_cre_dt"/>
+        <result column="xyd_up_dt" property="xyd_up_dt"/>
+        <result column="id" property="id"/>
+    </resultMap>
+
+
+    <!-- 通过Id查询订单 -->
+    <select id="queryById" resultMap="BaseResultMap">
+		select * from bs_bill
+		where bill_id = #{bs_billId}
+	</select>
+
+
+    <update id="changeSendToIng">
+        UPDATE bs_bill SET send_st = #{send_st},send_cre_dt=#{sendTime},send_remark=#{send_remark},send_user=#{account} WHERE BILL_ID=#{bs_billId}
+    </update>
+
+    <!-- 订单列表 -->
+    <select id="list" resultType="map">
+        select bb.*,sa.area_nm,bsc.send_chnl_nm,sa.prov_nm,u.name,u.name lu_user
+        from bs_bill bb
+        LEFT JOIN sys_area sa  on bb.area_id =sa.area_id
+        LEFT JOIN bs_send_channel bsc on bb.send_chnl_id =bsc.send_chnl_id
+        LEFT JOIN user u on bb.send_user =u.id
+        where 1=1
+        <if test="condition != null and condition != ''">
+            and (bb.access_mem like CONCAT('%',#{condition},'%') or bb.access_addr_desc like CONCAT('%',#{condition},'%') or
+            bb.access_phone like CONCAT('%',#{condition},'%') or bb.new_area_desc like CONCAT('%',#{condition},'%') or 1&lt;1)
+        </if>
+        <if test="bill_st_id != null and bill_st_id !=0">
+            and bb.bill_st_id=#{bill_st_id}
+        </if>
+        <if test="send_st != null and send_st !=0">
+            and bb.send_st=#{send_st}
+        </if>
+        <if test="xyd_st_id != null and xyd_st_id !=0">
+            and bb.xyd_st_id=#{xyd_st_id}
+        </if>
+        order by bb.bill_id desc
+    </select>
+
+    <select id="list1" resultType="map">
+        select bb.*,sa.area_nm,bsc.send_chnl_nm,sa.prov_nm,u.name
+        from bs_bill bb
+        LEFT JOIN sys_area sa  on bb.area_id =sa.area_id
+        LEFT JOIN bs_send_channel bsc on bb.send_chnl_id =bsc.send_chnl_id
+        LEFT JOIN user u on bb.send_user =u.id
+        where 1=1 AND bb.area_id in (SELECT bal.area_id from bs_area_limit bal where user_id=#{userId})
+        <if test="condition != null and condition != ''">
+            and (bb.access_mem like CONCAT('%',#{condition},'%') or bb.access_addr_desc like CONCAT('%',#{condition},'%') or
+            bb.access_phone like CONCAT('%',#{condition},'%') or bb.new_area_desc like CONCAT('%',#{condition},'%') or 1&lt;1)
+        </if>
+        <if test="bill_st_id != null and bill_st_id !=0">
+            and bb.bill_st_id=#{bill_st_id}
+        </if>
+        <if test="send_st != null and send_st !=0">
+            and bb.send_st=#{send_st}
+        </if>
+        <if test="xyd_st_id != null and xyd_st_id !=0">
+            and bb.xyd_st_id=#{xyd_st_id}
+        </if>
+        order by bb.bill_id desc
+    </select>
+    <select id="getMap8" resultType="map">
+              select area_nm name,area_id num from sys_area
+        </select>
+    <select id="getMap9" resultType="map">
+              select send_chnl_nm name,send_chnl_id num from bs_send_channel
+        </select>
+    <select id="getMap10" resultType="map">
+              select name name,id num from user
+        </select>
+    <select id="getMap13" resultType="map">
+              select name name,id num from user
+        </select>
+    <select id="getMap15" resultType="map">
+              select prov_nm name,prov_id num from sys_area
+        </select>
+    <select id="getMap19" resultType="map">
+              select name name,id num from user
+        </select>
+    <update id="deleteByIds" parameterType="list">
+        UPDATE bs_bill SET xyd_st_id = -1 where bill_id in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <!-- 副表列表 -->
+    <select id="fuList" resultType="map">
+    select * from bs_bill_dtl
+    </select>
+    <!-- 参数表列表 -->
+    <select id="paramList" resultType="map">
+    select * from bs_shop
+    </select>
+
+    <insert id="insertTotal" useGeneratedKeys="true" keyProperty="map.bill_id">
+       		insert into bs_bill(bill_no,buy_dt,pay_dt,total_money,access_mem,access_addr_desc,access_phone,area_id,send_chnl_id,lu_user,send_dt,bill_st_id,staff_user,crt_dt,prov_id,user_remark,remarks,send_st,send_user,send_cre_dt,send_remark,total_num,card_no,src_bill_no,new_area_desc,xyd_st_id,xyd_cre_dt,city_id)
+        	values(#{map.bill_no},#{map.buy_dt},#{map.pay_dt},#{map.total_money},#{map.access_mem},#{map.access_addr_desc},#{map.access_phone},#{map.area_id},#{map.send_chnl_id},#{map.lu_user},#{map.send_dt},#{map.bill_st_id},#{map.staff_user},#{map.crt_dt},#{map.prov_id},#{map.user_remark},#{map.remarks},#{map.send_st},#{map.send_user},#{map.send_cre_dt},#{map.send_remark},#{map.total_num},#{map.card_no},#{map.src_bill_no},#{map.new_area_desc},#{map.xyd_st_id},#{map.xyd_cre_dt},#{map.city_id})
+    	</insert>
+
+    <insert id="insertDetail" parameterType="map">
+        insert into
+        bs_bill_dtl(shop_id,bill_id,shop_no,shop_nm,shop_weigth,shop_spec,shop_no_num,shop_unit,num,st_id,staff_user,cre_dt,shop_price)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.shop_id},#{item.bill_id},#{item.shop_no},#{item.shop_nm},#{item.shop_weigth},#{item.shop_spec},#{item.shop_no_num},#{item.shop_unit},#{item.num},#{item.st_id},#{item.staff_user},#{item.cre_dt},#{item.shop_price})
+        </foreach>
+    </insert>
+
+    <select id="initParam" resultType="map">
+            select * from bs_bill_dtl where bill_id = #{moren}
+        </select>
+    <delete id="deleteDetail">
+            delete from bs_bill_dtl where bill_id = #{id}
+        </delete>
+    <select id="selectArea" resultType="map">
+        SELECT * FROM sys_area WHERE area_id=#{area_id}
+    </select>
+
+    <select id="selectSendChannel" resultType="map">
+        SELECT * FROM bs_send_channel WHERE send_chnl_id IN (SELECT send_chnl_id from bs_send_chnl_area WHERE area_id=#{area_id})
+    </select>
+
+
+    <!-- 新增订单，接口部分 -->
+    <insert id="addBill" useGeneratedKeys="true" keyProperty="map.bill_id" parameterType="map">
+        insert into bs_bill(
+        bill_no,
+        buy_dt,
+        pay_dt,
+        pay_flg_id,
+        total_num,
+        total_money,
+        access_mem,
+        access_phone,
+        access_addr_desc,
+        user_remark,
+        area_id,
+        prov_id,
+        src_bill_no,
+        send_st,
+        bill_st_id,
+        card_no,
+        lu_user,
+        crt_dt,
+        send_chnl_id,
+        new_area_desc
+        ) values (
+        #{map.billNo},
+        #{map.buyDt},
+        #{map.buyDt},
+        #{map.payFlgId},
+        #{map.totalNum},
+        #{map.totalMoney},
+        #{map.accessMem},
+        #{map.accessPhone},
+        #{map.accessAddrDsc},
+        #{map.userRemarks},
+        #{map.areaId},
+        (select prov_id from bs_send_area where area_id =#{map.areaId}),
+        #{map.billNo},
+        1,
+        2,
+        #{map.cardNo},
+        (select chnl_nm from bs_sale_channel where chnl_id=#{map.saleSysId}),
+        #{map.buyDt},
+        #{map.SEND_CHNL_ID},
+        #{map.accessAddrDsc}
+        )
+    </insert>
+
+    <!-- 根据订单编号查询订单id -->
+    <select id="findByBillNo" parameterType="map" resultType="map">
+        SELECT
+        bill_id
+        FROM
+        bs_bill
+        WHERE
+        bill_no = #{map.BILL_NO}
+
+    </select>
+    <!-- 订单明细新增 -->
+    <insert id="saveShopDt" parameterType="map">
+        insert into
+        bs_bill_dtl(
+        shop_id,
+        bill_id,
+        shop_nm,
+        shop_no,
+        shop_num,
+        shop_price
+        ) values (
+        #{map.shop_id},
+        #{map.bill_id},
+        #{map.shop_name},
+        #{map.zsh_shop_no},
+        #{map.shop_num},
+        #{map.shop_price}
+        )
+    </insert>
+
+    <!-- 订单商品条码，接口部分 -->
+    <update id="changeShopNoNUM" parameterType="map">
+        update bs_bill_dtl
+        set
+        shop_no_num =(select shop_no_num from bs_shop where shop_id= #{map.shop_id} ),
+        shop_spec =(select shop_spec from bs_shop where shop_id= #{map.shop_id} ),
+        shop_unit =(select shop_unit from bs_shop where shop_id= #{map.shop_id} ),
+        shop_weigth =(select shop_weigth from bs_shop where shop_id= #{map.shop_id})
+        where
+        bill_id = #{map.bill_id}
+        and shop_id= #{map.shop_id}
+    </update>
+
+    <!-- 通过ID查询订单，接口部分 -->
+    <select id="queryBillBoolean" parameterType="map" resultType="map">
+        select
+        *
+        from
+        bs_bill
+        where
+        bill_no = #{map.billNo}
+
+    </select>
+
+    <!-- 退单，接口部分 -->
+    <update id="delBill" parameterType="map">
+        update bs_bill
+        set
+        bill_st_id= 0
+        where
+        bill_no = #{map.billNo}
+    </update>
+
+
+    <!-- 根据订单编号查询订单信息 -->
+    <select id="queryBill" parameterType="map" resultType="map">
+        SELECT
+        send_st,
+        send_cre_dt,
+        send_chnl_id,
+        send_remark
+        FROM
+        bs_bill
+        WHERE
+        bill_no = #{map.billNo}
+
+    </select>
+
+    <!-- 根据订单编号查询订单信息 -->
+    <select id="querySend" parameterType="map" resultType="map">
+        SELECT
+        send_chnl_nm,
+        send_chnl_phoe
+        FROM
+        bs_send_channel
+        WHERE
+        send_chnl_id = #{map.send_chnl_id}
+
+    </select>
+</mapper>

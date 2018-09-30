@@ -1,0 +1,52 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <form class="form-horizontal" id="signupForm">
+			<input type="hidden" id="${context.list[0].columnName}" value="">
+			   <div class="row">
+			             <% if(context.layout==1){ %>
+                                <% for(var i=1;i<context.list.~size;i++){ %>
+                                   ${context.list[i].addForm}
+                                <% } %>
+                          <% } %>
+                           <% if(context.layout==2){ %>
+                                <% for(var i=1;i<context.list.~size;i++){ %>
+                                   ${context.list[i].addForm}
+                              <% } %>
+                            <% } %>
+                             <input type="hidden" value='\${${context.bizEnName}.${context.list[0].columnName}}' id='xuan'>
+               </div>
+            <div class="row btn-group-m-t text-center">
+                <div class="col-sm-10">
+                    <#submit btnCss="info" iName="提交" id="ensure" icon="fa-check" clickFun="validate();${context.bizEnBigName}InfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="${context.bizEnBigName}InfoDlg.close()"/>
+                </div>
+            </div>
+         </form>
+    </div>
+</div>
+<script src="\${ctxPath}/static/${context.scriptPath}/${context.moduleName}/js/${context.bizEnName}_info.js"></script>
+<script>
+
+    window.onload=function () {
+        $("#par_${context.list[0].columnName}").empty();
+        var ajax= new $ax(Feng.ctxPath + "/${context.bizEnName}/shangji",function (data) {
+            console.log(data)
+
+            var arr=data.data
+            var xuanzhong = $('#xuan').val()
+            console.log(xuanzhong)
+            console.log(arr.length)
+
+            for(var i = 0; i < arr.length; i++){
+                $("#par_${context.list[0].columnName}").append("<option value='"+arr[i].num+"'>"+arr[i].name+"</option>");//新增
+
+
+            }
+            $("select option[value='"+xuanzhong+"']").attr("selected","selected");  //如果值一样 就选中对应的option,
+
+        })
+        ajax.start()
+    }
+</script>
+@}

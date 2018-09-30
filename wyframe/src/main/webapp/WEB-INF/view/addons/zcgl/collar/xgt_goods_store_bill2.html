@@ -1,0 +1,71 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>领用单审核</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="name" name="名称" />
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">操作状态
+                                        </button>
+                                    </div>
+                                    <select class="form-control" id="st_id" onchange="show_sub(this.options[this.options.selectedIndex].value)">
+
+                                        <option value="">请选择</option><option value="-1">废除</option><option value="1">编辑</option><option value="2">提交</option><option value="3">修改</option></select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">审核状态
+                                        </button>
+                                    </div>
+                                    <select class="form-control" id="aud_st_id" onchange="show_sub(this.options[this.options.selectedIndex].value)">
+
+                                        <option value="">请选择</option><option value="1">待审核</option><option value="2">通过</option><option value="-1">退单</option></select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="Xgt_goods_store_bill.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="Xgt_goods_store_billTableToolbar" role="group">
+                            @if(shiro.hasPermission("/xgt_goods_store_bill_out/indexCheck")){
+                                <#button name="审核" icon="fa-edit" clickFun="Xgt_goods_store_bill.openXgt_goods_store_billDetail_review()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/xgt_goods_store_bill_out/update")){
+                            <#button name="修改" icon="fa-edit" clickFun="Xgt_goods_store_bill.openXgt_goods_store_billDetail_update()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/xgt_goods_store_bill_out/delete")){
+                            <#button name="删除" icon="fa-remove" clickFun="Xgt_goods_store_bill.delete()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/xgt_goods_store_bill/detail")){
+                            <#button name="详情" icon="fa-file-excel-o" clickFun="Xgt_goods_store_bill.openXgt_goods_store_billDetail()"  space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/xgt_goods_store_bill_out/export")){
+                            <#button name="导出" icon="fa-file-excel-o" clickFun="Xgt_goods_store_bill.export()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="Xgt_goods_store_billTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/collar/js/xgt_goods_store_bill.js"></script>
+<script>
+    /*function show_sub(v){
+        alert(v);
+    }*/
+</script>
+@}

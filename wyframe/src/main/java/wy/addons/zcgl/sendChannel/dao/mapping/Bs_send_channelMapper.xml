@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.sendChannel.dao.Bs_send_channelMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.zcgl.sendChannel.model.Bs_send_channel">
+	<id column="send_chnl_id" property="send_chnl_id" />
+	<result column="send_chnl_no" property="send_chnl_no" />
+	<result column="send_chnl_nm" property="send_chnl_nm" />
+	<result column="send_chnl_desc" property="send_chnl_desc" />
+	<result column="send_chnl_phoe" property="send_chnl_phoe" />
+	<result column="send_chnl_num" property="send_chnl_num" />
+	<result column="send_chnl_flg" property="send_chnl_flg" />
+	</resultMap>
+</mapper>

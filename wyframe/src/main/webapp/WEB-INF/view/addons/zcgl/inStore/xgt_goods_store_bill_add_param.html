@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link href="${ctxPath}/static/css_new/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="${ctxPath}/static/css_new/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <!--<link href="${ctxPath}/static/css_new/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">-->
+    <!--<link href="${ctxPath}/static/js_new/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />-->
+    <link href="${ctxPath}/static/css_new/animate.css" rel="stylesheet">
+    <link href="${ctxPath}/static/css_new/style.css?v=4.1.0" rel="stylesheet">
+    <link href="${ctxPath}/static/css_new/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="${ctxPath}/static/layui/css/layui.css"  media="all">
+    <script src="${ctxPath}/static/js_new/jquery.min.js?v=2.1.4"></script>
+    <script src="${ctxPath}/static/js_new/Feng.js"></script>
+    <script src="${ctxPath}/static/js_new/ajax-object.js"></script>
+    <script type="text/javascript">
+        Feng.addCtx("${ctxPath}");
+        Feng.sessionTimeoutRegistry();
+    </script>
+
+</head>
+
+<body class="gray-bg">
+
+<div class="col-sm-12">
+    <!-- Example Toolbar -->
+    <div class="example-wrap">
+        <h4 class="example-title" style="text-align: center;font-size: 30px;">商品搜索</h4>
+        <div class="example">
+            <div class=" hidden-xs" id="add_allToolbar" role="group">
+                <button type="button" class="btn btn-primary" id="case_add" >
+                    <i class="fa fa-plus"></i> 新增
+                </button>
+            </div>
+            <table class="layui-table" id="test" lay-filter="demo"></table>
+            <div class="col-md-6 text-right demoTable" id="demoTable">
+
+                <button type="button" class="layui-btn" id="item_info_btn_add" data-type="getCheckData" >
+                    确认
+                </button>
+            </div>
+            <div class="col-md-6 ">
+                <button type="button" class=" btn btn-danger " id="item_info_btn_close" >
+                    取消
+                </button>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Example Toolbar -->
+</div>
+
+
+<script src="${ctxPath}/static/js_new/bootstrap.min.js?v=3.3.6"></script>
+<script src="${ctxPath}/static/layui/layui.js"></script>
+
+<!-- 自定义js -->
+<!-- Bootstrap table -->
+<!--<script src="${ctxPath}/static/js_new/plugins/bootstrap-table/bootstrap-table.min.js"></script>-->
+<!--<script src="${ctxPath}/static/js_new/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>-->
+<!--<script src="${ctxPath}/static/js_new/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>-->
+
+<!--&lt;!&ndash; Peity &ndash;&gt;-->
+<!--<script src="${ctxPath}/static/js_new/bootstrap-table-object.js"></script>-->
+<script src="${ctxPath}/static/js_new/add_all_layui_table.js"></script>
+<script type="text/html" id="barDemo">
+    <!--<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>-->
+    <!--<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>-->
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<!--统计代码，可删除-->
+<script type="text/html" id="indexTpl">
+    {{d.LAY_TABLE_INDEX+1}}
+</script>
+</body>
+
+</html>

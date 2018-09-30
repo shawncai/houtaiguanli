@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.fxb.xgt_sub_exam.dao.Xgt_sub_examDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.fxb.xgt_sub_exam.model.Xgt_sub_exam">
+	<id column="sub_exam_id" property="sub_exam_id" />
+	<result column="sub_exam_nm" property="sub_exam_nm" />
+	<result column="par_sub_exam_id" property="par_sub_exam_id" />
+	<result column="sub_id" property="sub_id" />
+	<result column="id" property="id" />
+	<result column="sub_exam_no" property="sub_exam_no" />
+	<result column="one_sel_sum" property="one_sel_sum" />
+	<result column="more_sel_sum" property="more_sel_sum" />
+	<result column="yes_no_sum" property="yes_no_sum" />
+	<result column="insert_sum" property="insert_sum" />
+	<result column="spec_qp_sum" property="spec_qp_sum" />
+	<result column="mdi_dt" property="mdi_dt" />
+	<result column="cre_dt" property="cre_dt" />
+	<result column="st_id" property="st_id" />
+	</resultMap>
+
+	<select id="queryCpnId" resultType="Integer">
+		select
+		cpn_id
+		from user
+		where id = #{userId}
+	</select>
+	
+	<!-- 通过Id查询试卷 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select * from xgt_sub_exam
+		where sub_exam_id = #{xgt_sub_examId}
+	</select>
+
+		<!-- 试卷列表 -->
+    	<select id="list" resultType="map">
+    		select xgt_sub_exam.*,xgt_sub_exam.sub_exam_nm,xgt_subject.sub_nm,user.name from xgt_sub_exam
+                    LEFT JOIN xgt_sub_exam on xgt_sub_exam.par_sub_exam_id =xgt_sub_exam.par_sub_exam_id
+                    LEFT JOIN xgt_subject on xgt_sub_exam.sub_id =xgt_subject.sub_id
+                    LEFT JOIN user on xgt_sub_exam.id =user.id
+            where 1=1
+    		<if test="condition != null and condition != ''">
+            and (sub_exam_nm like CONCAT('%',#{condition},'%') or sub_exam_no like CONCAT('%',#{condition},'%') or 1&lt;1)
+            </if>
+            <if test="st_id != null and st_id !=0">
+            and st_id=#{st_id}
+             </if>
+    		order by sub_exam_id desc
+    	</select>
+        <select id="getMap2" resultType="map">
+              select sub_exam_nm name,par_sub_exam_id num from xgt_sub_exam
+        </select>
+        <select id="getMap3" resultType="map">
+              select sub_nm name,sub_id num from xgt_subject
+        </select>
+        <select id="getMap4" resultType="map">
+              select name name,id num from user
+        </select>
+        <update id="deleteByIds" parameterType="list">
+            UPDATE xgt_sub_exam SET xyd_st_id = -1 where sub_exam_id in
+           <foreach collection="list" item="item" open="(" separator="," close=")">
+                   #{item}
+             </foreach>
+        </update>
+
+            <select id="getMapByPar" resultType="map">
+            		select sub_exam_nm name,sub_exam_id num from xgt_sub_exam
+            </select>
+
+            <select id="tree1" resultType="wy.core.node.Node">
+        		select sub_exam_id as id,par_sub_exam_id as pid,sub_exam_nm as name from xgt_sub_exam
+        	</select>
+
+        	<select id="selectPageList" parameterType="wy.common.persistence.model.Page" resultType="map" >
+        		select u.*,o.sub_exam_nm as par_sub_exam_nm ,s.sub_nm,e.name from
+                        		(select	a1.*
+                                                		from xgt_sub_exam a1 ,
+                                                		(select b1.sub_exam_id from xgt_sub_exam b1 where b1.sub_exam_id = #{id}
+                                                		UNION
+                                                		select b1.sub_exam_id from xgt_sub_exam b1 where b1.par_sub_exam_id = #{id}
+                                                		union
+                                                		select b1.sub_exam_id from xgt_sub_exam b1,xgt_sub_exam b2 where b1.par_sub_exam_id=b2.sub_exam_id and b2.par_sub_exam_id = #{id}
+                                                		union
+                                                		select b1.sub_exam_id from xgt_sub_exam b1,xgt_sub_exam b2, xgt_sub_exam b3 where b1.par_sub_exam_id=b2.sub_exam_id and b2.par_sub_exam_id=b3.sub_exam_id and b3.par_sub_exam_id =  #{id}
+                                                		) m1
+                                                		where a1.sub_exam_id=m1.sub_exam_id
+                                                		<if test="condition != null and condition != ''">
+                                                                    and (sub_exam_nm like CONCAT('%',#{condition},'%') or sub_exam_no like CONCAT('%',#{condition},'%') or 1&lt;1)
+                                                        </if>
+                                                        )u
+                                                        LEFT JOIN xgt_sub_exam o
+                                                        				on u.par_sub_exam_id = o.sub_exam_id
+				LEFT JOIN xgt_subject s on u.sub_id =s.sub_id
+				LEFT JOIN user  e on u.id =e.id
+        		limit #{start},#{rows}
+        	</select>
+
+        	<select id="selectPageCount" parameterType="wy.common.persistence.model.Page"  resultType="java.lang.Integer">
+        		select count(1) from xgt_sub_exam
+        	</select>
+
+        	<!-- 列表 -->
+        	<select id="list4" resultType="map">
+        	    select u.*,o.sub_exam_nm as par_sub_exam_nm,s.sub_nm,e.name from
+        		(select	a1.*
+                                		from xgt_sub_exam a1 ,
+                                		(select b1.sub_exam_id from xgt_sub_exam b1 where b1.sub_exam_id = #{id}
+                                		UNION
+                                		select b1.sub_exam_id from xgt_sub_exam b1 where b1.par_sub_exam_id = #{id}
+                                		union
+                                		select b1.sub_exam_id from xgt_sub_exam b1,xgt_sub_exam b2 where b1.par_sub_exam_id=b2.sub_exam_id and b2.par_sub_exam_id = #{id}
+                                		union
+                                		select b1.sub_exam_id from xgt_sub_exam b1,xgt_sub_exam b2, xgt_sub_exam b3 where b1.par_sub_exam_id=b2.sub_exam_id and b2.par_sub_exam_id=b3.sub_exam_id and b3.par_sub_exam_id =  #{id}
+                                		) m1
+                                		where a1.sub_exam_id=m1.sub_exam_id
+                                		<if test="condition != null and condition != ''">
+                                                    and (sub_exam_nm like CONCAT('%',#{condition},'%') or sub_exam_no like CONCAT('%',#{condition},'%') or 1&lt;1)
+                                        </if>
+                                        )u
+                                        LEFT JOIN xgt_sub_exam o
+                                        				on u.par_sub_exam_id = o.sub_exam_id
+				LEFT JOIN xgt_subject s on u.sub_id =s.sub_id
+				LEFT JOIN user  e on u.id =e.id
+        	</select>
+</mapper>

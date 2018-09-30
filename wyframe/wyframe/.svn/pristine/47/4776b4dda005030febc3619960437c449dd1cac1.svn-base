@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <title>效易达 - 主页</title>
+    <link rel="shortcut icon" href="${ctxPath}/static/favicon.ico">
+    <link href="${ctxPath}/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="${ctxPath}/static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="${ctxPath}/static/css/animate.css" rel="stylesheet">
+    <link href="${ctxPath}/static/css/style.css?v=4.1.0" rel="stylesheet">
+    <link  href="${ctxPath}/static/layui/css/layui.css"  media="all" rel="stylesheet">
+    <link href="${ctxPath}/static/css/plugins/iCheck/custom.css" rel="stylesheet">
+</head>
+
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+    <div id="wrapper">
+
+        <!--左侧导航开始-->
+        	@include("/common/_tab.html"){}
+        <!--左侧导航结束-->
+        
+        <!--右侧部分开始-->
+        	@include("/common/_right.html"){}
+        <!--右侧部分结束-->
+        
+        <!--右侧边栏开始-->
+        	@include("/common/_theme.html"){}
+        <!--右侧边栏结束-->
+       
+    </div>
+
+    <!-- 全局js -->
+    <script src="${ctxPath}/static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="${ctxPath}/static/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="${ctxPath}/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="${ctxPath}/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="${ctxPath}/static/js/plugins/layer/layer.min.js"></script>
+    <script src="${ctxPath}/static/js/plugins/iCheck/icheck.min.js"></script>
+    <!-- 自定义js -->
+    <script src="${ctxPath}/static/js/hplus.js?v=4.1.0"></script>
+    <script type="text/javascript" src="${ctxPath}/static/js/contabs.js"></script>
+
+    <!-- 第三方插件 -->
+    <script src="${ctxPath}/static/js/plugins/pace/pace.min.js"></script>
+    <script src="${ctxPath}/static/layui/layui.js"></script>
+    <script>
+        function requestFullScreen() {
+            var de = document.documentElement;
+            if (de.requestFullscreen) {
+                de.requestFullscreen();
+            } else if (de.mozRequestFullScreen) {
+                de.mozRequestFullScreen();
+            } else if (de.webkitRequestFullScreen) {
+                de.webkitRequestFullScreen();
+            }
+        }
+        function exitFullscreen() {
+            var de = document;
+            if (de.exitFullscreen) {
+                de.exitFullscreen();
+            } else if (de.mozCancelFullScreen) {
+                de.mozCancelFullScreen();
+            } else if (de.webkitCancelFullScreen) {
+                de.webkitCancelFullScreen();
+            }
+        }
+
+//        $("#chuxian").click(function (){
+//           $('#fullscreen').css('display','none')
+//            $('#fanhui').css('display','block')
+//        })
+
+        $('#chuxian').click(function(){//点击a标签
+            if($('#fanhui').is(':hidden')){//如果当前隐藏
+                $('#fanhui').show();//那么就显示div
+                $('#fullscreen').hide();
+            }else{//否则
+                $('#fanhui').hide();//就隐藏div
+                $('#fullscreen').show()
+            }
+        })
+        $(document).ready(function () {
+            $(".i-checks").iCheck({checkboxClass: "icheckbox_square-green", radioClass: "iradio_square-green",})
+        });
+    </script>
+</body>
+
+</html>

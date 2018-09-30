@@ -1,0 +1,71 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal">
+
+			<input type="hidden" id="cpn_branch_id"
+				value="${xyd_cpn_cata.cpn_cata_id}">
+
+			<div class="row">
+				<div class="col-sm-6 b-r">
+
+					<#input id="cpnPname" name="上级企业分类"
+						hiddenValue="${xyd_cpn_cata.par_cpn_cata_id}"
+						value="${pCpnCataNm}" readonly="readonly" />
+
+					<#input id="cpn_cata_nm" value="${xyd_cpn_cata.cpn_cata_nm}"
+						name="企业分类名称" readonly="readonly" />
+
+				</div>
+
+				<div class="col-sm-6">
+
+					<#input id="cpn_cata_code" value="${xyd_cpn_cata.cpn_cata_code}"
+						name="企业分类标准编码" readonly="readonly" />
+
+				</div>
+			</div>
+			<div class="row btn-group-m-t">
+				<div class="row btn-group-m-t">
+					<div class="col-sm-10">
+						<#button btnCss="info" name="提交" id="ensure" icon="fa-check"
+							clickFun="Xyd_cpn_cataInfoDlg.close()" />
+						<#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser"
+							clickFun="Xyd_cpn_cataInfoDlg.close()" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script
+	src="${ctxPath}/static/addons/zcgl/cpncata/js/xyd_cpn_cata_info.js"></script>
+<script>
+	/**
+	 *参数表页面table
+	 */
+	var Xyd_cpn_cata_detail = {
+		id : "detailTable", //表格id
+		seItem : null, //选中的条目
+		table : null,
+		layerIndex : -1
+	};
+
+	/**
+	 * 初始化表格的列
+	 */
+	Xyd_cpn_cata_detail.initColumn = function() {
+		return [ {
+			field : 'selectItem',
+			checkbox : true
+		} ];
+
+	};
+	var id = $("#cpn_cata_id").val();
+	var defaultColunmss = Xyd_cpn_cata_detail.initColumn();
+	var tabless = new BSTable(Xyd_cpn_cata_detail.id, "/xyd_cpn_cata/detail/"
+			+ id, defaultColunmss);
+	tabless.setPaginationType("client");
+	Xyd_cpn_cata_detail.table = tabless.init();
+</script>
+@}

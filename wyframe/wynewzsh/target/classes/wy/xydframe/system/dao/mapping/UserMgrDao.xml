@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.xydframe.system.dao.UserMgrDao">
+
+	<sql id="Base_Column_List">
+		id, account, name, birthday, sex, email, avatar,
+		phone, roleid,
+		deptid, status,
+		createtime, version, parentid, cpn_id, cpn_dept_id, cpn_branch_id
+	</sql>
+	
+	<sql id="Base_Column_List_With_Pwd">
+		id, account, name, birthday,password, sex, email, avatar,
+		phone, roleid,salt,
+		deptid, status,
+		createtime, version
+	</sql>
+	
+	<sql id="Base_Column_role">
+		roleid
+	</sql>
+	
+	<select id="queryCpnId" resultType="Integer">
+		select 
+			cpn_id
+		from user
+		where id = #{userId}
+	</select>
+	
+	<select id="queryCpnBrandId" resultType="Integer">
+		select 
+			cpn_branch_id
+		from user
+		where id = #{userId}
+	</select>
+
+	<select id="selectCpnId" resultType="Integer">
+		select
+		cpn_id
+		from xyd_cpn_dept
+		where cpn_dept_id = #{deptId}
+	</select>
+
+	<select id="selectCpnBrandId" resultType="Integer">
+		select
+		cpn_branch_id
+		from xyd_cpn_dept
+		where cpn_dept_id = #{deptId}
+	</select>
+	
+	<select id="selectUsers" resultType="map">
+		SELECT * from user
+	</select>
+
+	<!--模糊查询-->
+	<select id="findByNameOrNo" resultType="map">
+		SELECT  * FROM USER WHERE NAME concat('%',#{condition},'%') OR account CONCAT('%',#{condition},'%')
+	</select>
+	
+	<select id="selectSomeUsers" resultType="map">
+		SELECT a2.*,d.cpn_dept_nm,c.cpn_nm,b.cpn_branch_nm
+		from
+		(select a1.*
+		from user a1 ,
+		(select b1.cpn_dept_id from xyd_cpn_dept b1 where b1.cpn_dept_id = #{deptid}
+		UNION
+		select b1.cpn_dept_id from xyd_cpn_dept b1 where b1.par_cpn_dept_id = #{deptid}
+		union
+		select b1.cpn_dept_id from xyd_cpn_dept b1,xyd_cpn_dept b2 where b1.par_cpn_dept_id=b2.cpn_dept_id and b2.par_cpn_dept_id = #{deptid}
+		union
+		select b1.cpn_dept_id from xyd_cpn_dept b1,xyd_cpn_dept b2, xyd_cpn_dept b3 where b1.par_cpn_dept_id=b2.cpn_dept_id and b2.par_cpn_dept_id=b3.cpn_dept_id and b3.par_cpn_dept_id =  #{deptid}
+		) m1 	where a1.cpn_dept_id=m1.cpn_dept_id) a2
+		LEFT JOIN xyd_cpn  c on a2.cpn_id=c.cpn_id
+		LEFT JOIN xyd_cpn_branch  b on a2.cpn_branch_id=b.cpn_branch_id
+		LEFT JOIN xyd_cpn_dept  d on a2.cpn_dept_id=d.cpn_dept_id
+		where  a2.status != 3 and a2.cpn_id= #{cpnId}
+		<if test="name != null and name != ''">
+			and (a2.phone like CONCAT('%',#{name},'%')
+			or a2.account like CONCAT('%',#{name},'%')
+			or a2.name like CONCAT('%',#{name},'%'))
+		</if>
+
+		<if test="beginTime != null and beginTime != '' and endTime != null and endTime != ''">
+			and (a2.createTime between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+		</if>
+	</select>
+	
+	<update id="setStatus">
+		update user set status = #{status} where id =
+		#{userId}
+	</update>
+	
+	<delete id="deleteUser">
+		delete from user where id = #{userId}
+	</delete>
+
+	<update id="changePwd">
+		update user set password = #{pwd} where id =
+		#{userId}
+	</update>
+	
+	<update id="setRoles">
+		update user set roleid = #{roleIds} where id =
+		#{userId}
+	</update>
+	
+	<select id="getByAccount" resultType="user">
+		select
+		<include refid="Base_Column_List_With_Pwd" />
+		from user where account = #{account} and status != 3
+	</select>
+	
+	<select id="getRoles" resultType="String">
+		select
+		<include refid="Base_Column_role" />
+		from user where id = #{userId}
+	</select>
+	
+	<select id="selectUserDeptName" resultType="String">
+		select
+			cpn_dept_nm
+		from xyd_cpn_dept where cpn_dept_id = #{userDeptId}
+	</select>
+		
+	<delete id="deleteArea" parameterType="Integer">
+		delete from bs_area_limit where user_id=#{userId}
+	</delete>
+	
+	<insert id="insertAreaId" parameterType="java.util.List">
+		insert into bs_area_limit (user_id,area_id)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=","> (#{item.user_id},#{item.area_id}) </foreach>
+	</insert>
+	
+	<!-- 查询地区通过Id -->
+	<select id="selectAreaIdById" resultType="Integer">
+		select area_id from
+		bs_area_limit
+		where user_id=#{userId}
+	</select>
+	
+	<!-- 控制查询地区通过Id -->
+	<select id="selectAreaIdByNowId" resultType="Integer">
+		select area_id from
+		bs_area_limit
+		where user_id=#{userNowId}
+	</select>
+	
+	<!-- 加载全部地区Tree -->
+	<select id="areaTreeList" resultType="wy.core.node.ZTreeNode">
+		select area_id
+		"id",par_area_id "pId",area_nm "name",(case when (par_area_id =0 or
+		par_area_id is null) then 'true' else 'false' end) "close" from
+		sys_area
+	</select>
+	
+	<!-- 加载当前管理员分配地区Tree -->
+	<select id="areaSomeTreeList" resultType="wy.core.node.ZTreeNode" parameterType="Integer">
+		select a.area_id
+		"id",a.par_area_id "pId",a.area_nm "name",(case when (a.par_area_id =0 or
+		a.par_area_id is null) then 'true' else 'false' end) "close" from
+		sys_area a
+		inner join
+		bs_area_limit b on a.area_id=b.area_id and b.user_id=#{userNowId}
+	</select>
+	
+	<!-- 加载选中地区tree -->
+	<select id="areaTreeListById" resultType="wy.core.node.ZTreeNode"> 
+		select r.area_id "id",r.par_area_id "pId",r.area_nm "name",(case when
+		(r.par_area_id =0 or r.par_area_id is null) then 'true' else 'false'
+		end) "close" ,
+		(
+		CASE
+		WHEN (r1.area_id = 0 OR r1.area_id IS NULL) THEN
+		'false'
+		ELSE
+		'true'
+		END
+		) "checked"
+		FROM
+		sys_area r
+		LEFT JOIN (
+		SELECT
+		b.user_id,
+		b.area_id
+		FROM
+		bs_area_limit b
+		WHERE
+		b.area_id IN
+		<foreach collection="array" index="index" item="item" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+		) r1 ON r.area_id = r1.area_id and r1.user_id=#{userId}
+	</select>
+	
+	<!-- 区域管理员下加载选中地区tree -->
+	<select id="areaSomeTreeListById" resultType="wy.core.node.ZTreeNode">
+		select r.area_id "id",r.par_area_id "pId",r.area_nm "name",(case when
+		(r.par_area_id =0 or r.par_area_id is null) then 'true' else 'false'
+		end) "close" ,
+		(
+		CASE
+		WHEN (r1.area_id = 0 OR r1.area_id IS NULL) THEN
+		'false'
+		ELSE
+		'true'
+		END
+		) "checked"
+		FROM
+		sys_area r
+		inner join
+		bs_area_limit c on r.area_id=c.area_id and c.user_id=#{userNowId}
+		LEFT JOIN (
+		SELECT
+		b.user_id,
+		b.area_id
+		FROM
+		bs_area_limit b
+		WHERE
+		b.area_id IN
+		<foreach collection="array" index="index" item="item" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+		) r1 ON r.area_id = r1.area_id and r1.user_id=#{userId}
+	</select>
+
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${dao.packageName}.${context.bizEnBigName}Dao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="${context.packageName}${context.moduleName}.model.${context.bizEnBigName}">
+	<id column="${context.list[0].columnName}" property="${context.list[0].columnName}" />
+	<% for(var i=1; i<context.list.~size;i++){ %>
+	<result column="${context.list[i].columnName}" property="${context.list[i].columnName}" />
+	<% } %>
+	</resultMap>
+	
+
+	
+	<!-- 通过Id查询${context.bizChName} -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select * from ${context.tableName}
+		where ${context.list[0].columnName} = #{${context.bizEnName}Id}
+	</select>
+
+		<!-- ${context.bizChName}列表 -->
+    	<select id="list" resultType="map">
+    		select ${context.tableName}.*<% for(var i=0; i<context.list.~size;i++){ %><% if(context.list[i].fieldChange==2){ %>,${context.list[i].fieldTable}.${context.list[i].toField}<% } %><% } %> from ${context.tableName}
+            <% for(var i=0; i<context.list.~size;i++){ %>
+                <% if(context.list[i].fieldChange==2){ %>
+                    LEFT JOIN ${context.list[i].fieldTable} on ${context.tableName}.${context.list[i].columnName} =${context.list[i].fieldTable}.${context.list[i].columnName}
+                <% } %>
+            <% } %>
+            where 1=1
+    		<if test="condition != null and condition != ''">
+            and (<% for(var i=0;i<context.list.~size;i++){ %><% if(context.list[i].isSearch==1){ %>${context.list[i].columnName} like CONCAT('%',#{condition},'%') or <% } %><% } %>1&lt;1)
+            </if>
+            <% for(var i=0;i<context.list.~size;i++){ %>
+            <% if(context.list[i].isQuery==1){ %>
+            <if test="${context.list[i].columnName} != null and ${context.list[i].columnName} !=0">
+            and ${context.list[i].columnName}=#{${context.list[i].columnName}}
+             </if>
+                <% } %>
+            <% } %>
+    		order by ${context.list[0].columnName} desc
+    	</select>
+    	 <% for(var i=1; i<context.list.~size;i++){ %>
+               <% if(context.list[i].fieldChange==2){ %>
+        <select id="getMap${i}" resultType="map">
+              select ${context.list[i].toField} name,${context.list[i].columnName} num from ${context.list[i].fieldTable}
+        </select>
+               <% } %>
+              <% } %>
+        <update id="deleteByIds" parameterType="list">
+            UPDATE ${context.tableName} SET xyd_st_id = -1 where ${context.list[0].columnName} in
+           <foreach collection="list" item="item" open="(" separator="," close=")">
+                   #{item}
+             </foreach>
+        </update>
+</mapper>

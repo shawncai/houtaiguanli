@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.wyitem.dao.Xgt_wy_itemDao">
+	
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.zcgl.wyitem.model.Xgt_wy_item">
+	<id column="item_id" property="item_id" />
+	<result column="item_nm" property="item_nm" />
+	<result column="item_nm_alias" property="item_nm_alias" />
+	<result column="item_dsc" property="item_dsc" />
+	<result column="item_cls" property="item_cls" />
+	<result column="par_item_id" property="par_item_id" />
+	<result column="seq_no" property="seq_no" />
+	<result column="st_id" property="st_id" />
+	<result column="oper_user" property="oper_user" />
+	</resultMap>
+	
+	<!-- 通用SQL -->
+	<sql id="Base_Column_List">
+		item_id, item_nm, item_nm_alias, item_dsc,
+		item_cls, par_item_id,
+		seq_no, mdi_dt, cre_dt, st_id, oper_user
+	</sql>
+	
+	<!-- 栏目列表 -->
+	<select id="list" resultType="map">	
+ 		select
+ 		<include refid="Base_Column_List"/>
+ 		from xgt_wy_item
+ 		<where>
+ 		<if test="par_item_id != null and par_item_id != 0">
+ 			and par_item_id = #{par_item_id}
+ 		</if>
+ 		<if test="item_nm != null and item_nm != ''">
+ 			and item_nm like CONCAT('%',#{item_nm},'%')
+ 		</if>
+ 		</where>	
+ 	</select>
+	<!-- 栏目列表 -->
+	<select id="list2" resultType="map">
+		SELECT a1.*,d1.item_nm as par_item_nm from
+		(select c1.*
+		from xgt_wy_item as c1,
+		(select b1.item_id from xgt_wy_item b1 where b1.item_id =#{itemId}
+		union
+		select b1.item_id  from xgt_wy_item b1 where b1.par_item_id =#{itemId}
+		union
+		select b1.item_id  from xgt_wy_item b1,xgt_wy_item b2 where b1.par_item_id=b2.item_id and b2.par_item_id =#{itemId}
+		union
+		select b1.item_id  from xgt_wy_item b1,xgt_wy_item b2, xgt_wy_item b3 where b1.par_item_id=b2.item_id and b2.par_item_id=b3.item_id and b3.par_item_id =#{itemId}
+		) m1
+		WHERE c1.st_id = 1 and c1.item_id=m1.item_id
+		<if test="condition != null and condition != ''">
+			and (item_nm like CONCAT('%',#{condition},'%')
+			or item_nm_alias like CONCAT('%',#{condition},'%')
+			or item_dsc like CONCAT('%',#{condition},'%')
+			or item_cls like CONCAT('%',#{condition},'%'))
+		</if>
+		group by
+		c1.item_id
+		)
+		a1 LEFT JOIN xgt_wy_item d1
+		on a1.par_item_id  = d1.item_id
+		GROUP BY a1.item_id
+	</select>
+ 	<select id="topicList" resultType="map">
+		select * from xgt_wy_item where par_item_id = 11 order by seq_no
+	</select>
+	
+	<!-- 通过Id查询栏目 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select * from xgt_wy_item
+		where item_id = #{xgt_wy_itemId}
+	</select>
+
+	<select id="selectWyItemNm" resultType="String">
+		select
+		item_nm
+		from xgt_wy_item
+		where item_id = #{ItemId}
+	</select>
+	
+	<select id="iQueryById" resultType="map">
+		select * from xgt_wy_item where item_id = #{id}
+	</select>
+	
+	<select id="selectItems" resultType="map">
+		select * from
+		xgt_wy_item
+	</select>
+	
+	<!-- 根据栏目Id查询栏目名称 -->
+	<select id="selectPItemNm" resultType="String">
+		select item_nm 
+		from xgt_wy_item
+		where item_id = (select par_item_id
+		from xgt_wy_item where item_id = #{xgt_wy_itemId})
+	</select>
+	
+	<!-- 查询栏目tree列表 -->
+	<select id="tree" resultType="wy.core.node.ZTreeNode">
+		select
+		m1.item_id as id,
+		(
+		case
+		when (m2.item_id = 0 or m2.item_id is null) then
+		0
+		else
+		m2.item_id
+		end
+		) as pid,
+		m1.item_nm
+		as name,
+		(
+		case
+		when
+		(m2.item_id = 0 or m2.item_id is null) then
+		'true'
+		else
+		'false'
+		end
+		) "close"
+		from
+		xgt_wy_item m1
+		left join xgt_wy_item m2 on
+		m1.par_item_id = m2.item_id
+		order by
+		m1.item_id asc
+	</select>
+	
+	<!-- 查询栏目tree列表 -->
+	<select id="itemTree" resultType="wy.core.node.ZTreeNode">
+		select
+		m1.item_id as id,
+		(
+		case
+		when (m2.item_id = 0 or m2.item_id is null) then
+		0
+		else
+		m2.item_id
+		end
+		) as pid,
+		m1.item_nm
+		as name,
+		(
+		case
+		when
+		(m2.item_id = 0 or m2.item_id is null) then
+		'true'
+		else
+		'false'
+		end
+		) "close"
+		from
+		xgt_wy_item m1
+		left join xgt_wy_item m2 on
+		m1.par_item_id = m2.item_id
+		where m1.st_id=1
+		order by
+		m1.item_id asc
+	</select>
+</mapper>

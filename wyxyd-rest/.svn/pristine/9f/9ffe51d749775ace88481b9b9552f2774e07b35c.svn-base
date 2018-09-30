@@ -1,0 +1,97 @@
+package wy.rest.addons.zsh.bs_sale_channel.model;
+
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
+/**
+ * 销售渠道Model
+ *
+ * @author wyFrame
+ * @Date 2018-07-25 14:10:16
+ */
+ public class Bs_sale_channel {
+
+    private static final long serialVersionUID = 1L;
+
+	@TableId(value="chnl_id", type= IdType.AUTO)
+	private Integer chnl_id;
+	private String chnl_no;
+	private String chnl_nm;
+	private String chnl_desc;
+	private String chnl_phone;
+	private String chnl_user_nm;
+	private Integer xyd_st_id;
+	private String xyd_cre_dt;
+	private String xyd_up_dt;
+	private Integer id;
+
+	public Integer getChnl_id() {
+		return chnl_id;
+	}
+
+	public void setChnl_id(Integer chnl_id) {
+		this.chnl_id = chnl_id;
+	}
+	public String getChnl_no() {
+		return chnl_no;
+	}
+
+	public void setChnl_no(String chnl_no) {
+		this.chnl_no = chnl_no;
+	}
+	public String getChnl_nm() {
+		return chnl_nm;
+	}
+
+	public void setChnl_nm(String chnl_nm) {
+		this.chnl_nm = chnl_nm;
+	}
+	public String getChnl_desc() {
+		return chnl_desc;
+	}
+
+	public void setChnl_desc(String chnl_desc) {
+		this.chnl_desc = chnl_desc;
+	}
+	public String getChnl_phone() {
+		return chnl_phone;
+	}
+
+	public void setChnl_phone(String chnl_phone) {
+		this.chnl_phone = chnl_phone;
+	}
+	public String getChnl_user_nm() {
+		return chnl_user_nm;
+	}
+
+	public void setChnl_user_nm(String chnl_user_nm) {
+		this.chnl_user_nm = chnl_user_nm;
+	}
+	public Integer getXyd_st_id() {
+		return xyd_st_id;
+	}
+
+	public void setXyd_st_id(Integer xyd_st_id) {
+		this.xyd_st_id = xyd_st_id;
+	}
+	public String getXyd_cre_dt() {
+		return xyd_cre_dt;
+	}
+
+	public void setXyd_cre_dt(String xyd_cre_dt) {
+		this.xyd_cre_dt = xyd_cre_dt;
+	}
+	public String getXyd_up_dt() {
+		return xyd_up_dt;
+	}
+
+	public void setXyd_up_dt(String xyd_up_dt) {
+		this.xyd_up_dt = xyd_up_dt;
+	}
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+}

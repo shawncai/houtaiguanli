@@ -1,0 +1,102 @@
+package ${wsdl.packageName};
+
+<% for(import in wsdl.imports!){ %>
+import ${import};
+<% } %>
+
+/**
+ * 接口控制器
+ *
+ * @author wyznn
+ * @Date ${tool.currentTime()}
+ */
+@Api(description = "接口部分")
+@Controller
+@RequestMapping("/xydwsdl")
+public class WSDLController extends BaseController {
+
+	@Resource
+	${context.iBigTableName}Dao ${context.iTableName}Dao;
+	
+	@Resource
+	${context.iBigTableName}Mapper ${context.iTableName}Mapper;
+	
+	<% if(context.list=="true"){ %>
+	/**
+     * 获取列表
+     */
+    @ApiOperation("${context.iTableName}获取列表")
+	@ApiImplicitParams({ @ApiImplicitParam(name = "condition", value = "查询条件", required = false, dataType = "String")})
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    @ResponseBody
+    public Object list( String condition) {
+    List<Map<String, Object>> list = this.${context.iTableName}Dao.list(condition);
+        return list;
+    }
+	<% } %>
+	
+	<% if(context.add=="true"){ %>
+    /**
+     * 新增
+     */
+    @ApiOperation("${context.iTableName}新增")
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @ResponseBody
+    public Object add(<% for(col in context.iTableDataRemovePK!){ %>@ApiParam(name="${col.columnName}",value="${col.columnRemark}") @RequestParam("${col.columnName}") ${col.javaType} ${col.columnName},<% } %>String condition) {
+    	
+    	${context.iBigTableName} ${context.iTableName} = new ${context.iBigTableName}();
+    	<% for(col in context.iTableDataRemovePK!){ %>
+    	${context.iTableName}.set${col.bColumName}(${col.columnName});
+    	<% } %>
+    	this.${context.iTableName}Mapper.insert(${context.iTableName});
+        return "添加成功";
+    }
+	<% } %>
+	
+	<% if(context.add=="true"){ %>
+	 /**
+     *	详情
+     */
+    @ApiOperation("${context.iTableName}详情")
+	@ApiImplicitParams({ @ApiImplicitParam(name = "id", value = "查询ID", required = true, dataType = "Integer")})
+    @RequestMapping(value = "/detail", method = RequestMethod.POST)
+    @ResponseBody
+    public Object detail(@RequestBody Integer id) {
+    	Map<String, String> map =  this.${context.iTableName}Dao.iQueryById(id);
+        return map;
+    }
+	<% } %>
+	
+    <% if(context.delete=="true"){ %>
+	 /**
+     * 删除
+     */
+    @ApiOperation("${context.iTableName}删除")
+	@ApiImplicitParams({ @ApiImplicitParam(name = "id", value = "删除ID", required = true, dataType = "String")})
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public Object delete(@RequestBody String id) {
+    
+    	this.${context.iTableName}Mapper.deleteById(Integer.parseInt(id));
+        return "删除成功";
+    }
+	<% } %>
+	
+   	<% if(context.update=="true"){ %>
+    /**
+     * 修改
+     */
+    @ApiOperation("${context.iTableName}修改")
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseBody
+    public Object update(<% for(col in context.iTableData!){ %>@ApiParam(name="${col.columnName}",value="${col.columnRemark}") @RequestParam("${col.columnName}") ${col.javaType} ${col.columnName},<% } %>String condition) {
+    	${context.iBigTableName} ${context.iTableName} = new ${context.iBigTableName}();
+    	<% for(col in context.iTableData!){ %>
+    	${context.iTableName}.set${col.bColumName}(${col.columnName});
+    	<% } %>
+    	this.${context.iTableName}Mapper.updateById(${context.iTableName});
+        return "修改成功";
+    }
+	<% } %>
+
+}

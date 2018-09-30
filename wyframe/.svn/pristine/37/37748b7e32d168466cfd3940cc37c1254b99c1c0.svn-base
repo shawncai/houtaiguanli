@@ -1,0 +1,82 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<form class="form-horizontal" id="signupForm">
+
+			<input type="hidden" id="cpn_branch_id"
+				   value="${xyd_cpn_branch.cpn_branch_id}">
+
+			<div class="row">
+				<div class="col-sm-6 col-xs-6" style="display: none">
+					<#selectCpn2 id="cpn_id" name="企业信息" underline="true" value="${xyd_cpn_branch.cpn_id}" readonly="readonly"
+							map="${cpnList}" />
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="cpn_branch_nm" name="机构名称" underline="true" value="${xyd_cpn_branch.cpn_branch_nm}" readonly="readonly"/>
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="cpn_branch_code" name="标准编码" underline="true" value="${xyd_cpn_branch.cpn_branch_code}" readonly="readonly"/>
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="areaName" name="机构地区" underline="true"
+							readonly="readonly" value="${areaNm}"
+							hiddenValue="${xyd_cpn_branch.cpn_area_id}"
+							clickFun="Xyd_cpn_branchInfoDlg.showAreaSelectTree(); return false;"
+							style="background-color: #ffffff !important;" selectFlag="true"
+							selectId="areaTreeDiv" selectTreeId="areaTree"
+							selectStyle="width:588px !important;"  readonly="readonly"/>
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="user_id" name="联系人" underline="true" value="${xyd_cpn_branch.user_id}" readonly="readonly"/>
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="cpn_branch_phone" name="联系电话" underline="true" value="${xyd_cpn_branch.cpn_branch_phone}" readonly="readonly"/>
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="cpn_area_desc" name="详细地址" underline="true" value="${xyd_cpn_branch.cpn_area_desc}" readonly="readonly"/>
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#selectBranchedit id="st_id" name="状态" map="${cpnStoreStList}"
+							value="${xyd_cpn_branch.st_id}" underline="true" readonly="readonly"/>
+				</div>
+			</div>
+			<div class="row btn-group-m-t">
+				<div class="col-sm-12 col-xs-12 text-center">
+					<#button btnCss="danger" name="返回" id="cancel" icon="fa-eraser"
+							clickFun="Xyd_cpn_branchInfoDlg.close()" />
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<script
+	src="${ctxPath}/static/addons/zcgl/cpn_branch/js/xyd_cpn_branch_info.js"></script>
+<script>
+	/**
+	 *参数表页面table
+	 */
+	var Xyd_cpn_branch_detail = {
+		id : "detailTable", //表格id
+		seItem : null, //选中的条目
+		table : null,
+		layerIndex : -1
+	};
+
+	/**
+	 * 初始化表格的列
+	 */
+	Xyd_cpn_branch_detail.initColumn = function() {
+		return [ {
+			field : 'selectItem',
+			checkbox : true
+		} ];
+
+	};
+	var id = $("#cpn_branch_id").val();
+	var defaultColunmss = Xyd_cpn_branch_detail.initColumn();
+	var tabless = new BSTable(Xyd_cpn_branch_detail.id,
+			"/xyd_cpn_branch/detail/" + id, defaultColunmss);
+	tabless.setPaginationType("client");
+	Xyd_cpn_branch_detail.table = tabless.init();
+</script>
+@}

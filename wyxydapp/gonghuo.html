@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/jquery-
+			2.1.0.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<header class="mui-bar mui-bar-nav" style="background: #4ca5f8;height: 87px;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #fff;"></a>
+			<h1 class="mui-title" style="color: #fff;font-weight: bold;font-size: 20px;">供货商列表</h1>
+			<a class="mui-icon mui-icon-bars mui-pull-right" style="color: #fff;"></a>
+			<a class="mui-icon mui-icon mui-icon-plusempty mui-pull-right" id="zengjia" style="color: #fff;margin-top: -2px;margin-right: 5px;"></a>
+			<div class="mui-input-row mui-search">
+				<input type="search" class="mui-input-clear" placeholder="" style="background: #fff;">
+			</div>
+		</header>
+		<div class="mui-content" id="tableData">
+			<div class="mui-card" style="margin-top: 54px;">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell nm1"  id="杨女士">
+						<a class="mui-navigate-right">
+							001默认供货商
+						</a>
+						<a  style="float: left;width: 44%;margin-top: -2px;" >
+							<span class=" mui-icon mui-icon-person"></span> 杨女士
+						</a>
+						<a style="width: 59%;margin-left: 20px;">
+							<span class=" mui-icon mui-icon-email"></span> 506039160@qq.com
+						</a>
+						<a style="width: 44%;float: left;margin-top: -2px;">
+							<span class=" mui-icon mui-icon-location"></span> 江苏省南京市
+						</a>
+						<a style="width: 59%;margin-left: 20px;">
+							<span class=" mui-icon mui-icon-phone"></span> 17625930594
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="mui-card">
+				<ul class="mui-table-view nm1">
+					<li class="mui-table-view-cell "  id="找那个女士">
+						<a class="mui-navigate-right">
+							002默认供货商
+						</a>
+						<a   style="float: left;width: 44%;margin-top: -2px;" >
+							<span class=" mui-icon mui-icon-person"></span> 找那个女士
+						</a>
+						<a style="width: 59%;margin-left: 20px;">
+							<span class=" mui-icon mui-icon-email"></span> 506039160@qq.com
+						</a>
+						<a style="width: 44%;float: left;margin-top: -2px;">
+							<span class=" mui-icon mui-icon-location"></span> 江苏省南京市
+						</a>
+						<a style="width: 59%;margin-left: 20px;">
+							<span class=" mui-icon mui-icon-phone"></span> 17625930594
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+	<script type="text/template">
+		<div class="mui-card">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell"  id="{prd_vendor_nm}">
+						<a class="mui-navigate-right">
+							{prd_vendor_nm}
+						</a>
+						<a style="float: left;width: 44%;margin-top: -2px;" >
+							<span class=" mui-icon mui-icon-person"></span> {prd_vendor_nm}
+						</a>
+						<a style="width: 59%;margin-left: 20px;">
+							<span class=" mui-icon mui-icon-email"></span> {man_email}
+						</a>
+						<a style="width: 44%;float: left;margin-top: -2px;">
+							<span class=" mui-icon mui-icon-location"></span> {man_address}
+						</a>
+						<a style="width: 59%;margin-left: 20px;">
+							<span class=" mui-icon mui-icon-phone"></span> {man_phone}
+						</a>
+					</li>
+				</ul>
+			</div>
+	</script>
+	<script>
+		mui.init({
+			swipeBack: true,
+			keyEventBind: {
+				backbutton: false, //Boolean(默认true)关闭back按键监听
+				menubutton: false //Boolean(默认true)关闭menu按键监听
+			},
+		});
+		
+		mui.plusReady(function() {
+			function formatTemplate(dta, tmpl) {  
+    var format = {  
+        name: function(x) {  
+            return x ; 
+        }  
+    };  
+    return tmpl.replace(/{(\w+)}/g, function(m1, m2) {  
+        if (!m2)  
+            return "";  
+        return (format && format[m2]) ? format[m2](dta[m2]) : dta[m2];  
+    });  
+}  
+			
+			
+			var tou = localStorage.token
+			mui.ajax('http://10.0.0.145/xgt_goods_prd_vendor/list', {
+				dataType: 'json', //服务器返回json格式数据
+				type: 'post', //HTTP请求类型
+				timeout: 10000, //超时时间设置为10秒；
+				headers: {
+						'Content-Type': 'application/json',
+						'Authorization': "" + 'Bearer ' + tou + ""
+					},
+				success: function(data) {
+					console.log(JSON.stringify(data))
+					
+					if (!data || !data || data.length <= 0) {  
+            return;  
+        }  
+  
+        //获取模板上的HTML  
+        var html = $('script[type="text/template"]').html();  
+        //定义一个数组，用来接收格式化合的数据  
+        var arr = [];  
+        //对数据进行遍历  
+        $.each(data, function(i, o) {  
+            //这里取到o就是上面rows数组中的值, formatTemplate是最开始定义的方法.  
+            arr.push(formatTemplate(o, html));  
+        });  
+        //好了，最后把数组化成字符串，并添加到table中去。  
+        $('#tableData').append(arr.join(''));  
+        
+        
+        mui(".mui-card").on("tap",".mui-table-view-cell",function(){
+
+ //当前对象直接就是--->this
+
+var nm1 = this.id;
+
+//获取父页面A.html
+				var main = plus.webview.getWebviewById("churuku.html");
+				//自定义事件,事件名为changeCity
+				mui.fire(main, 'changeName', {
+					nm: nm1
+				});
+				//关闭子页面
+				mui.back();
+
+
+});
+        
+      	
+				},
+				error: function(xhr, type, errorThrown) {
+					//异常处理；
+					console.log(type);
+				}
+			});
+
+			
+
+			
+
+			zengjia.addEventListener('tap', function() {
+				mui.openWindow('gonghuobianji.html', 'gonghuobianji.html', {})
+			})
+
+		})
+		 window.addEventListener('refresh', function(e){//执行刷新  
+
+  location.reload();
+
+  })
+	</script>
+
+</html>

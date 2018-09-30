@@ -1,0 +1,261 @@
+/**
+ * ${context.bizChName}管理初始化
+ */
+var ${context.bizEnBigName} = {
+    id: "${context.bizEnBigName}Table",	//表格id
+    seItem: null,		//选中的条目
+    table: null,
+    layerIndex: -1
+};
+
+
+
+
+layui.use('table', function(){
+  var table = layui.table;
+  var tableData=new Array();
+  $.ajax({
+      url:Feng.ctxPath +"/${context.bizEnName}/list"
+      ,type:"get"
+      ,async:false
+      ,dataType:"json"
+      , success: function(result){
+          tableData=result;
+
+      }
+  });
+  table.render({
+    elem: '#'+${context.bizEnBigName}.id
+    ,data: tableData
+    ,even:true
+    ,height: 520
+    ,id:"${context.bizEnBigName}Table"
+    ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+      layout: [ 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+      //,curr: 5 //设定初始在第 5 页
+          ,limits: [30,60]
+          ,limit: 30
+      ,groups: 1 //只显示 1 个连续页码
+      ,first: false //不显示首页
+      ,last: false //不显示尾页
+
+    }
+    ,cols: [[
+    {type:'checkbox', fixed: 'left'}
+      <% for(var i=0;i<context.list.~size;i++){ %>
+      ,{field:'${context.list[i].listColumn}',width:${context.list[i].width},title: '${context.list[i].columnRemark}',align:'center',fixed: '${context.list[i].fixed}',sort: ${context.list[i].isOrder}<% if(context.list[i].formType==6){ %>, toolbar: '#photo'<% } %> }
+      <% } %>
+      ,{fixed: 'right',title : '操作',width:120, align:'center', toolbar: '#barDemo',}
+
+    ]]
+    ,done: function(res, curr, count){
+    //如果是异步请求数据方式，res即为你接口返回的信息。
+    //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+    //console.log(res);
+    //得到当前页码
+    //  console.log(curr);
+    //得到数据总量
+    // console.log(count);
+    }
+  });
+});
+
+
+layui.use('table', function(){
+  var table = layui.table;
+  //监听表格复选框选择
+  table.on('checkbox(${context.bizEnBigName}Table)', function(obj){
+
+
+  });
+  //监听工具条
+  table.on('tool(test)', function(obj){
+    var data = obj.data;
+    if(obj.event === 'edit'){
+      /**
+       * 打开查看${context.bizChName}详情_修改
+       */
+      ${context.bizEnBigName}.seItem=data
+             layer.open({
+                  type: 2,
+                  title: '${context.bizChName}详情_修改',
+                  area: ['100%', '100%'], //宽高
+                  fix: false, //不固定
+                  maxmin: true,
+                  content: Feng.ctxPath + '/${context.bizEnName}/${context.bizEnName}_update/' + ${context.bizEnBigName}.seItem.${context.list[0].columnName}
+              });
+
+
+
+    } else if(obj.event === 'del'){
+      layer.confirm('真的删除行么', function(index){
+        obj.del();
+        layer.close(index);
+      });
+
+    } else if(obj.event === 'detail'){
+      /**
+       * 打开查看${context.bizChName}详情
+       */
+       ${context.bizEnBigName}.seItem=data
+
+               layer.open({
+                  type: 2,
+                  title: '${context.bizChName}详情',
+                  area: ['100%', '100%'], //宽高
+                  fix: false, //不固定
+                  maxmin: true,
+                  content: Feng.ctxPath + '/${context.bizEnName}/${context.bizEnName}_detail/' + ${context.bizEnBigName}.seItem.${context.list[0].columnName}
+              });
+
+
+
+
+
+    }
+
+  });
+
+
+  //复选框选中操作
+  var $ = layui.$, active = {
+    getCheckData: function(){ //获取选中数据
+
+        var checkStatus = table.checkStatus(${context.bizEnBigName}.id)
+      ,data = checkStatus.data;
+      var arr =JSON.stringify(data);
+        layer.alert(arr);
+    }
+    ,getCheckLength: function(){ //获取选中数目
+      var checkStatus = table.checkStatus(${context.bizEnBigName}.id)
+      ,data = checkStatus.data;
+      layer.msg('选中了：'+ data.length + ' 个');
+          if(data.length == 0){
+              Feng.info("请先选中表格中的某一记录！");
+              return false;
+          }else{
+              ${context.bizEnBigName}.seItem = data[0];
+              return true;
+          }
+    }
+    ,isAll: function(){ //验证是否全选
+      var checkStatus = table.checkStatus(${context.bizEnBigName}.id);
+      layer.msg(checkStatus.isAll ? '全选': '未全选')
+    }
+  };
+
+  $('.demoTable .layui-btn').on('click', function(){
+    var type = $(this).data('type');
+    active[type] ? active[type].call(this) : '';
+  });
+
+
+
+
+
+
+
+/**
+ * 点击添加${context.bizChName}
+ */
+${context.bizEnBigName}.openAdd${context.bizEnBigName} = function () {
+    var index = layer.open({
+        type: 2,
+        title: '添加${context.bizChName}',
+        area: ['100%', '100%'], //宽高
+        fix: false, //不固定
+        maxmin: true,
+        content: Feng.ctxPath + '/${context.bizEnName}/${context.bizEnName}_add'
+    });
+    this.layerIndex = index;
+};
+
+
+
+/**
+ * 删除${context.bizChName}
+ */
+
+ layui.table.on('radio(test)', function(obj){
+         var xuanzhong=obj.data;
+         ${context.bizEnBigName}.seItem=xuanzhong
+     });
+${context.bizEnBigName}.delete = function () {
+var checkStatus = layui.table.checkStatus('${context.bizEnBigName}Table');
+    var data = checkStatus.data;
+  var zzz = data.map(function(v){return v.${context.list[0].columnName};});
+   var  ${context.list[0].columnName}=zzz.join();
+     var operation = function(){
+        var ajax = new $ax(Feng.ctxPath + "/${context.bizEnName}/delete", function (DATA) {
+            Feng.success("删除成功!");
+ var tableData=new Array()
+            $.ajax({
+                url:Feng.ctxPath +"/${context.bizEnName}/list"
+                ,type:"get"
+                ,async:false
+                ,dataType:"json"
+                , success: function(result){
+                    tableData=result;
+
+                }
+            });
+            table.reload('${context.bizEnBigName}Table',{
+                data : tableData
+            });
+        }, function (data) {
+            Feng.error("删除失败!" + data.responseJSON.message + "!");
+        });
+        ajax.set("${context.bizEnName}Ids",${context.list[0].columnName});
+        ajax.start();
+    }
+    	 Feng.confirm("是否刪除该${context.bizChName}?", operation);
+
+};
+
+/**
+ * 查询${context.bizChName}列表
+ */
+${context.bizEnBigName}.search = function () {
+     var tableData=new Array()
+        var demoReload = $('#condition').val();
+        var ajax = new $ax(Feng.ctxPath + "/${context.bizEnName}/list", function(DATA){
+            tableData=DATA
+        });
+        ajax.set('condition',demoReload);
+          <% for(var i=0;i<context.list.~size;i++){ %>
+                    <% if(context.list[i].isQuery==1){ %>
+                    ajax.set('${context.list[i].columnName}',$('#${context.list[i].columnName}').val());
+                    <% } %>
+                    <% } %>
+            ajax.start();
+
+            //执行重载
+            table.reload('${context.bizEnBigName}Table', {
+                data:tableData
+            });
+};
+
+
+
+/**
+ * 导出${context.bizChName}
+ */
+${context.bizEnBigName}.export = function () {
+       window.location.href=Feng.ctxPath + "/${context.bizEnName}/export";
+};
+
+
+
+
+});
+
+layui.use('laydate', function(){
+    var laydate = layui.laydate;
+
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#hello', //指定元素
+        type: 'datetime',
+
+    });
+});

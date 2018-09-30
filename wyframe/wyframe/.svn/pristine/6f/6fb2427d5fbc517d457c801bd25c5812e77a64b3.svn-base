@@ -1,0 +1,49 @@
+@layout("/common/container_new.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>${context.bizChName}管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="condition" name="名称" placeholder="<% for(var i=0;i<context.list.~size;i++){ %>${context.list[i].columnRemark}/<% } %>" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="${context.bizEnBigName}.search()" />
+                            </div>
+                        </div>
+                        <div class="hidden-xs demoTable" id="demoTable" role="group">
+                            @if(shiro.hasPermission("/${context.bizEnName}/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="${context.bizEnBigName}.openAdd${context.bizEnBigName}()" />
+                            @}
+                            @if(shiro.hasPermission("/${context.bizEnName}/update")){
+                                <#button name="修改" icon="fa-edit" clickFun="${context.bizEnBigName}.open${context.bizEnBigName}Detail_update()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/${context.bizEnName}/delete")){
+                                <#button name="删除" icon="fa-remove" clickFun="${context.bizEnBigName}.delete()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/${context.bizEnName}/export")){
+                                <#button name="导出" icon="fa-file-excel-o" clickFun="${context.bizEnBigName}.export()" space="true"/>
+                            @}
+                             @if(shiro.hasPermission("/${context.bizEnName}/detail")){
+                                <#button name="详情" icon="fa-file-code-o" clickFun="${context.bizEnBigName}.open${context.bizEnBigName}Detail()" space="true"/>
+                            @}
+                        </div>
+                        <#layUITable id="${context.bizEnBigName}Table"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="\${ctxPath}/static/${context.scriptPath}/${context.moduleName}/js/${context.bizEnName}.js"></script>
+<style>
+    .layui-table-cell{
+    height:auto;
+    line-height: 36px;
+}</style>
+@}

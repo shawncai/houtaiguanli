@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.cpn_branch.dao.Xyd_cpn_branchDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap"
+		type="wy.addons.zcgl.cpn_branch.model.Xyd_cpn_branch">
+		<id column="cpn_branch_id" property="cpn_branch_id" />
+		<result column="cpn_id" property="cpn_id" />
+		<result column="cpn_branch_nm" property="cpn_branch_nm" />
+		<result column="cpn_branch_code" property="cpn_branch_code" />
+		<result column="cpn_branch_phone" property="cpn_branch_phone" />
+		<result column="cpn_area_id" property="cpn_area_id" />
+		<result column="cpn_area_desc" property="cpn_area_desc" />
+		<result column="user_id" property="user_id" />
+		<result column="st_id" property="st_id" />
+	</resultMap>
+
+	<select id="queryCpnBranchName" resultType="String">
+		select
+		cpn_branch_nm
+		from xyd_cpn_branch
+		where cpn_branch_id = #{cpnBranchId}
+	</select>
+	<select id="userCpnList" resultType="map">
+		select *
+		from xyd_cpn
+		<if test="cpnId != null and cpnId != ''">
+			where cpn_id = #{cpnId}
+		</if>
+
+	</select>
+	<!-- 通用SQL -->
+	<sql id="Base_Integer_String">
+		cpn_branch_id,cpn_branch_nm
+	</sql>
+
+	<insert id="insertCbh">
+		insert into xyd_cpn_branch (
+		cpn_id,
+		cpn_branch_nm,
+		cpn_area_id,
+		cpn_area_desc,
+		cre_dt,
+		st_id
+		) values (
+		#{xyd_cpnId},
+		#{cpn_branch_nm},
+		#{cpn_area_id},
+		#{cpn_area_desc},
+		#{cre_dt},
+		#{st_id}
+		)
+	</insert>
+
+	<!-- 通过Id查询企业分支机构名称 -->
+	<select id="selectCpnBranchNm" resultType="String">
+		select cpn_branch_nm
+		from xyd_cpn_branch
+		where cpn_branch_id = #{cpnBranchId}
+	</select>
+
+	<!-- 查询企业分支机构列表 -->
+	<select id="list" resultType="map">
+		select *
+		from xyd_cpn_branch
+
+		order by cpn_branch_id
+		desc
+	</select>
+
+	<!-- 查询企业分支机构列表 -->
+	<select id="list2" resultType="map">
+		select b.*,c.*
+		from xyd_cpn_branch as b
+		left join xyd_cpn as c
+		on b.cpn_id=c.cpn_id
+		<if test="condition != null and condition != ''">
+			where (b.cpn_branch_nm like CONCAT('%',#{condition},'%')
+			or b.cpn_branch_code like CONCAT('%',#{condition},'%'))
+		</if>
+		order by cpn_branch_id
+		desc
+	</select>
+	<!-- 查询当前用户分支机构 -->
+	<select id="userCpnBranchList" resultType="map">
+		select *
+		from xyd_cpn_branch
+		where cpn_branch_id = #{branchId}
+		order by cpn_branch_id
+		desc
+	</select>
+	<!-- 查询当前企业分支机构列表 -->
+	<select id="nowCpnBranchList" resultType="map">
+		select *
+		from xyd_cpn_branch
+		where cpn_id = #{cpnId}
+	</select>
+
+	<!-- 查询全部企业分支机构 -->
+	<select id="selectCpnBranch" resultType="map">
+		select *
+		from xyd_cpn_branch
+	</select>
+
+	<!-- 查询全部企业分支机构 -->
+	<select id="selectCpnBranchs" resultType="map">
+		select *
+		from xyd_cpn_branch
+	</select>
+	<select id="selectByBranchAreaName" resultType="String">
+		select area_nm
+		from sys_area where area_id = #{areaId}
+	</select>
+	<select id="selectByAreaId" resultMap="BaseResultMap">
+		select * from sys_area
+		where area_id = #{areaId}
+	</select>
+	<!-- 查询全部企业分支机构 -->
+	<select id="tree" resultType="map">
+		select *
+		from xyd_cpn_branch
+	</select>
+	<select id="selectCpnNm" resultType="String">
+		select cpn_nm from xyd_cpn
+		where cpn_id = #{cpnId}
+	</select>
+	<insert id="insertCdt">
+		insert into xyd_cpn_dept (
+		cpn_id,
+		cpn_branch_id,
+		cpn_dept_nm,
+		par_cpn_dept_id,
+		cre_dt,
+		st_id
+		) values (
+		#{xyd_cpnId},
+		#{cpn_branch_id},
+		#{cpn_branch_nm},
+		#{par_cpn_dept_id},
+		#{cre_dt},
+		#{st_id}
+		)
+	</insert>
+	<!-- 通过Id查询企业信息Id -->
+	<select id="selectCpnId" resultType="Integer">
+		select cpn_id
+		from xyd_cpn_branch
+		where cpn_branch_id = #{xyd_cpn_branchId}
+	</select>
+
+	<select id="queryCpndeptId" resultType="Integer">
+		select cpn_dept_id
+		from xyd_cpn_dept
+		where cpn_id=#{xyd_cpnId}
+	</select>
+
+	<select id="selectCpnBranchId" resultType="Integer">
+		select cpn_branch_id
+		from xyd_cpn_branch
+		where cpn_id = #{xyd_cpnId}
+	</select>
+
+	<!-- 通过Id查询企业分支机构 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select *
+		from xyd_cpn_branch
+		where cpn_branch_id = #{xyd_cpn_branchId}
+	</select>
+
+	<!-- -->
+	<select id="iQueryById" resultType="map">
+		select *
+		from xyd_cpn_branch
+		where cpn_branch_id = #{id}
+	</select>
+
+	<select id="queryCpnId" resultType="Integer">
+		select
+		cpn_id
+		from user
+		where id = #{userId}
+	</select>
+
+	<select id="queryCpnBrandId" resultType="Integer">
+		select
+		cpn_branch_id
+		from user
+		where id = #{userId}
+	</select>
+</mapper>

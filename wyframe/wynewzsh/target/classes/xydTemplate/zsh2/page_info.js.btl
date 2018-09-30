@@ -1,0 +1,574 @@
+/**
+ * 初始化${context.bizChName}详情对话框
+ */
+var ${context.bizEnBigName}InfoDlg = {
+    ${context.bizEnName}InfoData : {},
+    zTreeInstance : null
+};
+
+<% for(var i=0;i<context.list.~size;i++){ %>
+<% if(context.list[i].formType==2){ %>
+/**
+ * 显示树
+ *
+ * @returns
+ */
+${context.bizEnBigName}InfoDlg.show${context.list[i].columnName}SelectTree = function() {
+    Feng.showInputTree("${context.list[i].columnName}Nm", "${context.list[i].columnName}TreeDiv", 15, 34);
+}
+${context.bizEnBigName}InfoDlg.onClick = function(e, treeId, treeNode) {
+    $("#${context.list[i].columnName}Nm").attr("value",${context.bizEnBigName}InfoDlg.zTreeInstance.getSelectedVal());
+    $("#${context.list[i].columnName}").attr("value", treeNode.id);
+   ${context.bizEnBigName}InfoDlg.cpndNm = ${context.bizEnBigName}InfoDlg.zTreeInstance.getSelectedVal();
+    ${context.bizEnBigName}InfoDlg.${context.list[i].columnName} = treeNode.id;
+}
+//$(function () {
+ //   var ztree = new $ZTree("${context.list[i].columnName}Tree", "/${context.bizEnName}/${context.list[i].columnName}TreeList");
+  //  ztree.bindOnClick(${context.bizEnBigName}InfoDlg.onClick);
+   // ztree.init();
+    //${context.bizEnBigName}InfoDlg.ztreeInstance = ztree;
+
+//});
+<% } %>
+<% } %>
+/**
+ * 清除数据
+ */
+${context.bizEnBigName}InfoDlg.clearData = function() {
+    this.${context.bizEnName}InfoData = {};
+}
+
+/**
+ * 设置对话框中的数据
+ *
+ * @param key 数据的名称
+ * @param val 数据的具体值
+ */
+${context.bizEnBigName}InfoDlg.set = function(key, val) {
+    this.${context.bizEnName}InfoData[key] = (typeof value == "undefined") ? $("#" + key).val() : value;
+    return this;
+}
+
+/**
+ * 设置对话框中的数据
+ *
+ * @param key 数据的名称
+ * @param val 数据的具体值
+ */
+${context.bizEnBigName}InfoDlg.get = function(key) {
+    return $("#" + key).val();
+}
+<% for(var i=0;i<context.list.~size;i++){ %>
+<% if(context.list[i].formType==3){ %>
+$('#${context.list[i].columnName}').on('ifChecked', function(event){ //ifCreated 事件应该在插件初始化之前绑定
+    $('#${context.list[i].columnName}').val('1');
+});
+
+$('#${context.list[i].columnName}').on('ifUnchecked', function(event){ //ifCreated 事件应该在插件初始化之前绑定
+    $('#${context.list[i].columnName}').val('0');
+});
+
+
+if($('#${context.list[i].columnName}').val()==1){
+    $('#${context.list[i].columnName}').iCheck('check');
+}
+<% } %>
+<% } %>
+/**
+ * 关闭此对话框
+ */
+${context.bizEnBigName}InfoDlg.close = function() {
+   parent.layer.closeAll()
+}
+
+/**
+ * 收集数据
+ */
+${context.bizEnBigName}InfoDlg.collectData = function() {
+    this<% for(var i=0;i<context.list.~size;i++){ %>.set('${context.list[i].columnName}')<% } %>;
+}
+
+
+
+
+
+ $(document).ready(function () {
+        $(".i-checks").iCheck({checkboxClass: "icheckbox_square-green", radioClass: "iradio_square-green",})
+    });
+    $('#filePicker').click(function () {
+        $('#duan').remove();
+    });
+
+/**校验开始**/
+    function validate() {
+        var e = "<i class='fa fa-times-circle'></i> ";
+        $("#signupForm").validate({
+            rules: {
+            <% for(var i=0;i<context.list.~size;i++){%>
+             ${context.list[i].columnName}: {
+                    required: !0,
+             <% if(context.list[i].checkType==1){ %>
+                minlength : 11,
+                isMobile : true
+             <% } %>
+              <% if(context.list[i].checkType==2){ %>
+                email : true
+               <% } %>
+               <% if(context.list[i].checkType==3){ %>
+                //中文校验待添加
+               <% } %>
+                <% if(context.list[i].checkType==4){ %>
+                  //英文校验待添加
+                <% } %>
+               <% if(context.list[i].checkType==5){ %>
+                  //数字校验待添加
+               <% } %>
+                },
+             <% } %>
+
+
+            },
+            messages: {
+             <% for(var i=0;i<context.list.~size;i++){%>
+                         ${context.list[i].columnName}: {
+                                required:  e + "请输入正确的${context.list[i].columnRemark}",
+
+                         <% if(context.list[i].checkType==1){ %>
+                           minlength : "确认手机不能小于11个字符",
+                           isMobile : "请输入正确的手机号码",
+
+                         <% } %>
+                          <% if(context.list[i].checkType==2){ %>
+
+                           <% } %>
+                           <% if(context.list[i].checkType==3){ %>
+                            //中文校验待添加
+                           <% } %>
+                            <% if(context.list[i].checkType==4){ %>
+                              //英文校验待添加
+                            <% } %>
+                           <% if(context.list[i].checkType==5){ %>
+                              //数字校验待添加
+                           <% } %>
+                            },
+                         <% } %>
+
+            },
+            showErrors: function (errorMap, errorList) {
+                var msg = "";
+                $.each(errorList, function (i, v) {
+                    //msg += (v.message + "\r\n");
+                    //在此处用了layer的方法,显示效果更美观
+                    layer.tips(v.message, v.element, { tips:[2,'red'],time: 2000 });
+                    return false;
+                });
+            },
+			/* 失去焦点时不验证 */
+            onfocusout: false
+        })
+
+    };
+
+
+/**校验结束**/
+
+layui.use('table', function(){
+ var table = layui.table;
+   var tableData=new Array();
+
+  table.render({
+    elem: ${context.bizEnBigName}ParamTable1
+    ,data: tableData
+    ,even:true
+    ,height: 520
+    ,id:"${context.bizEnBigName}ParamTable1"
+    ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+      layout: [ 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+      //,curr: 5 //设定初始在第 5 页
+          ,limits: [30,60]
+          ,limit: 30
+      ,groups: 1 //只显示 1 个连续页码
+      ,first: false //不显示首页
+      ,last: false //不显示尾页
+
+    }
+    ,cols: [[
+    {type:'checkbox', fixed: 'left'}
+
+      <% for(var i=0;i<context.paramList.~size;i++){ %>
+      ,{field:'${context.paramList[i].listColumn}',width:${context.paramList[i].width},title: '${context.paramList[i].columnRemark}',align:'center',fixed: '${context.paramList[i].fixed}',sort: ${context.paramList[i].isOrder}<% if(context.paramList[i].formType==6){ %>, toolbar: '#photo'<% } %> }
+      <% } %>
+,{field:'num',fixed: 'right',title : '数量',width:120, align:'center', edit:'text',}
+    ]]
+
+  });
+});
+
+
+layui.use('table', function(){
+  var table = layui.table;
+  //监听工具条
+  table.on('tool(test)', function(obj){
+    var data = obj.data;
+    if(obj.event === 'edit'){
+
+
+
+    } else if(obj.event === 'del'){
+      layer.confirm('真的删除行么', function(index){
+        obj.del();
+        layer.close(index);
+      });
+
+    } else if(obj.event === 'detail'){
+
+
+
+
+
+
+    }
+
+  });
+
+
+  //复选框选中操作
+  var $ = layui.$, active = {
+    getCheckData: function(){ //获取选中数据
+
+    }
+    ,getCheckLength: function(){ //获取选中数目
+
+    }
+    ,isAll: function(){ //验证是否全选
+
+    }
+  };
+
+  $('.demoTable .layui-btn').on('click', function(){
+    var type = $(this).data('type');
+    active[type] ? active[type].call(this) : '';
+  });
+
+
+
+
+
+
+
+/**
+ * 点击添加${context.bizChName}
+ */
+$('#add_some').on('click', function () {
+    var selectContent2 = layui.table.cache.${context.bizEnBigName}ParamTable1;
+          var arr = selectContent2;
+          var removeItem ="";
+          selectContent1 = $.grep(selectContent2, function(value) {
+              return value != removeItem;
+          });
+          console.log(selectContent1)
+          var some =selectContent1.length;
+          var strs="0,";
+          for (var i = 0; i < some; i++) {
+
+              var obj =selectContent1[i].${context.paramList[0].listColumn};
+              strs+=obj+",";
+          }
+
+    layer.open({
+        type: 2,
+        title: '添加${context.bizChName}',
+        area: ['100%', '100%'], //宽高
+        fix: false, //不固定
+        maxmin: true,
+        content: Feng.ctxPath + '/${context.bizEnName}/${context.bizEnName}_addParam/'+strs
+    });
+
+});
+
+
+
+/**
+ * 删除${context.bizChName}
+ */
+
+var checkedArr=[];
+  $("#delete_all").click(function(){
+
+        var checkStatus = table.checkStatus('${context.bizEnBigName}ParamTable1')
+            ,data = checkStatus.data, tmpArr = [], ids = [];
+
+        var na = data.map(function(v){return v.${context.paramList[0].listColumn};});
+        var zh=na.join();
+        console.log(zh);
+        var nnn= na.length;
+        var arr1 = layui.table.cache.${context.bizEnBigName}ParamTable1;
+
+        var arr = arr1.filter(function (item) {
+            return na.indexOf(item.${context.paramList[0].listColumn}) < 0;
+        })
+        console.log(arr);
+        if (data.length == 0){
+            layui.layer.msg('请选择要删除行');
+            return;
+        }
+        table.reload('${context.bizEnBigName}ParamTable1', {
+            data:arr
+        });
+
+    });
+
+
+
+
+
+
+
+
+
+});
+
+
+/**
+ * 提交添加
+ */
+${context.bizEnBigName}InfoDlg.addSubmit = function() {
+
+    this.clearData();
+    this.collectData();
+var biaoge =layui.table.cache.${context.bizEnBigName}ParamTable1;
+    //提交信息
+    var ajax = new $ax(Feng.ctxPath + "/${context.bizEnName}/add", function(DATA){
+        Feng.success("添加成功!");
+
+                var ajax1 = new $ax(Feng.ctxPath + "/${context.bizEnName}/list", function(data){
+                    tableData=data
+                });
+                 var demoReload = parent.$('#condition').val();
+                ajax1.set('condition',demoReload);
+                  <% for(var i=0;i<context.list.~size;i++){ %>
+                            <% if(context.list[i].isQuery==1){ %>
+                            ajax1.set('${context.list[i].columnName}',parent.$('#${context.list[i].columnName}').val());
+                            <% } %>
+                            <% } %>
+                    ajax1.start();
+         window.parent.layui.table.reload('${context.bizEnBigName}Table', {data:tableData});
+        ${context.bizEnBigName}InfoDlg.close();
+    },function(DATA){
+        Feng.error("添加失败!" + DATA.responseJSON.message + "!");
+    });
+    ajax.set('idata',JSON.stringify(this.${context.bizEnName}InfoData));
+          ajax.set('tdata',JSON.stringify(biaoge));
+    ajax.start();
+}
+
+
+
+
+
+
+
+
+
+
+//修改页面
+layui.use('table', function(){
+    var table = layui.table;
+    var tableData=new Array();
+    $.ajax({
+        url:Feng.ctxPath +"/bs_bill/initParam/"+$('#${context.list[0].columnName}').val()
+        ,type:"get"
+        ,async:false
+        ,dataType:"json"
+        , success: function(result){
+            tableData=result;
+
+        }
+    });
+    table.render({
+        elem: ${context.bizEnBigName}ParamTable3
+        ,data: tableData
+        ,even:true
+        ,height: 520
+        ,id:"${context.bizEnBigName}ParamTable3"
+        ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+            layout: [ 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+            //,curr: 5 //设定初始在第 5 页
+            ,limits: [30,60]
+            ,limit: 30
+            ,groups: 1 //只显示 1 个连续页码
+            ,first: false //不显示首页
+            ,last: false //不显示尾页
+
+        }
+        ,cols: [[
+           {type:'checkbox', fixed: 'left'}
+
+             <% for(var i=0;i<context.paramList.~size;i++){ %>
+             ,{field:'${context.paramList[i].listColumn}',width:${context.paramList[i].width},title: '${context.paramList[i].columnRemark}',align:'center',fixed: '${context.paramList[i].fixed}',sort: ${context.paramList[i].isOrder}<% if(context.paramList[i].formType==6){ %>, toolbar: '#photo'<% } %> }
+             <% } %>
+       ,{field:'num',fixed: 'right',title : '数量',width:120, align:'center', edit:'text',}
+           ]]
+
+    });
+});
+
+layui.use('table', function(){
+    var table = layui.table;
+    //监听工具条
+    table.on('tool(test)', function(obj){
+        var data = obj.data;
+        if(obj.event === 'edit'){
+
+
+
+        } else if(obj.event === 'del'){
+            layer.confirm('真的删除行么', function(index){
+                obj.del();
+                layer.close(index);
+            });
+
+        } else if(obj.event === 'detail'){
+
+
+
+
+
+
+        }
+
+    });
+
+
+    //复选框选中操作
+    var $ = layui.$, active = {
+        getCheckData: function(){ //获取选中数据
+
+        }
+        ,getCheckLength: function(){ //获取选中数目
+
+        }
+        ,isAll: function(){ //验证是否全选
+
+        }
+    };
+
+    $('.demoTable .layui-btn').on('click', function(){
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
+    });
+
+
+
+
+
+
+
+    /**
+     * 点击添加订单
+     */
+    $('#add_some2').on('click', function () {
+        var selectContent2 = layui.table.cache.${context.bizEnBigName}ParamTable3;
+        var arr = selectContent2;
+        var removeItem ="";
+        selectContent1 = $.grep(selectContent2, function(value) {
+            return value != removeItem;
+        });
+        console.log(${context.bizEnBigName}ParamTable3)
+        var some =selectContent2.length;
+        var strs="0,";
+        for (var i = 0; i < some; i++) {
+
+            var obj =selectContent1[i].${context.paramList[0].listColumn};
+            strs+=obj+",";
+        }
+
+        layer.open({
+            type: 2,
+            title: '添加订单',
+            area: ['100%', '100%'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            content: Feng.ctxPath + '/bs_bill/bs_bill_addParam/'+strs
+        });
+
+    });
+
+
+
+    /**
+     * 删除订单
+     */
+
+    var checkedArr=[];
+    $("#delete_all2").click(function(){
+
+        var checkStatus = table.checkStatus('${context.bizEnBigName}ParamTable3')
+            ,data = checkStatus.data, tmpArr = [], ids = [];
+
+        var na = data.map(function(v){return v.${context.paramList[0].listColumn};});
+        var zh=na.join();
+        console.log(zh);
+        var nnn= na.length;
+        var arr1 = layui.table.cache.${context.bizEnBigName}ParamTable3;
+
+        var arr = arr1.filter(function (item) {
+            return na.indexOf(item.${context.paramList[0].listColumn}) < 0;
+        })
+        console.log(arr);
+        if (data.length == 0){
+            layui.layer.msg('请选择要删除行');
+            return;
+        }
+        table.reload('${context.bizEnBigName}ParamTable3', {
+            data:arr
+        });
+
+    });
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * 提交修改
+ */
+${context.bizEnBigName}InfoDlg.editSubmit = function() {
+
+    this.clearData();
+    this.collectData();
+var biaoge =layui.table.cache.${context.bizEnBigName}ParamTable3;
+    //提交信息
+    var ajax = new $ax(Feng.ctxPath + "/${context.bizEnName}/update", function(DATA){
+        Feng.success("修改成功!"); var ajax1 = new $ax(Feng.ctxPath + "/${context.bizEnName}/list", function(data){
+          tableData=data
+      });
+       var demoReload = parent.$('#condition').val();
+      ajax1.set('condition',demoReload);
+        <% for(var i=0;i<context.list.~size;i++){ %>
+      <% if(context.list[i].isQuery==1){ %>
+      ajax1.set('${context.list[i].columnName}',parent.$('#${context.list[i].columnName}').val());
+      <% } %>
+      <% } %>
+          ajax1.start();
+window.parent.layui.table.reload('${context.bizEnBigName}Table', {data:tableData});
+        ${context.bizEnBigName}InfoDlg.close();
+    },function(DATA){
+        Feng.error("修改失败!" + data.responseJSON.message + "!");
+    });
+    ajax.set(this.${context.bizEnName}InfoData);
+              ajax.set('tdata',JSON.stringify(biaoge));
+    ajax.start();
+}

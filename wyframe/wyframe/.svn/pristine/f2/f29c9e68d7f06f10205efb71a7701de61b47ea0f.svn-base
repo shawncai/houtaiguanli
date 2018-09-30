@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.fxb.xgt_sub_qp.dao.Xgt_sub_qpMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.fxb.xgt_sub_qp.model.Xgt_sub_qp">
+	<id column="sub_qp_id" property="sub_qp_id" />
+	<result column="sub_qp_title" property="sub_qp_title" />
+	<result column="par_sub_qp_id" property="par_sub_qp_id" />
+	<result column="spec_flg" property="spec_flg" />
+	<result column="sub_id" property="sub_id" />
+	<result column="sub_exam_id" property="sub_exam_id" />
+	<result column="sub_qp_tp_id" property="sub_qp_tp_id" />
+	<result column="sub_qp_ea_id" property="sub_qp_ea_id" />
+	<result column="sub_qp_sel_a" property="sub_qp_sel_a" />
+	<result column="sub_qp_sel_b" property="sub_qp_sel_b" />
+	<result column="sub_qp_sel_c" property="sub_qp_sel_c" />
+	<result column="sub_qp_sel_d" property="sub_qp_sel_d" />
+	<result column="sub_qp_yes" property="sub_qp_yes" />
+	<result column="sub_qp_no" property="sub_qp_no" />
+	<result column="sub_qp_answer" property="sub_qp_answer" />
+	<result column="sub_qp_anl" property="sub_qp_anl" />
+	<result column="mdi_dt" property="mdi_dt" />
+	<result column="cre_dt" property="cre_dt" />
+	<result column="cpn_id" property="cpn_id" />
+	<result column="st_id" property="st_id" />
+	</resultMap>
+</mapper>

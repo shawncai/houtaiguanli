@@ -1,0 +1,95 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+			<#layUITable id="${context.bizEnBigName}ParamTable2"/>
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="确定" id="ensure" icon="fa-check" />
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+        var tableData=new Array();
+        $.ajax({
+            url:Feng.ctxPath +"/bs_bill/paramList"
+            ,type:"get"
+            ,async:false
+            ,dataType:"json"
+            , success: function(result){
+                tableData=result;
+
+            }
+        });
+        table.render({
+            elem: ${context.bizEnBigName}ParamTable2
+            ,data: tableData
+            ,even:true
+            ,height: 520
+            ,id:"${context.bizEnBigName}ParamTable2"
+            ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                layout: [ 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                //,curr: 5 //设定初始在第 5 页
+                ,limits: [30,60]
+                ,limit: 30
+                ,groups: 1 //只显示 1 个连续页码
+                ,first: false //不显示首页
+                ,last: false //不显示尾页
+
+            }
+            ,cols: [[
+                {type:'checkbox', fixed: 'left'}
+
+                  <% for(var i=0;i<context.paramList.~size;i++){ %>
+                  ,{field:'${context.paramList[i].listColumn}',width:${context.paramList[i].width},title: '${context.paramList[i].columnRemark}',align:'center',fixed: '${context.paramList[i].fixed}',sort: ${context.paramList[i].isOrder}<% if(context.paramList[i].formType==6){ %>, toolbar: '#photo'<% } %> }
+                  <% } %>
+            ,{field:'num',fixed: 'right',title : '数量',width:120, align:'center', edit:'text'}
+                ]]
+
+        });
+        $('#ensure').on('click',function () {
+            var checkStatus = table.checkStatus('${context.bizEnBigName}ParamTable2');
+            var data = checkStatus.data;
+            var oldData=parent.layui.table.cache.${context.bizEnBigName}ParamTable1;
+              if(oldData!=undefined){
+                            for (var i = 0; i < data.length; i++) {
+                                oldData.push(data[i]);
+                                parent.layui.table.reload('${context.bizEnBigName}ParamTable1',{
+                                    data : oldData
+                                });
+                            }
+                            console.log(oldData);
+
+                            parent.layer.closeAll()
+                        }else {
+
+                            var oldData1=parent.layui.table.cache.${context.bizEnBigName}ParamTable3;
+                            for (var i = 0; i < data.length; i++) {
+                                oldData1.push(data[i]);
+                                parent.layui.table.reload('${context.bizEnBigName}ParamTable3',{
+                                    data : oldData1
+                                });
+                            }
+                            parent.layer.closeAll()
+                        }
+
+        })
+
+
+
+    });
+    $('#cancel').on('click',function () {
+        parent.layer.closeAll()
+    })
+</script>
+<style>
+    .layui-table-cell{
+        height:auto;
+        line-height: 41px;
+    }</style>
+@}

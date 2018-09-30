@@ -1,0 +1,79 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+           <input type="hidden" id="prd_vendor_id" value="${xgt_goods_prd_vendor.prd_vendor_id}">
+
+           <table class="table table-striped table-bordered table-hover" style="font-size:16px;">
+                <tbody>
+                 <tr>
+                <td class="td_title" style="text-align:center "></td>
+            	<td class="td_content" style="text-align:center "><input id="prd_vendor_nm" value="${xgt_goods_prd_vendor.prd_vendor_nm}" readonly="readonly" class="form-control"/></td>
+           		<td class="td_title" style="text-align:center "></td>
+                <td class="td_content" style="text-align:center "><input id="prd_vendor_alias" value="${xgt_goods_prd_vendor.prd_vendor_alias}" readonly="readonly" class="form-control"/></td>
+                </tr>
+                 <tr>
+                <td class="td_title" style="text-align:center ">企业法人联系方式</td>
+            	<td class="td_content" style="text-align:center "><input id="prd_vendor_man" value="${xgt_goods_prd_vendor.prd_vendor_man}" readonly="readonly" class="form-control"/></td>
+           		<td class="td_title" style="text-align:center ">企业法人邮箱</td>
+                <td class="td_content" style="text-align:center "><input id="man_email" value="${xgt_goods_prd_vendor.man_email}" readonly="readonly" class="form-control"/></td>
+                </tr>
+                 <tr>
+                <td class="td_title" style="text-align:center ">申请人手机号</td>
+            	<td class="td_content" style="text-align:center "><input id="man_phone" value="${xgt_goods_prd_vendor.man_phone}" readonly="readonly" class="form-control"/></td>
+           		<td class="td_title" style="text-align:center ">1：供货商；2：分销商</td>
+                <td class="td_content" style="text-align:center "><input id="vendor_flg" value="${xgt_goods_prd_vendor.vendor_flg}" readonly="readonly" class="form-control"/></td>
+                </tr>
+                 <tr>
+                <td class="td_title" style="text-align:center ">企业信息ID</td>
+            	<td class="td_content" style="text-align:center "><input id="cpn_id" value="${xgt_goods_prd_vendor.cpn_id}" readonly="readonly" class="form-control"/></td>
+           		<td class="td_title" style="text-align:center ">分支机构ID</td>
+                <td class="td_content" style="text-align:center "><input id="cpn_branch_id" value="${xgt_goods_prd_vendor.cpn_branch_id}" readonly="readonly" class="form-control"/></td>
+                </tr>
+                 <tr>
+                <td class="td_title" style="text-align:center ">状态 -1：停用；1：正常；2：暂停</td>
+            	<td class="td_content" style="text-align:center "><input id="st_id" value="${xgt_goods_prd_vendor.st_id}" readonly="readonly" class="form-control"/></td>
+           		<td class="td_title" style="text-align:center "></td>
+                <td class="td_content" style="text-align:center "><input id="oper_user" value="${xgt_goods_prd_vendor.oper_user}" readonly="readonly" class="form-control"/></td>
+                </tr>
+                 </tbody>
+                </table>
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="确定" id="ensure" icon="fa-check" clickFun="Xgt_goods_prd_vendorInfoDlg.close()"/>
+                    <#button btnCss="danger" name="关闭" id="cancel" icon="fa-eraser" clickFun="Xgt_goods_prd_vendorInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/xgt_vendor/js/xgt_goods_prd_vendor_info.js"></script>
+<script>
+
+	/**
+	 *参数表页面table
+	 */
+	var Xgt_goods_prd_vendor_detail = {
+	    id: "detailTable",	//表格id
+	    seItem: null,		//选中的条目
+	    table: null,
+	    layerIndex: -1
+	};
+
+	/**
+	 * 初始化表格的列
+	 */
+	Xgt_goods_prd_vendor_detail.initColumn = function () {
+	    return [
+	        {field: 'selectItem', checkbox: true}
+	    ];
+	    
+	};
+	var id = $("#prd_vendor_id").val();
+	var defaultColunmss = Xgt_goods_prd_vendor_detail.initColumn();
+    var tabless = new BSTable(Xgt_goods_prd_vendor_detail.id, "/xgt_goods_prd_vendor/detail/"+id, defaultColunmss);
+    tabless.setPaginationType("client");
+  	Xgt_goods_prd_vendor_detail.table = tabless.init();
+</script>
+@}

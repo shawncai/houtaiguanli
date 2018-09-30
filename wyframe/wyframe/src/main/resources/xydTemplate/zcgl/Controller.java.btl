@@ -1,0 +1,231 @@
+package ${controller.packageName};
+
+<% for(import in controller.imports!){ %>
+import ${import};
+<% } %>
+
+/**
+ * ${context.bizChName}控制器
+ *
+ * @author wyFrame
+ * @Date ${tool.currentTime()}
+ */
+@Controller
+@RequestMapping("/${context.bizEnName}")
+public class ${context.bizEnBigName}Controller extends BaseController {
+
+    private String PREFIX = "/${context.scriptPath}/${context.bizEnName}/";
+	@Resource
+	${context.bizEnBigName}Dao ${context.bizEnName}Dao;
+	
+	@Resource
+	${context.bizEnBigName}Mapper ${context.bizEnName}Mapper;
+
+	@Resource
+    XydProperties xydProperties;
+	
+    /**
+     * 跳转到${context.bizChName}首页
+     */
+    @RequestMapping("")
+    public String index(Model model) {
+        <% for(var i=1; i<context.list.~size;i++){ %>
+            <% if(context.list[i].isQuery==1){ %>
+                 List<Map<String, Object>> list${i} = ConstantFactory.me().getDictByName("${context.list[i].queryDict}");
+                 model.addAttribute("map${i}",list${i});
+          <% } %>
+          <% } %>
+        return PREFIX + "${context.bizEnName}.html";
+    }
+
+    /**
+     * 跳转到添加${context.bizChName}
+     */
+    @RequestMapping("/${context.bizEnName}_add")
+    public String ${context.bizEnName}Add(Model model) {
+     <% for(var i=1; i<context.list.~size;i++){ %>
+        <% if(context.list[i].fieldChange==1){ %>
+             List<Map<String, Object>> list${i} = ConstantFactory.me().getDictByName("${context.list[i].fieldTable}");
+             model.addAttribute("map${i}",list${i});
+      <% } %>
+         <% if(context.list[i].fieldChange==2){ %>
+                   List<Map<String, Object>> list${i} = ${context.bizEnName}Dao.getMap${i}();
+                   model.addAttribute("map${i}",list${i});
+            <% } %>
+      <% } %>
+        return PREFIX + "${context.bizEnName}_add.html";
+    }
+
+    /**
+     * 跳转到修改${context.bizChName}
+     */
+    @RequestMapping("/${context.bizEnName}_update/{${context.bizEnName}Id}")
+    public String ${context.bizEnName}Update(@PathVariable Integer ${context.bizEnName}Id, Model model) {
+    	${context.bizEnBigName} ${context.bizEnName} = this.${context.bizEnName}Dao.queryById(${context.bizEnName}Id);
+    	<% for(var i=0;i<context.list.~size;i++){ %>
+    	    <% if(context.list[i].formType==6){ %>
+    	        ${context.bizEnName}.set${context.list[i].bColumnName}(xydProperties.getUrl()+"/"+${context.bizEnName}.get${context.list[i].bColumnName}());
+    	    <% } %>
+    	<% } %>
+    	model.addAttribute(${context.bizEnName});
+		LogObjectHolder.me().set(${context.bizEnName});
+		 <% for(var i=1; i<context.list.~size;i++){ %>
+                <% if(context.list[i].fieldChange==1){ %>
+                     List<Map<String, Object>> list${i} = ConstantFactory.me().getDictByName("${context.list[i].fieldTable}");
+                     model.addAttribute("map${i}",list${i});
+              <% } %>
+                      <% if(context.list[i].fieldChange==2){ %>
+                                 List<Map<String, Object>> list${i} = ${context.bizEnName}Dao.getMap${i}();
+                                 model.addAttribute("map${i}",list${i});
+                          <% } %>
+              <% } %>
+        return PREFIX + "${context.bizEnName}_edit.html";
+    }
+
+    /**
+     * 获取${context.bizChName}列表
+     */
+    @RequestMapping(value = "/list")
+    @ResponseBody
+    public Object list(String condition <% for(var i=0; i<context.list.~size;i++){ %><% if(context.list[i].isQuery==1){ %>,${context.list[i].javaType} ${context.list[i].columnName}<% } %><% } %>) {
+        if(null==xyd_st_id){
+        xyd_st_id=1;
+        }
+        List<Map<String, Object>> list = this.${context.bizEnName}Dao.list(condition<% for(var i=0; i<context.list.~size;i++){ %><% if(context.list[i].isQuery==1){ %>,${context.list[i].columnName}<% } %><% } %>);
+        return super.warpObject(new ${context.bizEnBigName}Warpper(list));
+    }
+
+    /**
+     * 获取${context.bizChName}列表
+     */
+    @RequestMapping(value = "/editList")
+    @ResponseBody
+    public Object editList(String condition<% for(var i=0; i<context.list.~size;i++){ %><% if(context.list[i].isQuery==1){ %>,${context.list[i].javaType} ${context.list[i].columnName}<% } %><% } %>) {
+        if(null==xyd_st_id){
+               xyd_st_id=1;
+        }
+        List<Map<String, Object>> list = this.${context.bizEnName}Dao.list(condition<% for(var i=0; i<context.list.~size;i++){ %><% if(context.list[i].isQuery==1){ %>,${context.list[i].columnName}<% } %><% } %>);
+        Map<String,Object> map = new HashMap();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",list.size());
+        map.put("data",super.warpObject(new ${context.bizEnBigName}Warpper(list)));
+        return map;
+    }
+
+    /**
+     * 新增${context.bizChName}
+     */
+    @RequestMapping(value = "/add")
+    @ResponseBody
+    public Object add(${context.bizEnBigName} ${context.bizEnName}) {
+        ${context.bizEnName}.setXyd_st_id(1);
+        ${context.bizEnName}.setXyd_cre_dt(DateUtil.format(new Date(),"yyyy-MM-dd HH:mm:ss"));
+        ${context.bizEnName}.setXyd_up_dt(DateUtil.format(new Date(),"yyyy-MM-dd HH:mm:ss"));
+        ${context.bizEnName}.setId(ShiroKit.getUser().getId());
+        return this.${context.bizEnName}Mapper.insert(${context.bizEnName});
+    }
+
+    /**
+     * 删除${context.bizChName}
+     */
+    @RequestMapping(value = "/delete")
+    @ResponseBody
+    public Object delete(@RequestParam String ${context.bizEnName}Ids) {
+        //物理删除
+    	//this.${context.bizEnName}Mapper.deleteById(${context.bizEnName}Id);
+    	//逻辑删除
+    	  String[] split =${context.bizEnName}Ids.split(",");
+          Integer[] iarray = new Integer[split.length];
+          for(int i=0;i<split.length;i++){
+              iarray[i]=Integer.parseInt(split[i]);
+           }
+          List<Integer> list = Arrays.asList(iarray);
+    	this.${context.bizEnName}Dao.deleteByIds(list);
+        return SUCCESS_TIP;
+    }
+
+     /**
+     * 修改${context.bizChName}
+     */
+    @RequestMapping(value = "/update")
+    @ResponseBody
+    public Object update(${context.bizEnBigName} ${context.bizEnName}) {
+        ${context.bizEnName}.setXyd_up_dt(DateUtil.format(new Date(),"yyyy-MM-dd HH:mm:ss"));
+        ${context.bizEnName}.setId(ShiroKit.getUser().getId());
+    	this.${context.bizEnName}Mapper.updateById(${context.bizEnName});
+        return super.SUCCESS_TIP;
+    }
+
+
+	/**
+     * 跳转到详情${context.bizChName}
+     */
+    @RequestMapping("/${context.bizEnName}_detail/{${context.bizEnName}Id}")
+    public String ${context.bizEnName}Detail(@PathVariable Integer ${context.bizEnName}Id, Model model) {
+    	${context.bizEnBigName} ${context.bizEnName} = this.${context.bizEnName}Dao.queryById(${context.bizEnName}Id);
+    	 	<% for(var i=0;i<context.list.~size;i++){ %>
+            	    <% if(context.list[i].formType==6){ %>
+            	        ${context.bizEnName}.set${context.list[i].bColumnName}(xydProperties.getUrl()+"/"+${context.bizEnName}.get${context.list[i].bColumnName}());
+            	    <% } %>
+            	<% } %>
+    	model.addAttribute(${context.bizEnName});
+    	 <% for(var i=1; i<context.list.~size;i++){ %>
+                <% if(context.list[i].fieldChange==1){ %>
+                     List<Map<String, Object>> list${i} = ConstantFactory.me().getDictByName("${context.list[i].fieldTable}");
+                     model.addAttribute("map${i}",list${i});
+              <% } %>
+                      <% if(context.list[i].fieldChange==2){ %>
+                                 List<Map<String, Object>> list${i} = ${context.bizEnName}Dao.getMap${i}();
+                                 model.addAttribute("map${i}",list${i});
+                          <% } %>
+              <% } %>
+
+		LogObjectHolder.me().set(${context.bizEnName});
+        return PREFIX + "${context.bizEnName}_detail.html";
+    }
+
+     /**
+     * 导出${context.bizChName}
+     */
+    @RequestMapping(value = "/export", method = RequestMethod.GET)
+    public void export(HttpServletResponse res)  throws ParsePropertyException, InvalidFormatException, IOException {
+    	String resourcePath = "src/main/resources/excelTemplate/${context.bizEnName}.xls";
+    	String tarPath = "src/main/resources/excel/${context.bizEnName}.xls";
+    	String condition = null;
+    	// List<Map<String, Object>> list = this.${context.bizEnName}Dao.list(condition);
+    	 Map<String, List<Map<String,Object>>> beanParams = new HashMap<String, List<Map<String,Object>>>();  
+	    // beanParams.put("list", list);
+	     XLSTransformer former = new XLSTransformer();  
+	     former.transformXLS(resourcePath, beanParams, tarPath); 
+	     
+	     //下载
+		String fileName = "${context.bizEnName}"+DateUtil.getAllTime()+".xls";
+		res.setHeader("content-type", "application/octet-stream");
+		res.setContentType("application/octet-stream");
+		res.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+		byte[] buff = new byte[1024];
+		BufferedInputStream bis = null;
+		OutputStream os = null;
+		try {
+			os = res.getOutputStream();
+			bis = new BufferedInputStream(new FileInputStream(new File("src/main/resources/excel/${context.bizEnName}.xls")));
+			int i = bis.read(buff);
+			while (i != -1) {
+				os.write(buff, 0, buff.length);
+				os.flush();
+				i = bis.read(buff);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (bis != null) {
+				try {
+					bis.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+    }
+}

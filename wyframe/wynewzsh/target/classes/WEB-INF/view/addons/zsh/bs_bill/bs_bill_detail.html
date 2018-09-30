@@ -1,0 +1,52 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+           <input type="hidden" id="bill_id" value="${bs_bill.bill_id}">
+
+      		 <div class="row">
+                     <#inputCol2 id='bill_no' name='订单编号' value='${bs_bill.bill_no}' readonly='readonly'/>
+                     
+                     
+                     <#inputCol2 id='total_money' name='总金额' value='${bs_bill.total_money}' readonly='readonly'/>
+                     <#inputCol2 id='access_mem' name='收货人' value='${bs_bill.access_mem}' readonly='readonly'/>
+                     <#inputCol2 id='access_addr_desc' name='收货人地址' value='${bs_bill.access_addr_desc}' readonly='readonly'/>
+                     <#inputCol2 id='access_phone' name='收货人电话' value='${bs_bill.access_phone}' readonly='readonly'/>
+
+                     <#inputCol2 id='send_chnl_id' name='配送商' value='${bs_bill.send_chnl_id}' readonly='readonly'/>
+                     <#inputCol2 id='lu_user' name='录入人' value='${bs_bill.lu_user}' readonly='readonly'/>
+                     <#inputCol2 id='send_dt' name='发货日期' value='${bs_bill.send_dt}' readonly='readonly'/>
+                     <#inputCol2 id='bill_st_id' name='订单状态' value='${bs_bill.bill_st_id}' readonly='readonly'/>
+                     <#inputCol2 id='staff_user' name='操作人' value='${bs_bill.staff_user}' readonly='readonly'/>
+                     <#inputCol2 id='crt_dt' name='创建日期' value='${bs_bill.crt_dt}' readonly='readonly'/>
+
+                     <#inputCol2 id='user_remark' name='用户备注' value='${bs_bill.user_remark}' readonly='readonly'/>
+                     <#inputCol2 id='remarks' name='系统备注' value='${bs_bill.remarks}' readonly='readonly'/>
+                     <#inputCol2 id='send_st' name='配送状态' value='${bs_bill.send_st}' readonly='readonly'/>
+                     <#inputCol2 id='send_user' name='配送操作人' value='${bs_bill.send_user}' readonly='readonly'/>
+                     <#inputCol2 id='send_cre_dt' name='配送时间' value='${bs_bill.send_cre_dt}' readonly='readonly'/>
+                     <#inputCol2 id='send_remark' name='配送备注' value='${bs_bill.send_remark}' readonly='readonly'/>
+                     <#inputCol2 id='total_num' name='总量' value='${bs_bill.total_num}' readonly='readonly'/>
+                     <#inputCol2 id='card_no' name='水卡卡号' value='${bs_bill.card_no}' readonly='readonly'/>
+                     <#inputCol2 id='src_bill_no' name='原始单号' value='${bs_bill.src_bill_no}' readonly='readonly'/>
+                     <#inputCol2 id='new_area_desc' name='全部地址' value='${bs_bill.new_area_desc}' readonly='readonly'/>
+                     <#inputCol2 id='xyd_st_id' name='删除状态' value='${bs_bill.xyd_st_id}' readonly='readonly'/>
+                     <#inputCol2 id='xyd_cre_dt' name='创建日期' value='${bs_bill.xyd_cre_dt}' readonly='readonly'/>
+                                 </div>
+                                 <#layUITable id="Bs_billParamTable3"/>
+            <div class="row btn-group-m-t text-center">
+                <div class="col-sm-10">
+                    <#button btnCss="danger" name="关闭" id="cancel" icon="fa-eraser" clickFun="Bs_billInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zsh/bs_bill/js/bs_bill_info.js"></script>
+<style>
+    .layui-table-cell{
+        height:auto;
+        line-height: 41px;
+    }</style>
+@}

@@ -1,0 +1,232 @@
+package wy.addons.zsh.bs_sale_channel.controller;
+
+import wy.core.base.controller.BaseController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.List;
+import java.util.HashMap;
+import java.io.IOException;
+import java.io.BufferedInputStream;
+import java.io.OutputStream;
+import java.io.File;
+import java.util.Arrays;
+import com.alibaba.fastjson.JSON;
+import wy.core.util.DateUtil;
+import java.io.FileInputStream;
+import wy.core.shiro.ShiroKit;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.RequestMethod;
+import java.util.Date;
+import net.sf.jxls.exception.ParsePropertyException;
+import net.sf.jxls.transformer.XLSTransformer;
+import javax.annotation.Resource;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import wy.core.log.LogObjectHolder;
+import wy.core.util.DateUtil;
+import wy.common.constant.factory.ConstantFactory;
+import wy.config.properties.XydProperties;
+import wy.addons.zsh.bs_sale_channel.model.Bs_sale_channel;
+import org.springframework.web.bind.annotation.PathVariable;
+import wy.addons.zsh.bs_sale_channel.dao.Bs_sale_channelDao;
+import wy.addons.zsh.bs_sale_channel.dao.Bs_sale_channelMapper;
+import wy.addons.zsh.bs_sale_channel.warpper.Bs_sale_channelWarpper;
+
+/**
+ * 销售渠道控制器
+ *
+ * @author wyFrame
+ * @Date 2018-07-25 14:10:16
+ */
+@Controller
+@RequestMapping("/bs_sale_channel")
+public class Bs_sale_channelController extends BaseController {
+
+    private String PREFIX = "/addons/zsh/bs_sale_channel/";
+	@Resource
+	Bs_sale_channelDao bs_sale_channelDao;
+	
+	@Resource
+	Bs_sale_channelMapper bs_sale_channelMapper;
+
+	@Resource
+    XydProperties xydProperties;
+	
+    /**
+     * 跳转到销售渠道首页
+     */
+    @RequestMapping("")
+    public String index(Model model) {
+                 List<Map<String, Object>> list6 = ConstantFactory.me().getDictByName("删除状态");
+                 model.addAttribute("map6",list6);
+        return PREFIX + "bs_sale_channel.html";
+    }
+
+    /**
+     * 跳转到添加销售渠道
+     */
+    @RequestMapping("/bs_sale_channel_add")
+    public String bs_sale_channelAdd(Model model) {
+             List<Map<String, Object>> list6 = ConstantFactory.me().getDictByName("删除状态");
+             model.addAttribute("map6",list6);
+                   List<Map<String, Object>> list9 = bs_sale_channelDao.getMap9();
+                   model.addAttribute("map9",list9);
+        return PREFIX + "bs_sale_channel_add.html";
+    }
+
+    /**
+     * 跳转到修改销售渠道
+     */
+    @RequestMapping("/bs_sale_channel_update/{bs_sale_channelId}")
+    public String bs_sale_channelUpdate(@PathVariable Integer bs_sale_channelId, Model model) {
+    	Bs_sale_channel bs_sale_channel = this.bs_sale_channelDao.queryById(bs_sale_channelId);
+    	model.addAttribute(bs_sale_channel);
+		LogObjectHolder.me().set(bs_sale_channel);
+                     List<Map<String, Object>> list6 = ConstantFactory.me().getDictByName("删除状态");
+                     model.addAttribute("map6",list6);
+                                 List<Map<String, Object>> list9 = bs_sale_channelDao.getMap9();
+                                 model.addAttribute("map9",list9);
+        return PREFIX + "bs_sale_channel_edit.html";
+    }
+
+    /**
+     * 获取销售渠道列表
+     */
+    @RequestMapping(value = "/list")
+    @ResponseBody
+    public Object list(String condition ,Integer xyd_st_id) {
+        if(null==xyd_st_id){
+        xyd_st_id=1;
+        }
+        List<Map<String, Object>> list = this.bs_sale_channelDao.list(condition,xyd_st_id);
+        return super.warpObject(new Bs_sale_channelWarpper(list));
+    }
+
+    /**
+     * 获取销售渠道列表
+     */
+    @RequestMapping(value = "/editList")
+    @ResponseBody
+    public Object editList(String condition,Integer xyd_st_id) {
+        if(null==xyd_st_id){
+               xyd_st_id=1;
+        }
+        List<Map<String, Object>> list = this.bs_sale_channelDao.list(condition,xyd_st_id);
+        Map<String,Object> map = new HashMap();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",list.size());
+        map.put("data",super.warpObject(new Bs_sale_channelWarpper(list)));
+        return map;
+    }
+
+    /**
+     * 新增销售渠道
+     */
+    @RequestMapping(value = "/add")
+    @ResponseBody
+    public Object add(Bs_sale_channel bs_sale_channel) {
+        bs_sale_channel.setXyd_st_id(1);
+        bs_sale_channel.setXyd_cre_dt(DateUtil.format(new Date(),"yyyy-MM-dd HH:mm:ss"));
+        bs_sale_channel.setXyd_up_dt(DateUtil.format(new Date(),"yyyy-MM-dd HH:mm:ss"));
+        bs_sale_channel.setId(ShiroKit.getUser().getId());
+        return this.bs_sale_channelMapper.insert(bs_sale_channel);
+    }
+
+    /**
+     * 删除销售渠道
+     */
+    @RequestMapping(value = "/delete")
+    @ResponseBody
+    public Object delete(@RequestParam String bs_sale_channelIds) {
+        //物理删除
+    	//this.bs_sale_channelMapper.deleteById(bs_sale_channelId);
+    	//逻辑删除
+    	  String[] split =bs_sale_channelIds.split(",");
+          Integer[] iarray = new Integer[split.length];
+          for(int i=0;i<split.length;i++){
+              iarray[i]=Integer.parseInt(split[i]);
+           }
+          List<Integer> list = Arrays.asList(iarray);
+    	this.bs_sale_channelDao.deleteByIds(list);
+        return SUCCESS_TIP;
+    }
+
+     /**
+     * 修改销售渠道
+     */
+    @RequestMapping(value = "/update")
+    @ResponseBody
+    public Object update(Bs_sale_channel bs_sale_channel) {
+        bs_sale_channel.setXyd_up_dt(DateUtil.format(new Date(),"yyyy-MM-dd HH:mm:ss"));
+        bs_sale_channel.setId(ShiroKit.getUser().getId());
+    	this.bs_sale_channelMapper.updateById(bs_sale_channel);
+        return super.SUCCESS_TIP;
+    }
+
+
+	/**
+     * 跳转到详情销售渠道
+     */
+    @RequestMapping("/bs_sale_channel_detail/{bs_sale_channelId}")
+    public String bs_sale_channelDetail(@PathVariable Integer bs_sale_channelId, Model model) {
+    	Bs_sale_channel bs_sale_channel = this.bs_sale_channelDao.queryById(bs_sale_channelId);
+    	model.addAttribute(bs_sale_channel);
+                     List<Map<String, Object>> list6 = ConstantFactory.me().getDictByName("删除状态");
+                     model.addAttribute("map6",list6);
+                                 List<Map<String, Object>> list9 = bs_sale_channelDao.getMap9();
+                                 model.addAttribute("map9",list9);
+
+		LogObjectHolder.me().set(bs_sale_channel);
+        return PREFIX + "bs_sale_channel_detail.html";
+    }
+
+     /**
+     * 导出销售渠道
+     */
+    @RequestMapping(value = "/export", method = RequestMethod.GET)
+    public void export(HttpServletResponse res)  throws ParsePropertyException, InvalidFormatException, IOException {
+    	String resourcePath = "src/main/resources/excelTemplate/bs_sale_channel.xls";
+    	String tarPath = "src/main/resources/excel/bs_sale_channel.xls";
+    	String condition = null;
+    	// List<Map<String, Object>> list = this.bs_sale_channelDao.list(condition);
+    	 Map<String, List<Map<String,Object>>> beanParams = new HashMap<String, List<Map<String,Object>>>();  
+	    // beanParams.put("list", list);
+	     XLSTransformer former = new XLSTransformer();  
+	     former.transformXLS(resourcePath, beanParams, tarPath); 
+	     
+	     //下载
+		String fileName = "bs_sale_channel"+DateUtil.getAllTime()+".xls";
+		res.setHeader("content-type", "application/octet-stream");
+		res.setContentType("application/octet-stream");
+		res.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+		byte[] buff = new byte[1024];
+		BufferedInputStream bis = null;
+		OutputStream os = null;
+		try {
+			os = res.getOutputStream();
+			bis = new BufferedInputStream(new FileInputStream(new File("src/main/resources/excel/bs_sale_channel.xls")));
+			int i = bis.read(buff);
+			while (i != -1) {
+				os.write(buff, 0, buff.length);
+				os.flush();
+				i = bis.read(buff);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (bis != null) {
+				try {
+					bis.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+    }
+}

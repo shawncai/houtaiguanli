@@ -1,0 +1,38 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+           <input type="hidden" id="sub_qp_id" value="${xgt_sub_qp.sub_qp_id}">
+
+      		 <div class="row">
+                     <#inputCol2 id='sub_qp_title' name='题目内容' value='${xgt_sub_qp.sub_qp_title}' readonly='readonly'/>
+                     <#selectCol2 id='sub_id' name='科目' map='${map2}' value='${xgt_sub_qp.sub_id}' />
+                     <#selectCol2 id='sub_exam_id' name='试卷' map='${map3}' value='${xgt_sub_qp.sub_exam_id}' />
+                     <#inputCol2 id='sub_qp_seq' name='序号' value='${xgt_sub_qp.sub_qp_seq}' readonly='readonly' />
+                     <#selectCol2 id='sub_qp_tp_id' name='题目类型 ' map='${map4}' value='${xgt_sub_qp.sub_qp_tp_id}' />
+                     <#selectCol2 id='sub_qp_ea_id' name='题目难度' map='${map5}' value='${xgt_sub_qp.sub_qp_ea_id}' />
+                     <#inputCol2 id='sub_qp_sel_a' name='选项A' value='${xgt_sub_qp.sub_qp_sel_a}' readonly='readonly'/>
+                     <#inputCol2 id='sub_qp_sel_b' name='选项B' value='${xgt_sub_qp.sub_qp_sel_b}' readonly='readonly'/>
+                     <#inputCol2 id='sub_qp_sel_c' name='选项C' value='${xgt_sub_qp.sub_qp_sel_c}' readonly='readonly'/>
+                     <#inputCol2 id='sub_qp_sel_d' name='选项D' value='${xgt_sub_qp.sub_qp_sel_d}' readonly='readonly'/>
+                     <#inputCol2 id='sub_qp_yes' name='正选项' value='${xgt_sub_qp.sub_qp_yes}' readonly='readonly'/>
+                     <#inputCol2 id='sub_qp_no' name='错选项' value='${xgt_sub_qp.sub_qp_no}' readonly='readonly'/>
+                     <#inputCol2 id='sub_qp_answer' name='答案' value='${xgt_sub_qp.sub_qp_answer}' readonly='readonly'/>
+                     <#inputCol2 id='sub_qp_anl' name='题目分析' value='${xgt_sub_qp.sub_qp_anl}' readonly='readonly'/>
+                     <#selectCol2 id='spec_flg' name='分类 ' map='${map14}' value='${xgt_sub_qp.spec_flg}' />
+                     <#inputCol2 id='mdi_dt' name='变更时间' value='${xgt_sub_qp.mdi_dt}' readonly='readonly'/>
+                     <#inputCol2 id='cre_dt' name='创建时间' value='${xgt_sub_qp.cre_dt}' readonly='readonly'/>
+                     <#selectCol2 id='st_id' name='状态  ' map='${map17}' value='${xgt_sub_qp.st_id}' />
+                     <#selectCol2 id='cpn_id' name='企业信息' map='${map18}' value='${xgt_sub_qp.cpn_id}' />
+                                 </div>
+            <div class="row btn-group-m-t text-center">
+                <div class="col-sm-10">
+                    <#button btnCss="danger" name="关闭" id="cancel" icon="fa-eraser" clickFun="Xgt_sub_qpInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/fxb/xgt_sub_qp/js/xgt_sub_qp_info.js"></script>
+@}

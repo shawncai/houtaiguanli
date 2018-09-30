@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="${ctxPath}/static/css_allot/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="${ctxPath}/static/css_allot/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="${ctxPath}/static/css_allot/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link href="${ctxPath}/static/js_allot/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
+    <link href="${ctxPath}/static/css_allot/animate.css" rel="stylesheet">
+    <link href="${ctxPath}/static/css_allot/style.css?v=4.1.0" rel="stylesheet">
+    <link href="${ctxPath}/static/css_allot/base.css" rel="stylesheet">
+    <link href="${ctxPath}/static/layui/css/modules/layer/default/layer.css" rel="stylesheet">
+    <script src="${ctxPath}/static/js_allot/jquery.min.js?v=2.1.4"></script>
+    <script src="${ctxPath}/static/js_allot/ajax-object.js"></script>
+    <script src="${ctxPath}/static/js_allot/Feng.js"></script>
+    <script type="text/javascript">
+        Feng.addCtx("${ctxPath}");
+        Feng.sessionTimeoutRegistry();
+    </script>
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="text-nowrap" style="float:left">NO.<span id="allotStore">QTCkD</span></div>
+                    <h3 class="name" style="width:106px;float: left;margin-left: 32%">调拨单</h3>
+                    <div class="anniu " style="padding-left: 88%;">
+                        <button type="button" class="btn btn-info  btn-xs" id="seach">查询</button>
+                        <button type="button" class="btn btn-info  btn-xs" id="print">打印</button>
+                        <div class="btn-group">
+                            <button data-toggle="dropdown" class="btn btn-info btn-xs dropdown-toggle">批量
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" style="min-width:100%;">
+                                <li>
+                                    <a >导入</a>
+                                </li>
+                                <li>
+                                    <a  class="font-bold">导出</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ibox-content">
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">出库仓库
+                                </button>
+                            </div>
+                            <input type="text1" class="form-control case" id="condition1" placeholder="">
+                            <input type="hidden" id="condition1_hidden" value="">
+                            <a class="glyphicon glyphicon-remove-circle btn form-control-feedback" style="pointer-events: auto;position: absolute;left: 66%;" id="case_close_span"></a>
+                            <a class="glyphicon glyphicon-plus btn form-control-feedback" style="pointer-events: auto;position: absolute;left: 76%;" id="case_add_span"></a>
+                            <a class="glyphicon glyphicon-search btn form-control-feedback" style="pointer-events: auto;position: absolute;left: 86%;" id="case_seach_span"></a>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-3">
+
+
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">入库仓库
+                                </button>
+                            </div>
+                            <input type="text" class="form-control addperson gonghuo " id="condition"  value="" >
+                            <input type="hidden" id="condition_hidden" value="">
+                            <a class="glyphicon glyphicon-remove-circle btn form-control-feedback" style="pointer-events: auto;position: absolute;left: 66%;" id="close_span"></a>
+                            <a class="glyphicon glyphicon-plus btn form-control-feedback" style="pointer-events: auto;position: absolute;left: 76%;" id="add_span"></a>
+                            <a class="glyphicon glyphicon-search btn form-control-feedback" style="pointer-events: auto;position: absolute;left: 86%;" id="seach_span"></a>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">经手人
+                                </button>
+                            </div>
+                            <input type="text2" class="form-control staff" id="condition2" placeholder="">
+                            <input type="hidden" id="condition2_hidden" value="">
+                            <a class="glyphicon glyphicon-remove-circle btn form-control-feedback" style="pointer-events: auto;position: absolute;left: 66%;" id="staff_close_span"></a>
+                            <a class="glyphicon glyphicon-plus btn form-control-feedback"  style="pointer-events: auto;position: absolute;left: 76%;" id="staff_add_span"></a>
+                            <a class="glyphicon glyphicon-search btn form-control-feedback"  style="pointer-events: auto;position: absolute;left: 86%;" id="staff_seach_span"></a>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">日期
+                                </button>
+                            </div>
+                            <input id="hello" class="laydate-icon form-control layer-date">
+                        </div>                            </div>
+                    <div class="hidden-xs" id="exampleTableToolbarToolbar" role="group">
+                        <button type="button" class="btn btn-outline btn-default"  id="add_some">
+                            <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline btn-default" id="delete_all">
+                            <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <table id="exampleTableToolbar" data-mobile-responsive="true">
+                        <thead>
+                        <tr>
+
+                            <th data-field="selectItem" data-checkbox="true"></th>
+
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+
+            </div>
+            <!-- End Example Toolbar -->
+        </div>
+    </div>
+</div>
+<div class="navbar-fixed-bottom ibox_footer " style="margin-top: 20px;padding-left: 51px;background: #fff;">
+    <div class="row" style="width: 80%;">
+        <div class="col-sm-1">
+            <h3 class="text-left">备&nbsp;&nbsp;&nbsp;注:</h3>
+        </div>
+        <div class="col-sm-8">
+            <textarea cols="101" rows="1" id="remark"></textarea>
+        </div>
+
+    </div>
+    <div class="row" style="width: 90%;">
+        <div class="col-sm-4">
+            <h3>制单人：<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${user}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;打印次数：N</h3>
+
+        </div>
+        <div class="col-sm-4"><h3>制单时间：${timer}</h3></div>
+        <div class="col-sm-4 " >
+            <h3  class="text-left" style="margin-top: -6%;">总计:&nbsp;&nbsp;&nbsp;<span id="totalAmount" style="color: red;font-size: 30px">0.00</span></h3>
+
+        </div>
+
+    </div>
+    <div class="col-sm-3 text-center" >
+        <button type="button" class="btn btn-success  btn-lg" id="baocun">保存</button>
+        <button type="button" class="btn btn-primary  btn-lg" id="tijiao">提交</button>
+    </div>
+</div>
+<script src="${ctxPath}/static/js_allot/bootstrap.min.js?v=3.3.6"></script>
+<script src="${ctxPath}/static/js_allot/layer1/layer.js"></script>
+<!-- 自定义js -->
+
+<script src="${ctxPath}/static/js_allot/project_table_allot.js"></script>
+<!-- Bootstrap table -->
+<script src="${ctxPath}/static/js_allot/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="${ctxPath}/static/js_allot/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+<script src="${ctxPath}/static/js_allot/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="${ctxPath}/static/js_allot/bootstrap3-editable/js/bootstrap-editable.js"></script>
+<script src="${ctxPath}/static/js_allot/bootstrap-table-editable.js"></script>
+<!-- Peity -->
+<script src="${ctxPath}/static/js_allot/bootstrap-table-object.js"></script>
+<script src="${ctxPath}/static/js_allot/table_allot.js"></script>
+
+<script src="${ctxPath}/static/js_allot/laydate/laydate.js"></script>
+<script>
+    //外部js调用
+    laydate.render({
+        elem: '#hello', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
+        type: 'datetime',
+        event: 'focus' //响应事件。如果没有传入event，则按照默认的click
+    });
+
+    <!-- 加载出库单编号 -->
+    $(function () {
+        var ajax = new $ax(Feng.ctxPath + "/xgt_goods_store_bill_allot/getAllotNo", function (data) {
+            document.getElementById("allotStore").innerHTML=data;
+        }, function (data) {
+            Feng.error("加载失败!" + data.responseJSON.message + "!");
+        });
+        ajax.start();
+    })
+
+</script>
+</body>
+</html>

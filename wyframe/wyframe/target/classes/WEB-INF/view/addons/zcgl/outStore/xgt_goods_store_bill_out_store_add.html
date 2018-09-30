@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="${ctxPath}/static/favicon.ico"> 
+    <link href="${ctxPath}/static/css_chuku/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="${ctxPath}/static/css_chuku/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="${ctxPath}/static/css_chuku/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link href="${ctxPath}/static/css_chuku/animate.css" rel="stylesheet">
+    <link href="${ctxPath}/static/css_chuku/style.css?v=4.1.0" rel="stylesheet">
+ <script src="${ctxPath}/static/js_chuku/jquery.min.js?v=2.1.4"></script>   
+<script src="${ctxPath}/static/js_chuku/ajax-object.js"></script>
+ <script src="${ctxPath}/static/js_chuku/Feng.js"></script>
+ <script type="text/javascript">
+        Feng.addCtx("");
+        Feng.sessionTimeoutRegistry();
+    </script>
+</head>
+
+<body class="gray-bg">
+	
+	<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal">
+
+			<input type="hidden" id="cpn_store_id" value="">
+
+			<div class="row">
+				<div class="col-sm-6 b-r">
+
+<div class="input-group">
+ <div class="input-group-btn">
+     <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                type="button">上级仓库
+        </button>
+            </div>
+        <select class="form-control" id="par_store_id"  name="仓库名称">
+					<option value="1">请选择</option>
+					
+        </select>
+</div>
+    <div class="hr-line-dashed"></div>
+
+
+
+<div class="input-group">
+    <div class="input-group-btn">
+        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                type="button">编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 号
+        </button>
+    </div>
+        <input class="form-control" id="cpn_store_no" name="prd_vendor_alias"
+                    type="text"
+        >
+
+</div>
+    <div class="hr-line-dashed"></div>
+
+
+					
+<div class="input-group">
+    <div class="input-group-btn">
+        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                type="button">联&nbsp;系&nbsp;电&nbsp;话
+        </button>
+    </div>
+        <input class="form-control" id="man_phone" name="man_phone"
+                    type="text"
+        >
+
+</div>
+    <div class="hr-line-dashed"></div>
+
+<div class="input-group">
+    <div class="input-group-btn">
+        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                type="button">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址
+        </button>
+    </div>
+        <input class="form-control" id="man_address" name="man_phone"
+                    type="text"
+        >
+
+</div>
+    <div class="hr-line-dashed"></div>
+					
+				</div>
+
+				<div class="col-sm-6">
+
+<div class="input-group">
+    <div class="input-group-btn">
+        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                type="button">仓&nbsp;库&nbsp;名&nbsp;称
+        </button>
+    </div>
+    <input class="form-control" id="cpn_store_nm" name="prd_vendor_man"
+           type="text"
+    >
+
+</div>
+    <div class="hr-line-dashed"></div>
+
+
+
+<div class="input-group">
+    <div class="input-group-btn">
+        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                type="button">联&nbsp;&nbsp;&nbsp;系&nbsp;&nbsp;&nbsp;人
+        </button>
+    </div>
+        <input class="form-control" id="man_man" name="prd_vendor_man"
+                    type="text"
+        >
+
+</div>
+    <div class="hr-line-dashed"></div>
+
+
+					
+<div class="input-group">
+    <div class="input-group-btn">
+        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                type="button">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱
+        </button>
+    </div>
+        <input class="form-control" id="man_email" name="man_email"
+                    type="text"
+        >
+
+</div>
+    <div class="hr-line-dashed"></div>
+
+
+
+			</div>
+			
+				<div class="form-group col-sm-12" id="index-textarea">
+            
+            <div class="col-sm-12 col-xs-12 col-lg-12">
+            	<h3>&nbsp;&nbsp;&nbsp;&nbsp;备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注</h3>
+                <textarea id="remarks" class="form-control" rows="4" placeholder=""></textarea>
+            </div>
+			</div>
+			
+			<div class="row btn-group-m-t">
+				<div class="row btn-group-m-t">
+					<div class="col-sm-6 text-right">
+
+<button type="button" class="btn btn-info " onclick="Xgt_goods_prd_vendorInfo.add()" id="ensure">
+    <i class="fa fa-check"></i>&nbsp;提交
+</button>
+</div>
+<div class="col-sm-6">
+<button type="button" class="btn btn-danger " onclick="Xgt_goods_prd_vendorInfoDlg.close()" id="cancel">
+    <i class="fa fa-eraser"></i>&nbsp;返回
+</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+	
+	
+	
+	
+	
+	<script src="${ctxPath}/static/js_chuku/jquery.min.js?v=2.1.4"></script>
+    <script src="${ctxPath}/static/js_chuku/bootstrap.min.js?v=3.3.6"></script>
+
+    <!-- 自定义js -->
+    <!-- Bootstrap table -->
+    <script src="${ctxPath}/static/js_chuku/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="${ctxPath}/static/js_chuku/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+    <script src="${ctxPath}/static/js_chuku/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+
+    <!-- Peity -->
+    <script src="${ctxPath}/static/js_chuku/demo/bootstrap-table-demo2.js"></script>
+	<script src="${ctxPath}/static/js_chuku/case_add.js"></script>
+	<script src="${ctxPath}/static/js_chuku/case_seach.js"></script>
+	<script src="${ctxPath}/static/js_chuku/bootstrap-table-object.js"></script>
+    <!--统计代码，可删除-->
+
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+ console.log(accountval.value);
+   console.log(passwordVal.value);
+   mui.ajax('http://10.0.0.145/auth',{
+	data:{
+		account:accountval.value,
+		password:passwordVal.value
+	},
+	dataType:'json',//服务器返回json格式数据
+	type:'post',//HTTP请求类型
+	timeout:10000,//超时时间设置为10秒；
+	headers:{'Content-Type':'application/x-www-form-urlencoded'},		              
+	success:function(data){
+		console.log(JSON.stringify(data));
+		 mui.toast("登陆成功");
+		 mui.openWindow(  
+        {  
+          url:'main.html',  
+          id:'main',  
+        }  
+      );  
+	},
+	error:function(xhr,type,errorThrown){
+		//异常处理；
+		 mui.toast("用户名或密码错误"); 
+		console.log(type);
+	}
+});

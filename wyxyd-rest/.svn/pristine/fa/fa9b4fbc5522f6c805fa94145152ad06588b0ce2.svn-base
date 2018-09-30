@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.rest.common.persistence.dao.DictDao">
+
+
+	<resultMap id="BaseResultMap" type="wy.rest.common.persistence.model.Dict">
+		<id column="id" property="id" />
+		<result column="num" property="num" />
+		<result column="pid" property="pid" />
+		<result column="name" property="name" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, num, pid, name, tips
+	</sql>
+
+	<sql id="Base_Column_Id">
+		id
+	</sql>
+
+	<select id="selectByCode" resultType="dict">
+		select
+		<include refid="Base_Column_List" />
+		from dict
+		where code = #{code}
+	</select>
+
+	<select id="selectByName" resultType="map">
+		SELECT * from dict where
+		pid = (SELECT  id from dict WHERE name=#{name})
+	</select>
+
+	<select id="list" resultType="map">
+		select * from dict
+		where pid = 0
+		<if test="condition != null and condition != ''">
+			AND name like CONCAT('%',#{condition},'%')
+		</if>
+		order by id ASC
+	</select>
+
+	<select id="dictList" resultType="map">
+		select * from dict where pid =
+		0
+	</select>
+
+	<select id="selectById" resultType="map">
+		select
+		*
+		from dict
+		where pid = #{dictId}
+	</select>
+
+	<select id="selectCpnSts" resultType="map">
+		select * from dict where
+		pid = (select id from dict where name = '企业状态')
+	</select>
+
+	<select id="selectCpnSpSts" resultType="map">
+		select * from dict where
+		pid = (select id from dict where name = '企业审批状态')
+	</select>
+
+	<select id="cpnDeptStList" resultType="map">
+		select * from dict where
+		pid = (select id from dict where name = '部门状态')
+	</select>
+
+	<select id="cpnStoreStList" resultType="map">
+		select * from dict where
+		pid = (select id from dict where name = '仓库状态')
+	</select>
+
+	<select id="selectCpnDeptSts" resultType="map">
+		select * from dict
+		where pid = (select id from dict where name = '部门状态')
+	</select>
+
+	<select id="selectItemSts" resultType="map">
+		select * from dict where
+		pid = (select id from dict where name = '栏目状态')
+	</select>
+
+	<select id="selectCpnStoreSts" resultType="map">
+		select * from dict
+		where pid = (select id from dict where name = '仓库状态')
+	</select>
+
+	<select id="cpnBranchStList" resultType="map">
+		select * from dict where
+		pid = (select id from dict where name = '分支状态')
+	</select>
+
+	<select id="selectCpnBranchSts" resultType="map">
+		select * from dict
+		where pid = (select id from dict where name = '分支状态')
+	</select>
+
+	<select id="selectItemStList" resultType="map">
+		select * from dict
+		where pid = (select id from dict where name = '栏目状态')
+	</select>
+
+	<select id="selectItemCls" resultType="map">
+		select * from dict where
+		pid = (select id from dict where name = '栏目分类')
+	</select>
+
+	<select id="wyItemStList" resultType="map">
+		select * from dict where
+		pid = (select id from dict where name = '栏目状态')
+	</select>
+
+	<select id="vendorStList" resultType="map">
+		select * from dict where
+		pid = (select id from dict where name = '生产厂商状态')
+	</select>
+
+	<select id="brandStList" resultType="map">
+		select * from dict where pid
+		= (select id from dict where name = '产品品牌状态')
+	</select>
+
+	<select id="clsStList" resultType="map">
+		select * from dict where pid =
+		(select id from dict where name = '产品分类状态')
+	</select>
+
+	<select id="productStList" resultType="map">
+		select * from dict where
+		pid = (select id from dict where name = '产品分类状态')
+	</select>
+	
+	<select id="vendorFlgList" resultType="map">
+		select * from dict where
+		pid = (select id from dict where name = '合伙类别')
+	</select>
+
+	<select id="inStoreStList" resultType="map">
+		select * from dict where
+		pid = (select id from dict where name ='入库单审核状态')
+	</select>
+
+	<select id="inTypeStList" resultType="map">
+		select * from dict where
+		pid = (select id from dict where name ='入库单据类型')
+	</select>
+	<select id="inList" resultType="map">
+		select * from dict WHERE
+		pid= (select id from dict where name ='入库单状态')
+	</select>
+
+
+
+
+
+	<select id="list4" resultType="map">
+		select
+		a1.*
+		from dict a1 ,
+		(select b1.id from dict b1 where b1.id = #{id}
+		UNION
+		select b1.id from dict b1 where b1.pid = #{id}
+		union
+		select b1.id from dict b1,dict b2 where b1.pid=b2.id and b2.pid = #{id}
+		union
+		select b1.id from dict b1,dict b2, role b3 where b1.pid=b2.id and b2.pid=b3.id and b3.pid =  #{id}
+		) m1
+		where a1.id=m1.id
+		<if test="condition != null and condition != ''">
+			AND name like CONCAT('%',#{condition},'%')
+		</if>
+	</select>
+
+
+</mapper>

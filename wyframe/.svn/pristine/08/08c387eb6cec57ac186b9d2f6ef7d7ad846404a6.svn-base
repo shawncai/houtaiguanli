@@ -1,0 +1,55 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+           <input type="hidden" id="prd_unit_id" value="${xgt_goods_prd_unit.prd_unit_id}">
+
+           <table class="table table-striped table-bordered table-hover" style="font-size:16px;">
+                <tbody>
+                 <tr>
+                <td class="td_title" style="text-align:center ">单位名称</td>
+            	<td class="td_content" style="text-align:center "><input id="prd_unit_nm" value="${xgt_goods_prd_unit.prd_unit_nm}" readonly="readonly" class="form-control"/></td>
+           		<td class="td_title" style="text-align:center ">单位别名</td>
+                <td class="td_content" style="text-align:center "><input id="prd_unit_alias" value="${xgt_goods_prd_unit.prd_unit_alias}" readonly="readonly" class="form-control"/></td>
+                </tr>
+                 </tbody>
+                </table>
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="确定" id="ensure" icon="fa-check" clickFun="Xgt_goods_prd_unitInfoDlg.close()"/>
+                    <#button btnCss="danger" name="关闭" id="cancel" icon="fa-eraser" clickFun="Xgt_goods_prd_unitInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/prdUnit/js/xgt_goods_prd_unit_info.js"></script>
+<script>
+
+	/**
+	 *参数表页面table
+	 */
+	var Xgt_goods_prd_unit_detail = {
+	    id: "detailTable",	//表格id
+	    seItem: null,		//选中的条目
+	    table: null,
+	    layerIndex: -1
+	};
+
+	/**
+	 * 初始化表格的列
+	 */
+	Xgt_goods_prd_unit_detail.initColumn = function () {
+	    return [
+	        {field: 'selectItem', checkbox: true}
+	    ];
+	    
+	};
+	var id = $("#prd_unit_id").val();
+	var defaultColunmss = Xgt_goods_prd_unit_detail.initColumn();
+    var tabless = new BSTable(Xgt_goods_prd_unit_detail.id, "/xgt_goods_prd_unit/detail/"+id, defaultColunmss);
+    tabless.setPaginationType("client");
+  	Xgt_goods_prd_unit_detail.table = tabless.init();
+</script>
+@}

@@ -1,0 +1,138 @@
+/**
+ * 初始化${context.bizChName}详情对话框
+ */
+var ${context.bizEnBigName}InfoDlg = {
+    ${context.bizEnName}InfoData : {},
+    zTreeInstance : null
+};
+
+<% for(var i=0;i<context.list.~size;i++){ %>
+<% if(context.list[i].formType==2){ %>
+/**
+ * 显示树
+ *
+ * @returns
+ */
+${context.bizEnBigName}InfoDlg.show${context.list[i].columnName}SelectTree = function() {
+    Feng.showInputTree("${context.list[i].columnName}Nm", "${context.list[i].columnName}TreeDiv", 15, 34);
+}
+${context.bizEnBigName}InfoDlg.onClick = function(e, treeId, treeNode) {
+    $("#${context.list[i].columnName}Nm").attr("value",${context.bizEnBigName}InfoDlg.zTreeInstance.getSelectedVal());
+    $("#${context.list[i].columnName}").attr("value", treeNode.id);
+   ${context.bizEnBigName}InfoDlg.cpndNm = ${context.bizEnBigName}InfoDlg.zTreeInstance.getSelectedVal();
+    ${context.bizEnBigName}InfoDlg.${context.list[i].columnName} = treeNode.id;
+}
+//$(function () {
+ //   var ztree = new $ZTree("${context.list[i].columnName}Tree", "/${context.bizEnName}/${context.list[i].columnName}TreeList");
+  //  ztree.bindOnClick(${context.bizEnBigName}InfoDlg.onClick);
+   // ztree.init();
+    //${context.bizEnBigName}InfoDlg.ztreeInstance = ztree;
+
+//});
+<% } %>
+<% } %>
+/**
+ * 清除数据
+ */
+${context.bizEnBigName}InfoDlg.clearData = function() {
+    this.${context.bizEnName}InfoData = {};
+}
+
+/**
+ * 设置对话框中的数据
+ *
+ * @param key 数据的名称
+ * @param val 数据的具体值
+ */
+${context.bizEnBigName}InfoDlg.set = function(key, val) {
+    this.${context.bizEnName}InfoData[key] = (typeof value == "undefined") ? $("#" + key).val() : value;
+    return this;
+}
+
+/**
+ * 设置对话框中的数据
+ *
+ * @param key 数据的名称
+ * @param val 数据的具体值
+ */
+${context.bizEnBigName}InfoDlg.get = function(key) {
+    return $("#" + key).val();
+}
+<% for(var i=0;i<context.list.~size;i++){ %>
+<% if(context.list[i].formType==3){ %>
+$('#${context.list[i].columnName}').on('ifChecked', function(event){ //ifCreated 事件应该在插件初始化之前绑定
+    $('#${context.list[i].columnName}').val('1');
+});
+
+$('#${context.list[i].columnName}').on('ifUnchecked', function(event){ //ifCreated 事件应该在插件初始化之前绑定
+    $('#${context.list[i].columnName}').val('0');
+});
+
+
+if($('#${context.list[i].columnName}').val()==1){
+    $('#${context.list[i].columnName}').iCheck('check');
+}
+<% } %>
+<% } %>
+/**
+ * 关闭此对话框
+ */
+${context.bizEnBigName}InfoDlg.close = function() {
+    parent.layer.close(window.parent.${context.bizEnBigName}.layerIndex);
+}
+
+/**
+ * 收集数据
+ */
+${context.bizEnBigName}InfoDlg.collectData = function() {
+    this<% for(var i=0;i<context.list.~size;i++){ %>.set('${context.list[i].columnName}')<% } %>;
+}
+
+/**
+ * 提交添加
+ */
+${context.bizEnBigName}InfoDlg.addSubmit = function() {
+
+    this.clearData();
+    this.collectData();
+
+    //提交信息
+    var ajax = new $ax(Feng.ctxPath + "/${context.bizEnName}/add", function(DATA){
+        Feng.success("添加成功!");
+         window.parent.layui.table.reload('${context.bizEnBigName}Table', {url:Feng.ctxPath + "/${context.bizEnName}/editList"});
+        ${context.bizEnBigName}InfoDlg.close();
+    },function(DATA){
+        Feng.error("添加失败!" + data.responseJSON.message + "!");
+    });
+    ajax.set(this.${context.bizEnName}InfoData);
+    ajax.start();
+}
+
+/**
+ * 提交修改
+ */
+${context.bizEnBigName}InfoDlg.editSubmit = function() {
+
+    this.clearData();
+    this.collectData();
+
+    //提交信息
+    var ajax = new $ax(Feng.ctxPath + "/${context.bizEnName}/update", function(DATA){
+        Feng.success("修改成功!");
+        window.parent.layui.table.reload('${context.bizEnBigName}Table', {url:Feng.ctxPath + "/${context.bizEnName}/editList"});
+        ${context.bizEnBigName}InfoDlg.close();
+    },function(DATA){
+        Feng.error("修改失败!" + data.responseJSON.message + "!");
+    });
+    ajax.set(this.${context.bizEnName}InfoData);
+    ajax.start();
+}
+
+ $(document).ready(function () {
+        $(".i-checks").iCheck({checkboxClass: "icheckbox_square-green", radioClass: "iradio_square-green",})
+    });
+    $('#filePicker').click(function () {
+        $('#duan').remove();
+    });
+
+

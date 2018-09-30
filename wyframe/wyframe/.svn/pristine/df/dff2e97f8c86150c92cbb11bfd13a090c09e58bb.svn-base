@@ -1,0 +1,38 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <form class="form-horizontal" id="signupForm">
+
+             <input type="hidden" id="bill_id" value="${bs_bill.bill_id}">
+				
+			 <div class="row">
+                                             <#inputCol2 id='bill_no' name='订单编号' value='${bs_bill.bill_no}' />
+                                             <#timeinputcol2 id='buy_dt' name='购买时间' value='${bs_bill.buy_dt}' />
+                                             <#timeinputcol2 id='pay_dt' name='付款时间' value='${bs_bill.pay_dt}' />
+                                             <#inputCol2 id='access_mem' name='收货人' value='${bs_bill.access_mem}' />
+                                             <#inputCol2 id='access_phone' name='收货人联系方式' value='${bs_bill.access_phone}' />
+                                             <#inputCol2 id='access_addr_desc' name='收货地址' value='${bs_bill.access_addr_desc}' />
+                                             <#inputCol2 id='total_num' name='总量' value='${bs_bill.total_num}' />
+                                             
+                                             <#selectCol2 id='xyd_st_id' name='状态' map='${map9}'  value='${bs_bill.xyd_st_id}' />
+                           </div>
+            <div class="hidden-xs demoTable" id="demoTable" role="group" style="margin-top: 56px;">
+                <button type="button" class="btn btn-outline btn-default"  id="add_some2">
+                    <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="btn btn-outline btn-default" id="delete_all2">
+                    <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                </button>
+            </div>
+            <#layUITable id="Bs_billParamTable3"/>
+            <div class="row btn-group-m-t text-center">
+                <div class="col-sm-10">
+                    <#submit btnCss="info" iName="提交" id="ensure" icon="fa-check" clickFun="validate();Bs_billInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="Bs_billInfoDlg.close()"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zsh/bs_bill/js/bs_bill_info.js"></script>
+@}

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.fxb.xgt_sub_task.dao.Xgt_sub_taskDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.fxb.xgt_sub_task.model.Xgt_sub_task">
+	<id column="task_id" property="task_id" />
+	<result column="task_nm" property="task_nm" />
+	<result column="id" property="id" />
+	<result column="sub_exam_id" property="sub_exam_id" />
+	<result column="sub_id" property="sub_id" />
+	<result column="task_ask" property="task_ask" />
+	<result column="over_dt" property="over_dt" />
+	<result column="mdi_dt" property="mdi_dt" />
+	<result column="cre_dt" property="cre_dt" />
+	<result column="st_id" property="st_id" />
+	</resultMap>
+
+    <select id="queryCpnId" resultType="Integer">
+        select
+        cpn_id
+        from user
+        where id = #{userId}
+    </select>
+	
+	<!-- 通过Id查询作业任务 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select * from xgt_sub_task
+		where task_id = #{xgt_sub_taskId}
+	</select>
+
+		<!-- 作业任务列表 -->
+    	<select id="list" resultType="map">
+    		select xgt_sub_task.*,user.name,xgt_sub_exam.sub_exam_nm,xgt_subject.sub_nm from xgt_sub_task
+                    LEFT JOIN user on xgt_sub_task.id =user.id
+                    LEFT JOIN xgt_sub_exam on xgt_sub_task.sub_exam_id =xgt_sub_exam.sub_exam_id
+                    LEFT JOIN xgt_subject on xgt_sub_task.sub_id =xgt_subject.sub_id
+            where 1=1
+    		<if test="condition != null and condition != ''">
+            and (task_nm like CONCAT('%',#{condition},'%') or 1&lt;1)
+            </if>
+            <if test="st_id != null and st_id !=0">
+            and xgt_sub_task.st_id=#{st_id}
+             </if>
+    		order by task_id desc
+    	</select>
+        <select id="getMap2" resultType="map">
+              select name name,id num from user
+        </select>
+        <select id="getMap3" resultType="map">
+              select sub_exam_nm name,sub_exam_id num from xgt_sub_exam
+        </select>
+        <select id="getMap4" resultType="map">
+              select sub_nm name,sub_id num from xgt_subject
+        </select>
+    <select id="getMap6" resultType="map">
+        select name name,id num from user
+    </select>
+        <update id="deleteByIds" parameterType="list">
+            UPDATE xgt_sub_task SET xyd_st_id = -1 where task_id in
+           <foreach collection="list" item="item" open="(" separator="," close=")">
+                   #{item}
+             </foreach>
+        </update>
+
+    <select id="ClassOne" resultType="map">
+        select id,name from user where cpn_dept_id=81 and roleid=17
+    </select>
+
+    <select id="ClassFive" resultType="map">
+        select id,name from user where cpn_dept_id=82 and roleid=17
+    </select>
+</mapper>

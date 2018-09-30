@@ -1,0 +1,2182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" readonly="true" id="ccd846be-f65a-4370-b65e-2ebed64e4f11" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/Controller.java.btl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/Dao.java.btl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/Mapper.java.btl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/Mapper.xml.btl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/Mapping.xml.btl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/Model.java.btl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/Service.java.btl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/ServiceImpl.java.btl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/Warpper.java.btl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/page.html.btl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/page.js.btl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/page_add.html.btl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/page_addParam.html.btl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/page_detail.html.btl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/page_edit.html.btl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/page_info.js.btl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/wsdlController.java.btl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wynewzsh/src/main/resources/excelTemplate/bs_bill.xls" afterPath="$PROJECT_DIR$/wynewzsh/src/main/resources/excelTemplate/bs_bill.xls" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wyframe/pom.xml" afterPath="$PROJECT_DIR$/wyframe/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wyframe/src/main/java/wy/addons/zcgl/xgt_goods_products/controller/Xgt_goods_productsController.java" afterPath="$PROJECT_DIR$/wyframe/src/main/java/wy/addons/zcgl/xgt_goods_products/controller/Xgt_goods_productsController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wyframe/src/main/java/wy/config/web/WebConfig.java" afterPath="$PROJECT_DIR$/wyframe/src/main/java/wy/config/web/WebConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wyframe/src/main/java/wy/core/template/config/ControllerConfig.java" afterPath="$PROJECT_DIR$/wyframe/src/main/java/wy/core/template/config/ControllerConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wyframe/src/main/java/wy/core/template/config/DaoConfig.java" afterPath="$PROJECT_DIR$/wyframe/src/main/java/wy/core/template/config/DaoConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/controller/AutoCodeController.java" afterPath="$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/controller/AutoCodeController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wyframe/src/main/webapp/WEB-INF/view/xydframe/role/role_add.html" afterPath="$PROJECT_DIR$/wyframe/src/main/webapp/WEB-INF/view/xydframe/role/role_add.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wyframe/src/main/webapp/static/xydframe/sys_area/sys_area.js" afterPath="$PROJECT_DIR$/wyframe/src/main/webapp/static/xydframe/sys_area/sys_area.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wyframe/src/main/webapp/static/xydframe/system/dict/dict.js" afterPath="$PROJECT_DIR$/wyframe/src/main/webapp/static/xydframe/system/dict/dict.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wyframe/src/main/webapp/static/xydframe/system/menu/menu.js" afterPath="$PROJECT_DIR$/wyframe/src/main/webapp/static/xydframe/system/menu/menu.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wyframe/src/main/webapp/static/xydframe/system/role/role.js" afterPath="$PROJECT_DIR$/wyframe/src/main/webapp/static/xydframe/system/role/role.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wyframe/src/main/webapp/static/xydframe/system/role/role_info.js" afterPath="$PROJECT_DIR$/wyframe/src/main/webapp/static/xydframe/system/role/role_info.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wyframe/wyframe.iml" afterPath="$PROJECT_DIR$/wyframe/wyframe.iml" />
+    </list>
+    <ignored path="$PROJECT_DIR$/wyframe/target/" />
+    <ignored path="$PROJECT_DIR$/wynewzsh/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_TABLE_DETAILS" value="true" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+      <file leaf-file-name="Controller.java.btl" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/Controller.java.btl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4669">
+              <caret line="203" column="5" lean-forward="false" selection-start-line="203" selection-start-column="5" selection-end-line="203" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AutoCodeController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/controller/AutoCodeController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4278">
+              <caret line="213" column="48" lean-forward="false" selection-start-line="213" selection-start-column="48" selection-end-line="213" selection-end-column="48" />
+              <folding>
+                <marker date="1534381785807" expanded="true" signature="17800:17882" ph="ALTER TABLE missingValue... " />
+                <marker date="1534381785807" expanded="true" signature="17979:18064" ph="ALTER TABLE missingValue... " />
+                <marker date="1534381785807" expanded="true" signature="18161:18245" ph="ALTER TABLE missingValue... " />
+                <marker date="1534381785807" expanded="true" signature="18343:18419" ph="ALTER TABLE missingValue... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Mapping.xml.btl" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/Mapping.xml.btl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1311">
+              <caret line="57" column="116" lean-forward="false" selection-start-line="57" selection-start-column="116" selection-end-line="57" selection-end-column="116" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="menu.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wyframe/src/main/webapp/static/xydframe/system/menu/menu.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1150">
+              <caret line="50" column="12" lean-forward="false" selection-start-line="50" selection-start-column="8" selection-end-line="50" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MenuController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/controller/MenuController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="23">
+              <caret line="170" column="0" lean-forward="false" selection-start-line="170" selection-start-column="0" selection-end-line="170" selection-end-column="0" />
+              <folding>
+                <element signature="e#9505#9520#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="menu_info.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wyframe/src/main/webapp/static/xydframe/system/menu/menu_info.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RoleDao.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/dao/mapping/RoleDao.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1403">
+              <caret line="61" column="25" lean-forward="false" selection-start-line="61" selection-start-column="25" selection-end-line="61" selection-end-column="25" />
+              <folding>
+                <marker date="1534145567965" expanded="true" signature="741:817" ph="select from role" />
+                <marker date="1534145567965" expanded="true" signature="874:1244" ph="select a1.* role" />
+                <marker date="1534145567965" expanded="true" signature="908:957" ph="select b1.id... role" />
+                <marker date="1534145567965" expanded="true" signature="968:1018" ph="select b1.id... role" />
+                <marker date="1534145567965" expanded="true" signature="1029:1104" ph="select b1.id... role" />
+                <marker date="1534145567965" expanded="true" signature="1115:1217" ph="select b1.id... role" />
+                <marker date="1534145567965" expanded="true" signature="1298:1652" ph="select a1.* role" />
+                <marker date="1534145567965" expanded="true" signature="1332:1377" ph="select b1.id... role" />
+                <marker date="1534145567965" expanded="true" signature="1388:1434" ph="select b1.id... role" />
+                <marker date="1534145567965" expanded="true" signature="1445:1516" ph="select b1.id... role" />
+                <marker date="1534145567965" expanded="true" signature="1527:1625" ph="select b1.id... role" />
+                <marker date="1534145567965" expanded="true" signature="1716:1820" ph="select from role" />
+                <marker date="1534145567965" expanded="true" signature="1866:1911" ph="delete from " />
+                <marker date="1534145567965" expanded="true" signature="1999:2076" ph="select from role" />
+                <marker date="1534145567965" expanded="true" signature="2459:2583" ph="select id &quot;i... role" />
+                <marker date="1534145567965" expanded="true" signature="2667:2997" ph="select r.id role" />
+                <marker date="1534145567965" expanded="true" signature="3084:3575" ph="SELECT r.id role" />
+                <marker date="1534145567965" expanded="true" signature="3667:4353" ph="SELECT r.id role" />
+                <marker date="1534145567965" expanded="true" signature="4420:4469" ph="select id as... role" />
+                <marker date="1534145567965" expanded="true" signature="4590:4969" ph="select a1.* role" />
+                <marker date="1534145567965" expanded="true" signature="4624:4669" ph="select b1.id... role" />
+                <marker date="1534145567965" expanded="true" signature="4680:4726" ph="select b1.id... role" />
+                <marker date="1534145567965" expanded="true" signature="4737:4808" ph="select b1.id... role" />
+                <marker date="1534145567965" expanded="true" signature="4819:4917" ph="select b1.id... role" />
+                <marker date="1534145567965" expanded="true" signature="5122:5147" ph="select count... role" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DeptDao.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/dao/mapping/DeptDao.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1495">
+              <caret line="65" column="11" lean-forward="false" selection-start-line="65" selection-start-column="11" selection-end-line="65" selection-end-column="11" />
+              <folding>
+                <marker date="1534145617720" expanded="true" signature="744:1161" ph="select m1.cp... xyd_cpn_dept" />
+                <marker date="1534145617720" expanded="true" signature="1213:2308" ph="SELECT c1.*,... *" />
+                <marker date="1534145617720" expanded="true" signature="1312:2118" ph="select a1.* xyd_cpn_dept" />
+                <marker date="1534145617720" expanded="true" signature="1351:1430" ph="select b1.cp... xyd_cpn_dept" />
+                <marker date="1534145617720" expanded="true" signature="1441:1524" ph="select b1.cp... xyd_cpn_dept" />
+                <marker date="1534145617720" expanded="true" signature="1535:1673" ph="select b1.cp... xyd_cpn_dept" />
+                <marker date="1534145617720" expanded="true" signature="1684:1876" ph="select b1.cp... xyd_cpn_dept" />
+                <marker date="1534145617720" expanded="true" signature="2375:2460" ph="select cpn_d... xyd_cpn_dept" />
+                <marker date="1534145617720" expanded="true" signature="2581:3665" ph="SELECT c1.*,... *" />
+                <marker date="1534145617720" expanded="true" signature="2680:3450" ph="select a1.* xyd_cpn_dept" />
+                <marker date="1534145617720" expanded="true" signature="2719:2789" ph="select b1.cp... xyd_cpn_dept" />
+                <marker date="1534145617720" expanded="true" signature="2800:2874" ph="select b1.cp... xyd_cpn_dept" />
+                <marker date="1534145617720" expanded="true" signature="2885:3014" ph="select b1.cp... xyd_cpn_dept" />
+                <marker date="1534145617720" expanded="true" signature="3025:3208" ph="select b1.cp... xyd_cpn_dept" />
+                <marker date="1534145617720" expanded="true" signature="3792:3825" ph="select count... xyd_cpn_dept" />
+                <marker date="1534145617720" expanded="true" signature="3893:4952" ph="SELECT c1.*,... *" />
+                <marker date="1534145617720" expanded="true" signature="3992:4762" ph="select a1.* xyd_cpn_dept" />
+                <marker date="1534145617720" expanded="true" signature="4031:4101" ph="select b1.cp... xyd_cpn_dept" />
+                <marker date="1534145617720" expanded="true" signature="4112:4186" ph="select b1.cp... xyd_cpn_dept" />
+                <marker date="1534145617720" expanded="true" signature="4197:4326" ph="select b1.cp... xyd_cpn_dept" />
+                <marker date="1534145617720" expanded="true" signature="4337:4520" ph="select b1.cp... xyd_cpn_dept" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Jsp File" />
+        <option value="HTML File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>setDe</find>
+      <find>setCpnAndCpnBranch</find>
+      <find>deptSomeTreeList</find>
+      <find>selectCpnDepts</find>
+      <find>roleSomeTreeListByRoleId</find>
+      <find>deptSomeTreeListById</find>
+      <find>searc</find>
+      <find>list1</find>
+      <find>showRoles</find>
+      <find>getChildNodes</find>
+      <find>lis</find>
+      <find>buildChildNodes</find>
+      <find>selectUsers</find>
+      <find>add</find>
+      <find>List&lt;Map&lt;String, Object&gt;&gt; list4(@Param(&quot;id&quot;) Integer id);</find>
+      <find>list4</find>
+      <find>re</find>
+      <find>list</find>
+      <find>role_assign</find>
+      <find>area_assign</find>
+      <find>assign</find>
+      <find>selectPageList</find>
+      <find>roleId</find>
+      <find>edit</find>
+      <find>roleName</find>
+      <find>roleid</find>
+      <find>tree</find>
+      <find>druid</find>
+      <find>area</find>
+      <find>r</find>
+    </findStrings>
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/common/persistence/model/Role.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/core/node/Nodes.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/core/util/Tree.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/core/node/Node.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/core/node/NodeString.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/core/util/TreeStringBuilder.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/sysArea/dao/Sys_areaDao.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/controller/RoleController.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/sysArea/controller/Sys_areaController.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/sysArea/dao/mapping/Sys_areaDao.xml" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/addons/zcgl/cpn_dept/controller/Xyd_cpn_deptController.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/dao/DeptDao.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/controller/DeptController.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/dao/DictDao.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/controller/DictController.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/webapp/WEB-INF/view/xydframe/dict/dict.html" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/dao/MenuDao.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/common/persistence/model/Menu.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/webapp/WEB-INF/view/xydframe/menu/menu.html" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/dao/mapping/MenuDao.xml" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/dao/mapping/RoleDao.xml" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/dao/mapping/DeptDao.xml" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/dao/mapping/DictDao.xml" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/webapp/static/xydframe/system/user/user.js" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/controller/UserMgrController.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/dao/UserMgrDao.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/webapp/WEB-INF/view/xydframe/user/user.html" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/dao/mapping/UserMgrDao.xml" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/common/persistence/model/User.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/webapp/WEB-INF/view/xydframe/role/role_add.html" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/webapp/static/xydframe/system/role/role_info.js" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/webapp/static/xydframe/system/role/role.js" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/webapp/static/xydframe/sys_area/sys_area.js" />
+        <option value="$PROJECT_DIR$/wyframe/pom.xml" />
+        <option value="$PROJECT_DIR$/wyframe/wyframe.iml" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/config/web/WebConfig.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/addons/zcgl/xgt_goods_products/controller/Xgt_goods_productsController.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/Controller.java.btl" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/Dao.java.btl" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/page.html.btl" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/page.js.btl" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/core/template/config/ControllerConfig.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/addons/zcgl/cpn_room/controller/Xgt_cpn_roomController.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/addons/zcgl/xgt_goods_products/dao/Xgt_goods_productsDao.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/core/template/config/DaoConfig.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/webapp/static/xydframe/system/dict/dict.js" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/Mapping.xml.btl" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/controller/AutoCodeController.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/webapp/static/xydframe/system/menu/menu.js" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/transfer/UserDto.java" />
+        <option value="$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/controller/MenuController.java" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="D:/apache-maven-3.5.0" />
+        <option name="userSettingsFile" value="D:\apache-maven-3.5.0\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1938" />
+    <option name="height" value="1048" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="false" id="Update" />
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wynewzsh" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wynewzsh" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wynewzsh" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wyframe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wyframe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wyframe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wyframe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wyframe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xydframe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wyframe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xydframe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="menu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wyframe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xydframe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wyframe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wyframe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wyframe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xydframe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wyframe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xydframe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="transfer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wyframe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xydframe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wyframe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xydframe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wyframe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="addons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="开发框架" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="project.propCompiler" />
+    <property name="last_opened_file_path" value="D:/基础框架/wyframe" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\开发框架\wyframe\src\main\resources\xydTemplate\zcgl3" />
+      <recent name="C:\开发框架\wynewzsh\src\main\webapp\WEB-INF\view\addons\zsh\bs_bill" />
+      <recent name="C:\开发框架\wynewzsh\src\main\java\wy\addons\zsh\wsdl" />
+      <recent name="C:\开发框架\wynewzsh\src\main\webapp\WEB-INF\view\common\tags" />
+      <recent name="C:\开发框架\wynewzsh\src\main\webapp\WEB-INF\view\addons\zsh\bs_send_channel" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.wyframe">
+    <configuration default="false" name="wynewzsh" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="wy.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="wy.XydApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <module name="wynewzsh" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="wyframe" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="wy.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="wy.XydApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <module name="wyframe" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file id="idea.log" enabled="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android App">
+      <module name="" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <Java />
+      <Profilers>
+        <option name="ENABLE_ADVANCED_PROFILING" value="true" />
+        <option name="GAPID_ENABLED" value="false" />
+        <option name="GAPID_DISABLE_PCS" value="false" />
+        <option name="SUPPORT_LIB_ENABLED" value="true" />
+        <option name="INSTRUMENTATION_ENABLED" value="true" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <Java />
+      <Profilers>
+        <option name="ENABLE_ADVANCED_PROFILING" value="true" />
+        <option name="GAPID_ENABLED" value="false" />
+        <option name="GAPID_DISABLE_PCS" value="false" />
+        <option name="SUPPORT_LIB_ENABLED" value="true" />
+        <option name="INSTRUMENTATION_ENABLED" value="true" />
+      </Profilers>
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Cold Fusion runner description" factoryName="Cold Fusion" custom_browser="" web_path="">
+      <method />
+    </configuration>
+    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="myFilePath" />
+      <option name="GLUE" />
+      <option name="myNameFilter" />
+      <option name="myGeneratedName" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
+      <option name="BCName" value="" />
+      <option name="IOSSimulatorSdkPath" value="" />
+      <option name="adlOptions" value="" />
+      <option name="airProgramParameters" value="" />
+      <option name="appDescriptorForEmulator" value="Android" />
+      <option name="debugTransport" value="USB" />
+      <option name="debuggerSdkRaw" value="BC SDK" />
+      <option name="emulator" value="NexusOne" />
+      <option name="emulatorAdlOptions" value="" />
+      <option name="fastPackaging" value="true" />
+      <option name="fullScreenHeight" value="0" />
+      <option name="fullScreenWidth" value="0" />
+      <option name="launchUrl" value="false" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="mobileRunTarget" value="Emulator" />
+      <option name="moduleName" value="" />
+      <option name="overriddenMainClass" value="" />
+      <option name="overriddenOutputFileName" value="" />
+      <option name="overrideMainClass" value="false" />
+      <option name="runTrusted" value="true" />
+      <option name="screenDpi" value="0" />
+      <option name="screenHeight" value="0" />
+      <option name="screenWidth" value="0" />
+      <option name="url" value="http://" />
+      <option name="usbDebugPort" value="7936" />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" package_name="" scope="Class">
+      <option name="BCName" value="" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="moduleName" value="" />
+      <option name="trusted" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
+      <setting name="vmparams" value="" />
+      <setting name="cmdLine" value="run-app" />
+      <setting name="passParentEnv" value="true" />
+      <setting name="launchBrowser" value="true" />
+      <setting name="launchBrowserUrl" value="" />
+      <setting name="depsClasspath" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="JarApplication" factoryName="JAR Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Java Scratch" factoryName="Java Scratch">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="SCRATCH_FILE_ID" value="0" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="开发框架" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="osgi.bnd.run" factoryName="Run Launcher">
+      <method />
+    </configuration>
+    <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
+      <method />
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Spring Boot.wynewzsh" />
+      <item index="1" class="java.lang.String" itemvalue="Spring Boot.wyframe" />
+    </list>
+    <recent_temporary>
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Spring Boot.wyframe" />
+        <item index="1" class="java.lang.String" itemvalue="Spring Boot.wynewzsh" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\Administrator\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\开发框架\wyframe" />
+          <option name="myCopyRoot" value="C:\开发框架\wyframe" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\开发框架\wynewzsh" />
+          <option name="myCopyRoot" value="C:\开发框架\wynewzsh" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\开发框架\wyframe" />
+          <option name="myCopyRoot" value="C:\开发框架\wyframe" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\开发框架\wynewzsh" />
+          <option name="myCopyRoot" value="C:\开发框架\wynewzsh" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ccd846be-f65a-4370-b65e-2ebed64e4f11" name="Default" comment="" />
+      <created>1532485204297</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1532485204297</updated>
+      <workItem from="1532485205631" duration="4563000" />
+      <workItem from="1532504760954" duration="9049000" />
+      <workItem from="1532567373019" duration="7454000" />
+      <workItem from="1532588226301" duration="13160000" />
+      <workItem from="1532651983480" duration="14502000" />
+      <workItem from="1532677316579" duration="9553000" />
+      <workItem from="1532912488154" duration="23762000" />
+      <workItem from="1532999142105" duration="16194000" />
+      <workItem from="1533085623570" duration="2378000" />
+      <workItem from="1533088271339" duration="20248000" />
+      <workItem from="1533115897083" duration="4611000" />
+      <workItem from="1533171444378" duration="15586000" />
+      <workItem from="1533197901860" duration="1912000" />
+      <workItem from="1533258766796" duration="11230000" />
+      <workItem from="1533603660901" duration="12737000" />
+      <workItem from="1533689695892" duration="10388000" />
+      <workItem from="1533775964648" duration="28767000" />
+      <workItem from="1533862708497" duration="31393000" />
+      <workItem from="1534121643818" duration="19528000" />
+      <workItem from="1534208443595" duration="20553000" />
+      <workItem from="1534294858881" duration="16999000" />
+      <workItem from="1534381006842" duration="5825000" />
+      <workItem from="1534390875557" duration="166000" />
+    </task>
+    <task id="LOCAL-00001">
+      <created>1532520901388</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1532520901388</updated>
+    </task>
+    <task id="LOCAL-00002">
+      <created>1532571304751</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1532571304751</updated>
+    </task>
+    <task id="LOCAL-00003">
+      <created>1532571498152</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1532571498152</updated>
+    </task>
+    <task id="LOCAL-00004">
+      <created>1532601601460</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1532601601460</updated>
+    </task>
+    <task id="LOCAL-00005">
+      <created>1532677258534</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1532677258534</updated>
+    </task>
+    <task id="LOCAL-00006">
+      <created>1532948143152</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1532948143152</updated>
+    </task>
+    <task id="LOCAL-00007">
+      <created>1533028779374</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1533028779374</updated>
+    </task>
+    <task id="LOCAL-00008">
+      <created>1533028822247</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1533028822247</updated>
+    </task>
+    <task id="LOCAL-00009">
+      <created>1533031143184</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1533031143184</updated>
+    </task>
+    <task id="LOCAL-00010">
+      <created>1533263693390</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1533263693390</updated>
+    </task>
+    <task id="LOCAL-00011">
+      <created>1533605884588</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1533605884588</updated>
+    </task>
+    <task id="LOCAL-00012">
+      <created>1533712377248</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1533712377248</updated>
+    </task>
+    <task id="LOCAL-00013">
+      <created>1533864497310</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1533864497310</updated>
+    </task>
+    <task id="LOCAL-00014">
+      <created>1533865527161</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1533865527161</updated>
+    </task>
+    <task id="LOCAL-00015">
+      <created>1533869340458</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1533869340458</updated>
+    </task>
+    <task id="LOCAL-00016">
+      <created>1533870686858</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1533870686858</updated>
+    </task>
+    <task id="LOCAL-00017">
+      <created>1533883011774</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1533883011774</updated>
+    </task>
+    <task id="LOCAL-00018">
+      <created>1533885278189</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1533885278189</updated>
+    </task>
+    <task id="LOCAL-00019">
+      <created>1533886070681</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1533886070681</updated>
+    </task>
+    <task id="LOCAL-00020">
+      <created>1533886245302</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1533886245302</updated>
+    </task>
+    <task id="LOCAL-00021">
+      <created>1533886358573</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1533886358573</updated>
+    </task>
+    <task id="LOCAL-00022">
+      <created>1533891134893</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1533891134893</updated>
+    </task>
+    <task id="LOCAL-00023">
+      <created>1533892005796</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1533892005796</updated>
+    </task>
+    <task id="LOCAL-00024">
+      <created>1533892218245</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1533892218245</updated>
+    </task>
+    <task id="LOCAL-00025">
+      <created>1533892643883</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1533892643883</updated>
+    </task>
+    <task id="LOCAL-00026">
+      <created>1533893667187</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1533893667187</updated>
+    </task>
+    <task id="LOCAL-00027">
+      <created>1533894436437</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1533894436437</updated>
+    </task>
+    <task id="LOCAL-00028">
+      <created>1533895411904</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1533895411904</updated>
+    </task>
+    <task id="LOCAL-00029">
+      <created>1533895422199</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1533895422199</updated>
+    </task>
+    <task id="LOCAL-00030">
+      <created>1533895430525</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1533895430525</updated>
+    </task>
+    <task id="LOCAL-00031">
+      <created>1533896358149</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1533896358149</updated>
+    </task>
+    <task id="LOCAL-00032">
+      <created>1533896370346</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1533896370346</updated>
+    </task>
+    <task id="LOCAL-00033">
+      <created>1533898024656</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1533898024656</updated>
+    </task>
+    <task id="LOCAL-00034">
+      <created>1533898034874</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1533898034874</updated>
+    </task>
+    <task id="LOCAL-00035">
+      <created>1533898044371</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1533898044371</updated>
+    </task>
+    <task id="LOCAL-00036">
+      <created>1533899043756</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1533899043756</updated>
+    </task>
+    <task id="LOCAL-00037">
+      <created>1533899054781</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1533899054781</updated>
+    </task>
+    <task id="LOCAL-00038">
+      <created>1534130666463</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1534130666463</updated>
+    </task>
+    <task id="LOCAL-00039">
+      <created>1534141521033</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1534141521033</updated>
+    </task>
+    <task id="LOCAL-00040">
+      <created>1534155554114</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1534155554114</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="300558000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <layout>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38052094" sideWeight="0.5064378" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295699" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3997735" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32842582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32842582" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32616082" sideWeight="0.49356222" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.291309" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299356" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LAST_COMMIT_MESSAGE" value="" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/core/beetl/BeetlConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/core/aop/GlobalExceptionHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1564">
+          <caret line="37" column="13" lean-forward="false" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/core/aop/LogAop.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1312">
+          <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/core/aop/PermissionAop.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-438">
+          <caret line="35" column="13" lean-forward="false" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/generator/MyBatisPlusGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1036">
+          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/core/beetl/ShiroExt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3083">
+          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl/Mapper.xml.btl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl/Controller.java.btl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2691">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl/page.html.btl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl/page.js.btl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1104">
+          <caret line="87" column="0" lean-forward="true" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl/Dao.java.btl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-9">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/controller/UserMgrController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="356" column="68" lean-forward="false" selection-start-line="356" selection-start-column="68" selection-end-line="356" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/Mapper.xml.btl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/wsdlController.java.btl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1932">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/webapp/WEB-INF/view/xydframe/dict/dict.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/webapp/WEB-INF/view/xydframe/dept/dept.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="32" column="29" lean-forward="false" selection-start-line="32" selection-start-column="29" selection-end-line="32" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/page.html.btl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1081">
+          <caret line="53" column="38" lean-forward="true" selection-start-line="53" selection-start-column="38" selection-end-line="53" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/webapp/static/xydframe/system/dept/dept.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-206">
+          <caret line="95" column="73" lean-forward="true" selection-start-line="95" selection-start-column="73" selection-end-line="95" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/page.js.btl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-161">
+          <caret line="212" column="94" lean-forward="true" selection-start-line="212" selection-start-column="94" selection-end-line="212" selection-end-column="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-core/8.5.14/tomcat-embed-core-8.5.14-sources.jar!/javax/servlet/http/HttpServletRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="34" column="17" lean-forward="false" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/addons/zcgl/cpn_room/controller/Xgt_cpn_roomController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="151" column="57" lean-forward="true" selection-start-line="151" selection-start-column="57" selection-end-line="151" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/core/template/config/ControllerConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="60" column="58" lean-forward="false" selection-start-line="60" selection-start-column="58" selection-end-line="60" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/core/template/config/ContextConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-253">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/addons/zcgl/xgt_goods_products/dao/Xgt_goods_productsDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="35" column="137" lean-forward="false" selection-start-line="35" selection-start-column="137" selection-end-line="35" selection-end-column="137" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/dao/MenuDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="2" column="7" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/core/template/config/DaoConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="332">
+          <caret line="33" column="53" lean-forward="false" selection-start-line="33" selection-start-column="53" selection-end-line="33" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/Mapper.java.btl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/Dao.java.btl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="28" column="180" lean-forward="false" selection-start-line="28" selection-start-column="180" selection-end-line="28" selection-end-column="180" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/dao/mapping/MenuDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6003">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1534145457422" expanded="true" signature="1388:1442" ph="select menui... relation" />
+            <marker date="1534145457422" expanded="true" signature="1512:1570" ph="select menui... relation" />
+            <marker date="1534145457422" expanded="true" signature="1649:1962" ph="SELECT m1.id... menu" />
+            <marker date="1534145457422" expanded="true" signature="2046:2558" ph="SELECT m1.id... menu" />
+            <marker date="1534145457422" expanded="true" signature="2646:3262" ph="SELECT m1.id... menu" />
+            <marker date="1534145457422" expanded="true" signature="3355:4170" ph="SELECT m1.id... menu" />
+            <marker date="1534145457422" expanded="true" signature="4264:5079" ph="SELECT m1.id... menu" />
+            <marker date="1534145457422" expanded="true" signature="5130:5175" ph="delete from " />
+            <marker date="1534145457422" expanded="true" signature="5244:5346" ph="select url f... relation" />
+            <marker date="1534145457422" expanded="true" signature="5429:6037" ph="SELECT m1.id... menu" />
+            <marker date="1534145457422" expanded="true" signature="5745:5965" ph="SELECT ID FR... menu" />
+            <marker date="1534145457422" expanded="true" signature="6098:6154" ph="select code,... menu" />
+            <marker date="1534145457422" expanded="true" signature="6223:6379" ph="insert into menu... " />
+            <marker date="1534145457422" expanded="true" signature="6449:6498" ph="select id as... menu" />
+            <marker date="1534145457422" expanded="true" signature="6619:7161" ph="select a1.* menu" />
+            <marker date="1534145457422" expanded="true" signature="6653:6698" ph="select b1.id... menu" />
+            <marker date="1534145457422" expanded="true" signature="6709:6755" ph="select b1.id... menu" />
+            <marker date="1534145457422" expanded="true" signature="6766:6837" ph="select b1.id... menu" />
+            <marker date="1534145457422" expanded="true" signature="6848:6946" ph="select b1.id... menu" />
+            <marker date="1534145457422" expanded="true" signature="7314:7339" ph="select count... menu" />
+            <marker date="1534145457422" expanded="true" signature="7426:7471" ph="select b1.id... menu" />
+            <marker date="1534145457422" expanded="true" signature="7482:7528" ph="select b1.id... menu" />
+            <marker date="1534145457422" expanded="true" signature="7539:7610" ph="select b1.id... menu" />
+            <marker date="1534145457422" expanded="true" signature="7621:7719" ph="select b1.id... menu" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/dao/mapping/UserMgrDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-8901">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/dao/mapping/DictDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3450">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/Model.java.btl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/webapp/static/xydframe/system/dict/dict.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7153">
+          <caret line="311" column="9" lean-forward="false" selection-start-line="311" selection-start-column="9" selection-end-line="311" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/dao/mapping/RoleDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1403">
+          <caret line="61" column="25" lean-forward="false" selection-start-line="61" selection-start-column="25" selection-end-line="61" selection-end-column="25" />
+          <folding>
+            <marker date="1534145567965" expanded="true" signature="741:817" ph="select from role" />
+            <marker date="1534145567965" expanded="true" signature="874:1244" ph="select a1.* role" />
+            <marker date="1534145567965" expanded="true" signature="908:957" ph="select b1.id... role" />
+            <marker date="1534145567965" expanded="true" signature="968:1018" ph="select b1.id... role" />
+            <marker date="1534145567965" expanded="true" signature="1029:1104" ph="select b1.id... role" />
+            <marker date="1534145567965" expanded="true" signature="1115:1217" ph="select b1.id... role" />
+            <marker date="1534145567965" expanded="true" signature="1298:1652" ph="select a1.* role" />
+            <marker date="1534145567965" expanded="true" signature="1332:1377" ph="select b1.id... role" />
+            <marker date="1534145567965" expanded="true" signature="1388:1434" ph="select b1.id... role" />
+            <marker date="1534145567965" expanded="true" signature="1445:1516" ph="select b1.id... role" />
+            <marker date="1534145567965" expanded="true" signature="1527:1625" ph="select b1.id... role" />
+            <marker date="1534145567965" expanded="true" signature="1716:1820" ph="select from role" />
+            <marker date="1534145567965" expanded="true" signature="1866:1911" ph="delete from " />
+            <marker date="1534145567965" expanded="true" signature="1999:2076" ph="select from role" />
+            <marker date="1534145567965" expanded="true" signature="2459:2583" ph="select id &quot;i... role" />
+            <marker date="1534145567965" expanded="true" signature="2667:2997" ph="select r.id role" />
+            <marker date="1534145567965" expanded="true" signature="3084:3575" ph="SELECT r.id role" />
+            <marker date="1534145567965" expanded="true" signature="3667:4353" ph="SELECT r.id role" />
+            <marker date="1534145567965" expanded="true" signature="4420:4469" ph="select id as... role" />
+            <marker date="1534145567965" expanded="true" signature="4590:4969" ph="select a1.* role" />
+            <marker date="1534145567965" expanded="true" signature="4624:4669" ph="select b1.id... role" />
+            <marker date="1534145567965" expanded="true" signature="4680:4726" ph="select b1.id... role" />
+            <marker date="1534145567965" expanded="true" signature="4737:4808" ph="select b1.id... role" />
+            <marker date="1534145567965" expanded="true" signature="4819:4917" ph="select b1.id... role" />
+            <marker date="1534145567965" expanded="true" signature="5122:5147" ph="select count... role" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/addons/zcgl/xgt_goods_products/controller/Xgt_goods_productsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-158">
+          <caret line="52" column="13" lean-forward="false" selection-start-line="52" selection-start-column="13" selection-end-line="52" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/addons/zcgl/xgt_goods_products/model/Xgt_goods_products.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="49">
+          <caret line="12" column="14" lean-forward="false" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/addons/zcgl/xgt_goods_products/dao/mapping/Xgt_goods_productsDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="5" column="87" lean-forward="false" selection-start-line="5" selection-start-column="87" selection-end-line="5" selection-end-column="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/XydApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/Controller.java.btl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4669">
+          <caret line="203" column="5" lean-forward="false" selection-start-line="203" selection-start-column="5" selection-end-line="203" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/controller/AutoCodeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4278">
+          <caret line="213" column="48" lean-forward="false" selection-start-line="213" selection-start-column="48" selection-end-line="213" selection-end-column="48" />
+          <folding>
+            <marker date="1534381785807" expanded="true" signature="17800:17882" ph="ALTER TABLE missingValue... " />
+            <marker date="1534381785807" expanded="true" signature="17979:18064" ph="ALTER TABLE missingValue... " />
+            <marker date="1534381785807" expanded="true" signature="18161:18245" ph="ALTER TABLE missingValue... " />
+            <marker date="1534381785807" expanded="true" signature="18343:18419" ph="ALTER TABLE missingValue... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="85" column="32" lean-forward="false" selection-start-line="85" selection-start-column="16" selection-end-line="85" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/dao/mapping/DeptDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1495">
+          <caret line="65" column="11" lean-forward="false" selection-start-line="65" selection-start-column="11" selection-end-line="65" selection-end-column="11" />
+          <folding>
+            <marker date="1534145617720" expanded="true" signature="744:1161" ph="select m1.cp... xyd_cpn_dept" />
+            <marker date="1534145617720" expanded="true" signature="1213:2308" ph="SELECT c1.*,... *" />
+            <marker date="1534145617720" expanded="true" signature="1312:2118" ph="select a1.* xyd_cpn_dept" />
+            <marker date="1534145617720" expanded="true" signature="1351:1430" ph="select b1.cp... xyd_cpn_dept" />
+            <marker date="1534145617720" expanded="true" signature="1441:1524" ph="select b1.cp... xyd_cpn_dept" />
+            <marker date="1534145617720" expanded="true" signature="1535:1673" ph="select b1.cp... xyd_cpn_dept" />
+            <marker date="1534145617720" expanded="true" signature="1684:1876" ph="select b1.cp... xyd_cpn_dept" />
+            <marker date="1534145617720" expanded="true" signature="2375:2460" ph="select cpn_d... xyd_cpn_dept" />
+            <marker date="1534145617720" expanded="true" signature="2581:3665" ph="SELECT c1.*,... *" />
+            <marker date="1534145617720" expanded="true" signature="2680:3450" ph="select a1.* xyd_cpn_dept" />
+            <marker date="1534145617720" expanded="true" signature="2719:2789" ph="select b1.cp... xyd_cpn_dept" />
+            <marker date="1534145617720" expanded="true" signature="2800:2874" ph="select b1.cp... xyd_cpn_dept" />
+            <marker date="1534145617720" expanded="true" signature="2885:3014" ph="select b1.cp... xyd_cpn_dept" />
+            <marker date="1534145617720" expanded="true" signature="3025:3208" ph="select b1.cp... xyd_cpn_dept" />
+            <marker date="1534145617720" expanded="true" signature="3792:3825" ph="select count... xyd_cpn_dept" />
+            <marker date="1534145617720" expanded="true" signature="3893:4952" ph="SELECT c1.*,... *" />
+            <marker date="1534145617720" expanded="true" signature="3992:4762" ph="select a1.* xyd_cpn_dept" />
+            <marker date="1534145617720" expanded="true" signature="4031:4101" ph="select b1.cp... xyd_cpn_dept" />
+            <marker date="1534145617720" expanded="true" signature="4112:4186" ph="select b1.cp... xyd_cpn_dept" />
+            <marker date="1534145617720" expanded="true" signature="4197:4326" ph="select b1.cp... xyd_cpn_dept" />
+            <marker date="1534145617720" expanded="true" signature="4337:4520" ph="select b1.cp... xyd_cpn_dept" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/resources/xydTemplate/zcgl3/Mapping.xml.btl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1311">
+          <caret line="57" column="116" lean-forward="false" selection-start-line="57" selection-start-column="116" selection-end-line="57" selection-end-column="116" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/webapp/static/xydframe/system/menu/menu_info.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/webapp/static/xydframe/system/menu/menu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1150">
+          <caret line="50" column="12" lean-forward="false" selection-start-line="50" selection-start-column="8" selection-end-line="50" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/factory/UserFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/transfer/ManagerUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-572">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/transfer/ReqAddManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="49">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/transfer/ReqEditManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-20">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/transfer/UserDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="60" column="4" lean-forward="false" selection-start-line="60" selection-start-column="4" selection-end-line="60" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wyframe/src/main/java/wy/xydframe/system/controller/MenuController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="170" column="0" lean-forward="false" selection-start-line="170" selection-start-column="0" selection-end-line="170" selection-end-column="0" />
+          <folding>
+            <element signature="e#9505#9520#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

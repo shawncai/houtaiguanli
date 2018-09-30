@@ -1,0 +1,28 @@
+package wy.rest.addons.zsh.bs_sale_channel.warpper;
+
+
+import wy.core.base.warpper.BaseControllerWarpper;
+
+import java.util.Map;
+
+/**
+ * 销售渠道warpper接口
+ *
+ * @author wyFrame
+ * @Date 2018-07-25 14:10:17
+ */
+ 
+ public class Bs_sale_channelWarpper extends BaseControllerWarpper {
+ 		public Bs_sale_channelWarpper(Object obj){
+ 			super(obj);
+ 		}
+ 		
+ 		protected void warpTheMap(Map<String,Object> map){
+// 			List<Map<String, Object>> list = ConstantFactory.me().getDictByName("删除状态");
+//                for (Map m : list) {
+//                	if ((m.get("num")+"").equals(map.get("xyd_st_id")+"")) {
+//                			map.put("xyd_st_id", m.get("name"));
+//                	                    }
+//                	                }
+ 		}
+ }

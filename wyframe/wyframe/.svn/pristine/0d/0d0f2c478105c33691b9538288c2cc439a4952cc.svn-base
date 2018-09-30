@@ -1,0 +1,60 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>地区管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-lg-2 col-sm-3">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">地区信息</div>
+                                    <div class="panel-body dept-tree">
+                                        <ul id="sys_area"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-10 col-sm-9">
+                        <div class="row">
+                            <div class="col-lg-4 col-sm-3">
+                                <#NameCon id="condition" name="名称"  placeholder="名称"/>
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="Sys_area.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="Sys_areaTableToolbar" role="group">
+                            @if(shiro.hasPermission("/sys_area/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="Sys_area.openAddSys_area()"/>
+                            @}
+                        </div>
+
+                                <#layUITable id="Sys_areaTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/xydframe/sys_area/sys_area.js"></script>
+        <script type="text/html" id="barDemo">
+            @if(shiro.hasPermission("/sys_area/update")){
+            <a  lay-event="edit" title="修改"><i class="fa fa-edit"></i></a>
+            @}
+            @if(shiro.hasPermission("/sys_area/detail")){
+            <a   lay-event="detail" title="详情"><i class="fa fa-file-text"></i></a>
+            @}
+            @if(shiro.hasPermission("/sys_area/delete")){
+            <a  lay-event="del" title="删除"><i class="fa fa fa-trash"></i></a>
+            @}
+        </script>
+        <style>
+            .layui-table-cell{
+                height:auto;
+                line-height: 37px;
+            }
+        </style>
+@}

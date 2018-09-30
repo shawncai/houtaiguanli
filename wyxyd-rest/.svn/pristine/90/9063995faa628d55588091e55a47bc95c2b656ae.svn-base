@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.rest.common.persistence.dao.UserMgrDao">
+
+
+	<resultMap id="BaseResultMap" type="wy.rest.common.persistence.model.User">
+		<id column="id" property="id" />
+		<result column="account" property="account" />
+		<result column="name" property="name" />
+		<result column="birthday" property="birthday" />
+		<result column="sex" property="sex" />
+		<result column="email" property="email" />
+		<result column="avatar" property="avatar" />
+		<result column="phone" property="phone" />
+		<result column="status" property="status" />
+		<result column="createtime" property="createtime" />
+		<result column="version" property="version" />
+		<result column="parentid" property="parentid" />
+		<result column="cpn_id" property="cpn_id" />
+
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, account, name, birthday, sex, email, avatar,
+		phone, roleid,
+		deptid, status,
+		createtime, version, parentid, cpn_id, cpn_dept_id, cpn_branch_id
+	</sql>
+	
+	<sql id="Base_Column_List_With_Pwd">
+		id, account, name, birthday,password, sex, email, avatar,
+		phone, roleid,salt,
+		deptid, status,
+		createtime, version
+	</sql>
+	
+	<sql id="Base_Column_role">
+		roleid
+	</sql>
+	
+	<!--<select id="queryCpnId" resultType="Integer">-->
+		<!--select -->
+			<!--cpn_id-->
+		<!--from user-->
+		<!--where id = #{userId}-->
+	<!--</select>-->
+	
+	<!--<select id="queryCpnBrandId" resultType="Integer">-->
+		<!--select -->
+			<!--cpn_branch_id-->
+		<!--from user-->
+		<!--where id = #{userId}-->
+	<!--</select>-->
+
+	<!--<select id="selectCpnId" resultType="Integer">-->
+		<!--select-->
+		<!--cpn_id-->
+		<!--from xyd_cpn_dept-->
+		<!--where cpn_dept_id = #{deptId}-->
+	<!--</select>-->
+
+	<!--<select id="selectCpnBrandId" resultType="Integer">-->
+		<!--select-->
+		<!--cpn_branch_id-->
+		<!--from xyd_cpn_dept-->
+		<!--where cpn_dept_id = #{deptId}-->
+	<!--</select>-->
+	
+	<select id="selectUsers" resultType="map">
+		SELECT * from user
+	</select>
+
+	<!--模糊查询-->
+	<select id="findByNameOrNo" resultType="map">
+		SELECT  * FROM USER WHERE NAME concat('%',#{condition},'%') OR account CONCAT('%',#{condition},'%')
+	</select>
+	
+	<select id="selectSomeUsers" resultType="map">
+		SELECT a2.*,d.cpn_dept_nm,c.cpn_nm,b.cpn_branch_nm
+		from
+		(select a1.*
+		from user a1 ,
+		(select b1.cpn_dept_id from xyd_cpn_dept b1 where b1.cpn_dept_id = #{deptid}
+		UNION
+		select b1.cpn_dept_id from xyd_cpn_dept b1 where b1.par_cpn_dept_id = #{deptid}
+		union
+		select b1.cpn_dept_id from xyd_cpn_dept b1,xyd_cpn_dept b2 where b1.par_cpn_dept_id=b2.cpn_dept_id and b2.par_cpn_dept_id = #{deptid}
+		union
+		select b1.cpn_dept_id from xyd_cpn_dept b1,xyd_cpn_dept b2, xyd_cpn_dept b3 where b1.par_cpn_dept_id=b2.cpn_dept_id and b2.par_cpn_dept_id=b3.cpn_dept_id and b3.par_cpn_dept_id =  #{deptid}
+		) m1 	where a1.cpn_dept_id=m1.cpn_dept_id) a2
+		LEFT JOIN xyd_cpn  c on a2.cpn_id=c.cpn_id
+		LEFT JOIN xyd_cpn_branch  b on a2.cpn_branch_id=b.cpn_branch_id
+		LEFT JOIN xyd_cpn_dept  d on a2.cpn_dept_id=d.cpn_dept_id
+		where  a2.status != 3 and a2.cpn_id= #{cpnId}
+		<if test="name != null and name != ''">
+			and (a2.phone like CONCAT('%',#{name},'%')
+			or a2.account like CONCAT('%',#{name},'%')
+			or a2.name like CONCAT('%',#{name},'%'))
+		</if>
+
+		<if test="beginTime != null and beginTime != '' and endTime != null and endTime != ''">
+			and (a2.createTime between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+		</if>
+	</select>
+	
+	<update id="setStatus">
+		update user set status = #{status} where id =
+		#{userId}
+	</update>
+	
+	<delete id="deleteUser">
+		delete from user where id = #{userId}
+	</delete>
+
+	<update id="changePwd">
+		update user set password = #{pwd} where id =
+		#{userId}
+	</update>
+	
+	<update id="setRoles">
+		update user set roleid = #{roleIds} where id =
+		#{userId}
+	</update>
+
+	<update id="setDepts">
+		update xyd_cpn_dept_user set cpn_dept_id = #{deptIds} where id =
+		#{userId}
+	</update>
+
+	<update id="setCpnAndCpnBranch">
+		update xyd_cpn_dept_user set cpn_branch_id = #{cpnBranchId}, cpn_id= #{cpnId} where cpn_dept_id =
+		#{deptid}
+	</update>
+	
+	<select id="getByAccount" resultType="user">
+		select
+		<include refid="Base_Column_List_With_Pwd" />
+		from user where account = #{account} and status != 3
+	</select>
+	
+	<select id="getRoles" resultType="String">
+		select
+		<include refid="Base_Column_role" />
+		from user where id = #{userId}
+	</select>
+	
+	<select id="selectUserDeptName" resultType="String">
+		select
+			cpn_dept_nm
+		from xyd_cpn_dept where cpn_dept_id = #{userDeptId}
+	</select>
+		
+	<delete id="deleteArea" parameterType="Integer">
+		delete from bs_area_limit where USER_ID=#{userId}
+	</delete>
+	
+	<insert id="insertAreaId" parameterType="java.util.List">
+		insert into bs_area_limit (USER_ID,AREA_ID)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=","> (#{item.user_id},#{item.area_id}) </foreach>
+	</insert>
+	
+	<!-- 查询地区通过Id -->
+	<select id="selectAreaIdById" resultType="Integer">
+		select AREA_ID from
+		bs_area_limit
+		where USER_ID=#{userId}
+	</select>
+	
+	<!-- 控制查询地区通过Id -->
+	<select id="selectAreaIdByNowId" resultType="Integer">
+		select AREA_ID from
+		bs_area_limit
+		where USER_ID=#{userNowId}
+	</select>
+	
+
+
+
+
+	<!-- 查询部门通过Id -->
+	<select id="selectDeptIdById" resultType="Integer">
+		select cpn_dept_id from
+		xyd_cpn_dept_user
+		where id=#{userId}
+	</select>
+
+
+
+	<select id="deptSomeTreeList" resultType="wy.core.node.ZTreeNode" parameterType="Integer">
+		select a.cpn_dept_id
+		"id",a.par_cpn_dept_id "pId",a.cpn_dept_nm "name",(case when (a.par_cpn_dept_id =0 or
+		a.par_cpn_dept_id is null) then 'true' else 'false' end) "close" from
+		xyd_cpn_dept a
+		inner join
+		xyd_cpn_dept_user b on a.cpn_dept_id=b.cpn_dept_id and b.id=#{userNowId}
+	</select>
+
+	<select id="selectCpn" resultType="Integer">
+		select
+		cpn_id
+		from xyd_cpn_dept
+		where cpn_dept_id = #{deptid}
+	</select>
+
+	<select id="selectCpnBrand" resultType="Integer">
+		select
+		cpn_branch_id
+		from xyd_cpn_dept
+		where cpn_dept_id = #{deptid}
+	</select>
+	
+	<select id="selectdeptId" resultType="Integer">
+		select cpn_dept_id
+		from xyd_cpn_dept_user
+		where id = #{userId}
+	</select>
+
+	<update id="setUserDept">
+		update user set cpn_dept_id = #{deptIds} where id =
+		#{userId}
+	</update>
+
+	<update id="setUserCpnAndCpnBranch">
+		update user set cpn_branch_id = #{cpnBranchId}, cpn_id= #{cpnId} where cpn_dept_id =
+		#{deptid}
+	</update>
+
+
+
+
+
+	<select id="list4" resultType="map">
+		SELECT a2.*,d.cpn_dept_nm,c.cpn_nm,b.cpn_branch_nm,e.name as roleName
+		from
+		(select a1.*
+		from user a1 ,
+		(select b1.cpn_dept_id from xyd_cpn_dept b1 where b1.cpn_dept_id = #{id}
+		UNION
+		select b1.cpn_dept_id from xyd_cpn_dept b1 where b1.par_cpn_dept_id = #{id}
+		union
+		select b1.cpn_dept_id from xyd_cpn_dept b1,xyd_cpn_dept b2 where b1.par_cpn_dept_id=b2.cpn_dept_id and b2.par_cpn_dept_id = #{id}
+		union
+		select b1.cpn_dept_id from xyd_cpn_dept b1,xyd_cpn_dept b2, xyd_cpn_dept b3 where b1.par_cpn_dept_id=b2.cpn_dept_id and b2.par_cpn_dept_id=b3.cpn_dept_id and b3.par_cpn_dept_id =  #{id}
+		) m1 	where a1.cpn_dept_id=m1.cpn_dept_id) a2
+		LEFT JOIN xyd_cpn  c on a2.cpn_id=c.cpn_id
+		LEFT JOIN xyd_cpn_branch  b on a2.cpn_branch_id=b.cpn_branch_id
+		LEFT JOIN xyd_cpn_dept  d on a2.cpn_dept_id=d.cpn_dept_id
+		LEFT JOIN role e on a2.roleid= e.id
+		where  a2.status != 3
+		<if test="name != null and name != ''">
+			and (a2.phone like CONCAT('%',#{name},'%')
+			or a2.account like CONCAT('%',#{name},'%')
+			or a2.name like CONCAT('%',#{name},'%'))
+		</if>
+
+		<if test="beginTime != null and beginTime != '' and endTime != null and endTime != ''">
+			and (a2.createTime between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+		</if>
+	</select>
+</mapper>

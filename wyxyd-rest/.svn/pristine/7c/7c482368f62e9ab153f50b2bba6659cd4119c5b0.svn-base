@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zsh.bs_bill.dao.Bs_billMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="wy.rest.addons.zsh.bs_bill.model.Bs_bill">
+        <id column="bill_id" property="bill_id"/>
+        <result column="bill_no" property="bill_no"/>
+        <result column="buy_dt" property="buy_dt"/>
+        <result column="pay_dt" property="pay_dt"/>
+        <result column="total_money" property="total_money"/>
+        <result column="access_mem" property="access_mem"/>
+        <result column="access_addr_desc" property="access_addr_desc"/>
+        <result column="access_phone" property="access_phone"/>
+        <result column="area_id" property="area_id"/>
+        <result column="send_chnl_id" property="send_chnl_id"/>
+        <result column="lu_user" property="lu_user"/>
+        <result column="send_dt" property="send_dt"/>
+        <result column="bill_st_id" property="bill_st_id"/>
+        <result column="staff_user" property="staff_user"/>
+        <result column="crt_dt" property="crt_dt"/>
+        <result column="prov_id" property="prov_id"/>
+        <result column="user_remark" property="user_remark"/>
+        <result column="remarks" property="remarks"/>
+        <result column="send_st" property="send_st"/>
+        <result column="send_user" property="send_user"/>
+        <result column="send_cre_dt" property="send_cre_dt"/>
+        <result column="send_remark" property="send_remark"/>
+        <result column="total_num" property="total_num"/>
+        <result column="card_no" property="card_no"/>
+        <result column="src_bill_no" property="src_bill_no"/>
+        <result column="new_area_desc" property="new_area_desc"/>
+        <result column="xyd_st_id" property="xyd_st_id"/>
+        <result column="xyd_cre_dt" property="xyd_cre_dt"/>
+        <result column="xyd_up_dt" property="xyd_up_dt"/>
+        <result column="id" property="id"/>
+    </resultMap>
+</mapper>

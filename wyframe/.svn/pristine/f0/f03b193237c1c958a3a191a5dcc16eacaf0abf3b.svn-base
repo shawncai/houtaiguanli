@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.menu.dao.Wx_menuDao">
+	
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.zcgl.menu.model.Wx_menu">
+	<id column="id" property="id" />
+	<result column="btype" property="btype" />
+	<result column="type" property="type" />
+	<result column="name" property="name" />
+	<result column="key" property="key" />
+	<result column="url" property="url" />
+	<result column="media_id" property="media_id" />
+	</resultMap>
+	
+	<!-- 自定义菜单列表 -->
+	<select id="list" resultType="map">
+		select * from wx_menu order by 
+	id
+ desc	</select>
+	
+	<!-- 通过Id查询自定义菜单 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select * from wx_menu
+		where id = #{wx_menuId}
+	</select>
+	
+	<select id="iQueryById" resultType="map">
+		select * from wx_menu where id = #{id}
+	</select>
+</mapper>

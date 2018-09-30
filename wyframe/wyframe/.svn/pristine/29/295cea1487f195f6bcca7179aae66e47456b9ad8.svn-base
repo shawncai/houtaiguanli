@@ -1,0 +1,85 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal">
+			<input type="hidden" id="bill_id" value="">
+			<table class="table table-striped table-bordered table-hover"
+				style="font-size: 16px;">
+				<tbody>
+					<tr>
+						<td class="td_title" style="text-align: center">出库单号</td>
+						<td class="td_content" style="text-align: center"><input
+							id="bill_no" class="form-control" /></td>
+						<td class="td_title" style="text-align: center">选择仓库</td>
+						<td class="td_content" style="text-align: left"><select
+							class="form-control" id="store"><option value="0"
+									selected="selected">--请选择仓库--</option></select></td>
+					</tr>
+					<tr>
+						<td class="td_title" style="text-align: center">出库单描述</td>
+						<td class="td_content" style="text-align: center"><textarea
+								id="bill_dsc" class="form-control" placeholder="请输入出库单描述"></textarea></td>
+
+					</tr>
+					<!--   <tr>
+                <td class="td_title" style="text-align:center ">企业信息</td>
+            	<td class="td_content" style="text-align:center "><input id="cpn_id" class="form-control" /></td>
+            	<td class="td_title" style="text-align:center ">分支机构</td>
+                <td class="td_content" style="text-align:center "><input id="cpn_branch_id" class="form-control"/></td>
+                </tr> -->
+					<!--     <tr>
+            	<td class="td_title" style="text-align:center ">状态</td>
+                <td class="td_content" style="text-align:center "><input id="st_id" class="form-control"/></td>
+                </tr> -->
+					<tr>
+						<td class="td_title" style="text-align: center">选择产品分类：</td>
+						<td class="td_content" style="text-align: center"><select id="cls" class="form-control"  onchange="changeCls"><option
+									value="0" selected="selected">--请选择产品分类--</option></select></td>
+						<td class="td_title" style="text-align: center">选择产品厂商：</td>
+						<td class="td_content" style="text-align: center"><select class="form-control"  id="vendor"><option value="0"
+									selected="selected">--请选择产品厂商--</option></select></td>
+					</tr>
+					<tr>
+						<td class="td_title" style="text-align: center">填写产品名称：</td>
+						<td class="td_content" style="text-align: center"><select class="form-control"  id="proNm"><option value="0"
+									selected="selected">--请选择产品--</option></select></td>
+						<td class="td_title" style="text-align: center">填写产品数量：</td>
+						<td class="td_content" style="text-align: center"><input id="proNum"
+							placeholder="请填写产品数量" class="form-control" /></td>
+					</tr>
+				</tbody>
+			</table>
+					 <div class="col-sm-12">
+                 <div id="toolbar">
+                 <button type="button" class="btn btn-primary btn-success" onclick="Xgt_goods_store_billParam.addPro()">
+								<i class='fa fa-add'></i>添加产品
+							</button>
+							</div>
+                 </div> 
+			<!--  <div class="col-sm-12">
+                 <div id="toolbar">
+					<button id="btn_add" type="button" class="btn btn-primary btn-success"
+						onclick="Xgt_goods_store_billParam.appendXgt_goods_store_bill()">
+						<i class='icon-plus'></i>新增商品
+					</button>
+					<button id="btn_delete" type="button" class="btn btn-primary btn-danger"
+					 onclick="removes()">
+						<i class='icon-trash'></i>删除商品
+					</button>
+				</div>
+                 </div> -->
+			<#table id="paramTable" />
+		</div>
+	</div>
+	<div class="row btn-group-m-t">
+		<div class="col-sm-10">
+			<#button btnCss="info" name="提交" id="ensure" icon="fa-check"
+				clickFun="Xgt_goods_store_billInfo.add()" />
+			<#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser"
+				clickFun="Xgt_goods_store_billInfoDlg.close()" />
+		</div>
+	</div>
+</div>
+<script
+	src="${ctxPath}/static/addons/zcgl/inStore/js/xgt_goods_store_bill_info.js"></script>
+@}

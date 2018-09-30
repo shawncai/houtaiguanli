@@ -1,0 +1,57 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>字典管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-lg-2 col-sm-3">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">字典管理</div>
+                                    <div class="panel-body dept-tree">
+                                        <ul id="dict"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-10 col-sm-9">
+                            <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="condition" name="名称" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="Dict.search()"/>
+                            </div>
+                            </div>
+                        <div class="hidden-xs" id="DictTableToolbar" role="group">
+                            @if(shiro.hasPermission("/dict/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="Dict.openAddDict()"/>
+                            @}
+                        </div>
+                        <#layUITable id="DictTable"/>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/xydframe/system/dict/dict.js"></script>
+<script type="text/html" id="barDemo">
+    @if(shiro.hasPermission("/dict/update")){
+    <a   lay-event="edit" title="修改"><i class="fa fa-edit"></i></a>
+    @}
+    @if(shiro.hasPermission("/dict/delete")){
+    <a   lay-event="del" title="删除"><i class="fa fa fa-trash"></i></a>
+    @}
+</script>
+<style>
+    .layui-table-cell{
+        height:auto;
+        line-height: 37px;
+    }
+</style>
+@}

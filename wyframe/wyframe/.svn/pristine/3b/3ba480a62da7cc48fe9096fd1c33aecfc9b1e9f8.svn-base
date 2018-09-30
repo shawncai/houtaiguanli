@@ -1,0 +1,31 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <form class="form-horizontal" id="signupForm">
+
+             <input type="hidden" id="task_obj_id" value="${xgt_sub_task_obj.task_obj_id}">
+				
+			 <div class="row">
+                                             <#selectCol2 id='task_id' name='作业任务ID' map='${map1}'  value='${xgt_sub_task_obj.task_id}' />
+                                             <#inputCol2 id='id' name='完成作业用户ID' value='${xgt_sub_task_obj.id}' />
+                                             <#timeinputcol2 id='accept_dt' name='接任务时间' value='${xgt_sub_task_obj.accept_dt}' />
+                                             <#timeinputcol2 id='over_dt' name='任务完成时间' value='${xgt_sub_task_obj.over_dt}' />
+                                             <#selectCol2 id='over_st_id' name='完成状态　' map='${map5}'  value='${xgt_sub_task_obj.over_st_id}' />
+                                             <#inputCol2 id='right_num' name='正确数' value='${xgt_sub_task_obj.right_num}' />
+                                             <#inputCol2 id='error_num' name='错误树' value='${xgt_sub_task_obj.error_num}' />
+                                             
+                                             
+                                             
+                                             <#selectCol2 id='st_id' name='状态' map='${map11}'  value='${xgt_sub_task_obj.st_id}' />
+                           </div>
+            <div class="row btn-group-m-t text-center">
+                <div class="col-sm-10">
+                    <#submit btnCss="info" iName="提交" id="ensure" icon="fa-check" clickFun="validate();Xgt_sub_task_objInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="Xgt_sub_task_objInfoDlg.close()"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/fxb/xgt_sub_task_obj/js/xgt_sub_task_obj_info.js"></script>
+@}

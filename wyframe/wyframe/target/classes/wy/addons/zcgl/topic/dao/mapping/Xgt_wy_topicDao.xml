@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.topic.dao.Xgt_wy_topicDao">
+	
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.zcgl.topic.model.Xgt_wy_topic">
+	<id column="topic_id" property="topic_id" />
+	<result column="image_file_id" property="image_file_id" />
+	<result column="item_id" property="item_id" />
+	<result column="cpn_id" property="cpn_id" />
+	<result column="top_pro_nm" property="top_pro_nm" />
+	<result column="top_pro_nm_alias" property="top_pro_nm_alias" />
+	<result column="top_pro_nr" property="top_pro_nr" />
+	<result column="par_item_id" property="par_item_id" />
+	<result column="st_id" property="st_id" />
+	<result column="oper_user" property="oper_user" />
+	</resultMap>
+	
+	<!-- 站点栏目列表 -->
+	<select id="list" resultType="map">
+		select * from xgt_wy_topic order by 
+	topic_id
+ desc	</select>
+	
+	<!-- 通过Id查询站点栏目 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select * from xgt_wy_topic
+		where topic_id = #{xgt_wy_topicId}
+	</select>
+
+	<select id="iQueryById" resultType="map">
+		select * from xgt_wy_topic where topic_id = #{id}
+	</select>
+	
+	<delete id="deletePar">
+		delete from xgt_wy_topic where par_item_id=#{id}
+	</delete>
+</mapper>

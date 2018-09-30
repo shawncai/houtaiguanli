@@ -1,0 +1,440 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			//取消浏览器的所有事件，使得active的样式在手机上正常生效
+document.addEventListener('touchstart',function(){
+    return false;
+},true);
+// 禁止选择
+document.oncontextmenu=function(){
+	return false;
+};
+// H5 plus事件处理
+var as='pop-in';// 默认窗口动画
+function plusReady(){
+	// 隐藏滚动条
+	plus.webview.currentWebview().setStyle({scrollIndicator:'none'});
+	// Android处理返回键
+	plus.key.addEventListener('backbutton',function(){
+		('iOS'==plus.os.name)?plus.nativeUI.confirm('确认退出？', function(e){
+			if(e.index>0){
+				plus.runtime.quit();
+			}
+		}, 'HelloH5', ['取消','确定']):(confirm('确认退出？')&&plus.runtime.quit());
+	},false);
+	compatibleAdjust();
+}
+if(window.plus){
+	plusReady();
+}else{
+	document.addEventListener('plusready',plusReady,false);
+}
+// DOMContentLoaded事件处理
+var _domReady=false;
+document.addEventListener('DOMContentLoaded',function(){
+	_domReady=true;
+	compatibleAdjust();
+},false);
+// 兼容性样式调整
+var _adjust=false;
+function compatibleAdjust(){
+	if(_adjust||!window.plus||!_domReady){
+		return;
+	}
+	_adjust=true;
+	// iOS平台特效
+	if('iOS'==plus.os.name){
+		document.getElementById('content').className='scontent';	// 使用div的滚动条
+		if(navigator.userAgent.indexOf('StreamApp')>=0){	// 在流应用模式下显示返回按钮
+			document.getElementById('back').style.visibility='visible';
+		}
+	}
+	// 预创建二级窗口
+//	preateWebviews();
+	// 关闭启动界面
+		plus.navigator.setStatusBarBackground('#D74B28');
+	setTimeout(function(){
+		plus.navigator.closeSplashscreen();
+	},200);
+}
+// 处理点击事件
+var _openw=null;
+/**
+ * 点击打开新窗口
+ * @param {Object} id	加载的页面地址，也用作窗口标识
+ * @param {Object} a	页面动画内心，默认使用全局as设置的值
+ * @param {Object} s	是否不显示窗口
+ */
+function clicked(id,a,s){
+	if(_openw){return;}
+	a||(a=as);
+	_openw=preate[id];
+	if(_openw){
+		_openw.showded=true;
+		_openw.show(a,null,function(){
+			_openw=null;//避免快速点击打开多个页面
+		});
+	}else{
+//		var wa=plus.nativeUI.showWaiting();
+//		_openw=plus.webview.create(id,id,{scrollIndicator:'none',scalable:false,popGesture:'hide'},{preate:true});//复用二级页面
+		_openw=plus.webview.create(id,id,{scrollIndicator:'none',scalable:false,popGesture:'close'});
+		preate[id]=_openw;
+		_openw.addEventListener('loaded',function(){//叶面加载完成后才显示
+//		setTimeout(function(){//延后显示可避免低端机上动画时白屏
+//			wa.close();
+			_openw.showded=true;
+			s||_openw.show(a,null,function(){
+				_openw=null;//避免快速点击打开多个页面
+			});
+			s&&(_openw=null);//避免s模式下变量无法重置
+//		},10);
+		},false);
+		_openw.addEventListener('hide',function(){
+			_openw&&(_openw.showded=true);
+			_openw=null;
+		},false);
+		_openw.addEventListener('close',function(){//页面关闭后可再次打开
+			_openw=null;
+			preate[id]&&(preate[id]=null);//兼容窗口的关闭
+		},false);
+	}
+}
+// 预创建二级页面
+var preate={};
+function preateWebviews(){
+	preateWebivew('plus/webview.html');
+	var plist=document.getElementById('plist').children;
+	// 由于启动是预创建过多Webview窗口会消耗较长的时间，所以这里限制仅创建5个
+	for( var i=0;i<plist.length&&i<2;i++){
+		var id=plist[i].id;
+		id&&(id.length>0)&&preateWebivew(id);
+	}
+}
+function preateWebivew(id){
+	if(!preate[id]){
+		var w=plus.webview.create(id,id,{scrollIndicator:'none',scalable:false,popGesture:'hide'},{preate:true});
+		preate[id]=w;
+		w.addEventListener('close',function(){//页面关闭后可再次打开
+			_openw=null;
+			preate[id]&&(preate[id]=null);//兼容窗口的关闭
+		},false);
+	}
+}
+// 清除预创建页面(仅)
+function preateClear(){
+	for(var p in preate){
+		var w=preate[p];
+		if(w&&w.showded&&!w.isVisible()){
+			w.close();
+			preate[p]=null;
+		}
+	}
+}
+		</script>
+		<style>
+			body{
+				background: #333E51;
+			}
+			ul {
+				font-size: 14px;
+				color: #8f8f94;
+			}
+			.mui-btn {
+				padding: 10px;
+			}
+			
+			.mui-content {
+				background: #333E51;
+			
+			}
+			.mui-content .part_1{
+		
+			
+				height: 7rem;
+				background: #7AC3CE;
+				margin:0.5rem 0.5rem;
+				margin-left: 2rem;
+			}
+			.part_1 span{
+				display: block;
+				line-height: 5rem;
+				text-align: center;
+				color: #F5FAFB;
+			}
+			.part_1 p{
+				font-size: 18px;
+				color: #F5FAFB;
+				line-height: 2rem;
+			}
+			.mui-content .part_2{
+		
+
+				height: 7rem;
+				background: #E1A558;
+				margin:0.5rem 0.5rem;
+				
+			}
+			
+			.part_2 span{
+				display: block;
+				line-height: 5rem;
+				text-align: center;
+				color: #F5FAFB;
+			}
+			.part_2 p{
+				font-size: 18px;
+				color: #F5FAFB;
+				line-height: 2rem;
+			}
+			.mui-content .part_3{
+
+				height: 7rem;
+				background: #689FDE;
+				margin:0.5rem 0.5rem;
+				
+			}
+			
+			.part_3 span{
+				display: block;
+				line-height: 5rem;
+				text-align: center;
+				color: #F5FAFB;
+			}
+			.part_3 p{
+				font-size: 18px;
+				color: #F5FAFB;
+				line-height: 2rem;
+			}
+			
+			.mui-content .part_4{
+			
+				height: 7rem;
+				background: #DCC140;
+				margin:0.5rem 0.5rem;
+				margin-left: 2rem;
+			}
+			
+			.part_4 span{
+				display: block;
+				line-height: 5rem;
+				text-align: center;
+				color: #F5FAFB;
+			}
+			.part_4 p{
+				font-size: 18px;
+				color: #F5FAFB;
+				line-height: 2rem;
+			}
+			
+			
+			.mui-content .part_5{
+				
+				
+				height: 7rem;
+				background: #E78974;
+				margin:0.5rem 0.5rem;
+				
+			}
+			
+			.part_5 span{
+				display: block;
+				line-height: 5rem;
+				text-align: center;
+				color: #F5FAFB;
+			}
+			.part_5 p{
+				font-size: 18px;
+				color: #F5FAFB;
+				line-height: 2rem;
+			}
+			.mui-content .part_6{
+				
+				height: 7rem;
+				background: #6CC4DE;
+				margin:0.5rem 0.5rem;
+			
+			}
+			
+			
+			.part_6 span{
+				display: block;
+				line-height: 5rem;
+				text-align: center;
+				color: #F5FAFB;
+			}
+			.part_6 p{
+				font-size: 18px;
+				color: #F5FAFB;
+				line-height: 2rem;
+			}
+			
+			.mui-content .part_7{
+				
+				height: 7rem;
+				background: #878EDB;
+				margin:0.5rem 0.5rem;
+				margin-left: 2rem;
+			}
+			
+			.part_7 span{
+				display: block;
+				line-height: 5rem;
+				text-align: center;
+				color: #F5FAFB;
+			}
+			.part_7 p{
+				font-size: 18px;
+				color: #F5FAFB;
+				line-height: 2rem;
+			}
+			
+			.mui-content .part_8{
+				
+				height: 7rem;
+				background: #64B9DD;
+				margin:0.5rem 0.5rem;
+				
+			}
+			
+			.part_8 span{
+				display: block;
+				line-height: 5rem;
+				text-align: center;
+				color: #F5FAFB;
+			}
+			.part_8 p{
+				font-size: 18px;
+				color: #F5FAFB;
+				line-height: 2rem;
+			}
+			
+			
+			.mui-content .part_9{
+				
+				height: 7rem;
+				background: #67A0E1;
+				margin:0.5rem 0.5rem;
+				
+			}
+			
+			.part_9 span{
+				display: block;
+				line-height: 5rem;
+				text-align: center;
+				color: #F5FAFB;
+			}
+			.part_9 p{
+				font-size: 18px;
+				color: #F5FAFB;
+				line-height: 2rem;
+			}
+			
+			.mui-content .part_10{
+				
+				height: 7rem;
+				background: #808080;
+				margin:0.5rem 0.5rem;
+				margin-left: 2rem;
+			}
+			
+			.part_10 span{
+				display: block;
+				line-height: 5rem;
+				text-align: center;
+				color: #F5FAFB;
+			}
+			.part_10 p{
+				font-size: 18px;
+				color: #F5FAFB;
+				line-height: 2rem;
+			}
+			
+		</style>
+		<header class="mui-bar mui-bar-nav" style="padding-right: 15px;">
+			<h1 class="mui-title">admin</h1>
+			<button id='setting' class=" mui-pull-right mui-btn-link" id="setting.html" onclick="clicked(this.id)">设置</button>
+		</header>
+		<div class="mui-content mui-row">
+			<div class="mui-content-padded"></div>
+			<div class="part_1 mui-col-sm-3 mui-col-xs-3" id="plus/barcode.html" onclick="clicked(this.id)">
+				<span class="mui-icon mui-icon-list"></span>
+				<p >二维码识别</p>
+			</div>
+			<div class="part_2 mui-col-sm-3 mui-col-xs-3" id="plus/message.html" onclick="clicked(this.id)">
+				<span class="mui-icon mui-icon-paperclip"></span>
+				<p >维护信息</p>
+			</div>
+			<div class="part_3 mui-col-sm-3 mui-col-xs-3" id="plus/orientation.html" onclick="clicked(this.id)">
+				<span class="mui-icon mui-icon-flag"></span>
+				<p >链路管理</p>
+			</div>
+			<div class="part_4 mui-col-sm-3 mui-col-xs-3" id="plus/barcode.html" onclick="clicked(this.id)">
+			<span class="mui-icon mui-icon-star"></span>
+				<p >设备巡检</p>
+			</div>
+			<div class="part_5 mui-col-sm-3 mui-col-xs-3" id="plus/barcode.html" onclick="clicked(this.id)">
+				<span class="mui-icon mui-icon-pengyouquan"></span>
+				<p >设备盘点</p>
+			</div>
+			<div class="part_6 mui-col-sm-3 mui-col-xs-3"  id="plus/barcode.html" onclick="clicked(this.id)">
+				<span class="mui-icon mui-icon-search"></span>
+				<p >设备抄表</p>
+			</div>
+			<div class="part_7 mui-col-sm-3 mui-col-xs-3" id="plus/barcode.html" onclick="clicked(this.id)">
+				<span class="mui-icon mui-icon-home"></span>
+				<p >知识库</p>
+			</div>
+			<div class="part_8 mui-col-sm-3 mui-col-xs-3" id="plus/barcode.html" onclick="clicked(this.id)">
+				<span class="mui-icon mui-icon-help"></span>
+				<p >模糊查询</p>
+			</div>
+			<div class="part_9 mui-col-sm-3 mui-col-xs-3" id="plus/barcode.html" onclick="clicked(this.id)"> 
+				<span class="mui-icon mui-icon-starhalf"></span>
+				<p >出入库管理</p>
+			</div>
+			<div class="part_10 mui-col-sm-3 mui-col-xs-3" id="plus/barcode.html" onclick="clicked(this.id)">
+				<span class="mui-icon mui-icon-download"></span>
+				<p >报表</p>
+			</div>
+			
+		</div>
+		<nav class="mui-bar mui-bar-tab" >
+		    <a class="mui-tab-item mui-active">
+		        <span class="mui-icon mui-icon-home"></span>
+		        <span class="mui-tab-label">首页</span>
+		    </a>
+		    <a id='scan' class="mui-tab-item">
+		        <span class="mui-icon mui-icon-phone"></span>
+		        <span class="mui-tab-label">识别</span>
+		    </a>
+		    <a class="mui-tab-item">
+		        <span class="mui-icon mui-icon-email" id="plus/message.html" onclick="clicked(this.id)"></span>
+		        <span class="mui-tab-label">邮件</span>
+		    </a>
+		    <a class="mui-tab-item" id="setting.html" onclick="clicked(this.id)">
+		        <span class="mui-icon mui-icon-gear"></span>
+		        <span class="mui-tab-label">设置</span>
+		    </a>
+		</nav>
+	</body>
+<script type="text/javascript">
+	var scanObj = document.getElementById('scan');
+	scanObj.addEventListener('tap',function(){
+	mui.openWindow({
+		url:'plus/barcode.html',
+		id:'barcode.html'
+	})
+	})
+</script>
+</html>

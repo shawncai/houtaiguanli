@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.fxb.xgt_sub_exam.dao.Xgt_sub_examMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.fxb.xgt_sub_exam.model.Xgt_sub_exam">
+	<id column="sub_exam_id" property="sub_exam_id" />
+	<result column="sub_exam_nm" property="sub_exam_nm" />
+	<result column="par_sub_exam_id" property="par_sub_exam_id" />
+	<result column="sub_id" property="sub_id" />
+	<result column="id" property="id" />
+	<result column="sub_exam_no" property="sub_exam_no" />
+	<result column="one_sel_sum" property="one_sel_sum" />
+	<result column="more_sel_sum" property="more_sel_sum" />
+	<result column="yes_no_sum" property="yes_no_sum" />
+	<result column="insert_sum" property="insert_sum" />
+	<result column="spec_qp_sum" property="spec_qp_sum" />
+	<result column="mdi_dt" property="mdi_dt" />
+	<result column="cre_dt" property="cre_dt" />
+	<result column="st_id" property="st_id" />
+	</resultMap>
+</mapper>

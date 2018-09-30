@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="${ctxPath}/static/css_ruku/fixed-table.css" />
+    <script src="${ctxPath}/static/js_ruku/jquery-1.11.3.min.js"></script>
+    <script src="${ctxPath}/static/js_ruku/FixedTable.js"></script>
+    <title>Title</title>
+    <style type="text/css">
+        h1{
+            text-align: center;
+            padding-top: 30px;
+        }
+        .fixed-table-box{/*当表格的宽度大于.fixed-table-box的宽度时才会有横向滚动条*/
+            width: 800px;
+            margin: 50px auto;
+        }
+        .test-fixedTable{
+            margin: 0 auto;
+            background-color: #ccc;
+        }
+        .fixed-table-box>.fixed-table_body-wraper{/*如果数据过多并且想表格有纵向滚动条时，必须给该元素设置一个高度*/
+            max-height: 260px;
+        }
+
+        .fixed-table_fixed>.fixed-table_body-wraper{/*为了让两侧固定列能同步表格主体内容滚动*/
+            max-height: 240px;
+        }
+
+        .test-fixedTable .fixed-table_body-wraper{
+            width: 100%;
+        }
+
+        .w-150{
+            width: 150px;
+        }
+        .w-120{
+            width: 120px;
+        }
+        .w-300{
+            width: 300px;
+        }
+        .w-100{
+            width: 100px;
+        }
+
+        .btns{
+            text-align: center;
+        }
+        .btns button{
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="test_fixedTable" class="test-fixedTable"></div>
+
+
+
+</body>
+<script>
+    $(function (){
+        var fixedTable = new FixedTable({
+            wrap: document.getElementById("test_fixedTable"),//生成的表格需要放到哪里
+            type: "row-col-fixed",//表格类型，有：head-fixed、col-fixed、row-col-fixed
+            extraClass: "",//需要添加到表格中的额外class
+            maxHeight: true,
+            fields: [//表格的列
+                {
+                    width: "150px",
+                    field: "日期",
+                    fixed: true
+                },
+                {
+                    width: "120px",
+                    field: "姓名",
+                    fixed: false
+                },
+                {
+                    width: "120px",
+                    field: "省份",
+                    fixed: true,
+                    //fixedDirection: "right"
+                },
+                {
+                    width: "120px",
+                    field: "市区"
+                },
+                {
+                    width: "300px",
+                    field: "地址",
+                    // fixed: true,
+                    //fixedDirection: "right"
+                },
+                {
+                    width: "120px",
+                    field: "邮编",
+
+                },
+                {
+                    width: "100px",
+                    field: "操作",
+                    //fixed: true,
+                    //fixedDirection: "right"
+                }
+            ],
+            tableDefaultContent: "<div>我是一个默认的div</div>"
+        });
+
+
+
+        fixedTable.addRow(function (){
+            var html = '';
+            for(var i = 0; i < 5; i ++){
+                html += '<tr>';
+                html += '    <td class="w-150"><div class="table-cell">2016-05-03=' + i + '</div></td>';
+                html += '    <td class="w-120"><div class="table-cell">王小虎' + i + '</div></td>';
+                html += '    <td class="w-120"><div class="table-cell">上海' + i + '</div></td>';
+                html += '    <td class="w-120"><div class="table-cell">普陀区' + i + '</div></td>';
+                html += '    <td class="w-300"><div class="table-cell">上海市普陀区金沙江路 1518 路' + i + '</div></td>';
+                html += '    <td class="w-120"><div class="table-cell">200333' + i + '</div></td>';
+                html += '    <td class="w-100">';
+                html += '        <div class="table-cell">';
+                html += '            <a href="###">查看</a>';
+                html += '            <a href="###">编辑</a>';
+                html += '        </div>';
+                html += '    </td>';
+                html += '</tr>';
+            }
+            return html;
+        });
+
+
+    });
+
+</script>
+</html>

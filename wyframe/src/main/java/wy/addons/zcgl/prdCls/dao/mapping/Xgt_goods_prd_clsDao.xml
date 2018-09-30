@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.prdCls.dao.Xgt_goods_prd_clsDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap"
+		type="wy.addons.zcgl.prdCls.model.Xgt_goods_prd_cls">
+		<id column="prd_cls_id" property="prd_cls_id" />
+		<result column="prd_cls_nm" property="prd_cls_nm" />
+		<result column="cls_code" property="cls_code" />
+		<result column="sn_flg" property="sn_flg" />
+		<result column="prd_cls_alias" property="prd_cls_alias" />
+		<result column="par_prd_cls_id" property="par_prd_cls_id" />
+		<result column="cpn_id" property="cpn_id" />
+		<result column="cpn_branch_id" property="cpn_branch_id" />
+		<result column="st_id" property="st_id" />
+		<result column="oper_user" property="oper_user" />
+	</resultMap>
+
+	<select id="queryCpnId" resultType="Integer">
+		select
+		cpn_id
+		from user
+		where id = #{userId}
+	</select>
+	<select id="queryCpnBrandId" resultType="Integer">
+		select
+		cpn_branch_id
+		from user
+		where id = #{userId}
+	</select>
+	<!-- 产品分类列表) -->
+	<select id="list1" resultType="map">
+		SELECT a1.*,d1.prd_cls_nm as par_prd_cls_nm,x1.prd_nm,count(x1.prd_nm) num from
+		(select c1.*
+		from xgt_goods_prd_cls as c1,
+		(select b1.prd_cls_id from xgt_goods_prd_cls b1 where b1.prd_cls_id =#{prd_cls_id}
+		union
+		select b1.prd_cls_id  from xgt_goods_prd_cls b1 where b1.par_prd_cls_id =#{prd_cls_id}
+		union
+		select b1.prd_cls_id  from xgt_goods_prd_cls b1,xgt_goods_prd_cls b2 where b1.par_prd_cls_id=b2.prd_cls_id and b2.par_prd_cls_id =#{prd_cls_id}
+		union
+		select b1.prd_cls_id  from xgt_goods_prd_cls b1,xgt_goods_prd_cls b2, xgt_goods_prd_cls b3 where b1.par_prd_cls_id=b2.prd_cls_id and b2.par_prd_cls_id=b3.prd_cls_id and b3.par_prd_cls_id =#{prd_cls_id}
+		) m1
+		WHERE c1.st_id = 1 and c1.prd_cls_id=m1.prd_cls_id
+		<if test="condition != null and condition != ''">
+			and (prd_cls_nm like CONCAT('%',#{condition},'%')
+			or prd_cls_alias like CONCAT('%',#{condition},'%'))
+		</if>
+		group by
+		c1.prd_cls_id
+		)
+		a1 LEFT JOIN xgt_goods_prd_cls d1
+		on a1.par_prd_cls_id  = d1.prd_cls_id
+		LEFT JOIN xgt_goods_product x1
+		on a1.prd_cls_id = x1.prd_cls_id
+		GROUP BY a1.prd_cls_id
+	</select>
+
+	<!-- 产品分类列表(除admin外) -->
+	<select id="list" resultType="map">
+		SELECT a1.*,d1.prd_cls_nm as par_prd_cls_nm,x1.prd_nm,count(x1.prd_nm) num from
+		(select c1.*
+		from xgt_goods_prd_cls as c1,
+		(select b1.prd_cls_id from xgt_goods_prd_cls b1 where b1.prd_cls_id =#{prd_cls_id}
+		union
+		select b1.prd_cls_id  from xgt_goods_prd_cls b1 where b1.par_prd_cls_id =#{prd_cls_id}
+		union
+		select b1.prd_cls_id  from xgt_goods_prd_cls b1,xgt_goods_prd_cls b2 where b1.par_prd_cls_id=b2.prd_cls_id and b2.par_prd_cls_id =#{prd_cls_id}
+		union
+		select b1.prd_cls_id  from xgt_goods_prd_cls b1,xgt_goods_prd_cls b2, xgt_goods_prd_cls b3 where b1.par_prd_cls_id=b2.prd_cls_id and b2.par_prd_cls_id=b3.prd_cls_id and b3.par_prd_cls_id =#{prd_cls_id}
+		) m1
+		WHERE c1.st_id = 1 and c1.prd_cls_id=m1.prd_cls_id and c1.cpn_id=#{cpnId}
+		<if test="condition != null and condition != ''">
+			and (prd_cls_nm like CONCAT('%',#{condition},'%')
+			or prd_cls_alias like CONCAT('%',#{condition},'%'))
+		</if>
+		group by
+		c1.prd_cls_id
+		)
+		a1 LEFT JOIN xgt_goods_prd_cls d1
+		on a1.par_prd_cls_id  = d1.prd_cls_id
+		LEFT JOIN xgt_goods_product x1
+		on a1.prd_cls_id = x1.prd_cls_id
+		GROUP BY a1.prd_cls_id
+	</select>
+
+	<update id="updateClsById">
+		update xgt_goods_prd_cls
+		set st_id = -1
+		where prd_cls_id = #{xgt_goods_prd_clsId}
+	</update>
+
+	<select id="queryClsNm" resultType="String">
+		select
+		prd_cls_nm
+		from xgt_goods_prd_cls
+		where prd_cls_id = #{clsId}
+	</select>
+
+	<select id="queryClsName" resultType="String">
+		select
+		prd_cls_nm
+		from xgt_goods_prd_cls
+		where prd_cls_id = #{parPrdClsId}
+	</select>
+
+	<select id="selectClsNm" resultType="String">
+		select
+		prd_cls_nm
+		from Xgt_goods_prd_cls
+		where prd_cls_id = #{clsId}
+	</select>
+
+	<select id="clsList" resultType="map">
+		select *
+		from Xgt_goods_prd_cls
+	</select>
+
+	<!-- 通过Id查询产品分类 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select * from xgt_goods_prd_cls
+		where prd_cls_id = #{xgt_goods_prd_clsId}
+	</select>
+
+	<select id="iQueryById" resultType="map">
+		select * from
+		xgt_goods_prd_cls where prd_cls_id = #{id}
+	</select>
+
+	<!-- 查询入驻企业tree列表 -->
+	<select id="tree" resultType="wy.core.node.ZTreeNode">
+		select
+		m1.prd_cls_id as id,
+		(
+		case
+		when (m2.prd_cls_id = 0 or m2.prd_cls_id is null) then
+		0
+		else
+		m2.prd_cls_id
+		end
+		) as pid,
+		m1.prd_cls_nm
+		as name,
+		(
+		case
+		when
+		(m2.prd_cls_id
+		= 0 or m2.prd_cls_id is null) then
+		'true'
+		else
+		'false'
+		end
+		) "close"
+		from
+		xgt_goods_prd_cls m1
+		left join xgt_goods_prd_cls m2 on
+		m1.par_prd_cls_id = m2.prd_cls_id
+		where m1.cpn_id = #{cpnId} and m1.st_id = 1
+		order by
+		m1.prd_cls_id asc
+	</select>
+
+	<select id="tree1" resultType="wy.core.node.ZTreeNode">
+		select
+		m1.prd_cls_id as id,
+		(
+		case
+		when (m2.prd_cls_id = 0 or m2.prd_cls_id is null) then
+		0
+		else
+		m2.prd_cls_id
+		end
+		) as pid,
+		m1.prd_cls_nm
+		as name,
+		(
+		case
+		when
+		(m2.prd_cls_id
+		= 0 or m2.prd_cls_id is null) then
+		'true'
+		else
+		'false'
+		end
+		) "close"
+		from
+		xgt_goods_prd_cls m1
+		left join xgt_goods_prd_cls m2 on
+		m1.par_prd_cls_id = m2.prd_cls_id
+		where m1.st_id = 1
+		order by
+		m1.prd_cls_id asc
+	</select>
+</mapper>

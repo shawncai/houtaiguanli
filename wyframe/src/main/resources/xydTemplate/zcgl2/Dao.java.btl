@@ -1,0 +1,20 @@
+package ${dao.packageName};
+<% for(import in dao.imports!){ %>
+import ${import};
+ <% } %>
+/**
+ * ${context.bizChName}Dao
+ *
+ * @author wyFrame
+ * @Date ${tool.currentTime()}
+ */
+public interface ${context.bizEnBigName}Dao {
+	List<Map<String, Object>> list(@Param("condition") String condition);
+
+	${context.bizEnBigName} queryById(@Param("${context.bizEnName}Id") Integer ${context.bizEnName}Id);
+	  <% for(var i=1; i<context.list.~size;i++){ %>
+             <% if(context.list[i].fieldChange==2){ %>
+    List<Map<String, Object>> getMap${i}();
+             <% } %>
+      <% } %>
+}

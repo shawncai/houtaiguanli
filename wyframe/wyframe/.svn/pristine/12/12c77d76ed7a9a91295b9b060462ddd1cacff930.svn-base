@@ -1,0 +1,360 @@
+/**
+ * 角色管理的单例
+ */
+var Role = {
+    id: "roleTable",	//表格id
+    seItem: null,		//选中的条目
+    table: null,
+    layerIndex: -1
+};
+
+// /**
+//  * 初始化表格的列
+//  */
+// Role.initColumn = function () {
+//     var columns = [
+//         {field: 'selectItem',radio: true },
+//         {title: 'id', field: 'id', visible: false, align: 'center', valign: 'middle'},
+//         {title: '名称', field: 'name', align: 'center', valign: 'middle', sortable: true},
+//         {title: '上级角色', field: 'pName', align: 'center', valign: 'middle', sortable: true},
+//         {title: '所在部门', field: 'deptName', align: 'center', valign: 'middle', sortable: true},
+//         {title: '别名', field: 'tips', align: 'center', valign: 'middle', sortable: true}]
+//     return columns;
+// };
+//
+//
+// /**
+//  * 检查是否选中
+//  */
+// Role.check = function () {
+//     var selected = $('#' + this.id).bootstrapTable('getSelections');
+//     if (selected.length == 0) {
+//         Feng.info("请先选中表格中的某一记录！");
+//         return false;
+//     } else {
+//         Role.seItem = selected[0];
+//         return true;
+//     }
+// };
+//
+//
+//
+// /**
+//  * 点击修改按钮时
+//  */
+// Role.openChangeRole = function () {
+//     if (this.check()) {
+//         var index = layer.open({
+//             type: 2,
+//             title: '修改角色',
+//             area: ['800px', '450px'], //宽高
+//             fix: false, //不固定
+//             maxmin: true,
+//             content: Feng.ctxPath + '/role/role_edit/' + this.seItem.id
+//         });
+//         this.layerIndex = index;
+//     }
+// };
+//
+// /**
+//  * 删除角色
+//  */
+// Role.delRole = function () {
+//     if (this.check()) {
+//
+//         var operation = function(){
+//             var ajax = new $ax(Feng.ctxPath + "/role/remove", function () {
+//                 Feng.success("删除成功!");
+//                 Role.table.refresh();
+//             }, function (data) {
+//                 Feng.error("删除失败!" + data.responseJSON.message + "!");
+//             });
+//             ajax.set("roleId", Role.seItem.id);
+//             ajax.start();
+//         };
+//
+//         Feng.confirm("是否删除角色 " + Role.seItem.name + "?",operation);
+//     }
+// };
+
+/**
+ * 权限配置
+ */
+Role.assign = function () {
+    if (this.check()) {
+        var index = layer.open({
+            type: 2,
+            title: '权限配置',
+            area: ['300px', '450px'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            content: Feng.ctxPath + '/role/role_assign/' + this.seItem.id
+        });
+        this.layerIndex = index;
+    }
+};
+
+// /**
+//  * 搜索角色
+//  */
+// Role.search = function () {
+//     var queryData = {};
+//     //queryData['roleName'] = $("#roleName").val();
+//     queryData['roleId'] = Role.treeId;
+//     Role.table.refresh({query: queryData});
+// }
+
+// Role.onClickRole=function (e, treeId, treeNode) {
+//     Role.treeId= treeNode.id;
+//     Role.search();
+// }
+//
+// $(function () {
+//     var defaultColunms = Role.initColumn();
+//     var table = new BSTable(Role.id, "/role/list", defaultColunms);
+//     table.setPaginationType("client");
+//     table.init();
+//     Role.table = table;
+//
+//     var ztree = new $ZTree("roletree", "/role/tree");
+//     ztree.bindOnClick(Role.onClickRole);
+//     ztree.init();
+// });
+
+
+//layui tree + layui table
+
+
+layui.use('table', function(){
+    var table = layui.table;
+
+    table.render({
+        elem:'#roleTable'
+        ,url: Feng.ctxPath +"/role/backContent"
+        ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+            layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+            //,curr: 5 //设定初始在第 5 页
+            ,groups: 1 //只显示 1 个连续页码
+            ,first: false //不显示首页
+            ,last: false //不显示尾页
+
+        }
+        ,even:true
+        ,height: 520
+        ,id:"roleTable"
+        ,cols: [[
+            {type:'checkbox', fixed: 'left'}
+            ,{fixed: 'left',title : '操作',width:180, align:'center', toolbar: '#barDemo',}
+            ,{title: 'id', field: 'id',width:100,align:'center',fixed: 'left',sort: true }
+            ,{title: '名称', field: 'name',width:100,align:'center',fixed: 'left',sort: true }
+            ,{title: '上级角色', field: 'pName',width:120,align:'center',fixed: '',sort: true }
+            ,{title: '所在部门', field: 'deptName',width:120,align:'center',fixed: '',sort: true }
+            ,{title: '别名', field: 'tips',width:100,align:'center',fixed: '',sort: true }
+        ]]
+        ,done: function(res, curr, count){
+            //如果是异步请求数据方式，res即为你接口返回的信息。
+            //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+            //console.log(res);
+            //得到当前页码
+            //  console.log(curr);
+            //得到数据总量
+            // console.log(count);
+        }
+    });
+});
+
+
+layui.use('table', function(){
+    var table = layui.table;
+    //监听工具条
+
+    table.on('tool(test)', function(obj){
+        var seItem = obj.data;
+        if(obj.event === 'edit'){
+            /**
+             * 角色修改
+             */
+           layer.open({
+                type: 2,
+                title: '修改角色',
+                area: ['800px', '450px'], //宽高
+                fix: false, //不固定
+                maxmin: true,
+                content: Feng.ctxPath + '/role/role_edit/' + seItem.id
+            });
+
+        } else if(obj.event === 'del'){
+        var operation = function(){
+            var ajax = new $ax(Feng.ctxPath + "/role/remove", function () {
+                Feng.success("删除成功!");
+                var tableData=new Array()
+                $.ajax({
+                    url:Feng.ctxPath +"/role/backContent"
+                    ,type:"post"
+                    ,async:false
+                    ,dataType:"json"
+                    , success: function(result){
+                        tableData=result;
+
+                    }
+                });
+                table.reload('roleTable',{
+                    data : tableData
+                });
+
+
+            }, function (data) {
+                Feng.error("删除失败!" + data.responseJSON.message + "!");
+            });
+            ajax.set("roleId", seItem.id);
+            ajax.start();
+        };
+
+        Feng.confirm("是否删除角色 " + seItem.name + "?",operation);
+
+        } else if(obj.event === 'detail'){
+
+//权限配置
+             layer.open({
+                type: 2,
+                title: '权限配置',
+                area: ['300px', '450px'], //宽高
+                fix: false, //不固定
+                maxmin: true,
+                content: Feng.ctxPath + '/role/role_assign/' + seItem.id
+            });
+
+
+        }
+
+    });
+
+
+    //复选框选中操作
+    var $ = layui.$, active = {
+        getCheckData: function(){ //获取选中数据
+
+            var checkStatus = table.checkStatus(Xgt_goods_products.id)
+                ,data = checkStatus.data;
+            var arr =JSON.stringify(data);
+            layer.alert(arr);
+        }
+        ,getCheckLength: function(){ //获取选中数目
+            var checkStatus = table.checkStatus(Xgt_goods_products.id)
+                ,data = checkStatus.data;
+            layer.msg('选中了：'+ data.length + ' 个');
+            if(data.length == 0){
+                Feng.info("请先选中表格中的某一记录！");
+                return false;
+            }else{
+                Xgt_goods_products.seItem = data[0];
+                return true;
+            }
+        }
+        ,isAll: function(){ //验证是否全选
+            var checkStatus = table.checkStatus(Xgt_goods_products.id);
+            layer.msg(checkStatus.isAll ? '全选': '未全选')
+        }
+    };
+
+    $('.demoTable .layui-btn').on('click', function(){
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
+    });
+
+
+
+
+
+
+
+    /**
+    * 点击添加管理员
+    */
+    Role.openAddRole = function () {
+        if(Role.treeId==undefined){
+            Role.treeId=1;
+        }
+        var index = layer.open({
+            type: 2,
+            title: '添加角色',
+            area: ['800px', '450px'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            content: Feng.ctxPath + '/role/role_add/' + Role.treeId
+        });
+        this.layerIndex = index;
+    };
+
+
+});
+
+
+layui.use(['tree', 'layer'], function(){
+    'use strict';
+    var tableData='';
+    $.ajax({
+        url:Feng.ctxPath +"/role/bulidJsonTree"
+        ,type:"get"
+        ,async:false
+        ,dataType:"json"
+        , success: function(result){
+            tableData=JSON.parse(result)
+        }
+    });
+    console.log(tableData)
+
+
+
+    layui.tree({
+        elem: '#role' //指定元素
+        ,click: function(item){ //点击节点回调
+            var ajax = new $ax(Feng.ctxPath + "/role/bulidJson", function (MDATA) {
+                layui.use('table', function(){
+                    var table = layui.table;
+
+                    table.render({
+                        elem: '#roleTable'
+                        ,data:MDATA.data
+                        ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                            layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                            //,curr: 5 //设定初始在第 5 页
+                            ,groups: 1 //只显示 1 个连续页码
+                            ,first: false //不显示首页
+                            ,last: false //不显示尾页
+
+                        }
+                        ,even:true
+                        ,height: 520
+                        ,id:"roleTable"
+                        ,cols: [[
+                            {type:'checkbox', fixed: 'left'}
+                            ,{fixed: 'left',title : '操作',width:180, align:'center', toolbar: '#barDemo',}
+                            ,{title: 'id', field: 'id',width:100,align:'center',fixed: 'left',sort: true }
+                            ,{title: '名称', field: 'name',width:100,align:'center',fixed: 'left',sort: true }
+                            ,{title: '上级角色', field: 'pName',width:120,align:'center',fixed: '',sort: true }
+                            ,{title: '所在部门', field: 'deptName',width:120,align:'center',fixed: '',sort: true }
+                            ,{title: '别名', field: 'tips',width:120,align:'center',fixed: '',sort: true }
+                        ]]
+                    });
+                });
+
+
+
+
+            }, function (MDATA) {
+                Feng.error("失败!" + MDATA.responseJSON.message + "!");
+            });
+            ajax.set('id',item.id);
+            ajax.set('limit',10)
+            ajax.start();
+
+
+            console.log(item.id)
+        }
+        ,nodes:tableData
+    });
+
+
+
+});

@@ -1,0 +1,35 @@
+package wy.addons.zsh.bs_send_channel.warpper;
+
+import wy.common.constant.factory.ConstantFactory;
+import wy.core.base.warpper.BaseControllerWarpper;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 配送商warpper接口
+ *
+ * @author wyFrame
+ * @Date 2018-07-25 14:28:36
+ */
+ 
+ public class Bs_send_channelWarpper extends BaseControllerWarpper{
+ 		public Bs_send_channelWarpper(Object obj){
+ 			super(obj);
+ 		}
+ 		
+ 		protected void warpTheMap(Map<String,Object> map){
+ 			List<Map<String, Object>> list = ConstantFactory.me().getDictByName("范围符");
+                for (Map m : list) {
+                	if ((m.get("num")+"").equals(map.get("send_chnl_num")+"")) {
+                			map.put("send_chnl_num", m.get("name"));
+                	                    }
+                	                }
+ 			List<Map<String, Object>> list1 = ConstantFactory.me().getDictByName("删除状态");
+                for (Map m : list1) {
+                	if ((m.get("num")+"").equals(map.get("xyd_st_id")+"")) {
+                			map.put("xyd_st_id", m.get("name"));
+                	                    }
+                	                }
+ 		}
+ }

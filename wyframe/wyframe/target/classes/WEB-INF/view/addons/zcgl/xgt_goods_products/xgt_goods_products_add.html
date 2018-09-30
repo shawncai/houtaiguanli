@@ -1,0 +1,36 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <form class="form-horizontal" id="signupForm">
+			<input type="hidden" id="prd_id" value="">
+			   <div class="row">
+                                   <#inputCol2 id='prd_nm' name='名称' />
+                                   <#selectCol2 id='prd_brand_id' name='品牌' map='${map2}' />
+                                   <#inputCol2 id='prd_nm_alias' name='简称' />
+                                   <#selectCol2 id='prd_cls_id' name='分类' map='${map4}' />
+                                   <#inputCol2 id='prd_sn' name='序列' />
+                                   <#selectCol2 id='prd_unit_id' name='单位' map='${map6}' />
+                                   <#inputCol2 id='prd_model' name='型号' />
+                                   <#inputCol2 id='prd_spec' name='规格' />
+                                   <#inputCol2 id='prd_no' name='条码' />
+                                   <#timeinputcol2 id='prd_crt_dt' name='上市时间' />
+                                   <#inputCol2 id='prd_purchase' name='采购价' />
+                                   <#inputCol2 id='prd_price' name='销售价' />
+                                   
+                                   
+                                   
+                                   <#photo id='prd_nm_img' name='图片' />
+                                   <#inputCol2 id='prd_nm_dsc' name='描述' />
+                                   
+               </div>
+            <div class="row btn-group-m-t text-center">
+                <div class="col-sm-10">
+                    <#submit btnCss="info" iName="提交" id="ensure" icon="fa-check" clickFun="validate();Xgt_goods_productsInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="Xgt_goods_productsInfoDlg.close()"/>
+                </div>
+            </div>
+         </form>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/xgt_goods_products/js/xgt_goods_products_info.js"></script>
+@}

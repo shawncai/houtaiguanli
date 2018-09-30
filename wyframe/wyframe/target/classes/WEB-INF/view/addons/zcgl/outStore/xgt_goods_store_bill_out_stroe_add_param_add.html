@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="${ctxPath}/static/favicon.ico">
+    <link href="${ctxPath}/static/css_new/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="${ctxPath}/static/css_new/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="${ctxPath}/static/css_new/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link href="${ctxPath}/static/css_new/animate.css" rel="stylesheet">
+    <link href="${ctxPath}/static/css_new/style.css?v=4.1.0" rel="stylesheet">
+    <script src="${ctxPath}/static/js_new/jquery.min.js?v=2.1.4"></script>
+    <script src="${ctxPath}/static/js_new/ajax-object.js"></script>
+    <script src="${ctxPath}/static/js_new/Feng.js"></script>
+    <script type="text/javascript">
+        Feng.addCtx("");
+        Feng.sessionTimeoutRegistry();
+    </script>
+</head>
+
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="ibox float-e-margins">
+        <div class="ibox-content">
+            <div class="form-horizontal">
+
+                <input type="hidden" id="prd_id" value="">
+
+                <div class="row">
+                    <div class="col-sm-6 b-r">
+
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                                        type="button">产&nbsp;品&nbsp;名&nbsp;称
+                                </button>
+                            </div>
+                            <input class="form-control" id="prd_nm" name="prd_vendor_alias"
+                                   type="text"
+                            >
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+
+
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                                        type="button">产&nbsp;品&nbsp;型&nbsp;号
+                                </button>
+                            </div>
+                            <input class="form-control" id="prd_model" name="prd_vendor_alias"
+                                   type="text"
+                            >
+
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+
+
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                                        type="button">产&nbsp;品&nbsp;简&nbsp;称
+                                </button>
+                            </div>
+                            <input class="form-control" id="prd_nm_alias" name="man_phone"
+                                   type="text"
+                            >
+
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                                        type="button">产&nbsp;品&nbsp;描&nbsp;述
+                                </button>
+                            </div>
+                            <input class="form-control" id="prd_nm_dsc" name="man_phone"
+                                   type="text"
+                            >
+
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                    </div>
+
+                    <div class="col-sm-6">
+
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                                        type="button">产&nbsp;品&nbsp;图&nbsp;片
+                                </button>
+                            </div>
+                            <input class="form-control" id="prd_nm_img" name="prd_vendor_man"
+                                   type="text"
+                            >
+
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+
+
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button data-toggle="dropdown" class="btn btn-white dropdown-toggle"
+                                        type="button">产&nbsp;品&nbsp;售&nbsp;价
+                                </button>
+                            </div>
+                            <input class="form-control" id="prd_price" name="prd_vendor_man"
+                                   type="text"
+                            >
+
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+
+
+
+
+
+
+                    </div>
+
+                    <div class="form-group col-sm-12" id="index-textarea">
+
+
+                    </div>
+
+                    <div class="row btn-group-m-t">
+                        <div class="row btn-group-m-t">
+                            <div class="col-sm-6 text-right">
+
+                                <button type="button" class="btn btn-info " onclick="Xgt_goods_prd_vendorInfo.add()" id="ensure">
+                                    <i class="fa fa-check"></i>&nbsp;提交
+                                </button>
+                            </div>
+                            <div class="col-sm-6">
+                                <button type="button" class="btn btn-danger " onclick="Xgt_goods_prd_vendorInfoDlg.close()" id="cancel">
+                                    <i class="fa fa-eraser"></i>&nbsp;返回
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <script src="${ctxPath}/static/js_new/jquery.min.js?v=2.1.4"></script>
+    <script src="${ctxPath}/static/js_new/bootstrap.min.js?v=3.3.6"></script>
+
+    <!-- 自定义js -->
+    <!-- Bootstrap table -->
+    <script src="${ctxPath}/static/js_new/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="${ctxPath}/static/js_new/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+    <script src="${ctxPath}/static/js_new/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+
+    <!-- Peity -->
+    <script src="${ctxPath}/static/js_new/pram_add.js"></script>
+    <script src="${ctxPath}/static/js_new/bootstrap-table-object.js"></script>
+    <!--统计代码，可删除-->
+
+</body>
+
+</html>

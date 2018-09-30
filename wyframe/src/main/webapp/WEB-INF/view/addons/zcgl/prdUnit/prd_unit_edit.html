@@ -1,0 +1,94 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+    <form class="form-horizontal" id="zzz">
+        
+            <input type="hidden" id="prd_unit_id" value="${xgt_goods_prd_unit.prd_unit_id}">
+
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-5 control-label col-xs-5 text-right">单位名称：</label>
+                    <div class="col-sm-3 col-xs-4">
+
+                        <input class="form-control" id="prd_unit_nm" value="${xgt_goods_prd_unit.prd_unit_nm}" name="prd_unit_nm" type="text" >
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-5 control-label col-xs-5 text-right">单位代码：</label>
+                    <div class="col-sm-3 col-xs-4">
+                        <input class="form-control" id="prd_unit_alias" value="${xgt_goods_prd_unit.prd_unit_alias}"  name="prd_unit_alias" type="text" >
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-12 col-xs-12 text-center">
+                    <button type="submit" name="submit" class="btn btn-info " onclick="Xgt_goods_prd_unitInfoDlg.editSubmit()" id="ensure">
+                        <i class="fa fa-check"></i>&nbsp;提交
+                    </button>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="Xgt_goods_prd_unitInfoDlg.close()"/>
+                </div>
+            </div>
+
+<script src="${ctxPath}/static/addons/zcgl/prdUnit/js/xgt_goods_prd_unit_info.js"></script>
+        <script src="${ctxPath}/static/js_new/jquery.min.js?v=2.1.4"></script>
+        <script src="${ctxPath}/static/js_new/layer1/layer.js"></script>
+        <script src="${ctxPath}/static/js/plugins/validate/jquery.validate.min.js"></script>
+        <script src="${ctxPath}/static/js/plugins/validate/messages_zh.min.js"></script>
+        <script>
+            jQuery.validator.addMethod("isMobile", function(value, element) {
+                var length = value.length;
+                var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
+                return this.optional(element) || (length == 11 && mobile.test(value));
+            }, "请正确填写您的手机号码");
+
+            $().ready(function() {
+                var e = "<i class='fa fa-times-circle'></i> ";
+                $("#zzz").validate({
+                    rules: {
+                        prd_unit_alias: {
+                            required: !0,
+                        },
+                        prd_unit_nm: {
+                            required: !0,
+                        },
+
+
+
+                    },
+                    messages: {
+                        prd_unit_nm: {
+                            required: e + "请输入名称",
+                        },
+                        prd_unit_alias: {
+                            required: e + "请输入简称",
+                        },
+
+                    },
+                    showErrors: function (errorMap, errorList) {
+                        var msg = "";
+                        $.each(errorList, function (i, v) {
+                            //msg += (v.message + "\r\n");
+                            //在此处用了layer的方法,显示效果更美观
+                            layer.tips(v.message, v.element, { tips:[2,'red'],time: 2000 });
+                            return false;
+                        });
+                    },
+                    /* 失去焦点时不验证 */
+                    onfocusout: false,
+
+                })
+
+            });
+
+        </script>
+@}

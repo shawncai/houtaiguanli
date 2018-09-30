@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/common.js"></script>
+		<script src="js/mui.view.js"></script>
+		<script type="text/javascript" src="js/jquery-2.1.0.js"></script>
+		<script src="js/base64.js"></script>
+		<script type="text/javascript" src="js/md5.js"></script>
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav" style="background: #4ca5f8;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #fff;"></a>
+			<h1 class="mui-title" style="color: #fff;font-weight: bold;font-size: 20px;">仓库新增</h1>
+
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group">
+				<div class="mui-input-row" style="height: 49px;">
+					<label style="padding-top: 25px;">上级仓库</label>
+					<input id="shangji" type="text" class="mui-input-clear" style="padding-top: 32px;">
+				</div>
+				<div class="mui-input-row" style="height: 49px;" id="fenlei">
+					<label style="padding-top: 25px;">仓库名称</label>
+					<input id="mingchen1" type="text" class="mui-input-clear" style="padding-top: 32px;">
+				</div>
+				<div class="mui-input-row" style="height: 49px;">
+					<label style="padding-top: 25px;">编号</label>
+					<input type="text" id="bianhao" class="mui-input-clear" style="padding-top: 32px;">
+				</div>
+				<div class="mui-input-row" style="height: 49px;">
+					<label style="padding-top: 25px;">联系人</label>
+					<input type="text" id="lianxi" class="mui-input-clear" style="padding-top: 32px;">
+				</div>
+				<div class="mui-input-row" style="height: 49px;">
+					<label style="padding-top: 25px;">联系电话</label>
+					<input type="text" id="dianhua" class="mui-input-clear" placeholder="" style="padding-top: 32px;">
+				</div>
+				<div class="mui-input-row" style="height: 49px;">
+					<label style="padding-top: 25px;">邮箱</label>
+					<input type="text" id="youxiang" class="mui-input-clear" placeholder="" style="padding-top: 32px;">
+				</div>
+				<div class="mui-input-row" style="height: 49px;">
+					<label style="padding-top: 25px;">地址</label>
+					<input type="text" id="dizhi" class="mui-input-clear" placeholder="" style="padding-top: 32px;">
+				</div>
+				<div class="mui-input-row" style="height: 49px;">
+					<label style="padding-top: 25px;">备注</label>
+					<input type="text" id="beizhu" class="mui-input-clear" placeholder="" style="padding-top: 32px;">
+				</div>
+			</form>
+
+		</div>
+		<div class="mui-part4 mui-bar mui-bar-tab" style="margin-top: 80px;">
+			<ul class="mui-table-view" style="height: 65px;">
+				<li class="mui-table-view-cell" id="shanchu" style="float: left;font-size: 27px;margin-left: 10%;margin-top: 10px;background: #bbb;width: 37%;text-align: center;">删除</li>
+				<li class="mui-table-view-cell" id="baocun" style="float: right;font-size: 27px;margin-right: 10%;margin-top: 10px;background: #4ca5f8;color: #fff;width: 37%;text-align: center;">保存</li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		mui.init();
+		mui.plusReady(function() {
+			var baocun = document.getElementById('baocun')
+			baocun.addEventListener('tap', function() {
+				var yuanshi = {};
+				var mingchen1 = document.getElementById('mingchen1')
+				var shangji = document.getElementById('shangji')
+				var bianhao = document.getElementById('bianhao')
+				var lianxi = document.getElementById('lianxi')
+				var dianhua = document.getElementById('dianhua')
+				var youxiang = document.getElementById('youxiang')
+				var dizhi = document.getElementById('dizhi')
+				var beizhu = document.getElementById('beizhu')
+
+				yuanshi['par_store_id'] = shangji.value;
+				yuanshi['cpn_store_nm'] = mingchen1.value;
+				yuanshi['cpn_store_no'] = bianhao.value;
+				yuanshi['man_man'] = lianxi.value;
+				yuanshi['man_phone'] = dianhua.value;
+				yuanshi['man_email'] = youxiang.value;
+				yuanshi['man_address'] = dizhi.value;
+				yuanshi['remarks'] = beizhu.value;
+				var bianma = Base64.encode(JSON.stringify(yuanshi));
+				var suiji = md5(bianma + localStorage.randomKey);
+				var tou = localStorage.token
+				var DATA = {
+					'object': bianma,
+					'sign': suiji
+				}
+				mui.ajax('http://10.0.0.145/xyd_cpn_store/add', {
+					data: JSON.stringify(DATA),
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': "" + 'Bearer ' + tou + ""
+					},
+					success: function(data) {
+						mui.toast("保存成功");
+						console.log(JSON.stringify(data))
+						console.log(JSON.stringify({
+							'Content-Type': 'application/json',
+							'Authorization': "" + 'Bearer ' + tou + ""
+						}))
+						mui.openWindow({
+							url: 'cangku.html',
+							id: 'cangku.html',
+						});
+						mui.back();
+						var list = plus.webview.currentWebview().opener();
+						//触发父页面的自定义事件(refresh),从而进行刷新
+						mui.fire(list, 'refresh');
+						//返回true,继续页面关闭逻辑
+						return true;
+
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type)
+					}
+				});
+			})
+		})
+	</script>
+
+</html>

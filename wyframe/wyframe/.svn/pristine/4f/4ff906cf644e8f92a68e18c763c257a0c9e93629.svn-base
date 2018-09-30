@@ -1,0 +1,344 @@
+package wy.xydframe.system.controller;
+
+import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import net.sf.json.JSONObject;
+import wy.common.annotion.Permission;
+import wy.common.annotion.BussinessLog;
+import wy.common.constant.Const;
+import wy.common.constant.factory.ConstantFactory;
+import wy.common.persistence.model.Page;
+import wy.common.persistence.model.ResultMap;
+import wy.core.base.controller.BaseController;
+import wy.common.exception.BizExceptionEnum;
+import wy.common.exception.BussinessException;
+import wy.core.log.LogObjectHolder;
+import wy.core.util.ToolUtil;
+import wy.xydframe.system.dao.DictDao;
+import wy.xydframe.system.service.IDictService;
+import wy.xydframe.system.warpper.DictWarpper;
+import wy.common.persistence.dao.DictMapper;
+import wy.common.persistence.model.Dict;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 字典控制器
+ *
+ * @author fengshuonan
+ * @Date 2017年4月26日 12:55:31
+ */
+@Controller
+@RequestMapping("/dict")
+public class DictController extends BaseController {
+
+    private String PREFIX = "/xydframe/dict/";
+
+    @Resource
+    DictDao dictDao;
+
+    @Resource
+    DictMapper dictMapper;
+
+    @Resource
+    IDictService dictService;
+    
+    /**
+     * 跳转到字典管理首页
+     */
+    @RequestMapping("")
+    public String index() {
+        return PREFIX + "dict.html";
+    }
+
+    /**
+     * 跳转到添加字典
+     */
+    @RequestMapping("/dict_add")
+    public String deptAdd() {
+        return PREFIX + "dict_add.html";
+    }
+
+    /**
+     * 跳转到修改字典
+     */
+    @Permission(Const.ADMIN_NAME)
+    @RequestMapping("/dict_edit/{dictId}")
+    public String deptUpdate(@PathVariable Integer dictId, Model model) {
+        Dict dict = dictMapper.selectById(dictId);
+        model.addAttribute("dict", dict);
+        List<Dict> subDicts = dictMapper.selectList(new EntityWrapper<Dict>().eq("pid", dictId));
+        model.addAttribute("subDicts", subDicts);
+        LogObjectHolder.me().set(dict);
+        return PREFIX + "dict_edit.html";
+    }
+
+    /**
+     * 新增字典
+     *
+     * @param dictValues 格式例如   "1:启用;2:禁用;3:冻结"
+     */
+    @BussinessLog(value = "添加字典记录", key = "dictName,dictValues", dict = wy.common.constant.Dict.DictMap)
+    @RequestMapping(value = "/add")
+    @Permission(Const.ADMIN_NAME)
+    @ResponseBody
+    public Object add(String dictName, String dictValues) {
+        if (ToolUtil.isOneEmpty(dictName, dictValues)) {
+            throw new BussinessException(BizExceptionEnum.REQUEST_NULL);
+        }
+        this.dictService.addDict(dictName, dictValues);
+        return SUCCESS_TIP;
+    }
+
+    /**
+     * 获取所有字典列表
+     */
+    @RequestMapping(value = "/list")
+    @Permission(Const.ADMIN_NAME)
+    @ResponseBody
+    public Object list(String condition) {
+        List<Map<String, Object>> list = this.dictDao.list(condition);
+        return super.warpObject(new DictWarpper(list));
+    }
+
+    @RequestMapping("/bulidJson")
+    @ResponseBody
+    public JSONObject buildJson(HttpServletResponse response, @RequestParam(required = false) String condition) {
+        List list=dictDao.list(condition);
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("data",list);
+        String json= JSON.toJSONString(map);
+        System.out.println(json);
+        JSONObject jsStr = JSONObject.fromObject(json);
+        System.err.println(jsStr);
+        return jsStr;
+    }
+
+    @RequestMapping("/backContent")
+    @ResponseBody
+    public ResultMap<List<Map>> backContent(Page page, @RequestParam("limit") int limit){
+        System.out.println("backContent========================"+limit);
+        page.setRows(limit);
+        System.out.println("page:"+page.toString());
+        Integer start=page.getStart();
+        Integer rows=page.getRows();
+        List<Map>contentList=dictDao.selectPageList(page,start,rows);
+        int totals=dictDao.selectPageCount(page);
+        page.setTotalRecord(totals);
+        return new ResultMap<List<Map>>("",contentList,0,totals);
+    }
+    /**
+     * 获取字典企业状态列表
+     */
+    public List<Map<String, Object>> cpnStList() {
+    	List<Map<String, Object>> cpnStsList = this.dictDao.selectCpnSts();
+		return cpnStsList;
+    }
+    
+    /**
+     * 获取字典企业状态列表
+     */
+    @RequestMapping(value = "/cpnSt")
+    @ResponseBody
+    public List<Map<String, Object>> cpnStLists() {
+    	List<Map<String, Object>> cpnStsList = this.dictDao.selectCpnSts();
+		return cpnStsList;
+    }
+    
+    /**
+     * 获取字典企业审批状态列表
+     */
+    public List<Map<String, Object>> cpSpStList() {
+    	List<Map<String, Object>> cpSpStList = this.dictDao.selectCpnSpSts();
+		return cpSpStList;
+    }
+    
+    /**
+     * 获取字典企业组织状态列表
+     */
+    public List<Map<String, Object>> cpnDeptStList() {
+    	List<Map<String, Object>> cpnDeptStList = this.dictDao.cpnDeptStList();
+    	return cpnDeptStList;
+    }
+    
+    /**
+     * 获取字典栏目组织状态列表
+     */
+    public List<Map<String, Object>> wyItemStList() {
+    	List<Map<String, Object>> syItemStList = dictDao.wyItemStList();
+    	return syItemStList;
+    }
+    
+    /**
+     * 获取字典栏目分类列表
+     */
+    public List<Map<String, Object>> selectItemCls() {
+    	List<Map<String, Object>> syItemClsList = dictDao.selectItemCls();
+    	return syItemClsList;
+    }
+    
+    @RequestMapping(value = "/cpnDeptStsList")
+    @ResponseBody
+    public Object cpnDeptStsList() {
+    	List<Map<String, Object>> cpnDeptStsList = this.dictDao.cpnDeptStList();
+    	return cpnDeptStsList;
+    }
+    
+    /**
+     * 获取字典企业仓库状态列表
+     */
+    public List<Map<String, Object>> cpnStoreStList() {
+    	List<Map<String, Object>> cpnStoreStList = this.dictDao.cpnStoreStList();
+    	return cpnStoreStList;
+    }
+    
+    @RequestMapping(value = "/cpnStoreStsList")
+    @ResponseBody
+    public Object cpnStoreStsList() {
+    	List<Map<String, Object>> cpnStoreStsList = this.dictDao.cpnStoreStList();    	
+    	return cpnStoreStsList;
+    }
+    
+    /**
+     * 获取字典企业分支机构状态列表
+     */
+    public List<Map<String, Object>> cpnBranchStList() {
+    	List<Map<String, Object>> cpnBranchStList = this.dictDao.cpnBranchStList();
+    	return cpnBranchStList;
+    }
+    
+    /**
+     * 获取字典生产厂商状态列表
+     */
+    public List<Map<String, Object>> vendorStList() {
+    	List<Map<String, Object>> vendorStList = this.dictDao.vendorStList();
+    	return vendorStList;
+    }
+    
+    /**
+     * 获取字典生产厂商类别列表
+     */
+    public List<Map<String, Object>> vendorFlgList() {
+    	List<Map<String, Object>> vendorFlgList = this.dictDao.vendorFlgList();
+    	return vendorFlgList;
+    }
+    
+    /**
+     * 获取字典产品品牌状态列表
+     */
+    public List<Map<String, Object>> brandStList() {
+    	List<Map<String, Object>> brandStList = this.dictDao.brandStList();
+    	return brandStList;
+    }
+    
+    /**
+     * 获取字典产品分类状态列表
+     */
+    public List<Map<String, Object>> clsStList() {
+    	List<Map<String, Object>> clsStList = this.dictDao.clsStList();
+    	return clsStList;
+    }
+
+    /**
+     * 获取字典入库单状态列表
+     */
+    public List<Map<String, Object>> inStoreStList(){
+        List<Map<String, Object>> inStoreStList=this.dictDao.inStoreStList();
+        return inStoreStList;
+    }
+
+    /**
+     * 获取字典入库单状态列表
+     */
+    public List<Map<String, Object>>inTypeStList(){
+        List<Map<String, Object>> inTypeStList=this.dictDao.inTypeStList();
+        return inTypeStList;
+    }
+
+    /**
+     * 获取字典入库单状态
+     */
+    public List<Map<String, Object>>inList(){
+        List<Map<String, Object>>inList=this.dictDao.inList();
+        return inList;
+    }
+
+    /**
+     * 获取字典产品状态列表
+     */
+    public List<Map<String, Object>> productStList() {
+    	List<Map<String, Object>> productStList = this.dictDao.productStList();
+    	return productStList;
+    }
+    
+    @RequestMapping(value = "/cpnBranchStsList")
+    @ResponseBody
+    public Object cpnBranchStsList() {
+    	List<Map<String, Object>> cpnBranchStsList = this.dictDao.cpnBranchStList();   	
+    	return cpnBranchStsList;
+    }
+    
+    /**
+     * 字典详情
+     */
+    @RequestMapping(value = "/detail/{dictId}")
+    @Permission(Const.ADMIN_NAME)
+    @ResponseBody
+    public Object detail(@PathVariable("dictId") Integer dictId) {
+        return dictMapper.selectById(dictId);
+    }
+    
+    /**
+     * 获取字典
+     */
+    @RequestMapping(value = "/selectDict")
+    @ResponseBody
+    public Object selectDict(@RequestParam ("dictId") String dictId) {
+    	System.err.println(dictId);
+    	List<Map<String,Object>> list = this.dictDao.selectById(Integer.parseInt(dictId));
+    	System.err.println(list);
+    	return	list;
+    }
+
+    /**
+     * 修改字典
+     */
+    @BussinessLog(value = "修改字典", key = "dictName,dictValues", dict = wy.common.constant.Dict.DictMap)
+    @RequestMapping(value = "/update")
+    @Permission(Const.ADMIN_NAME)
+    @ResponseBody
+    public Object update(Integer dictId, String dictName, String dictValues) {
+        if (ToolUtil.isOneEmpty(dictId, dictName, dictValues)) {
+            throw new BussinessException(BizExceptionEnum.REQUEST_NULL);
+        }
+        dictService.editDict(dictId, dictName, dictValues);
+        return super.SUCCESS_TIP;
+    }
+
+    /**
+     * 删除字典记录
+     */
+    @BussinessLog(value = "删除字典记录", key = "dictId", dict = wy.common.constant.Dict.DeleteDict)
+    @RequestMapping(value = "/delete")
+    @Permission(Const.ADMIN_NAME)
+    @ResponseBody
+    public Object delete(@RequestParam Integer dictId) {
+
+        //缓存被删除的名称
+        LogObjectHolder.me().set(ConstantFactory.me().getDictName(dictId));
+
+        this.dictService.delteDict(dictId);
+        return SUCCESS_TIP;
+    }
+
+}

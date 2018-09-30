@@ -1,0 +1,38 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <form class="form-horizontal" id="signupForm">
+
+             <input type="hidden" id="prd_id" value="${xgt_goods_products.prd_id}">
+				
+			 <div class="row">
+                                             <#inputCol2 id='prd_nm' name='名称' value='${xgt_goods_products.prd_nm}' />
+                                             <#selectCol2 id='prd_brand_id' name='品牌' map='${map2}'  value='${xgt_goods_products.prd_brand_id}' />
+                                             <#inputCol2 id='prd_nm_alias' name='简称' value='${xgt_goods_products.prd_nm_alias}' />
+                                             <#selectCol2 id='prd_cls_id' name='分类' map='${map4}'  value='${xgt_goods_products.prd_cls_id}' />
+                                             <#inputCol2 id='prd_sn' name='序列' value='${xgt_goods_products.prd_sn}' />
+                                             <#selectCol2 id='prd_unit_id' name='单位' map='${map6}'  value='${xgt_goods_products.prd_unit_id}' />
+                                             <#inputCol2 id='prd_model' name='型号' value='${xgt_goods_products.prd_model}' />
+                                             <#inputCol2 id='prd_spec' name='规格' value='${xgt_goods_products.prd_spec}' />
+                                             <#inputCol2 id='prd_no' name='条码' value='${xgt_goods_products.prd_no}' />
+                                             <#timeinputcol2 id='prd_crt_dt' name='上市时间' value='${xgt_goods_products.prd_crt_dt}' />
+                                             <#inputCol2 id='prd_purchase' name='采购价' value='${xgt_goods_products.prd_purchase}' />
+                                             <#inputCol2 id='prd_price' name='销售价' value='${xgt_goods_products.prd_price}' />
+                                             
+                                             
+                                             
+                                             <#photo id='prd_nm_img' name='图片' value='${xgt_goods_products.prd_nm_img}' />
+                                             <#inputCol2 id='prd_nm_dsc' name='描述' value='${xgt_goods_products.prd_nm_dsc}' />
+                                             <#selectCol2 id='xyd_st_id' name='状态' map='${map18}'  value='${xgt_goods_products.xyd_st_id}' />
+                           </div>
+            <div class="row btn-group-m-t text-center">
+                <div class="col-sm-10">
+                    <#submit btnCss="info" iName="提交" id="ensure" icon="fa-check" clickFun="validate();Xgt_goods_productsInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="Xgt_goods_productsInfoDlg.close()"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/xgt_goods_products/js/xgt_goods_products_info.js"></script>
+@}

@@ -1,0 +1,157 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="prd_id" value="${xgt_goods_product.prd_id}">
+            <div class="row">
+                <div class="col-sm-6 col-xs-6">
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label col-xs-6">名&nbsp;&nbsp;&nbsp;&nbsp;称：</label>
+                        <div class="col-sm-7 col-xs-12">
+                            <input id="prd_nm" class="form-control" name="prd_nm" value="${xgt_goods_product.prd_nm}" readonly="readonly"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5 col-xs-5">
+
+                    <#selectxiala id="prd_cls_id" name="分&nbsp;&nbsp;&nbsp;&nbsp;类" map="${prdClsList}" value="${xgt_goods_product.prd_cls_id}" readonly="readonly"/>
+
+                </div>
+                <div class="col-sm-6 col-xs-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 col-xs-6 control-label">简&nbsp;&nbsp;&nbsp;&nbsp;称：</label>
+                        <div class="col-sm-7 col-xs-12">
+                            <input id="prd_nm_alias" class="form-control" name="prd_nm_alias" value="${xgt_goods_product.prd_nm_alias}" readonly="readonly"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5 col-xs-5">
+                    <div class="form-group">
+                        <label class="col-sm-4 col-xs-6 control-label">条&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
+                        <div class="col-sm-8 col-xs-12">
+                            <input id="prd_no" class="form-control" name="prd_no" value="${xgt_goods_product.prd_no}" readonly="readonly"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xs-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 col-xs-6 control-label">系&nbsp;&nbsp;&nbsp;&nbsp;列：</label>
+                        <div class="col-sm-7 col-xs-12">
+                            <input id="prd_sn" class="form-control" name="prd_sn" value="${xgt_goods_product.prd_sn}" readonly="readonly"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-5 col-xs-5">
+                    <div class="form-group">
+                        <label class="col-sm-4 col-xs-6 control-label">型&nbsp;&nbsp;&nbsp;&nbsp;号：</label>
+                        <div class="col-sm-8 col-xs-12">
+                            <input id="prd_model" class="form-control" name="prd_model" value="${xgt_goods_product.prd_model}" readonly="readonly"/>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-6 col-xs-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 col-xs-6 control-label">规&nbsp;&nbsp;&nbsp;&nbsp;格：</label>
+                        <div class="col-sm-7 col-xs-12">
+                            <input id="prd_spec" class="form-control" name="prd_spec" value="${xgt_goods_product.prd_spec}" readonly="readonly"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-5 col-xs-5">
+                    <#selectxiala id="prd_unit_id" name="单&nbsp;&nbsp;&nbsp;&nbsp;位" map="${prdUnitList}" value="${xgt_goods_product.prd_unit_id}" readonly="readonly"/>
+                </div>
+                <div class="col-sm-6 col-xs-6">
+                    <div class="form-group">
+                        <label class="col-sm-4  col-xs-6 control-label">采购价：</label>
+                        <div class="col-sm-7 col-xs-12">
+                            <input id="prd_purchase" class="form-control" name="prd_purchase" value="${xgt_goods_product.prd_purchase}" readonly="readonly"/>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-5 col-xs-5">
+                    <div class="form-group">
+                        <label class="col-sm-4 col-xs-6 control-label">销售价：</label>
+                        <div class="col-sm-8 col-xs-12">
+                            <input id="prd_price" class="form-control" name="prd_price" value="${xgt_goods_product.prd_price}" readonly="readonly"/>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-12 col-xs-12">
+                    <div class="form-group">
+
+                        <label class="col-sm-2 col-xs-2 control-label">简&nbsp;&nbsp;&nbsp;&nbsp;介：</label>
+                        <div class="col-sm-9 col-xs-10">
+                            <input id="prd_remarks" class="form-control" name="prd_remarks" value="${xgt_goods_product.prd_remarks}" readonly="readonly"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-2 control-label">描&nbsp;&nbsp;&nbsp;&nbsp;述：</label>
+                        <div class="col-sm-9 col-xs-10">
+                            <input id="prd_nm_dsc" class="form-control" name="prd_nm_dsc" value="${xgt_goods_product.prd_nm_dsc}" readonly="readonly"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-2 control-label">图&nbsp;&nbsp;&nbsp;&nbsp;片：</label>
+                        <div class="col-sm-8 col-xs-12">
+                            <input id="prd_nm_img" value="${xgt_goods_product.prd_nm_img}" class="form-control" name="prd_nm_img" readonly="readonly" type="hidden"/>
+                            <img id="prd_nm_img" src="${xgt_goods_product.prd_nm_img}"  class="img-rounded" style="width: 122px;"/>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-12 col-xs-12 text-center">
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="Xgt_goods_productInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/products/js/xgt_goods_product_info.js"></script>
+<script>
+    $('#fenlei').on('click', function(){
+        layer.open({
+            type: 2,
+            title: '添加分类',
+            area: ['100%', '100%'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            shadeClose: true,
+            content: Feng.ctxPath + '/xgt_goods_prd_cls/xgt_goods_prd_cls_add/0'
+        });
+    });
+    $('#danwei').on('click', function(){
+        layer.open({
+            type: 2,
+            title: '添加单位',
+            area: ['100%', '100%'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            shadeClose: true,
+            content: Feng.ctxPath + '/xgt_goods_prd_unit/xgt_goods_prd_unit_add'
+        });
+    });
+</script>
+@}

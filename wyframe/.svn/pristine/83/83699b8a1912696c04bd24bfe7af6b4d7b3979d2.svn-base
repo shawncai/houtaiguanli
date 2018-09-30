@@ -1,0 +1,15 @@
+package ${mapper.packageName};
+
+<% for(import in mapper.mapperImports!){ %>
+import ${import};
+<% } %>
+
+/**
+ * ${context.bizChName}Mapper接口
+ *
+ * @author wyFrame
+ * @Date ${tool.currentTime()}
+ */
+ public interface ${context.bizEnBigName}Mapper extends BaseMapper<${context.bizEnBigName}>{
+ 
+ }

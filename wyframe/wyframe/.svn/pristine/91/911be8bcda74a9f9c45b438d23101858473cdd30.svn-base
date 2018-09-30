@@ -1,0 +1,42 @@
+package wy.addons.zsh.bs_bill.warpper;
+
+import java.util.Map;
+import wy.common.constant.factory.ConstantFactory;
+import wy.core.base.warpper.BaseControllerWarpper;
+import java.util.List;
+import wy.config.properties.XydProperties;
+import wy.core.util.SpringContextHolder;
+
+/**
+ * 订单warpper接口
+ *
+ * @author wyFrame
+ * @Date 2018-07-25 15:16:00
+ */
+ 
+ public class Bs_billWarpper extends BaseControllerWarpper{
+ 		public Bs_billWarpper(Object obj){
+ 			super(obj);
+ 		}
+ 		
+ 		protected void warpTheMap(Map<String,Object> map){
+ 			List<Map<String, Object>> list12 = ConstantFactory.me().getDictByName("订单状态");
+                for (Map m : list12) {
+                	if ((m.get("num")+"").equals(map.get("bill_st_id")+"")) {
+                			map.put("bill_st_id", m.get("name"));
+                	                    }
+                	                }
+ 			List<Map<String, Object>> list18 = ConstantFactory.me().getDictByName("配送状态");
+                for (Map m : list18) {
+                	if ((m.get("num")+"").equals(map.get("send_st")+"")) {
+                			map.put("send_st", m.get("name"));
+                	                    }
+                	                }
+ 			List<Map<String, Object>> list26 = ConstantFactory.me().getDictByName("删除状态");
+                for (Map m : list26) {
+                	if ((m.get("num")+"").equals(map.get("xyd_st_id")+"")) {
+                			map.put("xyd_st_id", m.get("name"));
+                	                    }
+                	                }
+ 		}
+ }

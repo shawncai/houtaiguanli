@@ -1,0 +1,29 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+           <input type="hidden" id="shop_id" value="${bs_shop.shop_id}">
+
+      		 <div class="row">
+                       <#inputCol1 id='shop_no' name='商品编码' value='${bs_shop.shop_no}' readonly='readonly'/>
+                       <#inputCol1 id='shop_nm' name='商品名称' value='${bs_shop.shop_nm}' readonly='readonly'/>
+                       <#inputCol1 id='shop_weigth' name='商品重量' value='${bs_shop.shop_weigth}' readonly='readonly'/>
+                       <#inputCol1 id='shop_spec' name='商品规格' value='${bs_shop.shop_spec}' readonly='readonly'/>
+                       <#inputCol1 id='shop_no_num' name='商品条码' value='${bs_shop.shop_no_num}' readonly='readonly'/>
+                       <#inputCol1 id='shop_unit' name='商品单位' value='${bs_shop.shop_unit}' readonly='readonly'/>
+                       <#inputCol1 id='xyd_cre_dt' name='创建时间' value='${bs_shop.xyd_cre_dt}' readonly='readonly'/>
+                       <#inputCol1 id='xyd_up_dt' name='修改时间' value='${bs_shop.xyd_up_dt}' readonly='readonly'/>
+                       <#selectCol1 id='xyd_st_id' name='状态' map='${map9}' value='${bs_shop.xyd_st_id}' />
+                       <#inputCol1 id='xyd_user_id' name='操作人' value='${bs_shop.xyd_user_id}' readonly='readonly'/>
+                                 </div>
+            <div class="row btn-group-m-t text-center">
+                <div class="col-sm-10">
+                    <#button btnCss="danger" name="关闭" id="cancel" icon="fa-eraser" clickFun="Bs_shopInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zsh/bs_shop/js/bs_shop_info.js"></script>
+@}

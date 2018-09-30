@@ -1,0 +1,197 @@
+<!doctype html>
+<html class="feedback">
+
+	<head ng-app="myApp">
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/app.css" rel="stylesheet" />
+		<link href="css/feedback-page.css" rel="stylesheet" />
+		<link href="css/font-awesome.min.css" rel="stylesheet"/>
+		<link href="css/iconfont.css" rel="stylesheet" />
+		<link href="css/tupian.css" rel="stylesheet" />
+		<link href="js/webuploader-master/css/webuploader.css" rel="stylesheet"/>
+		<link href="js/webuploader-master/examples/image-upload/style.css" rel="stylesheet"/>
+		
+		
+		
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/common.js"></script>
+		<script src="js/mui.view.js"></script>
+		<script src="js/utitls.js"></script>
+		<script type="text/javascript" src="js/jquery-2.1.0.js"></script>
+		<script src="js/base64.js"></script>
+		<script type="text/javascript" src="js/md5.js"></script>
+	
+	</head>
+	<body ng-controller="myCtrl">
+
+		<header class="mui-bar mui-bar-nav" style="background: #4ca5f8;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #fff;"></a>
+			<h1 class="mui-title" style="color: #fff;font-weight: bold;font-size: 20px;">产品新增</h1>
+
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group">
+				
+				<div class="mui-input-row" style="height: 49px;" id="fenlei">
+					<label style="padding-top: 25px;">产品名称</label>
+					<input id="mingchen1" type="text" class="mui-input-clear" style="padding-top: 32px;">
+				</div>
+				<div class="mui-input-row" style="height: 49px;">
+					<label style="padding-top: 25px;">产品货号</label>
+					<input type="text" id="huohao" class="mui-input-clear" style="padding-top: 32px;">
+				</div>
+				<div class="mui-input-row" style="height: 49px;">
+					<label style="padding-top: 25px;">所属分类</label>
+					<input type="text" id="fenlei" class="mui-input-clear" style="padding-top: 32px;">
+				</div>
+				<div class="mui-input-row" style="height: 49px;">
+					<label style="padding-top: 25px;">规格</label>
+					<input type="text" id="guige" class="mui-input-clear" placeholder="" style="padding-top: 32px;">
+				</div>
+				<div class="mui-input-row" style="height: 49px;">
+					<label style="padding-top: 25px;">型号</label>
+					<input type="text" id="xinghao" class="mui-input-clear" placeholder="" style="padding-top: 32px;">
+				</div>
+				<div class="mui-input-row" style="height: 49px;">
+					<label style="padding-top: 25px;">条码</label>
+					<input type="text" id="tiaoma" class="mui-input-clear" placeholder="" style="padding-top: 32px;">
+				</div>
+				<div class="mui-input-row" style="height: 49px;">
+					<label style="padding-top: 25px;">单位</label>
+					<input type="text" id="danwei" class="mui-input-clear" placeholder="" style="padding-top: 32px;">
+				</div>
+				<div class="mui-input-row" style="height: 49px;">
+					<label style="padding-top: 25px;">备注</label>
+					<input type="text" id="beizhu" class="mui-input-clear" placeholder="" style="padding-top: 32px;">
+				</div>
+			</form>
+
+
+
+
+
+
+		</div>
+		
+		
+		
+		
+		
+		
+		<div class="content">  
+          <div id="uploader">
+                <div class="queueList">
+                    <div id="dndArea" class="placeholder">
+                        <div id="filePicker"></div>
+                        <p>或将照片拖到这里，单次最多可选300张</p>
+                    </div>
+                </div>
+                <div class="statusBar" style="display:none;">
+                    <div class="progress">
+                        <span class="text">0%</span>
+                        <span class="percentage"></span>
+                    </div><div class="info"></div>
+                    <div class="btns">
+                        <div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
+                    </div>
+                </div>
+            </div>
+</div>
+	
+		
+		
+		
+		
+		
+		
+		<div class="mui-part4 mui-bar mui-bar-tab" style="margin-top: 80px;">
+			<ul class="mui-table-view" style="height: 65px;">
+				<li class="mui-table-view-cell" id="shanchu" style="float: left;font-size: 27px;margin-left: 10%;margin-top: 10px;background: #bbb;width: 37%;text-align: center;">删除</li>
+				<li class="mui-table-view-cell" id="baocun" style="float: right;font-size: 27px;margin-right: 10%;margin-top: 10px;background: #4ca5f8;color: #fff;width: 37%;text-align: center;" >保存</li>
+			</ul>
+		</div>
+		<script src="js/webuploader-master/examples/image-upload/jquery.js"></script>
+		<script src="js/webuploader-master/dist/webuploader.js" ></script>
+		<script src="js/webuploader-master/examples/image-upload/upload.js"></script>
+	</body>
+	<script type="text/javascript">
+		mui.init();
+		mui.plusReady(function() {
+			var baocun = document.getElementById('baocun')
+			baocun.addEventListener('tap', function() {
+				var yuanshi = {};
+				var mingchen1 = document.getElementById('mingchen1')
+				var huohao = document.getElementById('huohao')
+				var fenlei = document.getElementById('fenlei')
+				var guige = document.getElementById('guige')
+				var xinghao = document.getElementById('xinghao')
+				var tiaoma = document.getElementById('tiaoma')
+				var danwei = document.getElementById('danwei')
+				var beizhu = document.getElementById('beizhu')
+
+				yuanshi['prd_nm_alias'] = mingchen1.value;
+				yuanshi['prd_nm_dsc'] = huohao.value;
+				yuanshi['prd_cls_id'] = fenlei.value;
+				yuanshi['prd_spec'] = guige.value;
+				yuanshi['prd_model'] = xinghao.value;
+				yuanshi['prd_no'] = tiaoma.value;
+				yuanshi['prd_unit_id'] = danwei.value;
+				yuanshi['prd_remarks'] = beizhu.value;
+				var bianma = Base64.encode(JSON.stringify(yuanshi));
+				var suiji = md5(bianma + localStorage.randomKey);
+				var tou = localStorage.token
+				var DATA = {
+					'object': bianma,
+					'sign': suiji
+				}
+				mui.ajax('http://10.0.0.145/xgt_goods_product/add', {
+					data: JSON.stringify(DATA),
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': "" + 'Bearer ' + tou + ""
+					},
+					success: function(data) {
+						mui.toast("保存成功");
+						console.log(JSON.stringify(data))
+						console.log(JSON.stringify({
+							'Content-Type': 'application/json',
+							'Authorization': "" + 'Bearer ' + tou + ""
+						}))
+						mui.openWindow({
+							url: 'chanping.html',
+							id: 'chanping.html',
+						});
+						mui.back();
+						var list = plus.webview.currentWebview().opener();
+						//触发父页面的自定义事件(refresh),从而进行刷新
+						mui.fire(list, 'refresh');
+						//返回true,继续页面关闭逻辑
+						return true;
+
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type)
+					}
+				});
+			})
+			
+			
+			
+			
+			
+		})
+	</script>
+
+
+<script src="js/mui.min.js"></script>  
+  
+
+
+</html>

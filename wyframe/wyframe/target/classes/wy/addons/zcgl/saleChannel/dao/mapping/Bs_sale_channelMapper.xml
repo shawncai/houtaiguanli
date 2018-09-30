@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.saleChannel.dao.Bs_sale_channelMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.zcgl.saleChannel.model.Bs_sale_channel">
+	<id column="chnl_id" property="chnl_id" />
+	<result column="chnl_no" property="chnl_no" />
+	<result column="chnl_nm" property="chnl_nm" />
+	<result column="chnl_desc" property="chnl_desc" />
+	<result column="chnl_phone" property="chnl_phone" />
+	<result column="chnl_user_nm" property="chnl_user_nm" />
+	</resultMap>
+</mapper>

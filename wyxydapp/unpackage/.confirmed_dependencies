@@ -1,0 +1,66 @@
+{
+	"index.html": {
+		"refer": [
+			"main.html",
+			"index.html"
+		],
+		"resources": []
+	},
+	"main.html": {
+		"refer": [
+			"barcode_scan.html",
+			"barcode.html",
+			"plus/barcode.html",
+			"setting.html",
+			"plus/message.html",
+			"plus/orientation.html",
+			"mainp0.html",
+			"churuku.html",
+			"saomiao.html"
+		],
+		"resources": []
+	},
+	"plus/barcode.html": {
+		"refer": [
+			"plus/barcode_scan.html",
+			"plus/doc.html",
+			"plus/barcode_scan2.html"
+		],
+		"resources": []
+	},
+	"plus/message.html": {
+		"refer": [
+			"plus/doc.html"
+		]
+	},
+	"churuku.html": {
+		"refer": [
+			"gonghuo.html",
+			"cangku.html",
+			"chanping.html",
+			"saomiao.html"
+		]
+	},
+	"gonghuo.html": {
+		"refer": [
+			"churuku.html",
+			"gonghuobianji.html"
+		]
+	},
+	"cangku.html": {
+		"refer": [
+			"gonghuobianji.html",
+			"cangkubianji.html"
+		]
+	},
+	"chanping.html": {
+		"refer": [
+			"chanpingbianjia.html"
+		]
+	},
+	"chanpingbianjia.html": {
+		"refer": [
+			"plus/doc.html"
+		]
+	}
+}

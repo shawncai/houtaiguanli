@@ -1,0 +1,343 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <form class="form-horizontal" id="signupForm">
+
+            <input type="hidden" id="prd_id" value="${xgt_goods_product.prd_id}">
+            <div class="row">
+                <div class="col-sm-6 col-xs-6">
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label col-xs-6">名&nbsp;&nbsp;&nbsp;&nbsp;称：</label>
+                        <div class="col-sm-7 col-xs-12">
+                            <input id="prd_nm" class="form-control" name="prd_nm" value="${xgt_goods_product.prd_nm}" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5 col-xs-5">
+
+                    <#selectxiala id="prd_cls_id" name="分&nbsp;&nbsp;&nbsp;&nbsp;类" map="${prdClsList}" value="${xgt_goods_product.prd_cls_id}"/>
+
+                </div>
+                <div class="col-sm-1 col-xs-1"  id="fenlei" style="margin-top: 5px;margin-left: -23px;"><a style="display: block;width: 30px;height: 30px;text-align: center;">+</a></div>
+                <div class="col-sm-6 col-xs-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 col-xs-6 control-label">简&nbsp;&nbsp;&nbsp;&nbsp;称：</label>
+                        <div class="col-sm-7 col-xs-12">
+                            <input id="prd_nm_alias" class="form-control" name="prd_nm_alias" value="${xgt_goods_product.prd_nm_alias}"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5 col-xs-5">
+                    <div class="form-group">
+                        <label class="col-sm-4 col-xs-6 control-label">条&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
+                        <div class="col-sm-8 col-xs-12">
+                            <input id="prd_no" class="form-control" name="prd_no" value="${xgt_goods_product.prd_no}"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xs-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 col-xs-6 control-label">系&nbsp;&nbsp;&nbsp;&nbsp;列：</label>
+                        <div class="col-sm-7 col-xs-12">
+                            <input id="prd_sn" class="form-control" name="prd_sn" value="${xgt_goods_product.prd_sn}"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-5 col-xs-5">
+                    <div class="form-group">
+                        <label class="col-sm-4 col-xs-6 control-label">型&nbsp;&nbsp;&nbsp;&nbsp;号：</label>
+                        <div class="col-sm-8 col-xs-12">
+                            <input id="prd_model" class="form-control" name="prd_model" value="${xgt_goods_product.prd_model}"/>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-6 col-xs-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 col-xs-6 control-label">规&nbsp;&nbsp;&nbsp;&nbsp;格：</label>
+                        <div class="col-sm-7 col-xs-12">
+                            <input id="prd_spec" class="form-control" name="prd_spec" value="${xgt_goods_product.prd_spec}"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-5 col-xs-5">
+                    <#selectxiala id="prd_unit_id" name="单&nbsp;&nbsp;&nbsp;&nbsp;位" map="${prdUnitList}" value="${xgt_goods_product.prd_unit_id}"/>
+                </div>
+                <div class="col-sm-1 col-xs-1"  id="danwei" style="margin-top: 5px;margin-left: -23px;"><a style="display: block;width: 30px;height: 30px;text-align: center;">+</a></div>
+
+
+                <div class="col-sm-6 col-xs-6">
+                    <div class="form-group">
+                        <label class="col-sm-4  col-xs-6 control-label">采购价：</label>
+                        <div class="col-sm-7 col-xs-12">
+                            <input id="prd_purchase" class="form-control" name="prd_purchase" value="${xgt_goods_product.prd_purchase}"/>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-5 col-xs-5">
+                    <div class="form-group">
+                        <label class="col-sm-4 col-xs-6 control-label">销售价：</label>
+                        <div class="col-sm-8 col-xs-12">
+                            <input id="prd_price" class="form-control" name="prd_price" value="${xgt_goods_product.prd_price}"/>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-12 col-xs-12">
+                    <div class="form-group">
+
+                        <label class="col-sm-2 col-xs-2 control-label">简&nbsp;&nbsp;&nbsp;&nbsp;介：</label>
+                        <div class="col-sm-9 col-xs-10">
+                            <input id="prd_remarks" class="form-control" name="prd_remarks" value="${xgt_goods_product.prd_remarks}"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-2 control-label">描&nbsp;&nbsp;&nbsp;&nbsp;述：</label>
+                        <div class="col-sm-9 col-xs-10">
+                            <input id="prd_nm_dsc" class="form-control" name="prd_nm_dsc" value="${xgt_goods_product.prd_nm_dsc}"/>
+                        </div>
+                    </div>
+                </div>
+
+<#photo1 id="prd_nm_img" name="图片" value="${xgt_goods_product.prd_nm_img}" />
+
+
+
+            </div>
+
+
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-12 col-xs-12 text-center">
+                    <button type="submit" name="submit" class="btn btn-info " onclick="Xgt_goods_productInfoDlg.editSubmit()" id="ensure">
+                        <i class="fa fa-check"></i>&nbsp;提交
+                    </button>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="Xgt_goods_productInfoDlg.close()"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/products/js/xgt_goods_product_info.js"></script>
+<script src="${ctxPath}/static/js_new/jquery.min.js?v=2.1.4"></script>
+<script src="${ctxPath}/static/js/plugins/webuploader-master/examples/image-upload/upload.js"></script>
+<script src="${ctxPath}/static/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="${ctxPath}/static/js/plugins/validate/messages_zh.min.js"></script>
+<script>
+    layui.use('upload', function() {
+        var $ = layui.jquery
+            , upload = layui.upload;
+
+        //多文件列表示例
+        var demoListView = $('#demoList')
+            , uploadListIns = upload.render({
+            elem: '#testList'
+            , url: Feng.ctxPath + '/mgr/upload'
+            , accept: 'file'
+            , multiple: true
+            , auto: false
+            , bindAction: '#testListAction'
+            , choose: function (obj) {
+                var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+                //读取本地文件
+                obj.preview(function (index, file, result) {
+//                        $('#demo1').attr('src', result); //图片链接（base64）
+                    var tr = $(['<tr id="upload-' + index + '">'
+                        , '<td>' + '<img src="'+ result +'"   class="layui-upload-img">' + '</td>'
+                        , '<td>' + (file.size / 1014).toFixed(1) + 'kb</td>'
+                        , '<td>等待</td>'
+                        , '<td>'
+                        , '<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
+                        , '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
+                        , '</td>'
+                        , '</tr>'].join(''));
+
+                    //单个重传
+                    tr.find('.demo-reload').on('click', function () {
+                        obj.upload(index, file);
+                    });
+
+                    //删除
+                    tr.find('.demo-delete').on('click', function () {
+                        delete files[index]; //删除对应的文件
+                        tr.remove();
+                        uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
+                    });
+
+                    demoListView.append(tr);
+                    $('#prd_nm_img').val(result)
+
+                });
+            }
+            , done: function (res, index, upload) {
+                console.log(res.data)
+                var quchu=res.data
+                console.log(quchu.src)
+                var str=quchu.src;
+                var pattern = "http://wqn.xiaogt.cn/";
+                str = str.replace(new RegExp(pattern), "");
+                console.log(str);
+                $('#prd_nm_img').val(str)
+                if(res.code == 0){ //上传成功
+                    var tr = demoListView.find('tr#upload-'+ index)
+                        ,tds = tr.children();
+                    tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
+                    tds.eq(3).html(''); //清空操作
+                    return delete this.files[index]; //删除文件队列已经上传成功的文件
+                }
+                this.error(index, upload);
+
+            }
+            , error: function (index, upload) {
+                var tr = demoListView.find('tr#upload-' + index)
+                    , tds = tr.children();
+                tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
+                tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
+            }
+        });
+
+    });
+    $('#fenlei').on('click', function(){
+        layer.open({
+            type: 2,
+            title: '添加分类',
+            area: ['100%', '100%'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            shadeClose: true,
+            content: Feng.ctxPath + '/xgt_goods_prd_cls/xgt_goods_prd_cls_add/0'
+        });
+    });
+    $('#danwei').on('click', function(){
+        layer.open({
+            type: 2,
+            title: '添加单位',
+            area: ['100%', '100%'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            shadeClose: true,
+            content: Feng.ctxPath + '/xgt_goods_prd_unit/xgt_goods_prd_unit_add'
+        });
+    });
+</script>
+
+<script>
+    jQuery.validator.addMethod("isMobile", function(value, element) {
+        var length = value.length;
+        var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
+        return this.optional(element) || (length == 11 && mobile.test(value));
+    }, "请正确填写您的手机号码");
+
+    $.validator.setDefaults({
+        highlight: function(e) {
+            $(e).closest(".form-group").removeClass("has-success").addClass("has-error")
+        },
+        success: function(e) {
+            e.closest(".form-group").removeClass("has-error").addClass("has-success")
+        },
+        errorElement: "span",
+        errorPlacement: function(e, r) {
+            e.appendTo(r.is(":radio") || r.is(":checkbox") ? r.parent().parent().parent() : r.parent())
+        },
+        errorClass: "help-block m-b-none",
+        validClass: "help-block m-b-none"
+    }),
+        $().ready(function() {
+            var e = "<i class='fa fa-times-circle'></i> ";
+            $("#signupForm").validate({
+                rules: {
+                    prd_nm: {
+                        required: !0,
+                    },
+                    prd_nm_alias: {
+                        required: !0,
+                    },
+                    prd_no: {
+                        required: !0,
+                    },
+                    prd_sn: {
+                        required: !0,
+                    },
+                    prd_model: {
+                        required: !0,
+                    },
+                    prd_spec: {
+                        required: !0,
+                    },
+                    prd_purchase: {
+                        required: !0,
+                    },
+                    prd_price: {
+                        required: !0,
+                    },
+                    prd_remarks: {
+                        required: !0,
+                    },
+                    prd_price: {
+                        required: !0,
+                    },
+                },
+                messages: {
+                    prd_nm: {
+                        required: e + "请输入名称",
+                    },
+                    prd_nm_alias: {
+                        required: e + "请输入简称",
+                    },
+                    prd_no: {
+                        required: e + "请输入条码",
+                    },
+                    prd_sn: {
+                        required: e + "请输入系列",
+                    },
+
+                    prd_model: {
+                        required: e + "请输入型号",
+                    },
+                    prd_spec: {
+                        required: e + "请输入规格",
+                    },
+                    prd_purchase: {
+                        required: e + "请输入采购价",
+                    },
+                    prd_price: {
+                        required: e + "请输入销售价",
+                    },
+                    prd_remarks: {
+                        required: e + "请输入简介",
+                    },
+                    prd_nm_dsc: {
+                        required: e + "请输入描述",
+                    },
+                },
+                showErrors: function (errorMap, errorList) {
+                    var msg = "";
+                    $.each(errorList, function (i, v) {
+                        //msg += (v.message + "\r\n");
+                        //在此处用了layer的方法,显示效果更美观
+                        layer.tips(v.message, v.element, { tips:[2,'red'],time: 2000 });
+                        return false;
+                    });
+                },
+                /* 失去焦点时不验证 */
+                onfocusout: false
+            }),
+                $("#username").focus(function() {
+                    var e = $("#firstname").val(),
+                        r = $("#lastname").val();
+                    e && r && !this.value && (this.value = e + "." + r)
+                })
+        });
+</script>
+@}

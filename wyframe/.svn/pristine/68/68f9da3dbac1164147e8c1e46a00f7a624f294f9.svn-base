@@ -1,0 +1,43 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal">
+
+			<input type="hidden" id="cpn_branch_id" value="">
+
+			<div class="row">
+				<div class="col-sm-6 b-r">
+				
+					<#input id="cpnPname" name="上级企业分类" underline="true"
+						hidden="par_cpn_cata_id" readonly="readonly"
+						clickFun="Cpn_cata_paridDlg.showCpnSelectTree(); return false;"
+						style="background-color: #ffffff !important;" selectFlag="true"
+						selectId="cpnTreeDiv" selectTreeId="cpnareaTree"
+						selectStyle="width:588px !important;" />
+
+					<#input id="cpn_cata_nm" name="企业分类名称" underline="true" />
+
+				</div>
+
+				<div class="col-sm-6">
+
+					<#input id="cpn_cata_code" name="企业分类标准编码" underline="true" />
+
+				</div>
+			</div>
+			<div class="row btn-group-m-t">
+				<div class="row btn-group-m-t">
+					<div class="col-sm-10">
+						<#button btnCss="info" name="提交" id="ensure" icon="fa-check"
+							clickFun="Xyd_cpn_cataInfo.add()" />
+						<#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser"
+							clickFun="Xyd_cpn_cataInfoDlg.close()" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script
+	src="${ctxPath}/static/addons/zcgl/cpncata/js/xyd_cpn_cata_info.js"></script>
+@}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/wyframe" />
+    <file type="web" url="file://$PROJECT_DIR$/wynewzsh" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/wyframe/pom.xml" />
+        <option value="$PROJECT_DIR$/wynewzsh/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
+  <component name="SvnBranchConfigurationManager">
+    <option name="myConfigurationMap">
+      <map>
+        <entry key="$PROJECT_DIR$/wyframe">
+          <value>
+            <SvnBranchConfiguration>
+              <option name="branchUrls">
+                <list>
+                  <option value="svn://101.132.174.240/wyframe/branches" />
+                  <option value="svn://101.132.174.240/wyframe/tags" />
+                </list>
+              </option>
+              <option name="trunkUrl" value="svn://101.132.174.240/wyframe/trunk" />
+            </SvnBranchConfiguration>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/wynewzsh">
+          <value>
+            <SvnBranchConfiguration>
+              <option name="branchUrls">
+                <list>
+                  <option value="svn://101.132.174.240/wynewzsh/branches" />
+                  <option value="svn://101.132.174.240/wynewzsh/tags" />
+                </list>
+              </option>
+              <option name="trunkUrl" value="svn://101.132.174.240/wynewzsh/trunk" />
+            </SvnBranchConfiguration>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="mySupportsUserInfoFilter" value="true" />
+  </component>
+</project>

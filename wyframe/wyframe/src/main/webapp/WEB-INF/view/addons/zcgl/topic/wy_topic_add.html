@@ -1,0 +1,46 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal">
+
+			<input type="hidden" id="topic_id" value="">
+
+			<div class="row">
+				<div class="col-sm-6 b-r">
+
+					<#input id="image_file_id" name="图片与文件ID" underline="true" />
+
+					<#input id="item_id" name="栏目ID" underline="true" />
+
+					<#input id="cpn_id" name="企业信息ID" underline="true" />
+
+					<#input id="top_pro_nm" name="站点项目名称" underline="true" />
+					
+					<#input id="top_pro_nm_alias" name="站点项目别名" underline="true" />
+				</div>
+				<div class="col-sm-6">
+
+					<#input id="top_pro_nr" name="项目站点内容" underline="true" />
+					
+					<#input id="par_item_id" name="上级栏目" underline="true" />
+					
+					<#input id="st_id" name="状态" underline="true" />
+
+					<#input id="oper_user" name="操作人" underline="true" />
+				</div>
+			</div>
+			<div class="row btn-group-m-t">
+				<div class="row btn-group-m-t">
+					<div class="col-sm-10">
+						<#button btnCss="info" name="提交" id="ensure" icon="fa-check"
+							clickFun="Xgt_wy_topicInfo.add()" />
+						<#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser"
+							clickFun="Xgt_wy_topicInfoDlg.close()" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/topic/js/xgt_wy_topic_info.js"></script>
+@}

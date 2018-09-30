@@ -1,0 +1,300 @@
+package wy.rest.addons.zcgl.xgt_vendor.controller;
+
+
+import com.alibaba.fastjson.JSON;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import wy.core.base.controller.BaseController;
+import wy.core.node.ZTreeNode;
+import wy.core.util.DateUtil;
+import wy.rest.addons.zcgl.cpn_branch.dao.Xyd_cpn_branchDao;
+import wy.rest.addons.zcgl.xgt_vendor.dao.Xgt_goods_prd_vendorDao;
+import wy.rest.addons.zcgl.xgt_vendor.dao.Xgt_goods_prd_vendorMapper;
+import wy.rest.addons.zcgl.xgt_vendor.model.Xgt_goods_prd_vendor;
+import wy.rest.addons.zcgl.xgt_vendor.warpper.Xgt_goods_prd_vendorWarpper;
+import wy.rest.addons.zcgl.xydcpn.dao.Xyd_cpnDao;
+import wy.rest.common.persistence.dao.DictDao;
+import wy.rest.common.persistence.dao.UserMgrDao;
+
+import javax.annotation.Resource;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+
+/**
+ * 合作伙伴控制器
+ *
+ * @author wyframe
+ * @Date 2017-11-27 14:46:23
+ */
+@Controller
+@RequestMapping("/xgt_goods_prd_vendor")
+public class Xgt_goods_prd_vendorController extends BaseController {
+	private String PREFIX = "/addons/zcgl/xgt_vendor/";
+
+
+	@Resource
+	Xgt_goods_prd_vendorDao xgt_goods_prd_vendorDao;
+	
+	@Resource
+	Xgt_goods_prd_vendorMapper xgt_goods_prd_vendorMapper;
+	
+    @Resource
+	DictDao dictDao;
+    
+	@Resource
+	Xyd_cpnDao xyd_cpnDao;
+    
+    @Resource
+    private UserMgrDao managerDao;
+    
+	@Resource
+	Xyd_cpn_branchDao xyd_cpn_branchDao;
+	
+	public static List<Map<String, Object>> paramList = null;
+	
+    /**
+     * 跳转到合作伙伴首页
+     */
+    @RequestMapping("")
+    public String index() {
+        return PREFIX + "xgt_goods_prd_vendor.html";
+    }
+
+    /**
+     * 跳转到添加合作伙伴
+     */
+    @RequestMapping("/xgt_goods_prd_vendor_add/{vendorId}")
+    public String xgt_goods_prd_vendorAdd(@PathVariable("vendorId") Integer vendorId, Model model) {
+//    	Integer userId = ShiroKit.getUser().getId();  	
+//    	String userName = ShiroKit.getUser().getName();  	
+//    	Integer cpnId = managerDao.queryCpnId(userId);  	
+//    	Integer cpnBranchId = managerDao.queryCpnBrandId(userId);   	
+//    	String cpnName = xyd_cpnDao.queryCpnName(cpnId);   	
+//    	String cpnBranchName = xyd_cpn_branchDao.queryCpnBranchName(cpnBranchId);   
+//    	List<Map<String, Object>> vendorStList = dictDao.vendorStList();
+    	List<Map<String, Object>> vendorFlgList = dictDao.vendorFlgList();
+    	String vendorNm=xgt_goods_prd_vendorDao.selectVendorNm(vendorId);
+    	model.addAttribute("vendorFlgList", vendorFlgList);
+		model.addAttribute("vendorId", vendorId);
+		model.addAttribute("vendorNm", vendorNm);
+//    	model.addAttribute("cpnId", cpnId);
+//    	model.addAttribute("cpnName", cpnName);
+//    	model.addAttribute("cpnBranchId", cpnBranchId);
+//    	model.addAttribute("cpnBranchName", cpnBranchName);
+//    	model.addAttribute("vendorStList", vendorStList);
+//        return PREFIX + "xgt_goods_prd_vendor_add.html";
+    	return PREFIX + "prd_vendor_add.html";
+    }
+    
+    /**
+	 * 跳转到添加参数
+	 */
+	@RequestMapping("/xgt_goods_prd_vendor_add_param")
+	public String xgt_goods_prd_vendor_add_param() {
+		return PREFIX + "xgt_goods_prd_vendor_add_param.html";
+	}
+
+    /**
+     * 跳转到修改合作伙伴
+     */
+    @RequestMapping("/xgt_goods_prd_vendor_update/{xgt_goods_prd_vendorId}")
+    public String xgt_goods_prd_vendorUpdate(@PathVariable Integer xgt_goods_prd_vendorId, Model model) {
+    	Xgt_goods_prd_vendor xgt_goods_prd_vendor = this.xgt_goods_prd_vendorDao.queryById(xgt_goods_prd_vendorId);
+//    	Integer userId = ShiroKit.getUser().getId();   	
+//    	String userName = ShiroKit.getUser().getName();   	
+//    	Integer cpnId = managerDao.queryCpnId(userId);   	
+//    	Integer cpnBranchId = managerDao.queryCpnBrandId(userId);   	
+//    	String cpnName = xyd_cpnDao.queryCpnName(cpnId);  	
+//    	String cpnBranchName = xyd_cpn_branchDao.queryCpnBranchName(cpnBranchId);    	   	
+//    	List<Map<String, Object>> vendorStList = dictDao.vendorStList();
+        Integer vendorFlg = xgt_goods_prd_vendor.getVendor_flg();
+        List<Map<String, Object>> vendorFlgList = dictDao.vendorFlgList();
+        for(Map venderFlgMap : vendorFlgList) {
+            if(venderFlgMap.get("num").equals(vendorFlg)) {
+                model.addAttribute("vendor_flg", venderFlgMap.get("name"));
+            }
+        }
+    	model.addAttribute("vendorFlgList", vendorFlgList);
+    	Integer  parPrdVendorid=xgt_goods_prd_vendor.getPar_prd_vendor_id();
+    	String pvendorNm=xgt_goods_prd_vendorDao.queryVendorNm(parPrdVendorid);
+//    	model.addAttribute("cpnId", cpnId);
+//    	model.addAttribute("cpnName", cpnName);
+//    	model.addAttribute("cpnBranchId", cpnBranchId);
+//    	model.addAttribute("cpnBranchName", cpnBranchName);
+//    	model.addAttribute("vendorStList", vendorStList);
+				model.addAttribute("pvendorNm", pvendorNm);
+		model.addAttribute("vendorId",xgt_goods_prd_vendorId);
+    	model.addAttribute(xgt_goods_prd_vendor);
+//        return PREFIX + "xgt_goods_prd_vendor_edit.html";
+		return PREFIX + "prd_vendor_edit.html";
+    }
+
+	/**
+     * 跳转到详情合作伙伴
+     */
+    @RequestMapping("/xgt_goods_prd_vendor_detail/{xgt_goods_prd_vendorId}")
+    public String xgt_goods_prd_vendorDetail(@PathVariable Integer xgt_goods_prd_vendorId, Model model) {
+    	Xgt_goods_prd_vendor xgt_goods_prd_vendor = this.xgt_goods_prd_vendorDao.queryById(xgt_goods_prd_vendorId);  	
+//    	List<Map<String, Object>> vendorStList = dictDao.vendorStList();
+//    	Integer venderStId = xgt_goods_prd_vendor.getSt_id();
+//		for(Map venderStMap : vendorStList) {
+//			if(venderStMap.get("num").equals(venderStId)) {
+//				model.addAttribute("st_id", venderStMap.get("name"));
+//			}
+//		}  	
+//		Integer userId = ShiroKit.getUser().getId();   	
+//    	String userName = ShiroKit.getUser().getName();   	
+//    	Integer cpnId = managerDao.queryCpnId(userId);    	
+//    	Integer cpnBranchId = managerDao.queryCpnBrandId(userId);   	
+//    	String cpnName = xyd_cpnDao.queryCpnName(cpnId);    	
+//    	String cpnBranchName = xyd_cpn_branchDao.queryCpnBranchName(cpnBranchId); 
+    	Integer vendorFlg = xgt_goods_prd_vendor.getVendor_flg();
+    	List<Map<String, Object>> vendorFlgList = dictDao.vendorFlgList();
+		for(Map venderFlgMap : vendorFlgList) {
+		if(venderFlgMap.get("num").equals(vendorFlg)) {
+			model.addAttribute("vendor_flg", venderFlgMap.get("name"));
+			}
+		}
+		Integer  parPrdVendorid=xgt_goods_prd_vendor.getPar_prd_vendor_id();
+		String pvendorNm=xgt_goods_prd_vendorDao.queryVendorNm(parPrdVendorid);
+		model.addAttribute("pvendorNm", pvendorNm);
+		model.addAttribute("vendorId",xgt_goods_prd_vendorId);
+//    	model.addAttribute("cpnId", cpnId);
+//    	model.addAttribute("cpnName", cpnName);
+//    	model.addAttribute("cpnBranchId", cpnBranchId);
+//    	model.addAttribute("cpnBranchName", cpnBranchName);
+    	model.addAttribute(xgt_goods_prd_vendor);
+//        return PREFIX + "xgt_goods_prd_vendor_detail.html";
+		return PREFIX + "prd_vendor_detail.html";
+    
+    }
+
+	/**
+	 * 获取合作伙伴的tree列表
+	 */
+	@RequestMapping(value = "/tree")
+	@ResponseBody
+	public List<ZTreeNode> tree() {
+		Integer cpnId = managerDao.queryCpnId(1);
+			List<ZTreeNode> tree=this.xgt_goods_prd_vendorDao.tree1();
+			tree.add(ZTreeNode.createParent());
+			return tree;
+	}
+
+    /**
+     * 获取合作伙伴列表
+     */
+    @RequestMapping(value = "/list")
+    @ResponseBody
+    public Object list(@RequestParam(required = false) String condition, @RequestParam(required = false) Integer prd_vendor_id) {
+//       paramList = null;
+		System.err.println(prd_vendor_id);
+		Integer cpnId = managerDao.queryCpnId(1);
+			if (null==prd_vendor_id){
+				prd_vendor_id=0;
+			}
+				List<Map<String, Object>> list=this.xgt_goods_prd_vendorDao.list(condition,prd_vendor_id);
+				System.err.println("list："+list);
+				return super.warpObject(new Xgt_goods_prd_vendorWarpper(list));
+		}
+
+    /**
+     * 获取合作伙伴列表
+     */
+    @RequestMapping(value = "/vendorList")
+	@ResponseBody
+    public List<Map<String, Object>> vendorList(@RequestParam(required = false) Integer prd_vendor_id) {
+
+        List<Map<String, Object>> vendorList = this.xgt_goods_prd_vendorDao.vendorList();
+			return vendorList;
+    }
+
+	/**
+	 * 获取全部合作伙伴列表
+	 */
+	public List<Map<String, Object>>VenDorList(){
+		List<Map<String, Object>>VenDorList=xgt_goods_prd_vendorDao.venDorList();
+		return VenDorList();
+	}
+    /**
+     * 新增合作伙伴
+     */
+    @RequestMapping(value = "/add")
+    @ResponseBody
+    public Object add(Xgt_goods_prd_vendor xgt_goods_prd_vendor) {
+    	Integer cpnId = managerDao.queryCpnId(1);
+    	Integer cpnBranchId = managerDao.queryCpnBrandId(1);
+    	xgt_goods_prd_vendor.setCpn_id(cpnId);
+    	xgt_goods_prd_vendor.setCpn_branch_id(cpnBranchId);
+    	xgt_goods_prd_vendor.setOper_user(null);
+    	xgt_goods_prd_vendor.setSt_id(1);
+    	xgt_goods_prd_vendor.setCre_dt(new Date());
+        return this.xgt_goods_prd_vendorMapper.insert(xgt_goods_prd_vendor);
+    }
+	/**
+	 * 入库单页面  合作伙伴新增
+	 */
+	@RequestMapping(value = "/add_in")
+	@ResponseBody
+	public Object add_in(@RequestParam String data){
+		System.out.println(JSON.parse(data));
+        Map<String,Object> map = (Map<String, Object>)JSON.parse(data);
+        Integer cpnId = managerDao.queryCpnId(1);
+        Integer cpnBranchId = managerDao.queryCpnBrandId(1);
+        map.put("cpn_id",cpnId);
+        map.put("cpn_branch_id",cpnBranchId);
+        map.put("oper_user",null);
+        map.put("st_id",1);
+        map.put("cre_dt", DateUtil.format(new Date()));
+        this.xgt_goods_prd_vendorDao.addVendor(map);
+        return SUCCESS_TIP;
+	}
+
+	/**
+     * 删除合作伙伴
+     */
+    @RequestMapping(value = "/delete")
+    @ResponseBody
+    public Object delete(@RequestParam Integer xgt_goods_prd_vendorId) {
+    	this.xgt_goods_prd_vendorDao.updateVendorById(xgt_goods_prd_vendorId);
+//    	this.xgt_goods_prd_vendorMapper.deleteById(xgt_goods_prd_vendorId);
+        return SUCCESS_TIP;
+    }
+
+    /**
+     * 修改合作伙伴
+     */
+    @RequestMapping(value = "/update")
+    @ResponseBody
+    public Object update(Xgt_goods_prd_vendor xgt_goods_prd_vendor) {
+    	this.xgt_goods_prd_vendorMapper.updateById(xgt_goods_prd_vendor);
+        return super.SUCCESS_TIP;
+    }
+
+	/**
+	 * 按照名称或编号模糊查询
+	 */
+	@RequestMapping(value = "/findByNameOrNo")
+	@ResponseBody
+	public Object findByNameOrNo(@RequestParam String prd_vendor_nm){
+		Integer cpnId = managerDao.queryCpnId(1);
+		List<Map<String, Object>> list = this.xgt_goods_prd_vendorDao.findByNameOrNo(prd_vendor_nm,cpnId);
+		return super.warpObject(new Xgt_goods_prd_vendorWarpper(list));
+	}
+
+    /**
+     * 查询供货商详情
+     */
+        public Object queryById(String id){
+            int i = Integer.parseInt(id);
+            Xgt_goods_prd_vendor xgt_goods_prd_vendor = this.xgt_goods_prd_vendorDao.queryById(i);
+            return xgt_goods_prd_vendor;
+        }
+
+}

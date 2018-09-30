@@ -1,0 +1,17 @@
+.main{
+	width:100%;
+}
+
+.main .rkd{
+	float: left;
+}
+
+.main .rkd span{
+	font-size: 20px;
+}
+
+.main .title{
+	float: left;
+	margin-left: 25%;
+	font-size: 20px;
+}

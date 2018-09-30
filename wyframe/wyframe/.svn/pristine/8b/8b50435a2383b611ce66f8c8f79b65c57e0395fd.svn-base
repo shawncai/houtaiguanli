@@ -1,0 +1,460 @@
+package wy.addons.zsh.bs_bill.controller;
+
+import com.alibaba.fastjson.JSON;
+import net.sf.jxls.exception.ParsePropertyException;
+import net.sf.jxls.transformer.XLSTransformer;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import wy.addons.zsh.bs_bill.dao.Bs_billDao;
+import wy.addons.zsh.bs_bill.dao.Bs_billMapper;
+import wy.addons.zsh.bs_bill.model.Bs_bill;
+import wy.addons.zsh.bs_bill.warpper.Bs_billWarpper;
+import wy.common.constant.factory.ConstantFactory;
+import wy.config.properties.XydProperties;
+import wy.core.base.controller.BaseController;
+import wy.core.log.LogObjectHolder;
+import wy.core.shiro.ShiroKit;
+import wy.core.util.DateUtil;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+/**
+ * 订单控制器
+ *
+ * @author wyFrame
+ * @Date 2018-07-25 15:15:59
+ */
+@Controller
+@RequestMapping("/bs_bill")
+public class Bs_billController extends BaseController {
+
+    private String PREFIX = "/addons/zsh/bs_bill/";
+    @Resource
+    Bs_billDao bs_billDao;
+
+    @Resource
+    Bs_billMapper bs_billMapper;
+
+    @Resource
+    XydProperties xydProperties;
+
+    public List<String> distinct;
+
+    /**
+     * 跳转到订单首页
+     */
+    @RequestMapping("")
+    public String index(Model model) {
+        List<Map<String, Object>> list12 = ConstantFactory.me().getDictByName("订单状态");
+        model.addAttribute("map12", list12);
+        List<Map<String, Object>> list18 = ConstantFactory.me().getDictByName("配送状态");
+        model.addAttribute("map18", list18);
+        List<Map<String, Object>> list26 = ConstantFactory.me().getDictByName("删除状态");
+        model.addAttribute("map26", list26);
+        return PREFIX + "bs_bill.html";
+    }
+
+    /**
+     * 跳转到添加订单
+     */
+    @RequestMapping("/bs_bill_add")
+    public String bs_billAdd(Model model) {
+        List<Map<String, Object>> list8 = bs_billDao.getMap8();
+        model.addAttribute("map8", list8);
+        List<Map<String, Object>> list9 = bs_billDao.getMap9();
+        model.addAttribute("map9", list9);
+        List<Map<String, Object>> list10 = bs_billDao.getMap10();
+        model.addAttribute("map10", list10);
+        List<Map<String, Object>> list12 = ConstantFactory.me().getDictByName("订单状态");
+        model.addAttribute("map12", list12);
+        List<Map<String, Object>> list13 = bs_billDao.getMap13();
+        model.addAttribute("map13", list13);
+        List<Map<String, Object>> list15 = bs_billDao.getMap15();
+        model.addAttribute("map15", list15);
+        List<Map<String, Object>> list18 = ConstantFactory.me().getDictByName("配送状态");
+        model.addAttribute("map18", list18);
+        List<Map<String, Object>> list19 = bs_billDao.getMap19();
+        model.addAttribute("map19", list19);
+        List<Map<String, Object>> list26 = ConstantFactory.me().getDictByName("删除状态");
+        model.addAttribute("map26", list26);
+        return PREFIX + "bs_bill_add.html";
+    }
+
+    /**
+     * 跳转到添加参数表订单
+     */
+    @RequestMapping("/bs_bill_addParam/{strs}")
+    public String bs_bill_addParam(@PathVariable String strs) {
+        String[] split = strs.split(",");
+        distinct = Arrays.asList(split);
+        return PREFIX + "bs_bill_addParam.html";
+    }
+
+    /**
+     * 跳转到修改订单
+     */
+    @RequestMapping("/bs_bill_update/{bs_billId}")
+    public String bs_billUpdate(@PathVariable Integer bs_billId, Model model) {
+        Bs_bill bs_bill = this.bs_billDao.queryById(bs_billId);
+        model.addAttribute(bs_bill);
+        LogObjectHolder.me().set(bs_bill);
+        List<Map<String, Object>> list8 = bs_billDao.getMap8();
+        model.addAttribute("map8", list8);
+        List<Map<String, Object>> list9 = bs_billDao.getMap9();
+        model.addAttribute("map9", list9);
+        List<Map<String, Object>> list10 = bs_billDao.getMap10();
+        model.addAttribute("map10", list10);
+        List<Map<String, Object>> list12 = ConstantFactory.me().getDictByName("订单状态");
+        model.addAttribute("map12", list12);
+        List<Map<String, Object>> list13 = bs_billDao.getMap13();
+        model.addAttribute("map13", list13);
+        List<Map<String, Object>> list15 = bs_billDao.getMap15();
+        model.addAttribute("map15", list15);
+        List<Map<String, Object>> list18 = ConstantFactory.me().getDictByName("配送状态");
+        model.addAttribute("map18", list18);
+        List<Map<String, Object>> list19 = bs_billDao.getMap19();
+        model.addAttribute("map19", list19);
+        List<Map<String, Object>> list26 = ConstantFactory.me().getDictByName("删除状态");
+        model.addAttribute("map26", list26);
+        return PREFIX + "bs_bill_edit.html";
+    }
+
+    /**
+     * 获取订单列表
+     */
+    @RequestMapping(value = "/list")
+    @ResponseBody
+    public Object list(String condition, Integer bill_st_id, Integer send_st, Integer xyd_st_id) {
+        if (ShiroKit.isAdmin()){
+        if (null == xyd_st_id) {
+            xyd_st_id = 1;
+        }
+        List<Map<String, Object>> list = this.bs_billDao.list(condition, bill_st_id, send_st, xyd_st_id);
+        return super.warpObject(new Bs_billWarpper(list));
+    }else{
+            //取user_id
+            Integer userId = ShiroKit.getUser().getId();
+            List<Map<String, Object>> list = this.bs_billDao.list1(condition, bill_st_id, send_st, xyd_st_id,userId);
+            return super.warpObject(new Bs_billWarpper(list));
+        }
+    }
+
+    /**
+     * 获取订单副列表
+     */
+    @RequestMapping(value = "/fuList")
+    @ResponseBody
+    public Object fuList() {
+        List<Map<String, Object>> list = this.bs_billDao.fuList();
+        return super.warpObject(new Bs_billWarpper(list));
+    }
+
+    /**
+     * 获取订单参数列表
+     */
+    @RequestMapping(value = "/paramList")
+    @ResponseBody
+    public Object paramList() {
+        List<Map<String, Object>> list = this.bs_billDao.paramList();
+        List<Map<String, Object>> list1 = new ArrayList<>();
+        for (String s : distinct) {
+            for (Map<String, Object> map : list) {
+                if ((Integer) map.get("shop_id") == Integer.parseInt(s)) {
+                    list1.add(map);
+                }
+                map.put("num", 0);
+            }
+        }
+        list.removeAll(list1);
+        return super.warpObject(new Bs_billWarpper(list));
+    }
+
+    /**
+     * 获取订单修改参数列表
+     */
+    @RequestMapping(value = "/initParam/{moren}")
+    @ResponseBody
+    public Object initParam(@PathVariable Integer moren) {
+        List<Map<String, Object>> list = this.bs_billDao.initParam(moren);
+        return super.warpObject(new Bs_billWarpper(list));
+    }
+
+    /**
+     * 获取订单列表
+     */
+    @RequestMapping(value = "/editList")
+    @ResponseBody
+    public Object editList(String condition, Integer bill_st_id, Integer send_st, Integer xyd_st_id) {
+        if (null == xyd_st_id) {
+            xyd_st_id = 1;
+        }
+        List<Map<String, Object>> list = this.bs_billDao.list(condition, bill_st_id, send_st, xyd_st_id);
+        Map<String, Object> map = new HashMap();
+        map.put("code", 0);
+        map.put("msg", "");
+        map.put("count", list.size());
+        map.put("data", super.warpObject(new Bs_billWarpper(list)));
+        return map;
+    }
+
+    /**
+     * 新增订单
+     */
+    @RequestMapping(value = "/add")
+    @ResponseBody
+    public Object add(@RequestParam String idata, @RequestParam String tdata) {
+        System.err.println(idata);
+        Map<String, Object> map = (Map<String, Object>) JSON.parse(idata);
+        List<Map<String, Object>> list = (List<Map<String, Object>>) JSON.parse(tdata.replaceAll("\\[],", "").replaceAll(",\\[]", ""));
+        map.put("xyd_st_id", 1);
+        map.put("xyd_cre_dt", DateUtil.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+        map.put("xyd_up_dt", DateUtil.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+        map.put("id", ShiroKit.getUser().getId());
+        map.put("buy_dt", DateUtil.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+        map.put("pay_dt", DateUtil.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+        map.put("bill_st_id", 2);
+        map.put("send_st", 1);
+        map.put("crt_dt", DateUtil.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+        map.put("bill_no", new SimpleDateFormat("yyyyMMDDHHmmss").format(new Date()) + ShiroKit.getUser().getAccount());
+        map.put("lu_user", ShiroKit.getUser().getId());
+        //按地区查省和城市，拼接完整地址
+        Map<String, String> areaMap = this.bs_billDao.selectArea(Integer.parseInt(map.get("area_id").toString()));
+        map.put("new_area_desc", areaMap.get("prov_nm") + areaMap.get("city_nm") + areaMap.get("region_nm") + map.get("access_addr_desc"));
+        Integer area_id = Integer.parseInt(map.get("area_id").toString());
+        int num = 0;
+        for (Map<String, Object> m : list) {
+            num += Integer.parseInt(m.get("num").toString());
+        }
+        map.put("total_num", num);
+        List<Map<String, Object>> selectSendChannel = this.bs_billDao.selectSendChannel(area_id);
+        for (Map<String, Object> mapChannel : selectSendChannel) {
+            if ((Integer) mapChannel.get("send_chnl_flg") == 1 && num > (Integer) mapChannel.get("send_chnl_num")) {
+                map.put("send_chnl_id", mapChannel.get("send_chnl_id"));
+            } else if ((Integer) mapChannel.get("send_chnl_flg") == 2 && num >= (Integer) mapChannel.get("send_chnl_num")) {
+                map.put("send_chnl_id", mapChannel.get("send_chnl_id"));
+            } else if ((Integer) mapChannel.get("send_chnl_flg") == 3 && num < (Integer) mapChannel.get("send_chnl_num")) {
+                map.put("send_chnl_id", mapChannel.get("send_chnl_id"));
+            } else if ((Integer) mapChannel.get("send_chnl_flg") == 4 && num <= (Integer) mapChannel.get("send_chnl_num")) {
+                map.put("send_chnl_id", mapChannel.get("send_chnl_id"));
+            }
+        }
+        this.bs_billDao.insertTotal(map);
+        for (Map<String, Object> m : list) {
+            m.put("bill_id", map.get("bill_id"));
+        }
+        this.bs_billDao.insertDetail(list);
+        return SUCCESS_TIP;
+    }
+
+    /**
+     * 保存订单
+     */
+    @RequestMapping(value = "/save")
+    @ResponseBody
+    public Object save(@RequestParam String idata, @RequestParam String tdata) {
+        Map<String, Object> map = (Map<String, Object>) JSON.parse(idata);
+        List<Map<String, Object>> list = (List<Map<String, Object>>) JSON.parse(tdata.replaceAll("\\[],", "").replaceAll(",\\[]", ""));
+        map.put("xyd_st_id", 1);
+        map.put("xyd_cre_dt", DateUtil.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+        map.put("xyd_up_dt", DateUtil.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+        map.put("id", ShiroKit.getUser().getId());
+        map.put("buy_dt", DateUtil.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+        map.put("pay_dt", DateUtil.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+        map.put("bill_st_id", 1);
+        map.put("send_st", 1);
+        map.put("crt_dt", DateUtil.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+        map.put("bill_no", new SimpleDateFormat("yyyyMMDDHHmmss").format(new Date()) + ShiroKit.getUser().getAccount());
+        map.put("lu_user", ShiroKit.getUser().getId());
+        //按地区查省和城市，拼接完整地址
+        Map<String, String> areaMap = this.bs_billDao.selectArea(Integer.parseInt(map.get("area_id").toString()));
+        map.put("new_area_desc", areaMap.get("prov_nm") + areaMap.get("city_nm") + areaMap.get("region_nm") + map.get("access_addr_desc"));
+        Integer area_id = Integer.parseInt(map.get("area_id").toString());
+        int num = 0;
+        for (Map<String, Object> m : list) {
+            num += Integer.parseInt(m.get("num").toString());
+        }
+        map.put("total_num", num);
+
+        this.bs_billDao.insertTotal(map);
+        for (Map<String, Object> m : list) {
+            m.put("bill_id", map.get("bill_id"));
+        }
+        this.bs_billDao.insertDetail(list);
+        return SUCCESS_TIP;
+    }
+
+    /**
+     * 删除订单
+     */
+    @RequestMapping(value = "/delete")
+    @ResponseBody
+    public Object delete(@RequestParam String bs_billIds) {
+        //物理删除
+        //this.bs_billMapper.deleteById(bs_billId);
+        //逻辑删除
+        String[] split = bs_billIds.split(",");
+        Integer[] iarray = new Integer[split.length];
+        for (int i = 0; i < split.length; i++) {
+            iarray[i] = Integer.parseInt(split[i]);
+        }
+        List<Integer> list = Arrays.asList(iarray);
+        this.bs_billDao.deleteByIds(list);
+        return SUCCESS_TIP;
+    }
+
+
+    /**
+     * 跳转到配送更新
+     */
+    @RequestMapping("/bs_bill_sendUpdate/{bs_billId}")
+    public String bs_bill_sendUpdate(@PathVariable Integer bs_billId, Model model) {
+        model.addAttribute("bs_billId",bs_billId);
+        Bs_bill bs_bill = this.bs_billDao.queryById(bs_billId);
+        model.addAttribute("send_remark",bs_bill.getSend_remark());
+        LogObjectHolder.me().set(bs_billId);
+        return PREFIX + "bs_bill_sendUpdate.html";
+
+    }
+
+    /**
+     * 改变配送状态
+     */
+    @RequestMapping("/bs_bill_sendUpdateIng/{bs_billId}")
+    @ResponseBody
+    public Object bs_bill_sendUpdateIng(@PathVariable Integer bs_billId,@RequestParam Integer send_st,@RequestParam String sendTime,@RequestParam String send_remark){
+        System.err.println(bs_billId+","+send_st+","+sendTime+","+send_remark);
+        String account = ShiroKit.getUser().getAccount();
+        this.bs_billDao.changeSendToIng(bs_billId,send_st,sendTime,send_remark,account);
+        return SUCCESS_TIP;
+    }
+    /**
+     * 修改订单
+     */
+    @RequestMapping(value = "/update")
+    @ResponseBody
+    public Object update(Bs_bill bs_bill, @RequestParam String tdata) {
+        bs_bill.setXyd_up_dt(DateUtil.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+        bs_bill.setId(ShiroKit.getUser().getId());
+        List<Map<String, Object>> list = (List<Map<String, Object>>) JSON.parse(tdata.replaceAll("\\[],", "").replaceAll(",\\[]", ""));
+        int num = 0;
+        for (Map<String, Object> m : list) {
+            num += Integer.parseInt(m.get("num").toString());
+        }
+        bs_bill.setTotal_num(num);
+        Map<String, String> areaMap = this.bs_billDao.selectArea(bs_bill.getArea_id());
+        bs_bill.setAccess_addr_desc(areaMap.get("prov_nm") + areaMap.get("city_nm") + areaMap.get("region_nm") + bs_bill.getAccess_addr_desc());
+        Integer area_id = bs_bill.getArea_id();
+        List<Map<String, Object>> selectSendChannel = this.bs_billDao.selectSendChannel(area_id);
+        for (Map<String, Object> mapChannel : selectSendChannel) {
+            if ((Integer) mapChannel.get("send_chnl_flg") == 1 && num > (Integer) mapChannel.get("send_chnl_num")) {
+                bs_bill.setSend_chnl_id(Integer.parseInt(mapChannel.get("send_chnl_id") + ""));
+            } else if ((Integer) mapChannel.get("send_chnl_flg") == 2 && num >= (Integer) mapChannel.get("send_chnl_num")) {
+                bs_bill.setSend_chnl_id(Integer.parseInt(mapChannel.get("send_chnl_id") + ""));
+            } else if ((Integer) mapChannel.get("send_chnl_flg") == 3 && num < (Integer) mapChannel.get("send_chnl_num")) {
+                bs_bill.setSend_chnl_id(Integer.parseInt(mapChannel.get("send_chnl_id") + ""));
+            } else if ((Integer) mapChannel.get("send_chnl_flg") == 4 && num <= (Integer) mapChannel.get("send_chnl_num")) {
+                bs_bill.setSend_chnl_id(Integer.parseInt(mapChannel.get("send_chnl_id") + ""));
+            }
+        }
+        this.bs_billMapper.updateById(bs_bill);
+        for (Map<String, Object> m : list) {
+            m.put("bill_id", bs_bill.getBill_id());
+        }
+        this.bs_billDao.deleteDetail(bs_bill.getBill_id());
+        this.bs_billDao.insertDetail(list);
+        return super.SUCCESS_TIP;
+    }
+
+
+    /**
+     * 跳转到详情订单
+     */
+    @RequestMapping("/bs_bill_detail/{bs_billId}")
+    public String bs_billDetail(@PathVariable Integer bs_billId, Model model) {
+        Bs_bill bs_bill = this.bs_billDao.queryById(bs_billId);
+        model.addAttribute(bs_bill);
+        List<Map<String, Object>> list8 = bs_billDao.getMap8();
+        model.addAttribute("map8", list8);
+        List<Map<String, Object>> list9 = bs_billDao.getMap9();
+        model.addAttribute("map9", list9);
+        List<Map<String, Object>> list10 = bs_billDao.getMap10();
+        model.addAttribute("map10", list10);
+        List<Map<String, Object>> list12 = ConstantFactory.me().getDictByName("订单状态");
+        model.addAttribute("map12", list12);
+        List<Map<String, Object>> list13 = bs_billDao.getMap13();
+        model.addAttribute("map13", list13);
+        List<Map<String, Object>> list15 = bs_billDao.getMap15();
+        model.addAttribute("map15", list15);
+        List<Map<String, Object>> list18 = ConstantFactory.me().getDictByName("配送状态");
+        model.addAttribute("map18", list18);
+        List<Map<String, Object>> list19 = bs_billDao.getMap19();
+        model.addAttribute("map19", list19);
+        List<Map<String, Object>> list26 = ConstantFactory.me().getDictByName("删除状态");
+        model.addAttribute("map26", list26);
+
+        LogObjectHolder.me().set(bs_bill);
+        return PREFIX + "bs_bill_detail.html";
+    }
+
+    /**
+     * 跳转到打印订单
+     */
+    @RequestMapping("/bs_bill_print/{bs_billId}")
+    public String print(@PathVariable Integer bs_billId, Model model) {
+        Bs_bill bs_bill = this.bs_billDao.queryById(bs_billId);
+        model.addAttribute(bs_bill);
+        LogObjectHolder.me().set(bs_bill);
+        return PREFIX + "bs_bill_print.html";
+
+    }
+    /**
+     * 导出订单
+     */
+    @RequestMapping(value = "/export", method = RequestMethod.GET)
+    public void export(HttpServletResponse res) throws ParsePropertyException, InvalidFormatException, IOException {
+        String path=System.getProperty("user.dir");
+        System.err.println(path);
+        String resourcePath= path+("/wynewzsh/src/main/resources/excelTemplate/bs_bill.xls");
+        String tarPath = path+"/wynewzsh/src/main/resources/excel/bs_bill.xls";
+         List<Map<String, Object>> list = this.bs_billDao.list(null,null,null,null);
+        Map<String, List<Map<String, Object>>> beanParams = new HashMap<String, List<Map<String, Object>>>();
+         beanParams.put("list", list);
+        XLSTransformer former = new XLSTransformer();
+        former.transformXLS(resourcePath, beanParams, tarPath);
+
+        //下载
+        String fileName = "bs_bill" + DateUtil.getAllTime() + ".xls";
+        res.setHeader("content-type", "application/octet-stream");
+        res.setContentType("application/octet-stream");
+        res.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+        byte[] buff = new byte[1024];
+        BufferedInputStream bis = null;
+        OutputStream os = null;
+        try {
+            os = res.getOutputStream();
+            bis = new BufferedInputStream(new FileInputStream(new File(path+"/wynewzsh/src/main/resources/excel/bs_bill.xls")));
+            int i = bis.read(buff);
+            while (i != -1) {
+                os.write(buff, 0, buff.length);
+                os.flush();
+                i = bis.read(buff);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (bis != null) {
+                try {
+                    bis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.cpn_dept.dao.Xyd_cpn_deptDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap"
+		type="wy.addons.zcgl.cpn_dept.model.Xyd_cpn_dept">
+		<id column="cpn_dept_id" property="cpn_dept_id" />
+		<result column="cpn_id" property="cpn_id" />
+		<result column="cpn_branch_id" property="cpn_branch_id" />
+		<result column="cpn_dept_nm" property="cpn_dept_nm" />
+		<result column="cpn_dept_code" property="cpn_dept_code" />
+		<result column="par_cpn_dept_id" property="par_cpn_dept_id" />
+		<result column="st_id" property="st_id" />
+	</resultMap>
+
+	<!-- 通过企业信息Id查询企业信息名称 -->
+	<select id="selectCpnNm" resultType="String">
+		select cpn_nm from xyd_cpn
+		where cpn_id = #{cpnId}
+	</select>
+	<!-- 查询当前用户的企业信息 -->
+	<select id="nowList" resultType="map">
+		select * from xyd_cpn where cpn_id =#{cpnId}
+	</select>
+	<!-- 查询当前用户分支机构 -->
+	<select id="userCpnBranchList" resultType="map">
+		select *
+		from xyd_cpn_branch
+		<if test="cpnId != null and cpnId != ''">
+			where cpn_id = #{cpnId}
+		</if>
+
+	</select>
+
+	<select id="queryDeptNm"  resultType="String">
+		select cpn_dept_nm
+		from xyd_cpn_dept
+		where cpn_dept_id=${Parcpndeptid}
+	</select>
+
+	<select id="userCpnList" resultType="map">
+		select *
+		from xyd_cpn
+		<if test="cpnId != null and cpnId != ''">
+			where cpn_id = #{cpnId}
+		</if>
+
+	</select>
+	<!-- 查询全部企业分支机构 -->
+	<select id="selectCpnBranchs" resultType="map">
+		select *
+		from xyd_cpn_branch
+	</select>
+
+	<select id="selectCpns" resultType="map">
+		select *
+		from xyd_cpn
+	</select>
+	<!-- 通用SQL -->
+	<sql id="Base_Column_List">
+		cpn_dept_id, cpn_id, cpn_branch_id, cpn_dept_nm,
+		cpn_dept_code, par_cpn_dept_id, st_id
+	</sql>
+
+	<insert id="insertCdt">
+		insert into xyd_cpn_dept (
+		cpn_id,
+		cpn_branch_id,
+		cpn_dept_nm,
+		par_cpn_dept_id,
+		cre_dt,
+		st_id
+		) values (
+		#{xyd_cpnId},
+		#{cpn_branch_id},
+		#{cpn_branch_nm},
+		#{par_cpn_dept_id},
+		#{cre_dt},
+		#{st_id}
+		)
+	</insert>
+
+	<!-- 查询所有企业组织 -->
+	<select id="selectCpnDepts" resultType="map">
+		SELECT c1.*,d1.cpn_dept_nm as par_cpn_dept_nm ,e1.cpn_branch_nm as cpn_branch_nm,f1.cpn_nm from
+		(select a1.*
+		from xyd_cpn_dept a1,
+		(select b1.cpn_dept_id from xyd_cpn_dept b1 where b1.cpn_dept_id =#{cpn_dept_id}
+		UNION
+		select b1.cpn_dept_id from xyd_cpn_dept b1 where b1.par_cpn_dept_id =#{cpn_dept_id}
+		union
+		select b1.cpn_dept_id from xyd_cpn_dept b1,xyd_cpn_dept b2 where b1.par_cpn_dept_id=b2.cpn_dept_id and b2.par_cpn_dept_id = #{cpn_dept_id}
+		union
+		select b1.cpn_dept_id from xyd_cpn_dept b1,xyd_cpn_dept b2, xyd_cpn_dept b3 where b1.par_cpn_dept_id=b2.cpn_dept_id and b2.par_cpn_dept_id=b3.cpn_dept_id and b3.par_cpn_dept_id =#{cpn_dept_id}
+		) m1
+		where a1.cpn_dept_id=m1.cpn_dept_id
+		<if test="condition != null and condition != ''">
+			and (cpn_dept_nm like CONCAT('%',#{condition},'%')
+			or cpn_dept_code like CONCAT('%',#{condition},'%'))
+		</if>
+		group by
+		a1.cpn_dept_id
+		)c1
+		LEFT JOIN xyd_cpn_dept d1
+		on c1.par_cpn_dept_id=d1.cpn_dept_id
+		LEFT JOIN xyd_cpn_branch e1
+		on c1.cpn_branch_id=e1.cpn_branch_id
+		LEFT JOIN xyd_cpn f1
+		on c1.cpn_id=f1.cpn_id
+	</select>
+	<!-- 企业员工列表 -->
+	<select id="list" resultType="map">
+		SELECT c1.*,d1.cpn_dept_nm as par_cpn_dept_nm ,e1.cpn_branch_nm as cpn_branch_nm,f1.cpn_nm from
+		(select a1.*
+		from xyd_cpn_dept a1,
+		(select b1.cpn_dept_id from xyd_cpn_dept b1 where b1.cpn_dept_id =#{cpn_dept_id}
+		UNION
+		select b1.cpn_dept_id from xyd_cpn_dept b1 where b1.par_cpn_dept_id =#{cpn_dept_id}
+		union
+		select b1.cpn_dept_id from xyd_cpn_dept b1,xyd_cpn_dept b2 where b1.par_cpn_dept_id=b2.cpn_dept_id and b2.par_cpn_dept_id = #{cpn_dept_id}
+		union
+		select b1.cpn_dept_id from xyd_cpn_dept b1,xyd_cpn_dept b2, xyd_cpn_dept b3 where b1.par_cpn_dept_id=b2.cpn_dept_id and b2.par_cpn_dept_id=b3.cpn_dept_id and b3.par_cpn_dept_id =#{cpn_dept_id}
+		) m1
+		where a1.cpn_dept_id=m1.cpn_dept_id and a1.cpn_id=#{cpnId}
+		<if test="condition != null and condition != ''">
+			and (cpn_dept_nm like CONCAT('%',#{condition},'%')
+			or cpn_dept_code like CONCAT('%',#{condition},'%'))
+		</if>
+		group by
+		a1.cpn_dept_id
+		)c1
+		LEFT JOIN xyd_cpn_dept d1
+		on c1.par_cpn_dept_id=d1.cpn_dept_id
+		LEFT JOIN xyd_cpn_branch e1
+		on c1.cpn_branch_id=e1.cpn_branch_id
+		LEFT JOIN xyd_cpn f1
+		on c1.cpn_id=f1.cpn_id
+	</select>
+	<!-- 查询当前分支所有组织 -->
+	<select id="nowBranchDeptList" resultType="map">
+		select *
+		from xyd_cpn_dept where cpn_branch_id=#{cpnBranchId}
+	</select>
+	<select id="selectDeptNm" resultType="String">
+		select
+		cpn_dept_nm
+		from xyd_cpn_dept
+		where cpn_dept_id = #{deptId}
+	</select>
+	<!-- 根据企业组织Id查询企业名称 -->
+	<select id="selectPCpnDeptNm" resultType="String">
+		select cpn_dept_nm
+		from xyd_cpn_dept
+		where cpn_dept_id = (select par_cpn_dept_id
+		from
+		xyd_cpn_dept where cpn_dept_id = #{xyd_cpn_deptId})
+	</select>
+
+	<!-- 根据企业组织Id查询企业信息Id -->
+	<select id="selectCpnId" resultType="Integer">
+		select cpn_id
+		from xyd_cpn_dept
+		where cpn_dept_id = #{xyd_cpn_deptId}
+	</select>
+
+
+	<!-- 通过Id查询企业组织 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select *
+		from xyd_cpn_dept
+		where cpn_dept_id = #{xyd_cpn_deptId}
+	</select>
+
+	<!-- -->
+	<select id="iQueryById" resultType="map">
+		select *
+		from xyd_cpn_dept
+		where cpn_dept_id = #{id}
+	</select>
+
+	<!-- 查询企业组织tre列表 -->
+	<select id="tree" resultType="wy.core.node.ZTreeNode">
+		select cpn_dept_id as id ,par_cpn_dept_id as pId,cpn_dept_nm as name,
+		(
+		CASE
+		WHEN (par_cpn_dept_id = 0 OR par_cpn_dept_id IS NULL) THEN
+		'true'
+		ELSE
+		'false'
+		END
+		) as isOpen from xyd_cpn_dept
+		<where>
+			<if test="cpn_id != null and cpn_id != 0 ">
+				cpn_id = #{cpn_id}
+			</if>
+			<if test="parId !=null and parId!=0 ">
+				and par_cpn_dept_id = #{parId}
+			</if>
+			<if test="deptId !=null and deptId!=0 ">
+				and cpn_dept_id = #{deptId}
+			</if>
+
+		</where>
+		<!--<if test="deptId !=null and deptId!=0 and parId!=null and parId!=0">-->
+		<!--cpn_dept_id = #{deptId} OR par_cpn_dept_id = #{parId}-->
+		<!--</if>-->
+		order by
+		cpn_dept_id ASC
+	</select>
+
+	<select id="depttree" resultType="wy.core.node.ZTreeNode">
+		select
+		m1.cpn_dept_id as id,
+		(
+		case
+		when (m2.cpn_dept_id = 0 or m2.cpn_dept_id is null) then
+		0
+		else
+		m2.cpn_dept_id
+		end
+		) as pid,
+		m1.cpn_dept_nm
+		as name,
+		(
+		case
+		when
+		(m2.cpn_dept_id = 0 or m2.cpn_dept_id is null) then
+		'true'
+		else
+		'false'
+		end
+		) "close"
+		from
+		xyd_cpn_dept m1
+		left join xyd_cpn_dept m2 on
+		m1.par_cpn_dept_id = m2.cpn_dept_id
+		AND m2.cpn_dept_id = #{userDeptId}
+		order by
+		m1.cpn_dept_id asc
+
+	</select>
+	<select id="isParent" resultType="Integer">
+		SELECT COUNT(*) FROM  xyd_cpn_dept WHERE par_cpn_dept_id =#{userDeptId}
+	</select>
+	<select id="isVeryParent" resultType="Integer">
+		SELECT COUNT(*) FROM  xyd_cpn_dept WHERE par_cpn_dept_id =#{userDeptId} AND cpn_dept_id =#{userDeptId}
+	</select>
+
+	<select id="queryCpnId" resultType="Integer">
+		select
+		cpn_id
+		from user
+		where id = #{userId}
+	</select>
+
+	<select id="queryCpnBrandId" resultType="Integer">
+		select
+		cpn_branch_id
+		from user
+		where id = #{userId}
+	</select>
+</mapper>

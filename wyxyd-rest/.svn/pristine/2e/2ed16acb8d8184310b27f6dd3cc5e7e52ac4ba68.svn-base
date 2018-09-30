@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.rest.addons.zsh.bs_send_channel.dao.Bs_send_channelDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.rest.addons.zsh.bs_send_channel.model.Bs_send_channel">
+	<id column="send_chnl_id" property="send_chnl_id" />
+	<result column="send_chnl_no" property="send_chnl_no" />
+	<result column="send_chnl_nm" property="send_chnl_nm" />
+	<result column="send_chnl_desc" property="send_chnl_desc" />
+	<result column="send_chnl_phoe" property="send_chnl_phoe" />
+	<result column="send_chnl_num" property="send_chnl_num" />
+	<result column="send_chnl_flg" property="send_chnl_flg" />
+	<result column="xyd_st_id" property="xyd_st_id" />
+	<result column="xyd_cre_dt" property="xyd_cre_dt" />
+	<result column="xyd_up_dt" property="xyd_up_dt" />
+	<result column="id" property="id" />
+	</resultMap>
+	
+
+	
+	<!-- 通过Id查询配送商 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select * from bs_send_channel
+		where send_chnl_id = #{bs_send_channelId}
+	</select>
+
+	<delete id="deleteAreaSC" parameterType="Integer">
+		delete from bs_send_chnl_area where send_chnl_id=#{channelId}
+	</delete>
+
+	<insert id="insertAreaIdSC" parameterType="java.util.List">
+		insert into bs_send_chnl_area (send_chnl_id,area_id)
+		values
+		<foreach collection="list" item="item" index="index"
+				 separator=","> (#{item.channelId},#{item.area_id}) </foreach>
+	</insert>
+
+	<select id="selectAreaIdById" resultType="Integer">
+		select area_id from
+		bs_send_chnl_area
+		where send_chnl_id=#{channelId}
+	</select>
+
+	<!-- 加载选中地区tree -->
+	<select id="areaTreeListById" resultType="wy.core.node.ZTreeNode">
+		select r.area_id "id",r.par_area_id "pId",r.area_nm "name",(case when
+		(r.par_area_id =0 or r.par_area_id is null) then 'true' else 'false'
+		end) "close" ,
+		(
+		CASE
+		WHEN (r1.area_id = 0 OR r1.area_id IS NULL) THEN
+		'false'
+		ELSE
+		'true'
+		END
+		) "checked"
+		FROM
+		sys_area r
+		LEFT JOIN (
+		SELECT
+		b.send_chnl_id,
+		b.area_id
+		FROM
+		bs_send_chnl_area b
+		WHERE
+		b.area_id IN
+		<foreach collection="array" index="index" item="item" open="("
+				 separator="," close=")">
+			#{item}
+		</foreach>
+		) r1 ON r.area_id = r1.area_id and r1.send_chnl_id=#{channelId}
+	</select>
+
+		<!-- 配送商列表 -->
+    	<select id="list" resultType="map">
+    		select bs_send_channel.*,user.name from bs_send_channel
+                    LEFT JOIN user on bs_send_channel.id =user.id
+            where 1=1
+    		<if test="condition != null and condition != ''">
+            and (send_chnl_nm like CONCAT('%',#{condition},'%') or send_chnl_desc like CONCAT('%',#{condition},'%') or send_chnl_phoe like CONCAT('%',#{condition},'%') or 1&lt;1)
+            </if>
+            <if test="xyd_st_id != null and xyd_st_id !=0">
+            and xyd_st_id=#{xyd_st_id}
+             </if>
+    		order by send_chnl_id desc
+    	</select>
+        <select id="getMap10" resultType="map">
+              select name name,id num from user
+        </select>
+        <update id="deleteByIds" parameterType="list">
+            UPDATE bs_send_channel SET xyd_st_id = -1 where send_chnl_id in
+           <foreach collection="list" item="item" open="(" separator="," close=")">
+                   #{item}
+             </foreach>
+        </update>
+
+	<!-- 根据areaId查询有没有符合的配送商区域 -->
+	<select id="findAreaId" parameterType="map" resultType="map">
+		select * from bs_send_channel a
+		left join bs_send_chnl_area b on a.send_chnl_id=b.send_chnl_id
+		left join bs_send_area c on  b.area_id=c.area_id
+		where b.area_id=#{map.AREA_ID}
+	</select>
+</mapper>

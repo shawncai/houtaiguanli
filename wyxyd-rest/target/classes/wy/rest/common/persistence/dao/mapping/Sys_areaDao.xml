@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.rest.common.persistence.dao.Sys_areaDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.rest.common.persistence.model.Sys_area">
+		<id column="area_id" property="area_id" />
+		<result column="area_nm" property="area_nm" />
+		<result column="par_area_id" property="par_area_id" />
+		<result column="prov_id" property="prov_id" />
+		<result column="prov_nm" property="prov_nm" />
+		<result column="city_id" property="city_id" />
+		<result column="city_nm" property="city_nm" />
+		<result column="region_id" property="region_id" />
+		<result column="region_nm" property="region_nm" />
+		<result column="street_id" property="street_id" />
+		<result column="street_nm" property="street_nm" />
+		<result column="area_deep" property="area_deep" />
+		<result column="area_sort" property="area_sort" />
+	</resultMap>
+	<select id="queryProvList" resultType="map">
+		select * from sys_area limit 34
+	</select>
+
+	<select id="queryAreaName" resultType="String">
+		select
+		area_nm
+		from sys_area
+		where area_id = #{parAreaId}
+	</select>
+
+	<!--城市列表-->
+	<select id="queryCityList" resultType="map">
+		select * from sys_area WHERE par_area_id =#{prov_id}
+	</select>
+	<!--区域列表-->
+	<select id="queryRegionList" resultType="map">
+		select * from sys_area WHERE par_area_id =#{city_id}
+	</select>
+
+
+	<select id="selectByWorkAreaId" resultMap="BaseResultMap">
+		select * from sys_area
+		where area_id = #{workAreaId}
+	</select>
+
+	<select id="selectByAreaId" resultMap="BaseResultMap">
+		select * from sys_area
+		where area_id = #{areaId}
+	</select>
+
+	<select id="selectByCodeAreaId" resultMap="BaseResultMap">
+		select * from sys_area
+		where area_id = #{codeAreaId}
+	</select>
+
+	<select id="selectByWorkAreaName" resultType="String">
+		select area_nm from
+		sys_area where area_id = #{workAreaId}
+	</select>
+
+	<select id="selectByCodeAreaName" resultType="String">
+		select area_nm from
+		sys_area where area_id = #{codeAreaId}
+	</select>
+
+	<select id="selectByBranchAreaName" resultType="String">
+		select area_nm
+		from sys_area where area_id = #{areaId}
+	</select>
+
+	<!-- 地区列表 -->
+	<select id="list" resultType="map">
+		SELECT c1.*,d1.area_nm as par_area_nm from
+		(select a1.*
+		from sys_area a1,
+		(select b1.area_id from sys_area b1 where b1.area_id =#{area_id}
+		UNION
+		select b1.area_id from sys_area b1 where b1.par_area_id =#{area_id}
+		union
+		select b1.area_id from sys_area b1,sys_area b2 where b1.par_area_id=b2.area_id and b2.par_area_id =#{area_id}
+		union
+		select b1.area_id from sys_area b1,sys_area b2, sys_area b3 where b1.par_area_id=b2.area_id and b2.par_area_id=b3.area_id and b3.par_area_id =#{area_id}
+		) m1
+		where a1.area_id=m1.area_id
+		<if test="condition != null and condition != ''">
+			and (a1.area_nm like CONCAT('%',#{condition},'%')
+			or a1.city_nm like CONCAT('%',#{condition},'%'))
+		</if>
+		order by
+		a1.prov_nm,a1.city_nm,a1.region_nm,a1.street_nm,a1.area_nm
+		)c1
+		LEFT JOIN sys_area d1
+		on c1.par_area_id=d1.area_id
+	</select>
+
+	<!-- 地区列表 -->
+	<select id="list4" resultType="map">
+		SELECT c1.*,d1.area_nm as par_area_nm from
+		(select a1.*
+		from sys_area a1,
+		(select b1.area_id from sys_area b1 where b1.area_id =#{id}
+		UNION
+		select b1.area_id from sys_area b1 where b1.par_area_id =#{id}
+		union
+		select b1.area_id from sys_area b1,sys_area b2 where b1.par_area_id=b2.area_id and b2.par_area_id =#{id}
+		union
+		select b1.area_id from sys_area b1,sys_area b2, sys_area b3 where b1.par_area_id=b2.area_id and b2.par_area_id=b3.area_id and b3.par_area_id =#{id}
+		) m1
+		where a1.area_id=m1.area_id
+		<if test="condition != null and condition != ''">
+			and (a1.area_nm like CONCAT('%',#{condition},'%')
+			or a1.city_nm like CONCAT('%',#{condition},'%'))
+		</if>
+		order by
+		a1.prov_nm,a1.city_nm,a1.region_nm,a1.street_nm,a1.area_nm
+		)c1
+		LEFT JOIN sys_area d1
+		on c1.par_area_id=d1.area_id
+	</select>
+
+	<select id="selectAreaNm" resultType="String">
+		select
+		area_nm
+		from sys_area
+		where area_id = #{areaId}
+	</select>
+
+	<select id="queryPaid" resultMap="BaseResultMap">
+		select * from sys_area
+		where
+		area_id = #{pad}
+	</select>
+
+	<!-- 通过Id查询地区 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select * from sys_area
+		where
+		area_id = #{sys_areaId}
+	</select>
+
+
+</mapper>

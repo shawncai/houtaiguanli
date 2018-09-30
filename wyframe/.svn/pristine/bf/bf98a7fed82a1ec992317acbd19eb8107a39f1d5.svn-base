@@ -1,0 +1,51 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>合作伙伴管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-lg-2 col-sm-3">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">合作伙伴</div>
+                                    <div class="panel-body dept-tree">
+                                        <ul id="vendortree" class="ztree"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                    <div class="col-lg-10 col-sm-9">
+                        <div class="row">
+                            <div class="col-lg-4 col-sm-12">
+                                <#NameCon id="condition" name="名称/简称/地址" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="Xgt_goods_prd_vendor.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="Xgt_goods_prd_vendorTableToolbar" role="group">
+                            @if(shiro.hasPermission("/xgt_goods_prd_vendor/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="Xgt_goods_prd_vendor.openAddXgt_goods_prd_vendor()"/>
+                            @}
+                            @if(shiro.hasPermission("/xgt_goods_prd_vendor/update")){
+                                <#button name="修改" icon="fa-edit" clickFun="Xgt_goods_prd_vendor.openXgt_goods_prd_vendorDetail_update()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/xgt_goods_prd_vendor/delete")){
+                                <#button name="删除" icon="fa-remove" clickFun="Xgt_goods_prd_vendor.delete()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/xgt_goods_prd_vendor/detail")){
+                                <#button name="详情" icon="fa-file-code-o" clickFun="Xgt_goods_prd_vendor.openXgt_goods_prd_vendorDetail()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="Xgt_goods_prd_vendorTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/xgt_vendor/js/xgt_goods_prd_vendor.js"></script>
+@}

@@ -1,0 +1,298 @@
+package wy.xydframe.sysArea.controller;
+
+
+import net.sf.jxls.exception.ParsePropertyException;
+import net.sf.jxls.transformer.XLSTransformer;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import wy.common.annotion.Permission;
+import wy.common.constant.Const;
+import wy.core.base.controller.BaseController;
+import wy.core.log.LogObjectHolder;
+import wy.core.node.ZTreeNode;
+import wy.core.util.DateUtil;
+import wy.xydframe.sysArea.dao.Sys_areaDao;
+import wy.xydframe.sysArea.dao.Sys_areaMapper;
+import wy.xydframe.sysArea.model.Sys_area;
+import wy.xydframe.sysArea.warpper.Sys_areaWarpper;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 地区控制器
+ *
+ * @author wyznn
+ * @Date 2017-09-04 15:53:52
+ */
+@Controller
+@RequestMapping("/sys_area")
+public class Sys_areaController extends BaseController {
+
+	private String PREFIX = "/xydframe/sys_area/";
+
+	@Resource
+	Sys_areaDao sys_areaDao;
+
+	@Resource
+	Sys_areaMapper sys_areaMapper;
+
+	public static List<Map<String, Object>> paramList = null;
+
+	/**
+	 * 跳转到地区首页
+	 */
+	@RequestMapping("")
+	public String index() {
+		return PREFIX + "sys_area.html";
+	}
+
+	/**
+	 * 跳转到添加地区
+	 */
+	@RequestMapping("/sys_area_add/{areaId}")
+	public String sys_areaAdd(@PathVariable("areaId") Integer areaId,Model model) {
+		String areaNm=sys_areaDao.selectAreaNm(areaId);
+		model.addAttribute("areaId", areaId);
+		model.addAttribute("areaNm", areaNm);
+		return PREFIX + "sys_area_add.html";
+	}
+
+	/**
+	 * 跳转到添加参数
+	 */
+	@RequestMapping("/sys_area_add_param")
+	public String sys_area_add_param() {
+		return PREFIX + "sys_area_add_param.html";
+	}
+
+	/**
+	 * 跳转到修改地区
+	 */
+	@RequestMapping("/sys_area_update/{sys_areaId}")
+	public String sys_areaUpdate(@PathVariable Integer sys_areaId, Model model) {
+		Sys_area sys_area = this.sys_areaDao.queryById(sys_areaId);
+		Integer parAreaId=sys_area.getPar_area_id();
+		String pAreaName=sys_areaDao.queryAreaName(parAreaId);
+		model.addAttribute("pAreaName",pAreaName);
+		model.addAttribute(sys_area);
+		LogObjectHolder.me().set(sys_area);
+		return PREFIX + "sys_area_edit.html";
+	}
+
+	/**
+	 * 跳转到详情地区
+	 */
+	@RequestMapping("/sys_area_detail/{sys_areaId}")
+	public String sys_areaDetail(@PathVariable Integer sys_areaId, Model model) {
+		Sys_area sys_area = this.sys_areaDao.queryById(sys_areaId);
+		Integer parAreaId=sys_area.getPar_area_id();
+		String pAreaName=sys_areaDao.queryAreaName(parAreaId);
+		model.addAttribute("pAreaName",pAreaName);
+		model.addAttribute(sys_area);
+		LogObjectHolder.me().set(sys_area);
+		return PREFIX + "sys_area_detail.html";
+
+	}
+
+	/**
+	 * 获取地区的tree列表
+	 */
+	@RequestMapping(value = "/tree")
+	@ResponseBody
+	public List<ZTreeNode> tree() {
+		List<ZTreeNode> tree = this.sys_areaDao.tree();
+		tree.add(ZTreeNode.createParent());
+		return tree;
+	}
+
+	/**
+	 * 获取地区列表
+	 */
+	@Permission(Const.ADMIN_NAME)
+	@RequestMapping(value = "/list")
+	@ResponseBody
+	public Object list(@RequestParam(required = false) String condition,@RequestParam(required = false) Integer area_id) {
+		paramList = null;
+		if (null==area_id){
+			area_id=0;
+		}
+		List<Map<String, Object>> list = this.sys_areaDao.list(condition,area_id);
+		return super.warpObject(new Sys_areaWarpper(list));
+	}
+
+	/**
+	 * 新增地区
+	 */
+	@RequestMapping(value = "/add")
+	@ResponseBody
+	public Object add(Sys_area sys_area) {
+		
+		// 获取当前输入地区名字
+		String addName = sys_area.getArea_nm();
+		System.err.println("当前输入地区名字:" + addName);
+		
+		Integer addId = sys_area.getArea_id();
+		System.err.println("当前输入地区Id:" + addId);
+		
+		Integer pad = sys_area.getPar_area_id();
+		Sys_area sysArea = this.sys_areaDao.queryPaid(pad);
+		// Integer paid = this.sys_areaDao.queryPaid(pad);
+		
+		Integer provId = sysArea.getProv_id();
+		String provNm = sysArea.getProv_nm();
+		
+		Integer cityId = sysArea.getCity_id();
+		String cityNm = sysArea.getCity_nm();
+		
+		Integer regionId = sysArea.getRegion_id();
+		String regionNm = sysArea.getRegion_nm();
+		
+		Integer streetId = sysArea.getStreet_id();
+		// System.err.println(streetId);
+		String streetNm = sysArea.getStreet_nm();
+		// System.err.println(streetNm);
+		
+		Integer areaDeep = sysArea.getArea_deep();
+		Integer areaSort = sysArea.getArea_sort();
+		
+		if (areaDeep == 0) {
+			sys_area.setProv_id(provId);
+			sys_area.setProv_nm(provNm);
+		} else if (areaDeep == 1) {
+			sys_area.setProv_id(provId);
+			sys_area.setProv_nm(provNm);
+			sys_area.setCity_id(cityId);
+			sys_area.setCity_nm(cityNm);
+		} else if (areaDeep == 2) {
+			sys_area.setProv_id(provId);
+			sys_area.setProv_nm(provNm);
+			sys_area.setCity_id(cityId);
+			sys_area.setCity_nm(cityNm);
+			sys_area.setRegion_id(regionId);
+			sys_area.setRegion_nm(regionNm);
+		} else if (areaDeep == 3) {
+			sys_area.setProv_id(provId);
+			sys_area.setProv_nm(provNm);
+			sys_area.setCity_id(cityId);
+			sys_area.setCity_nm(cityNm);
+			sys_area.setRegion_id(regionId);
+			sys_area.setRegion_nm(regionNm);
+			
+			sys_area.setStreet_id(addId);
+			
+			sys_area.setStreet_nm(addName);
+		}
+		
+		sys_area.setArea_deep(areaDeep + 1);
+		sys_area.setArea_sort(areaSort);
+
+		return this.sys_areaMapper.insert(sys_area);
+		
+//		Integer addAreaId = sys_areaDao.selectAddId(sys_area);		
+//		return SUCCESS_TIP;
+	}
+
+	/**
+	 * 删除地区
+	 */
+	@RequestMapping(value = "/delete")
+	@ResponseBody
+	public Object delete(@RequestParam Integer sys_areaId) {
+		this.sys_areaMapper.deleteById(sys_areaId);
+		return SUCCESS_TIP;
+	}
+
+	/**
+	 * 修改地区
+	 */
+	@RequestMapping(value = "/update")
+	@ResponseBody
+	public Object update(Sys_area sys_area) {
+		this.sys_areaMapper.updateById(sys_area);
+		paramList = null;
+		return super.SUCCESS_TIP;
+	}
+
+	@RequestMapping(value = "/queryProvList")
+	@ResponseBody
+	public Object queryProvList(){
+		List<Map<String, Object>> list = this.sys_areaDao.queryProvList();
+
+		return list;
+	}
+
+	/**
+	 *
+	 * 添加订单加载城市
+	 */
+	@RequestMapping(value = "/queryCityList")
+	@ResponseBody
+	public Object queryCityList(@RequestParam Integer prov_id){
+		List<Map<String, Object>> list = this.sys_areaDao.queryCityList(prov_id);
+
+		return list;
+	}
+
+	/**
+	 *
+	 * 添加订单加载区县
+	 */
+	@RequestMapping(value = "/queryRegionList")
+	@ResponseBody
+	public Object queryRegionList(@RequestParam Integer city_id){
+
+		List<Map<String, Object>> list = this.sys_areaDao.queryRegionList(city_id);
+
+		return list;
+	}
+
+	/**
+	 * 导出地区
+	 */
+	@RequestMapping(value = "/export", method = RequestMethod.GET)
+	public void export(HttpServletResponse res) throws ParsePropertyException, InvalidFormatException, IOException {
+		String resourcePath = "wyxyd/src/main/resources/excelTemplate/sys_area.xls";
+		String tarPath = "sys_area.xls";
+		String condition = null;
+		List<Map<String, Object>> list = this.sys_areaDao.list(condition,null);
+		Map<String, List<Map<String, Object>>> beanParams = new HashMap<String, List<Map<String, Object>>>();
+		beanParams.put("list", list);
+		XLSTransformer former = new XLSTransformer();
+		former.transformXLS(resourcePath, beanParams, tarPath);
+		// 下载
+		String fileName = "sys_area" + DateUtil.getAllTime() + ".xls";
+		res.setHeader("content-type", "application/octet-stream");
+		res.setContentType("application/octet-stream");
+		res.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+		byte[] buff = new byte[1024];
+		BufferedInputStream bis = null;
+		OutputStream os = null;
+		try {
+			os = res.getOutputStream();
+			bis = new BufferedInputStream(new FileInputStream(new File("sys_area.xls")));
+			int i = bis.read(buff);
+			while (i != -1) {
+				os.write(buff, 0, buff.length);
+				os.flush();
+				i = bis.read(buff);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (bis != null) {
+				try {
+					bis.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+}

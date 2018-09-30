@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zsh.bs_shop.dao.Bs_shopDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.zsh.bs_shop.model.Bs_shop">
+	<id column="shop_id" property="shop_id" />
+	<result column="shop_no" property="shop_no" />
+	<result column="shop_nm" property="shop_nm" />
+	<result column="shop_weigth" property="shop_weigth" />
+	<result column="shop_spec" property="shop_spec" />
+	<result column="shop_no_num" property="shop_no_num" />
+	<result column="shop_unit" property="shop_unit" />
+	<result column="xyd_st_id" property="xyd_st_id" />
+	<result column="xyd_cre_dt" property="xyd_cre_dt" />
+	<result column="xyd_up_dt" property="xyd_up_dt" />
+	<result column="id" property="id" />
+	</resultMap>
+	
+
+	
+	<!-- 通过Id查询商品 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select * from bs_shop
+		where shop_id = #{bs_shopId}
+	</select>
+
+		<!-- 商品列表 -->
+    	<select id="list" resultType="map">
+    		select bs_shop.*,user.name from bs_shop
+                    LEFT JOIN user on bs_shop.id =user.id
+            where 1=1
+    		<if test="condition != null and condition != ''">
+            and (shop_no like CONCAT('%',#{condition},'%') or shop_nm like CONCAT('%',#{condition},'%') or shop_no_num like CONCAT('%',#{condition},'%') or 1&lt;1)
+            </if>
+            <if test="xyd_st_id != null and xyd_st_id !=0">
+            and xyd_st_id=#{xyd_st_id}
+             </if>
+    		order by shop_id desc
+    	</select>
+        <select id="getMap10" resultType="map">
+              select name name,id num from user
+        </select>
+        <update id="deleteByIds" parameterType="list">
+            UPDATE bs_shop SET xyd_st_id = -1 where shop_id in
+           <foreach collection="list" item="item" open="(" separator="," close=")">
+                   #{item}
+             </foreach>
+        </update>
+
+	<select id="listAllShop" parameterType="map" resultType="map">
+		select
+		shop_no zsh_shop_no,
+		shop_nm shop_name,
+		shop_id shop_id,
+		shop_spec shop_spec,
+		shop_unit shop_unit
+		from
+		bs_shop
+
+	</select>
+
+	<!--通过商品名查商品，接口部分 -->
+	<select id="findByShopName" parameterType="map" resultType="map">
+		select
+		shop_no zsh_shop_no,
+		shop_nm shop_name,
+		shop_id shop_id,
+		shop_spec shop_spec,
+		shop_unit shop_unit
+		from
+		bs_shop
+		where shop_nm like "%${map.shopName}%"
+	</select>
+</mapper>

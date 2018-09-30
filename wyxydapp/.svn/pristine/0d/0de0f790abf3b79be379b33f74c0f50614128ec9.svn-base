@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+        <link href="css/mui.min.css" rel="stylesheet" />
+    </head>
+
+    <body>
+        <script src="js/mui.min.js"></script>
+        <script type="text/javascript" src="js/md5.js" ></script>
+         <header class="mui-bar mui-bar-nav" style="background: #4ca5f8;">
+                <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #fff;"></a>
+                <h1 class="mui-title" style="color: #fff;font-weight: bold;font-size: 20px;">供货商增加</h1>
+                
+            </header>
+        <div class="mui-content">
+            <form class="mui-input-group">
+    <div class="mui-input-row" style="height: 49px;">
+        <label style="padding-top: 25px;">供货商名称</label>
+    <input id="mingchen1"  type="text" class="mui-input-clear"  style="padding-top: 32px;">
+    </div>
+    <div class="mui-input-row" style="height: 49px;" id="fenlei">
+        <label style="padding-top: 25px;">合作分类</label>
+    <span style="padding-top: 22px;float: right;color: #f0ad4e;">全部分类</span>
+    </div>
+    <div class="mui-input-row" style="height: 49px;">
+        <label style="padding-top: 25px;">编号</label>
+    <input type="text" id="bianhao" class="mui-input-clear"  style="padding-top: 32px;">
+    </div>
+    <div class="mui-input-row" style="height: 49px;">
+        <label style="padding-top: 25px;">联系人</label>
+    <input type="text" id="lianxi" class="mui-input-clear"  style="padding-top: 32px;">
+    </div>
+    <div class="mui-input-row" style="height: 49px;">
+        <label style="padding-top: 25px;">联系电话</label>
+    <input type="text" id="dianhua" class="mui-input-clear" placeholder="" style="padding-top: 32px;">
+    </div>
+    <div class="mui-input-row" style="height: 49px;">
+        <label style="padding-top: 25px;">邮箱</label>
+    <input type="text" id="youxiang" class="mui-input-clear" placeholder="" style="padding-top: 32px;">
+    </div>
+    <div class="mui-input-row" style="height: 49px;">
+        <label style="padding-top: 25px;">地址</label>
+    <input type="text" id="dizhi" class="mui-input-clear" placeholder="" style="padding-top: 32px;">
+    </div>
+    <div class="mui-input-row" style="height: 49px;">
+        <label style="padding-top: 25px;">备注</label>
+    <input type="text" id="beizhu" class="mui-input-clear" placeholder="" style="padding-top: 32px;">
+    </div>
+</form>
+
+            </div> 
+            <div class="mui-part4 mui-bar mui-bar-tab" style="margin-top: 80px;">
+                <ul class="mui-table-view" style="height: 65px;">
+                 <li class="mui-table-view-cell" id="shanchu" style="float: left;font-size: 27px;margin-left: 10%;margin-top: 10px;background: #bbb;width: 37%;text-align: center;">删除</li> 
+                 <li class="mui-table-view-cell" id="baocun" style="float: right;font-size: 27px;margin-right: 10%;margin-top: 10px;background: #4ca5f8;color: #fff;width: 37%;text-align: center;">保存</li>
+                </ul>
+            </div> 
+    </body>
+<script>
+  var prd_vendor_nm=document.getElementById('mingchen1')
+ var bianhao=document.getElementById('bianhao')
+ var lianxi=document.getElementById('lianxi')
+ var dianhua=document.getElementById('dianhua')
+ var youxiang=document.getElementById('youxiang')
+ var dizhi=document.getElementById('dizhi')
+ var beizhu=document.getElementById('beizhu')
+ var baocun=document.getElementById('baocun')
+ var b=1
+ var yuanshi={
+ 	    "prd_vendor_nm":prd_vendor_nm.value,
+		'prd_vendor_no':bianhao.value,
+		'prd_vendor_man':lianxi.value,
+		'man_phone':dianhua.value,
+		'man_email':youxiang.value,
+		'man_address':dizhi.value,
+		'remarks':beizhu.value
+	};
+	
+ var bianma=btoa(yuanshi);
+ var suiji =md5(localStorage.randomKey);
+ var tou =localStorage.token
+ var DATA = {object:bianma,sign:suiji}
+ mui.plusReady(function(){
+ 
+ 	baocun.addEventListener('tap',function(){
+ 	
+ 		mui.ajax('http://10.0.0.145/xgt_goods_prd_vendor/add',{
+	data:DATA,
+	dataType:'json',//服务器返回json格式数据
+	type:'post',//HTTP请求类型
+	timeout:10000,//超时时间设置为10秒；
+	headers:{'Authorization':"Berarer eyJhbGciOiJIUzUxMiJ9.eyJyYW5kb21LZXkiOiJuOTFmZWYiLCJzdWIiOiJhZG1pbiIsImV4cCI6MTUzNTUzMzYyOCwiaWF0IjoxNTM0OTI4ODI4fQ.XYm9dYEPWN1G45H9biDS7u7vaWQdaWrHQrVCvHBPMvombtr8gh0JDC6aDHR6TlDmvD9bYUhnY8RxI08JwiIGfw"},		              
+	success:function(data){      
+		 mui.toast("保存成功");
+		 console.log(JSON.stringify(data))
+		 console.log(JSON.stringify({'Content-Type':'application/x-www-form-urlencoded','Authorization':""+'Berarer '+tou+""}))
+		 mui.openWindow(  
+        {  
+          url:'gonghuo.html',  
+          id:'gonghuo.html',  
+        }  
+      );
+      
+	},
+	error:function(xhr,type,errorThrown){
+		
+	}
+});
+ 	})
+ })
+ 
+ 
+ 
+ 
+</script>
+</html>

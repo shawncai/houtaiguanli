@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.xgt_goods_products.dao.Xgt_goods_productsDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.zcgl.xgt_goods_products.model.Xgt_goods_products">
+	<id column="prd_id" property="prd_id" />
+	<result column="prd_nm" property="prd_nm" />
+	<result column="prd_brand_id" property="prd_brand_id" />
+	<result column="prd_nm_alias" property="prd_nm_alias" />
+	<result column="prd_cls_id" property="prd_cls_id" />
+	<result column="prd_sn" property="prd_sn" />
+	<result column="prd_unit_id" property="prd_unit_id" />
+	<result column="prd_model" property="prd_model" />
+	<result column="prd_spec" property="prd_spec" />
+	<result column="prd_no" property="prd_no" />
+	<result column="prd_crt_dt" property="prd_crt_dt" />
+	<result column="prd_purchase" property="prd_purchase" />
+	<result column="prd_price" property="prd_price" />
+	<result column="xyd_cre_dt" property="xyd_cre_dt" />
+	<result column="xyd_up_dt" property="xyd_up_dt" />
+	<result column="id" property="id" />
+	<result column="prd_nm_img" property="prd_nm_img" />
+	<result column="prd_nm_dsc" property="prd_nm_dsc" />
+	<result column="xyd_st_id" property="xyd_st_id" />
+	</resultMap>
+	
+
+	
+	<!-- 通过Id查询商品测试 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select * from xgt_goods_products
+		where prd_id = #{xgt_goods_productsId}
+	</select>
+
+		<!-- 商品测试列表 -->
+    	<select id="list" resultType="map">
+    		select xgt_goods_products.*,xgt_goods_prd_brand.prd_brand_nm,xgt_goods_prd_cls.prd_cls_nm,xgt_goods_prd_unit.prd_unit_nm,user.name from xgt_goods_products
+                    LEFT JOIN xgt_goods_prd_brand on xgt_goods_products.prd_brand_id =xgt_goods_prd_brand.prd_brand_id
+                    LEFT JOIN xgt_goods_prd_cls on xgt_goods_products.prd_cls_id =xgt_goods_prd_cls.prd_cls_id
+                    LEFT JOIN xgt_goods_prd_unit on xgt_goods_products.prd_unit_id =xgt_goods_prd_unit.prd_unit_id
+                    LEFT JOIN user on xgt_goods_products.id =user.id
+            where 1=1
+    		<if test="condition != null and condition != ''">
+            and (prd_nm like CONCAT('%',#{condition},'%') or prd_sn like CONCAT('%',#{condition},'%') or prd_model like CONCAT('%',#{condition},'%') or prd_no like CONCAT('%',#{condition},'%') or 1&lt;1)
+            </if>
+            <if test="xyd_st_id != null and xyd_st_id !=0">
+            and xyd_st_id=#{xyd_st_id}
+             </if>
+    		order by prd_id desc
+    	</select>
+        <select id="getMap2" resultType="map">
+              select prd_brand_nm name,prd_brand_id num from xgt_goods_prd_brand
+        </select>
+        <select id="getMap4" resultType="map">
+              select prd_cls_nm name,prd_cls_id num from xgt_goods_prd_cls
+        </select>
+        <select id="getMap6" resultType="map">
+              select prd_unit_nm name,prd_unit_id num from xgt_goods_prd_unit
+        </select>
+        <select id="getMap15" resultType="map">
+              select name name,id num from user
+        </select>
+        <update id="deleteByIds" parameterType="list">
+            UPDATE xgt_goods_products SET xyd_st_id = -1 where prd_id in
+           <foreach collection="list" item="item" open="(" separator="," close=")">
+                   #{item}
+             </foreach>
+        </update>
+
+	<select id="tree1" resultType="wy.core.util.TreeBuilder">
+		select prd_cls_id as id,par_prd_cls_id as pid,prd_cls_nm as name from xgt_goods_prd_cls
+	</select>
+
+	<select id="tree" resultType="wy.core.util.TreeBuilder">
+		select
+		m1.prd_cls_id as id,
+		(
+		case
+		when (m2.prd_cls_id = 0 or m2.prd_cls_id is null) then
+		0
+		else
+		m2.prd_cls_id
+		end
+		) as pid,
+		m1.prd_cls_nm
+		as name,
+		(
+		case
+		when
+		(m2.prd_cls_id
+		= 0 or m2.prd_cls_id is null) then
+		'true'
+		else
+		'false'
+		end
+		) "close"
+		from
+		xgt_goods_prd_cls m1
+		left join xgt_goods_prd_cls m2 on
+		m1.par_prd_cls_id = m2.prd_cls_id
+		where m1.cpn_id = #{cpnId} and m1.st_id = 1
+		order by
+		m1.prd_cls_id asc
+	</select>
+
+	<select id="queryCpnId" resultType="Integer">
+		select
+		cpn_id
+		from user
+		where id = #{userId}
+	</select>
+</mapper>

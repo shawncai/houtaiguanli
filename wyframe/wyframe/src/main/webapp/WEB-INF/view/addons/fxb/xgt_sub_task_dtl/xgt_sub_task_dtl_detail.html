@@ -1,0 +1,29 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+           <input type="hidden" id="task_dtl_id" value="${xgt_sub_task_dtl.task_dtl_id}">
+
+      		 <div class="row">
+                     <#inputcol2 id='id' name='用户名称' value='${xgt_sub_task_dtl.id}' readonly='readonly'/>
+                     <#inputcol2 id='sub_qp_id' name='题目' value='${xgt_sub_task_dtl.sub_qp_id}' readonly='readonly'/>
+                     <#inputcol2 id='task_obj_id' name='作业对象' value='${xgt_sub_task_dtl.task_obj_id}' readonly='readonly'/>
+                     <#inputcol2 id='user_ask' name='答案' value='${xgt_sub_task_dtl.user_ask}' readonly='readonly'/>
+                     <#inputcol2 id='right_ask' name='正确答案' value='${xgt_sub_task_dtl.right_ask}' readonly='readonly'/>
+                     <#selectCol2 id='right_errof_flg' name='正确与否   ' map='${map6}' value='${xgt_sub_task_dtl.right_errof_flg}' />
+                     <#inputcol2 id='mdi_dt' name='变更时间' value='${xgt_sub_task_dtl.mdi_dt}' readonly='readonly'/>
+                     <#inputcol2 id='cre_dt' name='创建时间' value='${xgt_sub_task_dtl.cre_dt}' readonly='readonly'/>
+                     <#inputcol2 id='cpn_id' name='企业信息' value='${xgt_sub_task_dtl.cpn_id}' readonly='readonly'/>
+                     <#selectCol2 id='st_id' name='状态' map='${map10}' value='${xgt_sub_task_dtl.st_id}' />
+                                 </div>
+            <div class="row btn-group-m-t text-center">
+                <div class="col-sm-10">
+                    <#button btnCss="danger" name="关闭" id="cancel" icon="fa-eraser" clickFun="Xgt_sub_task_dtlInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/fxb/xgt_sub_task_dtl/js/xgt_sub_task_dtl_info.js"></script>
+@}

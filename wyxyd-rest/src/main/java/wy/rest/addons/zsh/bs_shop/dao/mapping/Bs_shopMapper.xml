@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.rest.addons.zsh.bs_shop.dao.Bs_shopMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.rest.addons.zsh.bs_shop.model.Bs_shop">
+	<id column="shop_id" property="shop_id" />
+	<result column="shop_no" property="shop_no" />
+	<result column="shop_nm" property="shop_nm" />
+	<result column="shop_weigth" property="shop_weigth" />
+	<result column="shop_spec" property="shop_spec" />
+	<result column="shop_no_num" property="shop_no_num" />
+	<result column="shop_unit" property="shop_unit" />
+	<result column="xyd_st_id" property="xyd_st_id" />
+	<result column="xyd_cre_dt" property="xyd_cre_dt" />
+	<result column="xyd_up_dt" property="xyd_up_dt" />
+	<result column="id" property="id" />
+	</resultMap>
+</mapper>

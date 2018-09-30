@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.wyitem.dao.Xgt_wy_itemMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.zcgl.wyitem.model.Xgt_wy_item">
+	<id column="item_id" property="item_id" />
+	<result column="item_nm" property="item_nm" />
+	<result column="item_nm_alias" property="item_nm_alias" />
+	<result column="item_dsc" property="item_dsc" />
+	<result column="item_cls" property="item_cls" />
+	<result column="par_item_id" property="par_item_id" />
+	<result column="seq_no" property="seq_no" />
+	<result column="st_id" property="st_id" />
+	<result column="oper_user" property="oper_user" />
+	</resultMap>
+</mapper>

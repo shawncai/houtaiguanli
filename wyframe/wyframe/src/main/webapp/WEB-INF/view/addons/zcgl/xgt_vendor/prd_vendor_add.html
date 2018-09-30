@@ -1,0 +1,155 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<form class="form-horizontal" id="signupForm">
+
+			<input type="hidden" id="prd_vendor_id" value="">
+
+			<div class="row">
+
+				<#inputzcc6 id="vendorName" hidden="par_prd_vendor_id" hiddenValue="${vendorId}" value="${vendorNm}" name="上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级" readonly="readonly" underline="true"
+						clickFun="Xgt_goods_prd_vendorInfoDlg.showVendorSelectTree(); return false;"
+						style="background-color: #ffffff !important;" selectFlag="true"
+						selectId="vendorTreeDiv" selectTreeId="vendorareaTree"
+						selectStyle="width:181px !important;margin-left: 119px" />
+
+
+				<#inputzcc6 id="prd_vendor_nm" name="名&nbsp;&nbsp;&nbsp;&nbsp;称" underline="true" />
+
+
+				<#inputzcc6 id="prd_vendor_alias" name="简&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称" underline="true" />
+
+
+				<#inputzcc6 id="prd_vendor_man" name="联系人" underline="true" />
+
+
+				<#inputzcc6 id="man_phone" name="电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话" underline="true" />
+
+
+				<#inputzcc6 id="man_email" name="邮&nbsp;&nbsp;&nbsp;&nbsp;箱" underline="true" />
+
+
+				<#selectStzcc6 id="vendor_flg" name="合作类别" map="${vendorFlgList}" underline="true" />
+
+
+				<#inputzcc6 id="man_address" name="地&nbsp;&nbsp;&nbsp;&nbsp;址" underline="true" />
+
+				<div class="col-sm-12 col-xs-12">
+
+					<#inputzcc1 id="remarks" name="描&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;述" underline="true" />
+
+				</div>
+			</div>
+			<div class="row btn-group-m-t">
+				<div class="row btn-group-m-t">
+					<div class="col-sm-12 col-xs-12 text-center">
+						<button type="submit" name="submit" class="btn btn-info " onclick="Xgt_goods_prd_vendorInfo.add()" id="ensure">
+							<i class="fa fa-check"></i>&nbsp;提交
+						</button>
+						<button type="submit" name="submit" class="btn btn-info " onclick="Xgt_goods_prd_vendorInfo.addContinue()" id="ensure">
+							<i class="fa fa-check"></i>&nbsp;提交并继续
+						</button>
+						<button type="submit" name="submit" class="btn btn-danger " onclick="Xgt_goods_prd_vendorInfoDlg.close()" id="ensure">
+							<i class="fa fa-check"></i>&nbsp;取消
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/xgt_vendor/js/xgt_goods_prd_vendor_info.js"></script>
+<script src="${ctxPath}/static/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="${ctxPath}/static/js/plugins/validate/messages_zh.min.js"></script>
+<script>
+    jQuery.validator.addMethod("isMobile", function(value, element) {
+        var length = value.length;
+        var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
+        return this.optional(element) || (length == 11 && mobile.test(value));
+    }, "请正确填写您的手机号码");
+    $.validator.setDefaults({
+        highlight: function(e) {
+            $(e).closest(".input-group").removeClass("has-success").addClass("has-error")
+        },
+        success: function(e) {
+            e.closest(".input-group").removeClass("has-error").addClass("has-success")
+        },
+        errorElement: "span",
+        errorPlacement: function(e, r) {
+            e.appendTo(r.is(":radio") || r.is(":checkbox") ? r.parent().parent().parent() : r.parent())
+        },
+        errorClass: "help-block m-b-none",
+        validClass: "help-block m-b-none"
+    }),
+        $().ready(function() {
+            var e = "<i class='fa fa-times-circle'></i> ";
+            $("#signupForm").validate({
+                rules: {
+                    prd_vendor_nm: {
+                        required: !0,
+                    },
+                    prd_vendor_alias: {
+                        required: !0,
+                    },
+                    man_phone: {
+                        required: !0,
+                        minlength : 11,
+                        isMobile : true
+                    },
+                    man_email: {
+                        required: !0,
+						email:true
+                    },
+                    man_address: {
+                        required: !0,
+                    },
+                    prd_vendor_man: {
+                        required: !0,
+                    },
+                   remarks: {
+                        required: !0,
+                    },
+                },
+                messages: {
+                    prd_vendor_nm: {
+                        required: e + "请输入名称",
+                    },
+                    prd_vendor_alias: {
+                        required: e + "请输入简称",
+                    },
+                    man_phone: {
+                        required: e + "请输入手机号",
+                        minlength : "确认手机不能小于11个字符",
+                        isMobile : "请正确填写您的手机号码"
+                    },
+                    man_email: {
+                        required: e + "请输入邮箱",
+                    },
+
+                    prd_vendor_man: {
+                        required: e + "请输入联系人",
+                    },
+                    man_address: {
+                        required: e + "请输入地址",
+                    },
+                    remarks: {
+                        required: e + "请输入备注",
+                    },
+
+                },
+                showErrors: function (errorMap, errorList) {
+                    var msg = "";
+                    $.each(errorList, function (i, v) {
+                        //msg += (v.message + "\r\n");
+                        //在此处用了layer的方法,显示效果更美观
+                        layer.tips(v.message, v.element, { tips:[2,'red'],time: 2000 });
+                        return false;
+                    });
+                },
+				/* 失去焦点时不验证 */
+                onfocusout: false
+            })
+
+        });
+</script>
+@}

@@ -1,0 +1,58 @@
+td{width: 20px;height: 18px;}
+#left_div {
+	width:100px;!important;
+	float:left;!important;
+}
+#left_div1 {
+	width:100%;!important;
+}
+#left_div2 {
+	width:100%;!important;
+	height:400px;!important;
+	overflow:hidden;!important;
+}
+#left_table1,#left_table2 {
+	width:100%!important;
+}
+#left_table1 th {
+	background:#8AB6CB!important;
+	text-align:center!important;
+}
+#left_table2 th {
+	text-align:center!important;
+	background:#BDE2F3!important;
+}
+#right_div {
+	float:left!important;
+}
+#right_div1 {
+	width:88.8%!important;
+	overflow:hidden!important;
+}
+#right_divx {
+	width:900px!important;
+}
+#right_div2 {
+	width:90%!important;
+	height:421px!important;
+	overflow:auto!important;
+}
+#right_table1 {
+	width:1400px!important;
+}
+#right_table2 {
+	/**width和max-width一起写，手机浏览器打开也能固定长度**/
+    width:1400px!important;
+	max-width:1400px!important;
+	white-space:nowrap!important;
+}
+#right_table1 th {
+	background:#E9F8FF!important;
+	text-align:center!important;
+	width:10%;
+}
+#right_table2 td {
+	width:10%!important;
+	text-align:center!important;
+}
+.myinput{display: none!important;}

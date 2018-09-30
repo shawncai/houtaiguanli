@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>  
+		<link href="css/mui.min.css" rel="stylesheet" />
+		
+		<style>body {
+	background: #FFF;
+}
+
+.form-bao {
+	display: flex;
+	margin-top: 50px;
+	justify-content: center;
+	align-content: center;
+}
+
+.form-bao .mui-input-group .mui-input-row {
+	margin-top: 30px;
+}</style>
+	</head>
+
+	<body class="ui-page-login">
+		
+		<div class="content">
+			<div class="mui-card" style="box-shadow: none;width: 100%;margin: 0;">
+	<!--页眉，放置标题-->
+	<div class="mui-card-header" style="background:#4ca5f8 ;color: #FFF;font-weight: bold;font-size:12px ;">通知：您有一项任务未完成！</div>
+	<!--内容区-->
+	<div class="mui-card-content" style="height: 256px;"></div>
+	<!--页脚，放置补充信息或支持的操作-->
+
+</div>
+<!--
+	登录表单
+-->
+<ul class="mui-table-view mui-grid-view mui-grid-9" style="background-color: #fff;">
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" id="crku"><a href="#">
+		                    <span class="mui-icon mui-icon-home"></span>
+		                    <div class="mui-media-body">出入库管理</div></a></li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" id='erweima'><a href="#">
+		                    <span class="mui-icon mui-icon-camera"></span>
+		                    <div class="mui-media-body">二维码识别</div></a></li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+		                    <span class="mui-icon mui-icon-chatbubble"></span>
+		                    <div class="mui-media-body">Chat</div></a></li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+		                    <span class="mui-icon mui-icon-location"></span>
+		                    <div class="mui-media-body">location</div></a></li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+		                    <span class="mui-icon mui-icon-search"></span>
+		                    <div class="mui-media-body">Search</div></a></li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+		                    <span class="mui-icon mui-icon-phone"></span>
+		                    <div class="mui-media-body">Phone</div></a></li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+		                    <span class="mui-icon mui-icon-gear"></span>
+		                    <div class="mui-media-body">Setting</div></a></li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+		                    <span class="mui-icon mui-icon-info"></span>
+		                    <div class="mui-media-body">about</div></a></li>
+		           <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+		                    <span class="mui-icon mui-icon-more"></span>
+		                    <div class="mui-media-body">more</div></a></li>
+		        </ul> 
+        
+
+
+<nav class="mui-bar mui-bar-tab" style="box-shadow: none;">
+		    <a class="mui-tab-item mui-active">
+		        <span class="mui-icon mui-icon-home"></span>
+		        <span class="mui-tab-label">首页</span>
+		    </a>
+		    
+		    <a class="mui-tab-item">
+		        <span class="mui-icon mui-icon-list" id="plus/message.html" onclick="clicked(this.id)"></span>
+		        <span class="mui-tab-label">资料</span>
+		    </a>
+		    <a class="mui-tab-item" id="setting.html" onclick="clicked(this.id)">
+		        <span class="mui-icon mui-icon-contact"></span>
+		        <span class="mui-tab-label">我的</span>
+		    </a>
+		</nav>
+		</div>
+	
+	</body>
+	<script type="text/javascript">mui.init({
+	swipeBack: true,
+	keyEventBind: {
+		backbutton: false, //Boolean(默认true)关闭back按键监听
+		menubutton: false //Boolean(默认true)关闭menu按键监听
+	},
+});
+var churuku = document.getElementById('crku')
+mui.plusReady(
+	function() {
+		churuku.addEventListener('tap', function() {
+			var webview = mui.openWindow({
+				id: 'churuku.html',
+				url: 'churuku.html'
+				
+			});
+
+		})
+		
+		var erweima=document.getElementById('erweima')
+		erweima.addEventListener('tap',function() {
+			mui.openWindow({
+				id:'saomiao.html',
+				url:'saomiao.html'
+			})
+		})
+		
+
+	}
+)</script>
+
+</html>

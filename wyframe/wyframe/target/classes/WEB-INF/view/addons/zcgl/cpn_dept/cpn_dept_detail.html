@@ -1,0 +1,70 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal">
+
+			<input type="hidden" id="cpn_dept_id"
+				   value="${xyd_cpn_dept.cpn_dept_id}">
+
+			<div class="row">
+				<div class="col-sm-12 col-xs-12">
+					<#inputzcc5 id="cpndNm" hidden="par_cpn_dept_id" hiddenValue="${xyd_cpn_dept.par_cpn_dept_id}" value="${pdeptNm}" name="上级部门" readonly="readonly" underline="true"
+							clickFun="Xyd_cpn_deptInfoDlg.showCpnSelectTree(); return false;"
+							style="background-color: #ffffff !important;" selectFlag="true"
+							selectId="cpnTreeDiv" selectTreeId="cpnareaTree"
+							selectStyle="width:213px !important;margin-left: 239px" readonly="readonly"/>
+				</div>
+
+				<div class="col-sm-12 col-xs-12">
+					<#inputzcc5 id="cpn_dept_nm" name="部门名称" underline="true" value="${xyd_cpn_dept.cpn_dept_nm}" readonly="readonly"/>
+				</div>
+				<div class="col-sm-12 col-xs-12">
+					<#inputzcc5 id="cpn_dept_code" name="简称" underline="true" value="${xyd_cpn_dept.cpn_dept_code}" readonly="readonly"/>
+				</div>
+
+				<div class="col-sm-12 col-xs-12">
+					<#selectStzcc3 id="st_id" name="状态" map="${cpnStoreStList}"
+							value="${xyd_cpn_dept.st_id}" underline="true" readonly="readonly"/>
+				</div>
+			</div>
+			<div class="row btn-group-m-t">
+				<div class="col-sm-12 col-xs-12 text-center">
+					<#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser"
+							clickFun="Xyd_cpn_deptInfoDlg.close()" />
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<script
+	src="${ctxPath}/static/addons/zcgl/cpn_dept/js/xyd_cpn_dept_info.js"></script>
+<script>
+	/**
+	 *参数表页面table
+	 */
+	var Xyd_cpn_dept_detail = {
+		id : "detailTable", //表格id
+		seItem : null, //选中的条目
+		table : null,
+		layerIndex : -1
+	};
+
+	/**
+	 * 初始化表格的列
+	 */
+	Xyd_cpn_dept_detail.initColumn = function() {
+		return [ {
+			field : 'selectItem',
+			checkbox : true
+		} ];
+
+	};
+	var id = $("#cpn_dept_id").val();
+	var defaultColunmss = Xyd_cpn_dept_detail.initColumn();
+	var tabless = new BSTable(Xyd_cpn_dept_detail.id, "/xyd_cpn_dept/detail/"
+			+ id, defaultColunmss);
+	tabless.setPaginationType("client");
+	Xyd_cpn_dept_detail.table = tabless.init();
+</script>
+@}

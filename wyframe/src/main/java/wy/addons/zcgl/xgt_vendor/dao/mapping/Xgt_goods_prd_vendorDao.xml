@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.xgt_vendor.dao.Xgt_goods_prd_vendorDao">
+	
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.zcgl.xgt_vendor.model.Xgt_goods_prd_vendor">
+		<id column="prd_vendor_id" property="prd_vendor_id" />
+		<result column="prd_vendor_nm" property="prd_vendor_nm" />
+		<result column="prd_vendor_alias" property="prd_vendor_alias" />
+		<result column="prd_vendor_man" property="prd_vendor_man" />
+		<result column="man_email" property="man_email" />
+		<result column="man_address" property="man_address" />
+		<result column="prd_vendor_no" property="prd_vendor_no" />
+		<result column="man_phone" property="man_phone" />
+		<result column="vendor_flg" property="vendor_flg" />
+		<result column="cpn_id" property="cpn_id" />
+		<result column="cpn_branch_id" property="cpn_branch_id" />
+		<result column="st_id" property="st_id" />
+		<result column="oper_user" property="oper_user" />
+		<result column="par_prd_vendor_id" property="par_prd_vendor_id" />
+		<result column="remarks" property="remarks" />
+	</resultMap>
+	
+	<!-- 生产厂商列表 -->
+	<select id="list" resultType="map">
+		 SELECT c1.*,d1.prd_vendor_nm as par_prd_vendor_nm from
+        (select a1.*
+        from xgt_goods_prd_vendor a1,
+        (select b1.prd_vendor_id from xgt_goods_prd_vendor b1 where b1.prd_vendor_id =#{prd_vendor_id}
+        UNION
+        select b1.prd_vendor_id from xgt_goods_prd_vendor b1 where b1.par_prd_vendor_id =#{prd_vendor_id}
+        union
+        select b1.prd_vendor_id from xgt_goods_prd_vendor b1,xgt_goods_prd_vendor b2 where
+        b1.par_prd_vendor_id=b2.prd_vendor_id and b2.par_prd_vendor_id =#{prd_vendor_id}
+        union
+        select b1.prd_vendor_id from xgt_goods_prd_vendor b1,xgt_goods_prd_vendor b2, xgt_goods_prd_vendor b3 where
+        b1.par_prd_vendor_id=b2.prd_vendor_id and b2.par_prd_vendor_id=b3.prd_vendor_id and b3.par_prd_vendor_id
+        =0
+        ) m1
+        where a1.prd_vendor_id=m1.prd_vendor_id and a1.st_id = 1
+		<if test="condition != null and condition != ''">
+			and (prd_vendor_nm like CONCAT('%',#{condition},'%')
+			or prd_vendor_man like CONCAT('%',#{condition},'%')
+			or man_phone like CONCAT('%',#{condition},'%')
+			or prd_vendor_alias like CONCAT('%',#{condition},'%'))
+		</if>
+        order by
+        a1.
+        prd_vendor_id
+        )
+        c1 LEFT JOIN xgt_goods_prd_vendor d1
+        on c1.par_prd_vendor_id  = d1.prd_vendor_id
+	</select>
+
+	<select id="list2" resultType="map">
+		SELECT c1.*,d1.prd_vendor_nm as par_prd_vendor_nm from
+		(select a1.*
+		from xgt_goods_prd_vendor a1,
+		(select b1.prd_vendor_id from xgt_goods_prd_vendor b1 where b1.prd_vendor_id =#{prd_vendor_id}
+		UNION
+		select b1.prd_vendor_id from xgt_goods_prd_vendor b1 where b1.par_prd_vendor_id =#{prd_vendor_id}
+		union
+		select b1.prd_vendor_id from xgt_goods_prd_vendor b1,xgt_goods_prd_vendor b2 where
+		b1.par_prd_vendor_id=b2.prd_vendor_id and b2.par_prd_vendor_id =#{prd_vendor_id}
+		union
+		select b1.prd_vendor_id from xgt_goods_prd_vendor b1,xgt_goods_prd_vendor b2, xgt_goods_prd_vendor b3 where
+		b1.par_prd_vendor_id=b2.prd_vendor_id and b2.par_prd_vendor_id=b3.prd_vendor_id and b3.par_prd_vendor_id
+		=0
+		) m1
+		where a1.prd_vendor_id=m1.prd_vendor_id and a1.st_id = 1 and a1.cpn_id=#{cpnId}
+		<if test="condition != null and condition != ''">
+			and (prd_vendor_nm like CONCAT('%',#{condition},'%')
+			or man_address like CONCAT('%',#{condition},'%')
+			or prd_vendor_alias like CONCAT('%',#{condition},'%'))
+		</if>
+		order by
+		a1.
+		prd_vendor_id
+		)
+		c1 LEFT JOIN xgt_goods_prd_vendor d1
+		on c1.par_prd_vendor_id  = d1.prd_vendor_id
+	</select>
+	<!--模糊查询-->
+	<select id="findByNameOrNo" resultType="map">
+		select * from (SELECT * from xgt_goods_prd_vendor WHERE cpn_id = #{cpnId} and st_id = 1) xgt_goods_prd_vendor where prd_vendor_nm LIKE  CONCAT('%', #{prd_vendor_nm} , '%') OR prd_vendor_alias LIKE CONCAT('%', #{prd_vendor_nm} , '%')
+
+</select>
+	
+	<update id="updateVendorById">
+		update xgt_goods_prd_vendor set
+		st_id = -1
+		where prd_vendor_id = #{xgt_goods_prd_vendorId}
+	</update>
+
+	<select id="queryVendorNm" resultType="String">
+		select
+			prd_vendor_nm
+		from xgt_goods_prd_vendor
+		where prd_vendor_id = #{vendorId}
+	</select>
+
+	<select id="queryVendors" resultType="map">
+		select *
+		from
+		xgt_goods_prd_vendor
+		where cpn_id = #{cpnId} and st_id = 1
+	</select>
+
+	<select id="vendorList" resultType="map">
+		select * from
+		xgt_goods_prd_vendor
+	</select>
+
+	<select id="venDorList" resultType="map">
+		select * from
+		xgt_goods_prd_vendor
+	</select>
+
+	<!-- 通过Id查询生产厂商 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select * from
+		xgt_goods_prd_vendor
+		where prd_vendor_id = #{xgt_goods_prd_vendorId}
+	</select>
+
+	<select id="iQueryById" resultType="map">
+		select * from
+		xgt_goods_prd_vendor where prd_vendor_id = #{id}
+	</select>
+
+	<!-- 入库单中的添加伙伴 -->
+	<insert id="addVendor">
+		insert INTO xgt_goods_prd_vendor (prd_vendor_nm,prd_vendor_alia,
+		prd_vendor_no,/*par_prd_vendor_id,*/prd_vendor_man,man_email,man_phone,man_address,
+		remarks,vendor_flg,cpn_id,cpn_branch_id,cre_dt,st_id,oper_user) VALUES (
+		#{prd_vendor_nm},#{prd_vendor_alia},#{prd_vendor_no}/*,#{par_prd_vendor_id}*/,#{prd_vendor_man},
+		#{man_email},#{man_phone},#{man_address},#{remarks},#{vendor_flg},#{cpn_id},#{cpn_branch_id},#{cre_dt},#{st_id},#{oper_user}
+		)
+	</insert>
+
+	<select id="tree" resultType="wy.core.node.ZTreeNode">
+		select
+		m1.prd_vendor_id as id,
+		(
+		case
+		when (m2.prd_vendor_id = 0 or m2.prd_vendor_id is null) then
+		0
+		else
+		m2.prd_vendor_id
+		end
+		) as pid,
+		m1.prd_vendor_nm
+		as name,
+		(
+		case
+		when
+		(m2.prd_vendor_id
+		= 0 or m2.prd_vendor_id is null) then
+		'true'
+		else
+		'false'
+		end
+		) "close"
+		from
+		xgt_goods_prd_vendor m1
+		left join xgt_goods_prd_vendor m2 on
+		m1.par_prd_vendor_id = m2.prd_vendor_id
+		where m1.cpn_id = #{cpnId} and m1.st_id = 1
+		order by
+		m1.prd_vendor_id asc
+	</select>
+
+	<select id="tree1" resultType="wy.core.node.ZTreeNode">
+		select
+		m1.prd_vendor_id as id,
+		(
+		case
+		when (m2.prd_vendor_id = 0 or m2.prd_vendor_id is null) then
+		0
+		else
+		m2.prd_vendor_id
+		end
+		) as pid,
+		m1.prd_vendor_nm
+		as name,
+		(
+		case
+		when
+		(m2.prd_vendor_id
+		= 0 or m2.prd_vendor_id is null) then
+		'true'
+		else
+		'false'
+		end
+		) "close"
+		from
+		xgt_goods_prd_vendor m1
+		left join xgt_goods_prd_vendor m2 on
+		m1.par_prd_vendor_id = m2.prd_vendor_id
+		where  m1.st_id = 1
+		order by
+		m1.prd_vendor_id asc
+	</select>
+
+	<select id="selectVendorNm" resultType="String">
+		select
+		prd_vendor_nm
+		from xgt_goods_prd_vendor
+		where prd_vendor_id = #{vendorId}
+	</select>
+</mapper>

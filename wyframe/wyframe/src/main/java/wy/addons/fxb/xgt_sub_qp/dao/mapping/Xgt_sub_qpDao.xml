@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.fxb.xgt_sub_qp.dao.Xgt_sub_qpDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.fxb.xgt_sub_qp.model.Xgt_sub_qp">
+	<id column="sub_qp_id" property="sub_qp_id" />
+	<result column="sub_qp_title" property="sub_qp_title" />
+	<result column="sub_id" property="sub_id" />
+	<result column="sub_exam_id" property="sub_exam_id" />
+		<result column="sub_qp_seq"	property="sub_qp_seq" />
+	<result column="sub_qp_tp_id" property="sub_qp_tp_id" />
+	<result column="sub_qp_ea_id" property="sub_qp_ea_id" />
+	<result column="sub_qp_sel_a" property="sub_qp_sel_a" />
+	<result column="sub_qp_sel_b" property="sub_qp_sel_b" />
+	<result column="sub_qp_sel_c" property="sub_qp_sel_c" />
+	<result column="sub_qp_sel_d" property="sub_qp_sel_d" />
+	<result column="sub_qp_yes" property="sub_qp_yes" />
+	<result column="sub_qp_no" property="sub_qp_no" />
+	<result column="sub_qp_answer" property="sub_qp_answer" />
+	<result column="sub_qp_anl" property="sub_qp_anl" />
+	<result column="spec_flg" property="spec_flg" />
+	<result column="mdi_dt" property="mdi_dt" />
+	<result column="cre_dt" property="cre_dt" />
+	<result column="st_id" property="st_id" />
+	<result column="cpn_id" property="cpn_id" />
+	</resultMap>
+	
+
+	
+	<!-- 通过Id查询题目 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select * from xgt_sub_qp
+		where sub_qp_id = #{xgt_sub_qpId}
+	</select>
+
+		<!-- 题目列表 -->
+    	<select id="list" resultType="map">
+    		select xgt_sub_qp.*,xgt_subject.sub_nm,xgt_sub_exam.sub_exam_nm,xyd_cpn.cpn_nm from xgt_sub_qp
+                    LEFT JOIN xgt_subject on xgt_sub_qp.sub_id =xgt_subject.sub_id
+                    LEFT JOIN xgt_sub_exam on xgt_sub_qp.sub_exam_id =xgt_sub_exam.sub_exam_id
+                    LEFT JOIN xyd_cpn on xgt_sub_qp.cpn_id =xyd_cpn.cpn_id
+            where 1=1
+    		<if test="condition != null and condition != ''">
+            and (sub_qp_title like CONCAT('%',#{condition},'%') or 1&lt;1)
+            </if>
+            <if test="st_id != null and st_id !=0">
+            and xgt_sub_qp.st_id=#{st_id}
+             </if>
+    		order by sub_qp_id desc
+    	</select>
+	<select id="queryCpnId" resultType="Integer">
+		select
+		cpn_id
+		from user
+		where id = #{userId}
+	</select>
+        <select id="getMap2" resultType="map">
+              select sub_nm name,sub_id num from xgt_subject
+        </select>
+        <select id="getMap3" resultType="map">
+              select sub_exam_nm name,sub_exam_id num from xgt_sub_exam
+        </select>
+        <select id="getMap18" resultType="map">
+              select cpn_nm name,cpn_id num from xyd_cpn
+        </select>
+        <update id="deleteByIds" parameterType="list">
+            UPDATE xgt_sub_qp SET st_id = -1 where sub_qp_id in
+           <foreach collection="list" item="item" open="(" separator="," close=")">
+                   #{item}
+             </foreach>
+        </update>
+</mapper>

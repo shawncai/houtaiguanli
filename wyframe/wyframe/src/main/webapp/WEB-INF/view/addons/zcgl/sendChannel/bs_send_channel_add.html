@@ -1,0 +1,34 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+			
+            <input type="hidden" id="send_chnl_id" value="">
+            <div class="row">
+                <div class="col-sm-6 b-r">
+					<#input id="send_chnl_no" name="配送渠道编号" underline="true" />
+					<#input id="send_chnl_desc" name="配送渠道描述" underline="true" />
+					<#input id="send_chnl_num" name="配送数量" underline="true" />
+                </div>
+
+           <div class="col-sm-6">
+                
+					<#input id="send_chnl_nm" name="配送渠道名称" underline="true" />
+					<#input id="send_chnl_phoe" name="配送渠道联系方式" underline="true" />
+					<#select id="send_chnl_flg" name="1：大于；2：大于等于；3：小于；4：小于等于" underline="true" />
+                
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="Bs_send_channelInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="Bs_send_channelInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/sendChannel/js/bs_send_channel_info.js"></script>
+@}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit"/><!-- 让360浏览器默认选择webkit内核 -->
+
+    <!-- 全局css -->
+    <link rel="shortcut icon" href="/static/favicon.ico">
+    <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/static/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link href="/static/css/plugins/validate/bootstrapValidator.min.css" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="/static/css/_fstyle.css" rel="stylesheet">
+    <!--    <link href="/static/css/bootstrap-editable.css" rel="stylesheet"> -->
+    <link href="/static/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/static/js/plugins/webuploader-master/css/webuploader.css" rel="stylesheet">
+    <link href="/static/js/plugins/webuploader-master/examples/image-upload/style.css" rel="stylesheet">
+    <link href="/static/css/plugins/ztree/zTreeStyle.css" rel="stylesheet">
+    <link href="/static/css/plugins/jquery-treegrid/css/jquery.treegrid.css" rel="stylesheet"/>
+    <link href="/static/js_new/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
+    <!-- <link href="/static/css/plugins/ztree/demo.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="/static/layui_09_03/css/layui.css"  media="all">
+
+    <!-- 全局js -->
+    <script src="/static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/static/js/plugins/ztree/jquery.ztree.all.min.js"></script>
+    <script src="/static/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="/static/js/plugins/validate/bootstrapValidator.min.js"></script>
+    <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/static/js/plugins/validate/messages_zh.min.js"></script>
+    <script src="/static/js/plugins/validate/zh_CN.js"></script>
+    <script src="/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+    <script src="/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="/static/js/plugins/jquery-treegrid/js/jquery.treegrid.min.js"></script>
+    <script src="/static/js/plugins/jquery-treegrid/js/jquery.treegrid.bootstrap3.js"></script>
+    <script src="/static/js/plugins/jquery-treegrid/extension/jquery.treegrid.extension.js"></script>
+    <script src="/static/js_new/layer1/layer.js"></script>
+    <script src="/static/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="/static/js/plugins/layer/laydate/laydate.js"></script>
+    <script src="/static/js/plugins/webuploader-master/dist/webuploader.min.js"></script>
+    <script src="/static/js/common/ajax-object.js"></script>
+    <script src="/static/js/common/Feng.js"></script>
+    <script src="/static/js/common/bootstrap-table-object.js"></script>
+    <script src="/static/js_new/bootstrap3-editable/js/bootstrap-editable.js"></script>
+    <script src="/static/js_new/bootstrap-table-editable.js"></script>
+    <script src="/static/js/common/tree-table-object.js"></script>
+    <script src="/static/js/common/web-upload-object.js"></script>
+    <script src="/static/js/common/ztree-object.js"></script>
+    <script type="text/javascript" src="${ctxPath}/static/layui_09_03/layui.all.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.qrcode.js" ></script>
+    <script type="text/javascript" src="/static/js/qrcode.js" ></script>
+
+    <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/static/js/plugins/validate/messages_zh.min.js"></script>
+    <script type="text/javascript">
+        Feng.addCtx("");
+        Feng.sessionTimeoutRegistry();
+    </script>
+
+</head>
+
+<body class="gray-bg">
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <form class="form-horizontal" id="signupForm">
+			<input type="hidden" id="task_obj_id" value="">
+			   <div class="row">
+                   <div class="col-sm-6 col-xs-6">
+                       <div class="form-group">
+                           <label class="col-sm-4 control-label col-xs-6 ">班级：</label>
+                           <div class="col-sm-7 col-xs-12">
+                               <input class="form-control" id="demo2" name="demo2" type="text" autocomplete="off">
+                           </div>
+                       </div>
+                   </div>
+                   <div class="col-sm-6 col-xs-6">
+                       <div class="form-group">
+                           <label class="col-sm-4 control-label col-xs-6 ">学生：</label>
+                           <div class="col-sm-7 col-xs-12">
+                               <input class="form-control" id="demo" name="demo" type="text" autocomplete="off">
+                           </div>
+                       </div>
+                   </div>
+                   <input type="hidden" id="xuesheng" value="">
+                                   <#selectCol2 id='task_id' name='作业任务ID' map='${map1}' />
+                                   <!--<#inputCol2 id='id' name='完成作业用户ID' />-->
+                                   <#timeinputcol2 id='accept_dt' name='接任务时间' />
+                                   <#timeinputcol2 id='over_dt' name='任务完成时间' />
+                                   <#selectCol2 id='over_st_id' name='完成状态　' map='${map5}' />
+                                   <#inputCol2 id='right_num' name='正确数' />
+                                   <#inputCol2 id='error_num' name='错误树' />
+                                   
+                                   
+                                   
+                                   
+               </div>
+            <div class="row btn-group-m-t text-center">
+                <div class="col-sm-10">
+                    <#submit btnCss="info" iName="提交" id="ensure" icon="fa-check" clickFun="validate();Xgt_sub_task_objInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="Xgt_sub_task_objInfoDlg.close()"/>
+                </div>
+            </div>
+         </form>
+    </div>
+</div>
+<script src="${ctxPath}/static/js/common/tableSelect.js"></script>
+<script src="${ctxPath}/static/addons/fxb/xgt_sub_task_obj/js/xgt_sub_task_obj_info.js"></script>
+</div>
+<script src="/static/js/content.js?v=1.0.0"></script>
+<!--<script src="/static/js/plugins/webuploader-master/examples/image-upload/upload.js"></script>-->
+<script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="/static/js/plugins/validate/messages_zh.min.js"></script>
+<script>
+    jQuery.validator.addMethod("isMobile", function(value, element) {
+        var length = value.length;
+        var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
+        return this.optional(element) || (length == 11 && mobile.test(value));
+    }, "请正确填写您的手机号码");
+</script>
+</body>
+</html>

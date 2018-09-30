@@ -1,0 +1,113 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<form class="form-horizontal" id="signupForm">
+
+			<input type="hidden" id="cpn_branch_id" value="">
+
+			<div class="row">
+				<div class="col-sm-6 col-xs-6" style="display: none">
+					<#selectCpn2 id="cpn_id" name="企业信息" underline="true"
+							map="${cpnList}" />
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="cpn_branch_nm" name="机构名称" underline="true" />
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="cpn_branch_code" name="标准编码" underline="true" />
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="areaName" name="机构地区" underline="true"
+							hidden="cpn_area_id" readonly="readonly"
+							clickFun="Xyd_cpn_branchInfoDlg.showAreaSelectTree(); return false;"
+							style="background-color: #ffffff !important;" selectFlag="true"
+							selectId="areaTreeDiv" selectTreeId="areaTree"
+							selectStyle="width:588px !important;" />
+				</div>
+
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="user_id" name="联系人" underline="true" />
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="cpn_branch_phone" name="联系电话" underline="true" />
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="cpn_area_desc" name="详细地址" underline="true" />
+				</div>
+
+			</div>
+			<div class="row btn-group-m-t">
+				<div class="col-sm-12 col-xs-12 text-center">
+					<button type="submit" name="submit" class="btn btn-info " onclick="Xyd_cpn_branchInfo.add()" id="ensure">
+						<i class="fa fa-check"></i>&nbsp;提交
+					</button>
+
+					<#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser"
+							clickFun="Xyd_cpn_branchInfoDlg.close()" />
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<script
+	src="${ctxPath}/static/addons/zcgl/cpn_branch/js/xyd_cpn_branch_info.js"></script>
+<script src="${ctxPath}/static/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="${ctxPath}/static/js/plugins/validate/messages_zh.min.js"></script>
+<script>
+    $("#st_id").append("<option value='1'>正常</option><option value='0'>停用</option>");
+</script>
+<script>
+    $().ready(function() {
+        var e = "<i class='fa fa-times-circle'></i> ";
+        $("#signupForm").validate({
+            rules: {
+                cpn_branch_nm: {
+                    required: !0,
+                },
+                cpn_branch_code: {
+                    required: !0,
+                },
+                cpn_branch_phone: {
+                    required: !0,
+                },
+                cpn_area_desc: {
+                    required: !0,
+                },
+                user_id: {
+                    required: !0,
+                },
+            },
+            messages: {
+                cpn_branch_nm: {
+                    required: e + "分支机构名称",
+                },
+                cpn_branch_code: {
+                    required: e + "分支机构标准编码",
+                },
+                cpn_branch_phone: {
+                    required: e + "分支机构联系电话",
+                },
+                cpn_area_desc: {
+                    required: e + "分支机构详细地址",
+                },
+                user_id: {
+                    required: e + "分支机构负责人",
+                },
+
+            },
+            showErrors: function (errorMap, errorList) {
+                var msg = "";
+                $.each(errorList, function (i, v) {
+                    //msg += (v.message + "\r\n");
+                    //在此处用了layer的方法,显示效果更美观
+                    layer.tips(v.message, v.element, { tips:[2,'red'],time: 2000 });
+                    return false;
+                });
+            },
+			/* 失去焦点时不验证 */
+            onfocusout: false
+        })
+
+    });
+</script>
+@}

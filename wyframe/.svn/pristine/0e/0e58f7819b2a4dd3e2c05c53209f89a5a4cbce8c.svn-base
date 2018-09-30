@@ -1,0 +1,86 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-6  col-sm-offset-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>代码生成</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">模块名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="moduleName" placeholder="例如：shop" /><!--  <span class="help-block m-b-none">例如:shop</span> -->
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">业务名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="bizChName" placeholder="例如：商品" /><!--  <span class="help-block m-b-none">例如:商品</span> -->
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">数据库表名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="tableName" onblur="Code.initTable()" placeholder="例如：xyd_test.bs_shop" /><!--  <span class="help-block m-b-none">例如:wy_test.bs_shop</span> -->
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label" >主表名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="bizEnName" onblur="Code.showTableName()" placeholder="例如：bs_shop" /> <!-- <span class="help-block m-b-none">例如:bs_shop</span> -->
+                        </div>
+                    </div>
+                     <#table id="codeInfoTable"/>
+                     <div class="hr-line-dashed"></div>
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label" >副表名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="bizEnName2" onblur="Code.initTable2()" placeholder="例如：xyd_test.bs_shop,可省略不写" /> <!-- <span class="help-block m-b-none">例如:bs_shop</span> -->
+                        </div>
+                    </div>
+                     <#table id="codeInfoTable2"/>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" >参数表名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="bizEnName3" onblur="" placeholder="例如：xyd_test.bs_shop,可省略不写" /> <!-- <span class="help-block m-b-none">例如:bs_shop</span> -->
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" >添加菜单</label>
+                        <div class="col-sm-4">
+                          	<#input id="pcodeName" name="父级菜单" underline="true"
+							hidden="pcode" readonly="readonly"
+							clickFun="Code.showMenuSelectTree(); return false;"
+							style="background-color: #ffffff !important;"
+							selectFlag="true" selectId="pcodeTreeDiv" selectTreeId="pcodeTree" selectStyle="width:244px !important;"/><!--  <span class="help-block m-b-none">选择上级菜单,勾选需要添加的菜单项</span> -->
+                        </div>
+                        <div class="col-sm-1 control-label" style="text-align: left;font-size: 16px;">添加<input id="add" type="checkBox" style="width: 20px;height:20px;" /> </div>
+                        <div class="col-sm-1 control-label" style="text-align: left;font-size: 16px;">修改<input id="update" type="checkBox"  style="width: 20px;height:20px;" /> </div>
+                        <div class="col-sm-1 control-label" style="text-align: left;font-size: 16px;">删除<input id= "delete" type="checkBox"  style="width: 20px;height:20px;" /> </div>
+                        <div class="col-sm-1 control-label" style="text-align: left;font-size: 16px;">导出<input id= "export" type="checkBox"  style="width: 20px;height:20px;" /> </div>
+                        <div class="col-sm-1 control-label" style="text-align: left;font-size: 16px;">详情<input id= "detail" type="checkBox"  style="width: 20px;height:20px;" /> </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">输出路径</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="path" placeholder="请输入项目所在路径" /> <span class="help-block m-b-none">默认路径为C:\xyd_zsh\xyd,可修改为您的项目的路径</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button class="btn btn-primary" onclick="Code.generate()">代码生成</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/xydframe/system/code/code.js"></script>
+@}

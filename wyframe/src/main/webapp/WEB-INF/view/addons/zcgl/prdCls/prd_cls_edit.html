@@ -1,0 +1,128 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<form class="form-horizontal" id="signupForm">
+
+			<input type="hidden" id="prd_cls_id"
+				value="${xgt_goods_prd_cls.prd_cls_id}">
+
+			<div class="row">
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="clsName" name="上级分类" readonly="readonly" underline="true"  hidden="par_prd_cls_id"
+							hiddenValue="${xgt_goods_prd_cls.par_prd_cls_id}" value="${pClsName}"
+							clickFun="Xgt_goods_clsIdDlg.showClsSelectTree(); return false;"
+							style="background-color: #ffffff !important" selectFlag="true"
+							selectId="clsTreeDiv" selectTreeId="clsareaTree"
+							selectStyle="width:402px !important;margin-left: 94px" />
+
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<div class="form-group">
+						<label class="col-sm-4 control-label col-xs-6 ">分类代码：</label>
+						<div class="col-sm-7 col-xs-12">
+							<input class="form-control" id="cls_code" name="cls_code" value="${xgt_goods_prd_cls.cls_code}"
+								   type="text" onkeyup="value=value.replace(/[\W]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="prd_cls_nm" name="分类名称" underline="true" value="${xgt_goods_prd_cls.prd_cls_nm}"/>
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<div class="form-group">
+						<div class="checkbox i-checks col-sm-4 control-label col-xs-6">
+							<label >
+								<input id="product" type="checkBox" value="" name="product" >
+								<input type="text" id="sn_flg" value="${xgt_goods_prd_cls.sn_flg}" hidden="hidden" >
+								<i></i> 系列号
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-12 col-xs-12">
+					<#inputzcc1 id="prd_cls_alias" name="分类说明" underline="true" value="${xgt_goods_prd_cls.prd_cls_alias}"/>
+				</div>
+			</div>
+			<div class="row btn-group-m-t">
+				<div class="row btn-group-m-t">
+					<div class="col-sm-12 col-xs-12 text-center">
+						<button type="submit" name="submit" class="btn btn-info " onclick="Xgt_goods_prd_clsInfoDlg.editSubmit()" id="ensure">
+							<i class="fa fa-check"></i>&nbsp;提交
+						</button>
+						<#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser"
+							clickFun="Xgt_goods_prd_clsInfoDlg.close()" />
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/prdCls/js/xgt_goods_prd_cls_info.js"></script>
+<script src="${ctxPath}/static/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="${ctxPath}/static/js/plugins/validate/messages_zh.min.js"></script>
+<script>
+    window.onload=function () {
+        var pan =$('#sn_flg').val();
+		if(pan==1){
+            $("#product").attr("checked",true);
+		}
+    }
+
+    function dianan(){
+        if($("input[type='checkbox']").is(':checked')){
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+    $("#product").change(function() {
+        $('#sn_flg').val(dianan());
+    });
+</script>
+<script>
+    $().ready(function() {
+        var e = "<i class='fa fa-times-circle'></i> ";
+        $("#signupForm").validate({
+            rules: {
+                cls_code: {
+                    required: !0,
+                },
+                prd_cls_nm: {
+                    required: !0,
+                },
+                prd_cls_alias: {
+                    required: !0,
+                },
+            },
+            messages: {
+                cls_code: {
+                    required: e + "请输入分类代码",
+                },
+                prd_cls_nm: {
+                    required: e + "请输入分类名称",
+                },
+
+                prd_cls_alias: {
+                    required: e + "请输入分类说明",
+                },
+
+
+            },
+            showErrors: function (errorMap, errorList) {
+                var msg = "";
+                $.each(errorList, function (i, v) {
+                    //msg += (v.message + "\r\n");
+                    //在此处用了layer的方法,显示效果更美观
+                    layer.tips(v.message, v.element, { tips:[2,'red'],time: 2000 });
+                    return false;
+                });
+            },
+			/* 失去焦点时不验证 */
+            onfocusout: false
+        })
+
+    });
+</script>
+
+@}

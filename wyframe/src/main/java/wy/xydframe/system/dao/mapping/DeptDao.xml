@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.xydframe.system.dao.DeptDao">
+
+	<select id="tree" resultType="wy.core.node.ZTreeNode">
+	select
+		m1.cpn_dept_id as id,
+		(
+		case
+		when
+		(m2.cpn_dept_id= 0 or m2.cpn_dept_id is null) then
+		0
+		else
+		m2.cpn_dept_id
+		end
+		) as pid,
+		m1.cpn_dept_nm
+		as name,
+		(
+		case
+		when (m2.cpn_dept_id = 0 or m2.cpn_dept_id is null)
+		then
+		'true'
+		else
+		'false'
+		end
+		) "close"
+		from
+		xyd_cpn_dept m1
+		left join xyd_cpn_dept m2
+		on m1.par_cpn_dept_id = m2.cpn_dept_id
+		order by
+		m1.cpn_dept_id asc
+	</select>
+
+	<select id="list" resultType="map">
+		select * from dept
+		<if test="condition != null and condition != ''">
+			where simplename like CONCAT('%',#{condition},'%') or fullname like CONCAT('%',#{condition},'%')
+		</if>
+		order by num ASC
+	</select>
+
+</mapper>

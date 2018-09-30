@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.orde.dao.Xyd_totalDao">
+	
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.zcgl.orde.model.Xyd_total">
+	<id column="msg_id" property="msg_id" />
+	<result column="msg_nm" property="msg_nm" />
+	<result column="msg_desc" property="msg_desc" />
+	<result column="order_staff" property="order_staff" />
+	</resultMap>
+	
+	<!-- 订单列表 -->
+	<select id="list" resultType="map">
+		select * from xyd_total order by 
+	msg_id
+ desc	</select>
+	
+	<!-- 通过Id查询订单 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select * from xyd_total
+		where msg_id = #{xyd_totalId}
+	</select>
+	
+	<!-- 查询参数 -->
+	<select id="param" resultType="map">
+		select * from xyd_shop where SHOP_ID in 
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+  		#{item}  
+ 		</foreach> 
+	</select>
+	
+	 <!-- 参数表列表 -->
+	<select id="paramsList" resultType="map">
+		select * from xyd_shop 
+	</select>
+	
+	<select id="selectDetail" resultType="map">
+		select * from xyd_shop where SHOP_ID in	(select SHOP_ID from xyd_msg_detl  where msg_id = #{id})
+	</select>
+		
+	<insert id="insertTotal" useGeneratedKeys="true" keyProperty="map.msg_id">  
+   		insert into xyd_total( msg_nm,msg_desc,order_staff)  
+    	values(#{map.msg_nm},#{map.msg_desc},#{map.order_staff})  
+	</insert>  
+
+	<insert id="insertDetail" parameterType="map">
+		insert into xyd_msg_detl(msg_id,SHOP_ID)  
+    	values
+    	<foreach collection="map2" item="item" index="index" separator="," >  
+    	(#{item.msg_id},#{item.SHOP_ID})  
+    	</foreach> 
+	</insert>
+	
+	<delete id="deleteParam">
+		delete from xyd_total where msg_id = #{xyd_totalId}
+	</delete>
+	
+	<delete id="deleteTotal">
+		delete from xyd_msg_detl where msg_id = #{xyd_totalId}
+	</delete>
+	
+	<delete id="deleteDetl">
+		delete from xyd_msg_detl where msg_id = #{id}
+	</delete>
+</mapper>

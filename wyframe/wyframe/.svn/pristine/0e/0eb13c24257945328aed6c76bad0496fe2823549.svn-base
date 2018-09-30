@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="wyframe:war">
+    <output-path>$PROJECT_DIR$/wyframe/target</output-path>
+    <root id="archive" name="wyframe-1.0.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="wyframe:war exploded" />
+    </root>
+  </artifact>
+</component>

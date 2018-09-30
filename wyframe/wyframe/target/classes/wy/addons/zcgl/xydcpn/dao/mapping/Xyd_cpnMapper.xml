@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.xydcpn.dao.Xyd_cpnMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.zcgl.xydcpn.model.Xyd_cpn">
+	<id column="cpn_id" property="cpn_id" />
+	<result column="cpn_cata_id" property="cpn_cata_id" />
+	<result column="cpn_code" property="cpn_code" />
+	<result column="cpn_nm" property="cpn_nm" />
+	<result column="cpn_main_nm" property="cpn_main_nm" />
+	<result column="cpn_main_phone" property="cpn_main_phone" />
+	<result column="cpn_main_mail" property="cpn_main_mail" />
+	<result column="work_area_id" property="work_area_id" />
+	<result column="work_address" property="work_address" />
+	<result column="code_area_id" property="code_area_id" />
+	<result column="code_address" property="code_address" />
+	<result column="cpn_acc_nm" property="cpn_acc_nm" />
+	<result column="cpn_acc_phone" property="cpn_acc_phone" />
+	<result column="cpn_acc_mail" property="cpn_acc_mail" />
+	<result column="cpn_acc_card_no" property="cpn_acc_card_no" />
+	<result column="cpn_acc_card_url1" property="cpn_acc_card_url1" />
+	<result column="cpn_acc_card_url2" property="cpn_acc_card_url2" />
+	<result column="cpn_code_url" property="cpn_code_url" />
+	<result column="cpn_st" property="cpn_st" />
+	<result column="cp_sp_st" property="cp_sp_st" />
+	<result column="sp_user_id" property="sp_user_id" />
+	<result column="sale_user_id" property="sale_user_id" />
+	</resultMap>
+</mapper>

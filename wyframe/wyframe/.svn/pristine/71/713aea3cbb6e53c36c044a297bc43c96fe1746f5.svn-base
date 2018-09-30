@@ -1,0 +1,29 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <form class="form-horizontal" id="signupForm">
+
+             <input type="hidden" id="task_id" value="${xgt_sub_task.task_id}">
+				
+			 <div class="row">
+                                             <#inputcol2 id='task_nm' name='作业名称' value='${xgt_sub_task.task_nm}' />
+                                             <#selectCol2 id='id' name='用户' map='${map6}'  value='${xgt_sub_task.id}' />
+                                             <#selectCol2 id='sub_exam_id' name='试卷' map='${map3}'  value='${xgt_sub_task.sub_exam_id}' />
+                                             <#selectCol2 id='sub_id' name='科目' map='${map4}'  value='${xgt_sub_task.sub_id}' />
+                                             <#inputcol2 id='task_ask' name='作业要求' value='${xgt_sub_task.task_ask}' />
+                                             <#timeinputcol2 id='over_dt' name='要求完成时间' value='${xgt_sub_task.over_dt}' />
+                                             
+                                             
+                                             
+                           </div>
+            <div class="row btn-group-m-t text-center">
+                <div class="col-sm-10">
+                    <#submit btnCss="info" iName="提交" id="ensure" icon="fa-check" clickFun="validate();Xgt_sub_taskInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="Xgt_sub_taskInfoDlg.close()"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/fxb/xgt_sub_task/js/xgt_sub_task_info.js"></script>
+@}

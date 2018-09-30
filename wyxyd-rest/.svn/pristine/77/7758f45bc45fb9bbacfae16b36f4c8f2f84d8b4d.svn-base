@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.rest.addons.zcgl.cpn_store.dao.Xyd_cpn_storeDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap"
+		type="wy.rest.addons.zcgl.cpn_store.model.Xyd_cpn_store">
+		<id column="cpn_store_id" property="cpn_store_id" />
+		<result column="cpn_id" property="cpn_id" />
+		<result column="cpn_branch_id" property="cpn_branch_id" />
+		<result column="cpn_store_nm" property="cpn_store_nm" />
+		<result column="cpn_store_no" property="cpn_store_no" />
+		<result column="par_store_id" property="par_store_id" />
+		<result column="st_id" property="st_id" />
+		<result column="man_man" property="man_man" />
+		<result column="man_email" property="man_email" />
+		<result column="man_phone" property="man_phone" />
+		<result column="man_address" property="man_address" />
+		<result column="remarks" property="remarks" />
+	</resultMap>
+
+	<select id="userCpnBranchList" resultType="map">
+		select *
+		from xyd_cpn_branch
+		<if test="cpnId != null and cpnId != ''">
+			where cpn_id = #{cpnId}
+		</if>
+
+	</select>
+	<select id="selectCpnBranchNm" resultType="String">
+		select cpn_branch_nm
+		from xyd_cpn_branch
+		where cpn_branch_id = #{cpnBranchId}
+	</select>
+	<select id="selectCpnBranchs" resultType="map">
+		select *
+		from xyd_cpn_branch
+	</select>
+	<select id="queryCpnId" resultType="Integer">
+		select
+		cpn_id
+		from user
+		where id = #{userId}
+	</select>
+	<select id="listBranch" resultType="map">
+		select *
+		from xyd_cpn_branch
+
+		order by cpn_branch_id
+		desc
+	</select>
+	<!-- 查询企业仓库列表 -->
+	<select id="list" resultType="map">
+		select s1.*,e1.cpn_branch_nm,f1.cpn_nm from xyd_cpn_store s1
+		LEFT JOIN xyd_cpn_branch e1
+		on s1.cpn_branch_id=e1.cpn_branch_id
+		LEFT JOIN xyd_cpn f1
+		on s1.cpn_id=f1.cpn_id
+		where s1.cpn_id=#{cpnId}
+		<if test="condition != null and condition != ''">
+			and (cpn_store_nm like CONCAT('%',#{condition},'%')
+			or cpn_store_no like CONCAT('%',#{condition},'%'))
+		</if>
+		order by
+		cpn_store_id
+		desc
+	</select>
+	<select id="selectCpnNm" resultType="String">
+		select cpn_nm from xyd_cpn
+		where cpn_id = #{cpnId}
+	</select>
+	<select id="queryCpnId" resultType="Integer">
+		select
+		cpn_id
+		from user
+		where id = #{userId}
+	</select>
+
+	<select id="queryCpnBrandId" resultType="Integer">
+		select
+		cpn_branch_id
+		from user
+		where id = #{userId}
+	</select>
+
+	<!--模糊查询-->
+	<select id="findByNameOrNo" resultType="map">
+		SELECT  * from xyd_cpn_store WHERE  cpn_store_nm LIKE  CONCAT("%",#{cpn_store_nm},"%") or cpn_store_no LIKE  CONCAT("%",#{cpn_store_nm},"%")
+	</select>
+
+	<!-- 根据企业仓库Id查询企业信息Id -->
+	<select id="selectCpnId" resultType="Integer">
+		select cpn_id from xyd_cpn_store
+		where cpn_store_id = #{xyd_cpn_storeId}
+	</select>
+
+	<!-- 根据企业仓库Id查询企业仓库名称 -->
+	<select id="selectPCpnStoreNm" resultType="String">
+		select cpn_store_nm
+		from xyd_cpn_store
+		where cpn_store_id = (select par_store_id
+		from xyd_cpn_store
+		where cpn_store_id = #{xyd_cpn_storeId})
+	</select>
+
+	<!-- 查询所有企业仓库 -->
+	<select id="selectCpnStores" resultType="map">
+		select * from xyd_cpn_store
+	</select>
+
+	<!-- 根据企业仓库Id获取企业仓库信息 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select * from xyd_cpn_store
+		where cpn_store_id = #{xyd_cpn_storeId}
+	</select>
+
+	<!--  -->
+	<select id="iQueryById" resultType="map">
+		select * from xyd_cpn_store
+		where cpn_store_id = #{id}
+	</select>
+
+	<!-- 获取仓库tree列表 -->
+	<select id="tree"
+			resultType="wy.core.node.ZTreeNode">
+		select
+		m1.cpn_store_id as id,
+		(
+		case
+		when (m2.cpn_store_id = 0 or m2.cpn_store_id is null) then
+		0
+		else
+		m2.cpn_store_id
+		end
+		) as pid,
+		m1.cpn_store_nm
+		as name,
+		(
+		case
+		when
+		(m2.cpn_store_id = 0 or m2.cpn_store_id is null) then
+		'true'
+		else
+		'false'
+		end
+		) "close"
+		from
+		xyd_cpn_store m1
+		left join xyd_cpn_store m2 on
+		m1.par_store_id = m2.cpn_store_id
+		order by
+		m1.cpn_store_id asc
+	</select>
+
+</mapper>

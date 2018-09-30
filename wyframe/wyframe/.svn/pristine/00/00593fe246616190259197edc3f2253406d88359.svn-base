@@ -1,0 +1,37 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <form class="form-horizontal" id="signupForm">
+			<input type="hidden" id="sub_qp_id" value="">
+			   <div class="row">
+                                   <#inputcol2 id='sub_qp_title' name='题目内容' />
+                                   <#selectCol2 id='sub_id' name='科目' map='${map2}' />
+                                   <#selectCol2 id='sub_exam_id' name='试卷' map='${map3}' />
+                                   <#inputcol2 id='sub_qp_seq' name='序号' />
+                                   <#selectCol2 id='sub_qp_tp_id' name='题目类型 ' map='${map4}' />
+                                   <#selectCol2 id='sub_qp_ea_id' name='题目难度' map='${map5}' />
+                                   <#inputcol2 id='sub_qp_sel_a' name='选项A' />
+                                   <#inputcol2 id='sub_qp_sel_b' name='选项B' />
+                                   <#inputcol2 id='sub_qp_sel_c' name='选项C' />
+                                   <#inputcol2 id='sub_qp_sel_d' name='选项D' />
+                                   <#inputcol2 id='sub_qp_yes' name='正选项' />
+                                   <#inputcol2 id='sub_qp_no' name='错选项' />
+                                   <#inputcol2 id='sub_qp_answer' name='答案' />
+                                   <#inputcol2 id='sub_qp_anl' name='题目分析' />
+                                   <#selectCol2 id='spec_flg' name='分类 ' map='${map14}' />
+                                   
+                                   
+                                   
+                                   
+               </div>
+            <div class="row btn-group-m-t text-center">
+                <div class="col-sm-10">
+                    <#submit btnCss="info" iName="提交" id="ensure" icon="fa-check" clickFun="validate();Xgt_sub_qpInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="Xgt_sub_qpInfoDlg.close()"/>
+                </div>
+            </div>
+         </form>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/fxb/xgt_sub_qp/js/xgt_sub_qp_info.js"></script>
+@}

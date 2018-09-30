@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.xgt_goods_products.dao.Xgt_goods_productsMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.zcgl.xgt_goods_products.model.Xgt_goods_products">
+	<id column="prd_id" property="prd_id" />
+	<result column="prd_nm" property="prd_nm" />
+	<result column="prd_brand_id" property="prd_brand_id" />
+	<result column="prd_nm_alias" property="prd_nm_alias" />
+	<result column="prd_cls_id" property="prd_cls_id" />
+	<result column="prd_sn" property="prd_sn" />
+	<result column="prd_unit_id" property="prd_unit_id" />
+	<result column="prd_model" property="prd_model" />
+	<result column="prd_spec" property="prd_spec" />
+	<result column="prd_no" property="prd_no" />
+	<result column="prd_crt_dt" property="prd_crt_dt" />
+	<result column="prd_purchase" property="prd_purchase" />
+	<result column="prd_price" property="prd_price" />
+	<result column="xyd_cre_dt" property="xyd_cre_dt" />
+	<result column="xyd_up_dt" property="xyd_up_dt" />
+	<result column="id" property="id" />
+	<result column="prd_nm_img" property="prd_nm_img" />
+	<result column="prd_nm_dsc" property="prd_nm_dsc" />
+	<result column="xyd_st_id" property="xyd_st_id" />
+	</resultMap>
+</mapper>

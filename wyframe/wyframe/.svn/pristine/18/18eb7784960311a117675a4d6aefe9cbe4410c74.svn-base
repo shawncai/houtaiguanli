@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.prdBrand.dao.Xgt_goods_prd_brandDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap"
+		type="wy.addons.zcgl.prdBrand.model.Xgt_goods_prd_brand">
+		<id column="prd_brand_id" property="prd_brand_id" />
+		<result column="prd_brand_remarks" property="prd_brand_remarks" />
+		<result column="prd_brand_nm" property="prd_brand_nm" />
+		<result column="prd_brand_alias" property="prd_brand_alias" />
+		<result column="par_prd_brand_id" property="par_prd_brand_id" />
+		<result column="cpn_id" property="cpn_id" />
+		<result column="cpn_branch_id" property="cpn_branch_id" />
+		<result column="st_id" property="st_id" />
+		<result column="oper_user" property="oper_user" />
+	</resultMap>
+	<select id="queryCpnId" resultType="Integer">
+		select
+		cpn_id
+		from user
+		where id = #{userId}
+	</select>
+
+	<select id="queryCpnBrandId" resultType="Integer">
+		select
+		cpn_branch_id
+		from user
+		where id = #{userId}
+	</select>
+	<!-- 产品品牌列表 -->
+	<select id="list" resultType="map">
+        SELECT c1.*,d1.prd_brand_nm as par_prd_brand_nm from
+        (select a1.*
+		from xgt_goods_prd_brand a1,
+		(select b1.prd_brand_id from xgt_goods_prd_brand b1 where b1.prd_brand_id =#{prd_brand_id}
+		UNION
+		select b1.prd_brand_id from xgt_goods_prd_brand b1 where b1.par_prd_brand_id =#{prd_brand_id}
+		union
+		select b1.prd_brand_id from xgt_goods_prd_brand b1,xgt_goods_prd_brand b2 where b1.par_prd_brand_id=b2.prd_brand_id and b2.par_prd_brand_id =#{prd_brand_id}
+		union
+		select b1.prd_brand_id from xgt_goods_prd_brand b1,xgt_goods_prd_brand b2, xgt_goods_prd_brand b3 where b1.par_prd_brand_id=b2.prd_brand_id and b2.par_prd_brand_id=b3.prd_brand_id and b3.par_prd_brand_id =#{prd_brand_id}
+		) m1
+		where a1.prd_brand_id=m1.prd_brand_id and a1.st_id = 1
+			<if test="condition != null and condition != ''">
+				and (a1.prd_brand_nm like CONCAT('%',#{condition},'%')
+				or a1.prd_brand_alias like CONCAT('%',#{condition},'%'))
+			</if>
+		order by
+		a1.prd_brand_id
+		)
+        c1 LEFT JOIN xgt_goods_prd_brand d1
+        on c1.par_prd_brand_id  = d1.prd_brand_id
+	</select>
+
+	<!-- 产品品牌列表 -->
+	<select id="list2" resultType="map">
+        SELECT c1.*,d1.prd_brand_nm as par_prd_brand_nm from
+        (select a1.*
+        from xgt_goods_prd_brand a1,
+        (select b1.prd_brand_id from xgt_goods_prd_brand b1 where b1.prd_brand_id =#{prd_brand_id}
+        UNION
+        select b1.prd_brand_id from xgt_goods_prd_brand b1 where b1.par_prd_brand_id =#{prd_brand_id}
+        union
+        select b1.prd_brand_id from xgt_goods_prd_brand b1,xgt_goods_prd_brand b2 where
+        b1.par_prd_brand_id=b2.prd_brand_id and b2.par_prd_brand_id =#{prd_brand_id}
+        union
+        select b1.prd_brand_id from xgt_goods_prd_brand b1,xgt_goods_prd_brand b2, xgt_goods_prd_brand b3 where
+        b1.par_prd_brand_id=b2.prd_brand_id and b2.par_prd_brand_id=b3.prd_brand_id and b3.par_prd_brand_id
+        =#{prd_brand_id}
+        ) m1
+        where a1.prd_brand_id=m1.prd_brand_id and a1.st_id = 1 and a1.cpn_id=#{cpnId}
+        <if test="condition != null and condition != ''">and (a1.prd_brand_nm like CONCAT('%',#{condition},'%')
+            or
+            a1.prd_brand_alias like CONCAT('%',#{condition},'%'))
+        </if>
+        order by
+        a1.
+        prd_brand_id
+        )
+        c1 LEFT JOIN xgt_goods_prd_brand d1
+        on c1.par_prd_brand_id  = d1.prd_brand_id
+    </select>
+
+	<select id="selectBrandNm" resultType="String">
+		select
+		prd_brand_nm
+		from xgt_goods_prd_brand
+		where prd_brand_id = #{brandId}
+	</select>
+	<update id="updateBrandById">
+		update xgt_goods_prd_brand set
+		st_id = -1
+		where prd_brand_id = #{xgt_goods_prd_brandId}
+	</update>
+
+	<select id="queryBrandSt" resultType="Integer">
+		select
+		st_id
+		from xgt_goods_prd_brand
+		where prd_brand_id = #{xgt_goods_prd_brandId} and st_id = 1
+	</select>
+
+	<select id="queryBrandNm" resultType="String">
+		select
+		prd_brand_nm
+		from xgt_goods_prd_brand
+		where prd_brand_id = #{parPrdBrandid}
+	</select>
+
+	<select id="queryBrands" resultType="map">
+		select *
+		from
+		xgt_goods_prd_brand
+		where cpn_id = #{cpnId}
+	</select>
+
+	<select id="brandList" resultType="map">
+		select * from
+		xgt_goods_prd_brand
+	</select>
+
+	<!-- 通过Id查询产品品牌 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select * from
+		xgt_goods_prd_brand
+		where prd_brand_id = #{xgt_goods_prd_brandId}
+	</select>
+
+	<select id="iQueryById" resultType="map">
+		select * from
+		xgt_goods_prd_brand where prd_brand_id = #{id}
+	</select>
+
+	<!-- 查询品牌tree列表 -->
+	<select id="tree" resultType="wy.core.node.ZTreeNode">
+		select
+		m1.prd_brand_id as id,
+		(
+		case
+		when (m2.prd_brand_id = 0 or m2.prd_brand_id is null) then
+		0
+		else
+		m2.prd_brand_id
+		end
+		) as pid,
+		m1.prd_brand_nm
+		as name,
+		(
+		case
+		when
+		(m2.prd_brand_id
+		= 0 or m2.prd_brand_id is null) then
+		'true'
+		else
+		'false'
+		end
+		) "close"
+		from
+		xgt_goods_prd_brand m1
+		left join xgt_goods_prd_brand m2 on
+		m1.par_prd_brand_id = m2.prd_brand_id
+		where m1.cpn_id = #{cpnId} and m1.st_id = 1
+		order by
+		m1.prd_brand_id asc
+	</select>
+
+    <select id="tree1" resultType="wy.core.node.ZTreeNode">
+        select
+        m1.prd_brand_id as id,
+        (
+        case
+        when (m2.prd_brand_id = 0 or m2.prd_brand_id is null) then
+        0
+        else
+        m2.prd_brand_id
+        end
+        ) as pid,
+        m1.prd_brand_nm
+        as name,
+        (
+        case
+        when
+        (m2.prd_brand_id
+        = 0 or m2.prd_brand_id is null) then
+        'true'
+        else
+        'false'
+        end
+        ) "close"
+        from
+        xgt_goods_prd_brand m1
+        left join xgt_goods_prd_brand m2 on
+        m1.par_prd_brand_id = m2.prd_brand_id
+        where  m1.st_id = 1
+        order by
+        m1.prd_brand_id asc
+    </select>
+</mapper>

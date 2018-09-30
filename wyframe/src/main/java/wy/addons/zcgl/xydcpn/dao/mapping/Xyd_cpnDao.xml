@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.xydcpn.dao.Xyd_cpnDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.zcgl.xydcpn.model.Xyd_cpn">
+		<id column="cpn_id" property="cpn_id" />
+		<result column="cpn_cata_id" property="cpn_cata_id" />
+		<result column="cpn_code" property="cpn_code" />
+		<result column="cpn_nm" property="cpn_nm" />
+		<result column="cpn_main_nm" property="cpn_main_nm" />
+		<result column="cpn_main_phone" property="cpn_main_phone" />
+		<result column="cpn_main_mail" property="cpn_main_mail" />
+		<result column="work_area_id" property="work_area_id" />
+		<result column="work_address" property="work_address" />
+		<result column="code_area_id" property="code_area_id" />
+		<result column="code_address" property="code_address" />
+		<result column="cpn_acc_nm" property="cpn_acc_nm" />
+		<result column="cpn_acc_phone" property="cpn_acc_phone" />
+		<result column="cpn_acc_mail" property="cpn_acc_mail" />
+		<result column="cpn_acc_card_no" property="cpn_acc_card_no" />
+		<result column="cpn_acc_card_url1" property="cpn_acc_card_url1" />
+		<result column="cpn_acc_card_url2" property="cpn_acc_card_url2" />
+		<result column="cpn_code_url" property="cpn_code_url" />
+		<result column="cpn_st" property="cpn_st" />
+		<result column="cp_sp_st" property="cp_sp_st" />
+		<result column="sp_user_id" property="sp_user_id" />
+		<result column="sale_user_id" property="sale_user_id" />
+	</resultMap>
+
+	<!-- 通用SQL -->
+	<sql id="Base_Column_List">
+		cpn_id, cpn_cata_id, cpn_code, cpn_nm, cpn_main_nm, cpn_main_phone,
+		cpn_main_mail, work_area_id, work_address, code_area_id, code_address,
+		cpn_acc_nm, cpn_acc_phone, cpn_acc_mail, cpn_acc_card_no,
+		cpn_acc_card_url1, cpn_acc_card_url2, cpn_code_url, cpn_st,
+		cp_sp_st, mdi_dt, cre_dt, sp_user_id, sale_user_id
+	</sql>
+
+	<select id="queryCpnName" resultType="String">
+		select 
+			cpn_nm
+		from xyd_cpn
+		where cpn_id = #{cpnId}
+	</select>
+	
+	<!-- 查询所有企业信息 -->
+	<select id="selectCpnList" resultType="map">
+		select * from xyd_cpn
+	</select>
+
+	<!-- 查询所有企业信息 -->
+	<select id="list" resultType="map">
+		select  
+		<include refid="Base_Column_List"/>
+		from xyd_cpn 
+		<where>
+		<if test="cpn_nm != null and cpn_nm != ''">
+			and (cpn_nm like CONCAT('%',#{cpn_nm},'%')
+			or cpn_code like CONCAT('%',#{cpn_nm},'%'))
+		</if>
+		<if test="cpn_cata_id != null and cpn_cata_id != 0">
+			and cpn_cata_id = #{cpn_cata_id}
+		</if>
+		</where>
+	</select>
+	
+	<select id="selectByCpnNm" resultType="map">
+		select
+		<include refid="Base_Column_List" />
+		from xyd_cpn
+		<where>
+			<if test="cpnNm != null and cpnNm != ''">
+				and cpn_nm like CONCAT('%',#{cpnNm},'%')
+			</if>
+		</where>
+	</select>
+	
+	<!-- 查询所有企业信息 -->
+	<select id="cpnStlist" resultType="map">
+		select  
+		<include refid="Base_Column_List"/>
+		from xyd_cpn 
+		<where>
+		<if test="cpn_nm != null and cpn_nm != ''">
+			and (cpn_nm like CONCAT('%',#{cpn_nm},'%')
+			or cpn_code like CONCAT('%',#{cpn_nm},'%'))
+		</if>
+		<if test="cpn_st != null and cpn_st != ''">
+			and cpn_st = #{cpn_st}
+		</if>
+		</where>
+	</select>
+	
+	<!-- 查询所有正常企业信息 -->
+	<select id="spList" resultType="map">
+		select * from xyd_cpn where cpn_st=1 and cp_sp_st=3
+	</select>
+	<!-- 查询当前用户的企业信息 -->
+	<select id="nowList" resultType="map">
+		select * from xyd_cpn where cpn_id =#{cpnId}
+	</select>
+
+	<!-- 通过企业信息Id查询企业信息名称 -->
+	<select id="selectCpnNm" resultType="String">
+		select cpn_nm from xyd_cpn
+		where cpn_id = #{cpnId}
+	</select>
+	
+	<select id="selectCpnName" resultType="String">
+		select cpn_nm from xyd_cpn
+		where cpn_id = #{xyd_cpnId}
+	</select>
+	
+	<select id="selectCpnWas" resultType="String">
+		select work_address from xyd_cpn
+		where cpn_id = #{xyd_cpnId}
+	</select>
+	
+	<select id="selectCpnWad" resultType="Integer">
+		select work_area_id from xyd_cpn
+		where cpn_id = #{xyd_cpnId}
+	</select>
+	
+	<select id="selectCpnSt" resultType="Integer">
+		select cpn_st from xyd_cpn
+		where cpn_id = #{xyd_cpnId}
+	</select>
+	
+	<select id="selectCpnCrd" resultType="Date">
+		select cre_dt from xyd_cpn
+		where cpn_id = #{xyd_cpnId}
+	</select>
+
+	<!-- 查询所有企业信息业 -->
+	<select id="cpnList" resultType="map">
+		select * from xyd_cpn
+	</select>
+
+	<!-- 通过企业信息Id查询入驻企业类型名称 -->
+	<select id="selectCpnCataNmByCpnId" resultType="String">
+		select
+		cpn_cata_nm
+		from xyd_cpn_cata a
+		INNER JOIN xyd_cpn n on a.cpn_cata_id = n.cpn_cata_id
+		and n.cpn_id = #{xyd_cpnId}
+	</select>
+
+	<!--  -->
+	<select id="selectCardUrl1Name" resultType="String">
+		select
+		cpn_acc_card_url1 from xyd_cpn where cpn_id = #{xyd_cpnId}
+	</select>
+
+	<!-- 通过企业信息Id查询企业信息 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select * from xyd_cpn
+		where
+		cpn_id = #{xyd_cpnId}
+	</select>
+
+	<!--  -->
+	<select id="iQueryById" resultType="map">
+		select * from xyd_cpn where
+		cpn_id = #{id}
+	</select>
+	
+	<update id="updateCpnById">
+		update xyd_cpn set 
+		cpn_st = 1,  
+		cp_sp_st = 3
+		where cpn_id = #{xyd_cpnId}
+	</update>
+	
+	<update id="checkNotGoCpn">
+		update xyd_cpn set 
+		cpn_st = 2,  
+		cp_sp_st = -1,
+		approval_opinion = #{approval_opinion}
+		where cpn_id = #{xyd_cpnId}
+	</update>
+</mapper>

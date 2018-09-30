@@ -1,0 +1,43 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <form class="form-horizontal" id="signupForm">
+			<input type="hidden" id="${context.list[0].columnName}" value="">
+			   <div class="row">
+			             <% if(context.layout==1){ %>
+                                <% for(var i=1;i<context.list.~size;i++){ %>
+                                   ${context.list[i].addForm}
+                                <% } %>
+                          <% } %>
+                           <% if(context.layout==2){ %>
+                                <% for(var i=1;i<context.list.~size;i++){ %>
+                                   ${context.list[i].addForm}
+                              <% } %>
+                            <% } %>
+               </div>
+               <div class="hidden-xs demoTable" id="demoTable" role="group" style="margin-top: 56px;">
+                               <button type="button" class="btn btn-outline btn-default"  id="add_some">
+                                   <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                               </button>
+                               <button type="button" class="btn btn-outline btn-default" id="delete_all">
+                                   <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                               </button>
+                           </div>
+                <#layUITable id="${context.bizEnBigName}ParamTable1"/>
+            <div class="row btn-group-m-t text-center">
+                <div class="col-sm-10">
+                    <#submit btnCss="info" iName="提交" id="ensure" icon="fa-check" clickFun="validate();${context.bizEnBigName}InfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="${context.bizEnBigName}InfoDlg.close()"/>
+                </div>
+            </div>
+         </form>
+    </div>
+</div>
+
+<script src="\${ctxPath}/static/${context.scriptPath}/${context.moduleName}/js/${context.bizEnName}_info.js"></script>
+<style>
+    .layui-table-cell{
+        height:auto;
+        line-height: 41px;
+    }</style>
+@}

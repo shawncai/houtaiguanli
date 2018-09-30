@@ -1,0 +1,29 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+           <input type="hidden" id="send_chnl_id" value="${bs_send_channel.send_chnl_id}">
+
+      		 <div class="row">
+                       <#inputCol1 id='send_chnl_no' name='配送渠道编号' value='${bs_send_channel.send_chnl_no}' readonly='readonly'/>
+                       <#inputCol1 id='send_chnl_nm' name='配送渠道名称' value='${bs_send_channel.send_chnl_nm}' readonly='readonly'/>
+                       <#inputCol1 id='send_chnl_desc' name='配送渠道描述' value='${bs_send_channel.send_chnl_desc}' readonly='readonly'/>
+                       <#inputCol1 id='send_chnl_phoe' name='配送渠道联系方式' value='${bs_send_channel.send_chnl_phoe}' readonly='readonly'/>
+                       <#selectCol1 id='send_chnl_num' name='范围符' map='${map5}' value='${bs_send_channel.send_chnl_num}' />
+                       <#inputCol1 id='send_chnl_flg' name='配送数量' value='${bs_send_channel.send_chnl_flg}' readonly='readonly'/>
+                       <#inputCol1 id='xyd_cre_dt' name='创建时间' value='${bs_send_channel.xyd_cre_dt}' readonly='readonly'/>
+                       <#inputCol1 id='xyd_up_dt' name='修改时间' value='${bs_send_channel.xyd_up_dt}' readonly='readonly'/>
+                       <#selectCol1 id='xyd_st_id' name='状态' map='${map9}' value='${bs_send_channel.xyd_st_id}' />
+                       <#inputCol1 id='id' name='操作人' value='${bs_send_channel.id}' readonly='readonly'/>
+                                 </div>
+            <div class="row btn-group-m-t text-center">
+                <div class="col-sm-10">
+                    <#button btnCss="danger" name="关闭" id="cancel" icon="fa-eraser" clickFun="Bs_send_channelInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zsh/bs_send_channel/js/bs_send_channel_info.js"></script>
+@}

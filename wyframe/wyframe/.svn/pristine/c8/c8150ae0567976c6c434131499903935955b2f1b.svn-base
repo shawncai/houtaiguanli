@@ -1,0 +1,55 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <form class="form-horizontal" id="signupForm">
+			<input type="hidden" id="sub_exam_id" value="">
+			   <div class="row">
+                                   <#inputCol2 id='sub_exam_nm' name='试卷名称' />
+                                   <#selectCol2 id='par_sub_exam_id' name='上级试卷ID' map='${map2}' />
+                                   <#selectCol2 id='sub_id' name='科目ID' map='${map3}' />
+                                   <#selectCol2 id='id' name='用户ID' map='${map4}' />
+                                   <#inputCol2 id='sub_exam_no' name='试卷编号' />
+                                   <#inputCol2 id='one_sel_sum' name='单选数量' />
+                                   <#inputCol2 id='more_sel_sum' name='多选数量' />
+                                   <#inputCol2 id='yes_no_sum' name='判断题数量' />
+                                   <#inputCol2 id='insert_sum' name='填空题数量' />
+                                   <#inputCol2 id='spec_qp_sum' name='简单题数量' />
+                                   
+                                   
+                                   
+                             <input type="hidden" value='${xgt_sub_exam.sub_exam_id}' id='xuan'>
+               </div>
+            <div class="row btn-group-m-t text-center">
+                <div class="col-sm-10">
+                    <#submit btnCss="info" iName="提交" id="ensure" icon="fa-check" clickFun="validate();Xgt_sub_examInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="Xgt_sub_examInfoDlg.close()"/>
+                </div>
+            </div>
+         </form>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/fxb/xgt_sub_exam/js/xgt_sub_exam_info.js"></script>
+<script>
+
+    window.onload=function () {
+        $("#par_sub_exam_id").empty();
+        var ajax= new $ax(Feng.ctxPath + "/xgt_sub_exam/shangji",function (data) {
+            console.log(data)
+
+            var arr=data.data
+            var xuanzhong = $('#xuan').val()
+            console.log(xuanzhong)
+            console.log(arr.length)
+
+            for(var i = 0; i < arr.length; i++){
+                $("#par_sub_exam_id").append("<option value='"+arr[i].num+"'>"+arr[i].name+"</option>");//新增
+
+
+            }
+            $("select option[value='"+xuanzhong+"']").attr("selected","selected");  //如果值一样 就选中对应的option,
+
+        })
+        ajax.start()
+    }
+</script>
+@}

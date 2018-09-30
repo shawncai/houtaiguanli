@@ -1,0 +1,49 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+             <input type="hidden" id="prd_brand_id" value="${xgt_goods_prd_brand.prd_brand_id}">
+				
+				<table class="table table-striped table-bordered table-hover" style="font-size:16px;">
+                <tbody>
+                
+                <tr>
+                <td class="td_title" style="text-align:center ">生产厂商ID</td>
+           		<td class="td_content" style="text-align:center "><input id="prd_vendor_id" value="${xgt_goods_prd_brand.prd_vendor_id}" class="form-control" /></td>
+          		<td class="td_title" style="text-align:center ">产品品牌名称</td>
+                <td class="td_content" style="text-align:center "><input id="prd_brand_nm" value="${xgt_goods_prd_brand.prd_brand_nm}" class="form-control" /></td>
+                </tr>
+                <tr>
+                <td class="td_title" style="text-align:center ">产品品牌别名</td>
+           		<td class="td_content" style="text-align:center "><input id="prd_brand_alias" value="${xgt_goods_prd_brand.prd_brand_alias}" class="form-control" /></td>
+          		<td class="td_title" style="text-align:center ">企业信息ID</td>
+                <td class="td_content" style="text-align:center "><input id="cpn_id" value="${xgt_goods_prd_brand.cpn_id}" class="form-control" /></td>
+                </tr>
+                <tr>
+                <td class="td_title" style="text-align:center ">分支机构ID</td>
+           		<td class="td_content" style="text-align:center "><input id="cpn_branch_id" value="${xgt_goods_prd_brand.cpn_branch_id}" class="form-control" /></td>
+          		<td class="td_title" style="text-align:center ">状态</td>
+                <td class="td_content" style="text-align:center "><input id="st_id" value="${xgt_goods_prd_brand.st_id}" class="form-control" /></td>
+                </tr>
+                <tr>
+                <td class="td_title" style="text-align:center ">操作人</td>
+           		<td class="td_content" style="text-align:center "><input id="oper_user" value="${xgt_goods_prd_brand.oper_user}" class="form-control" /></td>
+                </tr>
+                
+                </tbody>
+                </table>
+           
+			
+			
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="Xgt_goods_prd_brandInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="Xgt_goods_prd_brandInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/prdBrand/js/xgt_goods_prd_brand_info.js"></script>
+@}

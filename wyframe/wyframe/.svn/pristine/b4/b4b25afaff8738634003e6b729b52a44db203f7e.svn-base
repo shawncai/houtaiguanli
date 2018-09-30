@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.soecode:wxtools:2.1.3">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/soecode/wxtools/2.1.3/wxtools-2.1.3.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/soecode/wxtools/2.1.3/wxtools-2.1.3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/soecode/wxtools/2.1.3/wxtools-2.1.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

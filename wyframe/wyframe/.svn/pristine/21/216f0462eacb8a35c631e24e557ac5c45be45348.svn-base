@@ -1,0 +1,28 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+           <input type="hidden" id="task_id" value="${xgt_sub_task.task_id}">
+
+      		 <div class="row">
+                     <#inputcol2 id='task_nm' name='作业名称' value='${xgt_sub_task.task_nm}' readonly='readonly'/>
+                    <#selectCol2 id='id' name='用户' map='${map6}' value='${xgt_sub_task.id}' />
+                     <#selectCol2 id='sub_exam_id' name='试卷' map='${map3}' value='${xgt_sub_task.sub_exam_id}' />
+                     <#selectCol2 id='sub_id' name='科目' map='${map4}' value='${xgt_sub_task.sub_id}' />
+                     <#inputcol2 id='task_ask' name='作业要求' value='${xgt_sub_task.task_ask}' readonly='readonly'/>
+                     <#timeinputcol2 id='over_dt' name='要求完成时间' value='${xgt_sub_task.over_dt}' readonly='readonly'/>
+                     <#inputcol2 id='mdi_dt' name='变更时间' value='${xgt_sub_task.mdi_dt}' readonly='readonly'/>
+                     <#inputcol2 id='cre_dt' name='创建时间' value='${xgt_sub_task.cre_dt}' readonly='readonly'/>
+                     <#selectCol2 id='st_id' name='状态' map='${map9}' value='${xgt_sub_task.st_id}' />
+                                 </div>
+            <div class="row btn-group-m-t text-center">
+                <div class="col-sm-10">
+                    <#button btnCss="danger" name="关闭" id="cancel" icon="fa-eraser" clickFun="Xgt_sub_taskInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/fxb/xgt_sub_task/js/xgt_sub_task_info.js"></script>
+@}

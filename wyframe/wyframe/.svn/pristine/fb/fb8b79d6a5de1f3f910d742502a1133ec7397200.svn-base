@@ -1,0 +1,28 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <form class="form-horizontal" id="signupForm">
+			<input type="hidden" id="send_chnl_id" value="">
+			   <div class="row">
+                                   <#inputCol2 id='send_chnl_no' name='配送渠道编号' />
+                                   <#inputCol2 id='send_chnl_nm' name='配送渠道名称' />
+                                   <#inputCol2 id='send_chnl_desc' name='配送渠道描述' />
+                                   <#inputCol2 id='send_chnl_phoe' name='配送渠道电话' />
+                                   <#selectCol2 id='send_chnl_num'  map='${map5}' name='范围符' />
+                                   <#inputCol2 id='send_chnl_flg' name='配送数量' />
+                                   
+                                   
+                                   
+                                   
+               </div>
+            <div class="row btn-group-m-t text-center">
+                <div class="col-sm-10">
+                    <#submit btnCss="info" iName="提交" id="ensure" icon="fa-check" clickFun="validate();Bs_send_channelInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="Bs_send_channelInfoDlg.close()"/>
+                </div>
+            </div>
+         </form>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zsh/bs_send_channel/js/bs_send_channel_info.js"></script>
+@}

@@ -1,0 +1,67 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+           <input type="hidden" id="msg_id" value="${xyd_total.msg_id}">
+
+           <table class="table table-striped table-bordered table-hover" style="font-size:16px;">
+                <tbody>
+                 <tr>
+                <td class="td_title" style="text-align:center ">信息名称</td>
+            	<td class="td_content" style="text-align:center "><input id="msg_nm" value="${xyd_total.msg_nm}" readonly="readonly" class="form-control"/></td>
+           		<td class="td_title" style="text-align:center ">信息描述</td>
+                <td class="td_content" style="text-align:center "><input id="msg_desc" value="${xyd_total.msg_desc}" readonly="readonly" class="form-control"/></td>
+                </tr>
+                 <tr>
+                <td class="td_title" style="text-align:center ">操作人</td>
+            	<td class="td_content" style="text-align:center "><input id="order_staff" value="${xyd_total.order_staff}" readonly="readonly" class="form-control"/></td>
+                </tr>
+                 </tbody>
+                </table>
+			<#table id="detailTable" />
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="确定" id="ensure" icon="fa-check" clickFun="Xyd_totalInfoDlg.close()"/>
+                    <#button btnCss="danger" name="关闭" id="cancel" icon="fa-eraser" clickFun="Xyd_totalInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/orde/js/xyd_total_info.js"></script>
+<script>
+
+	/**
+	 *参数表页面table
+	 */
+	var Xyd_total_detail = {
+	    id: "detailTable",	//表格id
+	    seItem: null,		//选中的条目
+	    table: null,
+	    layerIndex: -1
+	};
+
+	/**
+	 * 初始化表格的列
+	 */
+	Xyd_total_detail.initColumn = function () {
+	    return [
+	        {field: 'selectItem', checkbox: true}
+,	        {title: '商品ID', field: 'SHOP_ID', align: 'center', valign: 'middle', sortable: true}
+,	        {title: '商品编码', field: 'shop_no', align: 'center', valign: 'middle', sortable: true}
+,	        {title: '商品名称', field: 'shop_nm', align: 'center', valign: 'middle', sortable: true}
+,	        {title: '商品重量', field: 'shop_weigth', align: 'center', valign: 'middle', sortable: true}
+,	        {title: '商品规格', field: 'shop_spec', align: 'center', valign: 'middle', sortable: true}
+,	        {title: '商品条码', field: 'SHOP_NO_NUM', align: 'center', valign: 'middle', sortable: true}
+,	        {title: '商品单位', field: 'shop_unit', align: 'center', valign: 'middle', sortable: true}
+	    ];
+	    
+	};
+	var id = $("#msg_id").val();
+	var defaultColunmss = Xyd_total_detail.initColumn();
+    var tabless = new BSTable(Xyd_total_detail.id, "/xyd_total/detail/"+id, defaultColunmss);
+    tabless.setPaginationType("client");
+  	Xyd_total_detail.table = tabless.init();
+</script>
+@}

@@ -1,0 +1,96 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal">
+
+			<input type="hidden" id="cpn_id" value="${xyd_cpn.cpn_id}">
+
+			<div class="row">
+				<div class="col-sm-12">
+					
+					<#input id="cpn_nm" name="企业名称" underline="true"
+						value="${xyd_cpn.cpn_nm}" style="width: 588px;"/>
+					
+					<#input id="cpn_code" name="企业注册号" underline="true"
+						value="${xyd_cpn.cpn_code}" style="width: 588px;"/>
+					
+					<#input id="cpnPname" name="企业分类" readonly="readonly"
+						hidden="cpn_cata_id" underline="true"
+						hiddenValue="${xyd_cpn.cpn_cata_id}" value="${cpnCataNmByCpnId}"
+						clickFun="Cpn_cata_paridDlg.showCpnSelectTree(); return false;"
+						style="background-color: #ffffff !important;width: 588px;" selectFlag="true"
+						selectId="cpnTreeDiv" selectTreeId="cpnareaTree"
+						selectStyle="width:588px !important;" />
+
+					<#input id="cpn_main_nm" name="企业法人" underline="true"
+						value="${xyd_cpn.cpn_main_nm}" style="width: 588px;"/>
+
+					<#input id="cpn_main_phone" name="企业法人联系方式" underline="true"
+						value="${xyd_cpn.cpn_main_phone}" style="width: 588px;"/>
+
+					<#input id="cpn_main_mail" name="企业法人邮箱" underline="true"
+						value="${xyd_cpn.cpn_main_mail}" style="width: 588px;"/>
+
+					<#input id="workName" name="办公地区" readonly="readonly"
+						hidden="work_area_id" underline="true"
+						hiddenValue="${xyd_cpn.work_area_id}" value="${workAreaName}"
+						clickFun="Sys_areaInfoDlg2.showAreaSelectTree2(); return false;"
+						style="background-color: #ffffff !important;width: 588px;" selectFlag="true"
+						selectId="workareaTreeDiv" selectTreeId="workareaTree"
+						selectStyle="width:588px !important;" />
+
+					<#input id="work_address" name="办公地址" underline="true"
+						value="${xyd_cpn.work_address}" style="width: 588px;"/>
+
+					<#input id="codeName" name="注册地区" readonly="readonly"
+						hidden="code_area_id" underline="true"
+						hiddenValue="${xyd_cpn.code_area_id}" value="${codeArteaName}"
+						clickFun="Sys_areaInfoDlg.showAreaSelectTree(); return false;"
+						style="background-color: #ffffff !important;width: 588px;" selectFlag="true"
+						selectId="codeareaTreeDiv" selectTreeId="codeareaTree"
+						selectStyle="width:588px !important;" />
+
+					<#input id="code_address" name="注册地址" underline="true"
+						value="${xyd_cpn.code_address}" style="width: 588px;"/>
+
+					<#input id="cpn_acc_nm" name="申请人" underline="true"
+						value="${xyd_cpn.cpn_acc_nm}" style="width: 588px;"/>
+
+					<#input id="cpn_acc_phone" name="申请人手机号" underline="true"
+						value="${xyd_cpn.cpn_acc_phone}" style="width: 588px;"/>
+
+					<#input id="cpn_acc_mail" name="申请人邮箱" underline="true"
+						value="${xyd_cpn.cpn_acc_mail}" style="width: 588px;"/>
+
+					<#input id="cpn_acc_card_no" name="申请人身份证号" underline="true"
+						value="${xyd_cpn.cpn_acc_card_no}" style="width: 588px;"/>
+
+					<#input id="sale_user_id" name="发展人" underline="true"
+						value="${xyd_cpn.sale_user_id}" style="width: 588px;"/>
+						
+					<#avatar id="cpn_acc_card_url1" name="申请人身份证正面照" underline="true"
+						avatarImg="${xyd_cpn.cpn_acc_card_url1}" />
+
+					<#avatar id="cpn_acc_card_url2" name="申请人身份证反面照" underline="true"
+						avatarImg="${xyd_cpn.cpn_acc_card_url2}" />
+
+					<#avatar id="cpn_code_url" name="企业工商照" underline="true"
+						avatarImg="${xyd_cpn.cpn_code_url}" />
+				</div>
+			</div>
+
+			<div class="row btn-group-m-t">
+				<div class="row btn-group-m-t">
+					<div class="col-sm-10">
+						<#button btnCss="info" name="提交" id="ensure" icon="fa-check"
+							clickFun="Xyd_cpnInfoDlg.editSubmit()" />
+						<#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser"
+							clickFun="Xyd_cpnInfoDlg.close()" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/xydcpn/js/xyd_cpn_info.js"></script>
+@}

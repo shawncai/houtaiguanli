@@ -1,0 +1,30 @@
+package ${model.packageName};
+
+<% for(import in model.imports!){ %>
+import ${import};
+<% } %>	
+/**
+ * ${context.bizChName}Model
+ *
+ * @author wyFrame
+ * @Date ${tool.currentTime()}
+ */
+ public class ${context.bizEnBigName} {
+
+    private static final long serialVersionUID = 1L;
+
+	@TableId(value="${context.list[0].columnName}", type= IdType.AUTO)
+	<% for(li in context.list!){ %>
+	private ${li.javaType} ${li.columnName};
+	<% } %>
+
+	<% for(all in context.list!){ %>
+	public ${all.javaType} get${all.bColumnName}() {
+		return ${all.columnName};
+	}
+
+	public void set${all.bColumnName}(${all.javaType} ${all.columnName}) {
+		this.${all.columnName} = ${all.columnName};
+	}
+	<% } %>
+}

@@ -1,0 +1,27 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <form class="form-horizontal" id="signupForm">
+			<input type="hidden" id="task_id" value="">
+			   <div class="row">
+                                   <#inputCol2 id='task_nm' name='作业名称' />
+                                    <#selectCol2 id='id' name='用户ID' map='${map6}' />
+                                   <#selectCol2 id='sub_exam_id' name='试卷' map='${map3}' />
+                                   <#selectCol2 id='sub_id' name='科目' map='${map4}' />
+                                   <#inputCol2 id='task_ask' name='作业要求' />
+                                   <#timeinputcol2 id='over_dt' name='要求完成时间' />
+                                   
+                                   
+                                   
+               </div>
+            <div class="row btn-group-m-t text-center">
+                <div class="col-sm-10">
+                    <#submit btnCss="info" iName="提交" id="ensure" icon="fa-check" clickFun="validate();Xgt_sub_taskInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="Xgt_sub_taskInfoDlg.close()"/>
+                </div>
+            </div>
+         </form>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/fxb/xgt_sub_task/js/xgt_sub_task_info.js"></script>
+@}

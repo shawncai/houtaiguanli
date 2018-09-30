@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.menu.dao.Wx_menuMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.zcgl.menu.model.Wx_menu">
+	<id column="id" property="id" />
+	<result column="btype" property="btype" />
+	<result column="type" property="type" />
+	<result column="name" property="name" />
+	<result column="key" property="key" />
+	<result column="url" property="url" />
+	<result column="media_id" property="media_id" />
+	</resultMap>
+</mapper>

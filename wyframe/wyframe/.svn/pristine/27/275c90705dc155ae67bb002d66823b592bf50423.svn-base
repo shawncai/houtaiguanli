@@ -1,0 +1,43 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+             <input type="hidden" id="prd_unit_id" value="${xgt_goods_prd_unit.prd_unit_id}">
+
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label col-xs-5 text-right">单位名称：</label>
+                        <div class="col-sm-3 col-xs-4">
+
+                            <input class="form-control" id="prd_unit_nm" name="prd_unit_nm" type="text" >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label col-xs-5 text-right">单位代码：</label>
+                        <div class="col-sm-3 col-xs-4">
+                            <input class="form-control" id="prd_unit_alias" name="prd_unit_alias" type="text" >
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+			
+            <div class="row btn-group-m-t">
+                <div class="col-sm-12 col-xs-12 text-center">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="Xgt_goods_prd_unitInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="Xgt_goods_prd_unitInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/prdUnit/js/xgt_goods_prd_unit_info.js"></script>
+@}

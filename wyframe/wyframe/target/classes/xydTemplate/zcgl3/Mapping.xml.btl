@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${dao.packageName}.${context.bizEnBigName}Dao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="${context.packageName}${context.moduleName}.model.${context.bizEnBigName}">
+	<id column="${context.list[0].columnName}" property="${context.list[0].columnName}" />
+	<% for(var i=1; i<context.list.~size;i++){ %>
+	<result column="${context.list[i].columnName}" property="${context.list[i].columnName}" />
+	<% } %>
+	</resultMap>
+	
+
+	
+	<!-- 通过Id查询${context.bizChName} -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select * from ${context.tableName}
+		where ${context.list[0].columnName} = #{${context.bizEnName}Id}
+	</select>
+
+		<!-- ${context.bizChName}列表 -->
+    	<select id="list" resultType="map">
+    		select ${context.tableName}.*<% for(var i=0; i<context.list.~size;i++){ %><% if(context.list[i].fieldChange==2){ %>,${context.list[i].fieldTable}.${context.list[i].toField}<% } %><% } %> from ${context.tableName}
+            <% for(var i=0; i<context.list.~size;i++){ %>
+                <% if(context.list[i].fieldChange==2){ %>
+                    LEFT JOIN ${context.list[i].fieldTable} on ${context.tableName}.${context.list[i].columnName} =${context.list[i].fieldTable}.${context.list[i].columnName}
+                <% } %>
+            <% } %>
+            where 1=1
+    		<if test="condition != null and condition != ''">
+            and (<% for(var i=0;i<context.list.~size;i++){ %><% if(context.list[i].isSearch==1){ %>${context.list[i].columnName} like CONCAT('%',#{condition},'%') or <% } %><% } %>1&lt;1)
+            </if>
+            <% for(var i=0;i<context.list.~size;i++){ %>
+            <% if(context.list[i].isQuery==1){ %>
+            <if test="${context.list[i].columnName} != null and ${context.list[i].columnName} !=0">
+            and ${context.list[i].columnName}=#{${context.list[i].columnName}}
+             </if>
+                <% } %>
+            <% } %>
+    		order by ${context.list[0].columnName} desc
+    	</select>
+    	 <% for(var i=1; i<context.list.~size;i++){ %>
+               <% if(context.list[i].fieldChange==2){ %>
+        <select id="getMap${i}" resultType="map">
+              select ${context.list[i].toField} name,${context.list[i].columnName} num from ${context.list[i].fieldTable}
+        </select>
+               <% } %>
+              <% } %>
+        <update id="deleteByIds" parameterType="list">
+            UPDATE ${context.tableName} SET xyd_st_id = -1 where ${context.list[0].columnName} in
+           <foreach collection="list" item="item" open="(" separator="," close=")">
+                   #{item}
+             </foreach>
+        </update>
+
+            <select id="getMapByPar" resultType="map">
+            		select ${context.list[1].columnName} name,${context.list[0].columnName} num from ${context.tableName}
+            </select>
+
+            <select id="tree1" resultType="wy.core.node.Node">
+        		select ${context.list[0].columnName} as id,par_${context.list[0].columnName} as pid,${context.list[1].columnName} as name from ${context.tableName}
+        	</select>
+
+        	<select id="selectPageList" parameterType="wy.common.persistence.model.Page" resultType="map" >
+        		select u.*,o.${context.list[1].columnName} as par_${context.list[1].columnName} from
+                        		(select	a1.*
+                                                		from ${context.tableName} a1 ,
+                                                		(select b1.${context.list[0].columnName} from ${context.tableName} b1 where b1.${context.list[0].columnName} = #{id}
+                                                		UNION
+                                                		select b1.${context.list[0].columnName} from ${context.tableName} b1 where b1.par_${context.list[0].columnName} = #{id}
+                                                		union
+                                                		select b1.${context.list[0].columnName} from ${context.tableName} b1,${context.tableName} b2 where b1.par_${context.list[0].columnName}=b2.${context.list[0].columnName} and b2.par_${context.list[0].columnName} = #{id}
+                                                		union
+                                                		select b1.${context.list[0].columnName} from ${context.tableName} b1,${context.tableName} b2, ${context.tableName} b3 where b1.par_${context.list[0].columnName}=b2.${context.list[0].columnName} and b2.par_${context.list[0].columnName}=b3.${context.list[0].columnName} and b3.par_${context.list[0].columnName} =  #{id}
+                                                		) m1
+                                                		where a1.${context.list[0].columnName}=m1.${context.list[0].columnName}
+                                                		<if test="condition != null and condition != ''">
+                                                                    and (<% for(var i=0;i<context.list.~size;i++){ %><% if(context.list[i].isSearch==1){ %>${context.list[i].columnName} like CONCAT('%',#{condition},'%') or <% } %><% } %>1&lt;1)
+                                                        </if>
+                                                        )u
+                                                        LEFT JOIN ${context.tableName} o
+                                                        				on u.par_${context.list[0].columnName} = o.${context.list[0].columnName}
+        		limit #{start},#{rows}
+        	</select>
+
+        	<select id="selectPageCount" parameterType="wy.common.persistence.model.Page"  resultType="java.lang.Integer">
+        		select count(1) from ${context.tableName}
+        	</select>
+
+        	<!-- 列表 -->
+        	<select id="list4" resultType="map">
+        	    select u.*,o.${context.list[1].columnName} as par_${context.list[1].columnName} from
+        		(select	a1.*
+                                		from ${context.tableName} a1 ,
+                                		(select b1.${context.list[0].columnName} from ${context.tableName} b1 where b1.${context.list[0].columnName} = #{id}
+                                		UNION
+                                		select b1.${context.list[0].columnName} from ${context.tableName} b1 where b1.par_${context.list[0].columnName} = #{id}
+                                		union
+                                		select b1.${context.list[0].columnName} from ${context.tableName} b1,${context.tableName} b2 where b1.par_${context.list[0].columnName}=b2.${context.list[0].columnName} and b2.par_${context.list[0].columnName} = #{id}
+                                		union
+                                		select b1.${context.list[0].columnName} from ${context.tableName} b1,${context.tableName} b2, ${context.tableName} b3 where b1.par_${context.list[0].columnName}=b2.${context.list[0].columnName} and b2.par_${context.list[0].columnName}=b3.${context.list[0].columnName} and b3.par_${context.list[0].columnName} =  #{id}
+                                		) m1
+                                		where a1.${context.list[0].columnName}=m1.${context.list[0].columnName}
+                                		<if test="condition != null and condition != ''">
+                                                    and (<% for(var i=0;i<context.list.~size;i++){ %><% if(context.list[i].isSearch==1){ %>${context.list[i].columnName} like CONCAT('%',#{condition},'%') or <% } %><% } %>1&lt;1)
+                                        </if>
+                                        )u
+                                        LEFT JOIN ${context.tableName} o
+                                        				on u.par_${context.list[0].columnName} = o.${context.list[0].columnName}
+        	</select>
+</mapper>

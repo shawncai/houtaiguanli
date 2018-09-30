@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.products.dao.Xgt_goods_productDao">
+	
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.zcgl.products.model.Xgt_goods_product">
+	<id column="prd_id" property="prd_id" />
+	<result column="prd_brand_id" property="prd_brand_id" />
+	<result column="prd_cls_id" property="prd_cls_id" />
+	<result column="prd_sn" property="prd_sn" />
+	<result column="prd_unit_id" property="prd_unit_id" />
+	<result column="prd_no" property="prd_no" />
+	<result column="prd_nm" property="prd_nm" />
+	<result column="prd_model" property="prd_model" />
+	<result column="prd_spec" property="prd_spec" />
+	<result column="prd_nm_alias" property="prd_nm_alias" />
+	<result column="prd_nm_dsc" property="prd_nm_dsc" />
+	<result column="prd_nm_img" property="prd_nm_img" />
+	<result column="prd_remarks" property="prd_remarks" />
+		<result column="prd_crt_dt" property="prd_crt_dt" />
+		<result column="prd_purchase" property="prd_purchase" />
+		<result column="prd_price" property="prd_price" />
+	<result column="cpn_id" property="cpn_id" />
+		<result column="cpn_branch_id" property="cpn_branch_id" />
+		<result column="st_id" property="st_id" />
+		<result column="oper_user" property="oper_user" />
+	</resultMap>
+	
+	<!-- 商品管理列表 -->
+	<select id="list" resultType="map">
+		select * from xgt_goods_product where cpn_id =#{cpnId}
+		order by
+		prd_id
+		desc
+	</select>
+	<select id="list2" resultType="map">
+		select a.*,d.prd_cls_nm,e.prd_brand_nm,f.prd_unit_nm from
+		(select c1.*
+		from xgt_goods_product as c1,
+		(select b1.prd_cls_id from xgt_goods_prd_cls b1 where b1.prd_cls_id =#{prd_id}
+		union
+		select b1.prd_cls_id  from xgt_goods_prd_cls b1 where b1.par_prd_cls_id =#{prd_id}
+		union
+		select b1.prd_cls_id  from xgt_goods_prd_cls b1,xgt_goods_prd_cls b2 where b1.par_prd_cls_id=b2.prd_cls_id and b2.par_prd_cls_id =#{prd_id}
+		union
+		select b1.prd_cls_id  from xgt_goods_prd_cls b1,xgt_goods_prd_cls b2, xgt_goods_prd_cls b3 where b1.par_prd_cls_id=b2.prd_cls_id and b2.par_prd_cls_id=b3.prd_cls_id and b3.par_prd_cls_id =#{prd_id}
+		) m1
+		WHERE c1.st_id = 1 and c1.prd_cls_id=m1.prd_cls_id
+		<if test="condition != null and condition != ''">
+		and (prd_nm like CONCAT('%',#{condition},'%')
+			or prd_model like CONCAT('%',#{condition},'%')
+			or prd_no like CONCAT('%',#{condition},'%')
+			or prd_sn like CONCAT('%',#{condition},'%')
+			or prd_model like CONCAT('%',#{condition},'%')
+			or prd_spec like CONCAT('%',#{condition},'%'))
+		</if>
+		<if test="st_id != null and st_id != 0">
+			and c1.st_id = #{st_id}
+		</if>
+	)a
+	LEFT JOIN xgt_goods_prd_cls d ON a.prd_cls_id = d.prd_cls_id
+	LEFT JOIN xgt_goods_prd_brand e ON a.prd_brand_id = e.prd_brand_id
+	LEFT JOIN xgt_goods_prd_unit f ON a.prd_unit_id = f.prd_unit_id
+	</select>
+
+	<!-- 商品管理列表 -->
+	<select id="listBystore" resultType="map">
+		select x.*,SUM(s.in_num) sum from xgt_goods_store s LEFT JOIN xgt_goods_product x ON s.prd_id = x.prd_id WHERE s.cpn_store_id =#{storeId} AND s.prd_id =#{prd_id} GROUP BY s.prd_id
+
+
+	</select>
+	<!-- 商品管理列表 -->
+	<select id="listBystores" resultType="map">
+		select x.*,SUM(s.in_num) sum from xgt_goods_store s LEFT JOIN xgt_goods_product x ON s.prd_id = x.prd_id WHERE s.cpn_store_id =#{storeId} GROUP BY s.prd_id
+
+
+	</select>
+
+
+	<select id="queryCpnId" resultType="Integer">
+		select
+		cpn_id
+		from user
+		where id = #{userId}
+	</select>
+
+	<!-- 通过Id查询商品管理 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select * from xgt_goods_product
+		where prd_id = #{xgt_goods_productId}
+	</select>
+	
+	<select id="iQueryById" resultType="map">
+		select * from xgt_goods_product where prd_id = #{id}
+	</select>
+
+	<select id="prdClsList" resultType="map">
+		SELECT prd_cls_id num,prd_cls_nm name from xgt_goods_prd_cls where cpn_id=#{cpnId}
+	</select>
+
+	<select id="prdUnitList" resultType="map">
+		SELECT prd_unit_id num,prd_unit_nm name from xgt_goods_prd_unit
+	</select>
+
+	<select id="tree1" resultType="wy.core.node.ZTreeNode">
+		select
+		m1.prd_cls_id as id,
+		(
+		case
+		when (m2.prd_cls_id = 0 or m2.prd_cls_id is null) then
+		0
+		else
+		m2.prd_cls_id
+		end
+		) as pid,
+		m1.prd_cls_nm
+		as name,
+		(
+		case
+		when
+		(m2.prd_cls_id
+		= 0 or m2.prd_cls_id is null) then
+		'true'
+		else
+		'false'
+		end
+		) "close"
+		from
+		xgt_goods_prd_cls m1
+		left join xgt_goods_prd_cls m2 on
+		m1.par_prd_cls_id = m2.prd_cls_id
+		where m1.st_id = 1
+		order by
+		m1.prd_cls_id asc
+	</select>
+
+	<select id="tree" resultType="wy.core.node.ZTreeNode">
+		select
+		m1.prd_cls_id as id,
+		(
+		case
+		when (m2.prd_cls_id = 0 or m2.prd_cls_id is null) then
+		0
+		else
+		m2.prd_cls_id
+		end
+		) as pid,
+		m1.prd_cls_nm
+		as name,
+		(
+		case
+		when
+		(m2.prd_cls_id
+		= 0 or m2.prd_cls_id is null) then
+		'true'
+		else
+		'false'
+		end
+		) "close"
+		from
+		xgt_goods_prd_cls m1
+		left join xgt_goods_prd_cls m2 on
+		m1.par_prd_cls_id = m2.prd_cls_id
+		where m1.cpn_id = #{cpnId} and m1.st_id = 1
+		order by
+		m1.prd_cls_id asc
+	</select>
+</mapper>

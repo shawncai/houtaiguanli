@@ -1,0 +1,44 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>图片管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="condition" name="名称" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="Xyd_image_file.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="Xyd_image_fileTableToolbar" role="group">
+                            @if(shiro.hasPermission("/xyd_image_file/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="Xyd_image_file.openAddXyd_image_file()"/>
+                            @}
+                            @if(shiro.hasPermission("/xyd_image_file/update")){
+                                <#button name="修改" icon="fa-edit" clickFun="Xyd_image_file.openXyd_image_fileDetail_update()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/xyd_image_file/delete")){
+                                <#button name="删除" icon="fa-remove" clickFun="Xyd_image_file.delete()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/xyd_image_file/export")){
+                                <#button name="导出" icon="fa-file-excel-o" clickFun="Xyd_image_file.export()" space="true"/>
+                            @}
+                             @if(shiro.hasPermission("/xyd_image_file/detail")){
+                                <#button name="详情" icon="fa-file-code-o" clickFun="Xyd_image_file.openXyd_image_fileDetail()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="Xyd_image_fileTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/image/js/xyd_image_file.js"></script>
+@}

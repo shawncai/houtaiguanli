@@ -1,0 +1,159 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="bill_in_id"
+                   value="${xgt_goods_store_bill.bill_in_id}">
+
+            <table class="table table-striped table-bordered table-hover"
+                   style="font-size: 16px;">
+                <tbody>
+
+                <tr>
+                    <td class="td_title" style="text-align: center">类型</td>
+                    <td class="td_content" style="text-align: center"><input
+                            id="in_bill_type" value="${xgt_goods_store_bill.in_bill_type}"
+                            class="form-control" readonly="readonly" /></td>
+                    <td class="td_title" style="text-align: center">批次号</td>
+                    <td class="td_content" style="text-align: center"><input
+                            id="bill_no" value="${xgt_goods_store_bill.bill_no}"
+                            class="form-control" readonly="readonly" /></td>
+                </tr>
+                <tr>
+                    <td class="td_title" style="text-align: center">入库单描述</td>
+                    <td class="td_content" style="text-align: center"><input
+                            id="bill_dsc" value="${xgt_goods_store_bill.bill_dsc}"
+                            class="form-control" readonly="readonly" /></td>
+                    <td class="td_title" style="text-align: center">仓库ID</td>
+                    <td class="td_content" style="text-align: center"><input
+                            id="cpn_store_id" value="${xgt_goods_store_bill.cpn_store_id}"
+                            class="form-control" readonly="readonly" /></td>
+                </tr>
+                <tr>
+                    <td class="td_title" style="text-align: center">创建时间</td>
+                    <td class="td_content" style="text-align: center"><input
+                            id="cre_dt" value="${xgt_goods_store_bill.cre_dt}"
+                            class="form-control" readonly="readonly" /></td>
+                    <td class="td_title" style="text-align: center">状态</td>
+                    <td class="td_content" style="text-align: center"><input
+                            id="st_id" value="${xgt_goods_store_bill.st_id}"
+                            class="form-control" readonly="readonly" /></td>
+                </tr>
+                <tr>
+                    <td class="td_title" style="text-align: center">操作人</td>
+                    <td class="td_content" style="text-align: center"><input
+                            id="oper_user" value="${xgt_goods_store_bill.oper_user}"
+                            class="form-control" readonly="readonly" /></td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <!--  <div id="toolbar">
+                    <button id="btn_add" type="button" class="btn btn-primary btn-success"
+                        onclick="Xgt_goods_store_billParam.appendXgt_goods_store_bill()">
+                        <i class='icon-plus'></i>新增商品
+                    </button>
+                    <button id="btn_delete" type="button" class="btn btn-primary btn-danger"
+                     onclick="removeParam()">
+                        <i class='icon-trash'></i>删除商品
+                    </button>
+            </div> -->
+            <#table id="detailTable" />
+
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="通过" id="ensure" icon="fa-check"
+                            clickFun="Xgt_goods_store_billInfoDlg.reviewSubmit()" />
+                    <#button btnCss="danger" name="拒绝" id="cancel" icon="fa-eraser"
+                            clickFun="Xgt_goods_store_billInfoDlg.close()" />
+                    <#button btnCss="info" name="审核下一单" id="next" icon="fa-eraser"
+                            clickFun="Xgt_goods_store_billInfoDlg.next()" />
+                    <#button btnCss="danger" name="关闭" id="cancel" icon="fa-eraser"
+                            clickFun="Xgt_goods_store_billInfoDlg.close()" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script
+        src="${ctxPath}/static/addons/zcgl/inStore/js/xgt_goods_store_bill_info.js"></script>
+<script>
+
+    /**
+     *参数表页面table
+     */
+    var Xgt_goods_store_billParam = {
+        id: "detailTable",	//表格id
+        seItem: null,		//选中的条目
+        table: null,
+        layerIndex: -1
+    };
+
+    /**
+     * 初始化表格的列
+     */
+    Xgt_goods_store_billParam.initColumn = function () {
+        return [
+            {field: 'selectItem', checkbox: true}
+            ,	        {title: '产品ID', field: 'prd_id', align: 'center', valign: 'middle', sortable: true}
+            ,	        {title: '生产品牌ID', field: 'prd_brand_id', align: 'center', valign: 'middle', sortable: true}
+            ,	        {title: '生产厂商ID', field: 'prd_vendor_id', align: 'center', valign: 'middle', sortable: true}
+            ,	        {title: '产品分类ID', field: 'prd_cls_id', align: 'center', valign: 'middle', sortable: true}
+            ,	        {title: '单位ID', field: 'prd_unit_id', align: 'center', valign: 'middle', sortable: true}
+            ,	        {title: '产品标准编码', field: 'prd_no', align: 'center', valign: 'middle', sortable: true}
+            ,	        {title: '产品名称', field: 'prd_nm', align: 'center', valign: 'middle', sortable: true}
+            ,	        {title: '产品型号', field: 'prd_model', align: 'center', valign: 'middle', sortable: true}
+            ,	        {title: '产品简称', field: 'prd_nm_alias', align: 'center', valign: 'middle', sortable: true}
+            ,	        {title: '产品描述', field: 'prd_nm_dsc', align: 'center', valign: 'middle', sortable: true}
+            ,	        {title: '产品上市日期', field: 'prd_crt_dt', align: 'center', valign: 'middle', sortable: true}
+            ,	        {title: '产品售价', field: 'prd_price', align: 'center', valign: 'middle', sortable: true}
+            ,	        {title: '创建时间', field: 'cre_dt', align: 'center', valign: 'middle', sortable: true}
+            ,	         {title: '状态', field: 'st_id', align: 'center', valign: 'middle', sortable: true}
+            ,	        {title: '操作人', field: 'oper_user', align: 'center', valign: 'middle', sortable: true}
+        ];
+
+    };
+
+    var id = $("#bill_in_id").val();
+    var defaultColunmss = Xgt_goods_store_billParam.initColumn();
+    var tabless = new BSTable(Xgt_goods_store_billParam.id, "/xgt_goods_store_bill/detail/"+id, defaultColunmss);
+    tabless.setPaginationType("client");
+    Xgt_goods_store_billParam.table = tabless.init();
+
+    function removeParam(){
+        var selected = $('#' + Xgt_goods_store_billParam.id).bootstrapTable('getSelections');
+        var str = "";
+        for(var i =0;i<selected.length;i++){
+            str=str+selected[i].prd_id+".";
+        }
+        var operation = function(){
+            var ajax = new $ax(Feng.ctxPath + "/xgt_goods_store_bill/deleteParam/"+str, function (data) {
+                Feng.success("删除成功!");
+                Xgt_goods_store_billParam.table.refresh();
+            }, function (data) {
+                Feng.error("删除失败!" + data.responseJSON.message + "!");
+            });
+            ajax.start();
+        }
+        Feng.confirm("是否刪除?", operation);
+    }
+
+    /**
+     * 点击添加订单
+     */
+    Xgt_goods_store_billParam.appendXyd_total = function () {
+        var index = layer.open({
+            type: 2,
+            title: '添加参数',
+            area: ['100%', '100%'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            content: Feng.ctxPath + '/xyd_total/xyd_total_add_param'
+        });
+        this.layerIndex = index;
+    };
+</script>
+@}

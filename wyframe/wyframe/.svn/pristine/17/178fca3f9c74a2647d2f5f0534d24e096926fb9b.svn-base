@@ -1,0 +1,104 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+			<#layUITable id="Bs_billParamTable2"/>
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="确定" id="ensure" icon="fa-check" />
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+        var tableData=new Array();
+        $.ajax({
+            url:Feng.ctxPath +"/bs_bill/paramList"
+            ,type:"get"
+            ,async:false
+            ,dataType:"json"
+            , success: function(result){
+                tableData=result;
+
+            }
+        });
+        table.render({
+            elem: Bs_billParamTable2
+            ,data: tableData
+            ,even:true
+            ,height: 520
+            ,id:"Bs_billParamTable2"
+            ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                layout: [ 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                //,curr: 5 //设定初始在第 5 页
+                ,limits: [30,60]
+                ,limit: 30
+                ,groups: 1 //只显示 1 个连续页码
+                ,first: false //不显示首页
+                ,last: false //不显示尾页
+
+            }
+            ,cols: [[
+                {type:'checkbox', fixed: 'left'}
+
+                  ,{field:'shop_id',width:120,title: '商品ID',align:'center',fixed: '',sort: true }
+                  ,{field:'shop_no',width:120,title: '商品编码',align:'center',fixed: '',sort: true }
+                  ,{field:'shop_nm',width:120,title: '商品名称',align:'center',fixed: '',sort: true }
+                  ,{field:'shop_weigth',width:120,title: '商品重量',align:'center',fixed: '',sort: true }
+                  ,{field:'shop_spec',width:120,title: '商品规格',align:'center',fixed: '',sort: true }
+                  ,{field:'shop_no_num',width:120,title: '商品条码',align:'center',fixed: '',sort: true }
+                  ,{field:'shop_unit',width:120,title: '商品单位',align:'center',fixed: '',sort: true }
+                  ,{field:'xyd_st_id',width:120,title: '删除状态',align:'center',fixed: '',sort: true }
+                  ,{field:'xyd_cre_dt',width:120,title: '创建日期',align:'center',fixed: '',sort: true }
+                  ,{field:'xyd_up_dt',width:120,title: '修改日期',align:'center',fixed: '',sort: true }
+                  ,{field:'xyd_user_id',width:120,title: '操作用户',align:'center',fixed: '',sort: true }
+            ,{field:'num',fixed: 'right',title : '数量',width:120, align:'center', edit:'text'}
+                ]]
+
+        });
+        $('#ensure').on('click',function () {
+
+            var checkStatus = table.checkStatus('Bs_billParamTable2');
+            var data = checkStatus.data;
+            var oldData=parent.layui.table.cache.Bs_billParamTable1;
+            if(oldData!=undefined){
+                for (var i = 0; i < data.length; i++) {
+                    oldData.push(data[i]);
+                    parent.layui.table.reload('Bs_billParamTable1',{
+                        data : oldData
+                    });
+                }
+                console.log(oldData);
+
+                parent.layer.closeAll()
+            }else {
+
+                var oldData1=parent.layui.table.cache.Bs_billParamTable3;
+                for (var i = 0; i < data.length; i++) {
+                    oldData1.push(data[i]);
+                    parent.layui.table.reload('Bs_billParamTable3',{
+                        data : oldData1
+                    });
+                }
+                parent.layer.closeAll()
+            }
+
+        })
+
+
+
+    });
+    $('#cancel').on('click',function () {
+        parent.layer.closeAll()
+    })
+</script>
+<style>
+    .layui-table-cell{
+        height:auto;
+        line-height: 41px;
+    }</style>
+@}

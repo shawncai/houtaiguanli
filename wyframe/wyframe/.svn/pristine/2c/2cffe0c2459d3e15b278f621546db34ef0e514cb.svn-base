@@ -1,0 +1,97 @@
+<div id="right-sidebar">
+	<div class="sidebar-container">
+
+		<ul class="nav nav-tabs navs-3">
+			<li class="active"><a data-toggle="tab" href="#tab-1"> <i
+					class="fa fa-gear"></i> 模板
+			</a>
+			</li>
+		</ul>
+
+		<div class="tab-content">
+			<div id="tab-1" class="tab-pane active">
+				<div class="sidebar-title">
+					<div class="setings-item">
+						<div class="form-group">
+						<div class="radio i-checks">
+							<label>
+								<input type="radio" value="0" name="temple" checked="">
+								<i></i> 默认模板
+							</label>
+						</div>
+							<div class="radio i-checks">
+								<label>
+									<input type="radio" value="1" name="temple">
+									<i></i> 模板一
+								</label>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="skin-setttings">
+					<div class="title">主题设置</div>
+					<div class="setings-item">
+						<span>收起左侧菜单</span>
+						<div class="switch">
+							<div class="onoffswitch">
+								<input type="checkbox" name="collapsemenu"
+									class="onoffswitch-checkbox" id="collapsemenu"> <label
+									class="onoffswitch-label" for="collapsemenu"> <span
+									class="onoffswitch-inner"></span> <span
+									class="onoffswitch-switch"></span>
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="setings-item">
+						<span>固定顶部</span>
+
+						<div class="switch">
+							<div class="onoffswitch">
+								<input type="checkbox" name="fixednavbar"
+									class="onoffswitch-checkbox" id="fixednavbar"> <label
+									class="onoffswitch-label" for="fixednavbar"> <span
+									class="onoffswitch-inner"></span> <span
+									class="onoffswitch-switch"></span>
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="setings-item">
+						<span> 固定宽度 </span>
+
+						<div class="switch">
+							<div class="onoffswitch">
+								<input type="checkbox" name="boxedlayout"
+									class="onoffswitch-checkbox" id="boxedlayout"> <label
+									class="onoffswitch-label" for="boxedlayout"> <span
+									class="onoffswitch-inner"></span> <span
+									class="onoffswitch-switch"></span>
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="title">皮肤选择</div>
+					<div class="setings-item default-skin nb">
+						<span class="skin-name "> <a href="#" class="s-skin-0">
+								默认皮肤 </a>
+						</span>
+					</div>
+					<div class="setings-item blue-skin nb">
+						<span class="skin-name "> <a href="#" class="s-skin-1">
+								红色主题 </a>
+						</span>
+					</div>
+					<div class="setings-item yellow-skin nb">
+						<span class="skin-name "> <a href="#" class="s-skin-3">
+								荧光主题 </a>
+						</span>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</div>

@@ -1,0 +1,90 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal">
+
+			<input type="hidden" id="cpn_store_id"
+				   value="${xyd_cpn_store.cpn_store_id}">
+
+			<div class="row">
+				<div class="col-sm-6 col-xs-6">
+					<#selectBranch3 id="cpn_branch_id" name="分支机构" value="${xyd_cpn_store.cpn_branch_id}"  readonly="readonly"
+							map="${cpnBranchList}"
+							underline="true" />
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="cpn_store_nm" name="仓库名称" underline="true" value="${xyd_cpn_store.cpn_store_nm}" readonly="readonly"/>
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="cpndNm" name="上级仓库" readonly="readonly"
+							underline="true" hiddenValue="${xyd_cpn_store.par_store_id}"
+							value="${pCpnBranchNm}"
+							clickFun="Xyd_cpn_storeInfoDlg.showCpnSelectTree(); return false;"
+							style="background-color: #ffffff !important;" selectFlag="true"
+							selectId="cpnTreeDiv" selectTreeId="cpnareaTree"
+							selectStyle="width:588px !important;" readonly="readonly" />
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="cpn_store_no" name="标准编码" underline="true" value="${xyd_cpn_store.cpn_store_no}" readonly="readonly"/>
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="man_man" name="联系人" underline="true" value="${xyd_cpn_store.man_man}" readonly="readonly"/>
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="man_phone" name="联系人电话" underline="true" value="${xyd_cpn_store.man_phone}" readonly="readonly"/>
+				</div>
+
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="man_email" name="联系人邮箱" underline="true" value="${xyd_cpn_store.man_email}"  readonly="readonly"/>
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<#inputzcc id="man_address" name="联系人地址" underline="true" value="${xyd_cpn_store.man_address}" readonly="readonly"/>
+				</div>
+
+				<#selectBranch id="st_id" name="状态" map="${cpnStoreStList}"
+						value="${xyd_cpn_store.st_id}" underline="true" readonly="readonly"/>
+
+				<div class="col-sm-12 col-xs-12">
+					<#inputzcc1 id="remarks" name="备注" underline="true" value="${xyd_cpn_store.remarks}" readonly="readonly"/>
+				</div>
+			</div>
+			<div class="row btn-group-m-t">
+				<div class="col-sm-12 col-xs-12 text-center">
+					<#button btnCss="danger" name="返回" id="cancel" icon="fa-eraser"
+							clickFun="Xyd_cpn_storeInfoDlg.close()" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script
+	src="${ctxPath}/static/addons/zcgl/cpn_store/js/xyd_cpn_store_info.js"></script>
+<script>
+	/**
+	 *参数表页面table
+	 */
+	var Xyd_cpn_store_detail = {
+		id : "detailTable", //表格id
+		seItem : null, //选中的条目
+		table : null,
+		layerIndex : -1
+	};
+
+	/**
+	 * 初始化表格的列
+	 */
+	Xyd_cpn_store_detail.initColumn = function() {
+		return [ {
+			field : 'selectItem',
+			checkbox : true
+		} ];
+
+	};
+	var id = $("#cpn_store_id").val();
+	var defaultColunmss = Xyd_cpn_store_detail.initColumn();
+	var tabless = new BSTable(Xyd_cpn_store_detail.id, "/xyd_cpn_store/detail/"
+			+ id, defaultColunmss);
+	tabless.setPaginationType("client");
+	Xyd_cpn_store_detail.table = tabless.init();
+</script>
+@}

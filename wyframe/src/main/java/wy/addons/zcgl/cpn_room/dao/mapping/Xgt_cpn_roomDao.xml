@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.cpn_room.dao.Xgt_cpn_roomDao">
+	
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.zcgl.cpn_room.model.Xgt_cpn_room">
+	<id column="room_id" property="room_id" />
+	<result column="room_nm" property="room_nm" />
+	<result column="room_yt" property="room_yt" />
+	<result column="room_adrs" property="room_adrs" />
+	<result column="room_adrs_x" property="room_adrs_x" />
+	<result column="room_adrs_y" property="room_adrs_y" />
+	<result column="romm_photo_url" property="romm_photo_url" />
+	<result column="romm_photo_url6" property="romm_photo_url6" />
+	<result column="romm_photo_url5" property="romm_photo_url5" />
+	<result column="romm_photo_url4" property="romm_photo_url4" />
+	<result column="romm_photo_url3" property="romm_photo_url3" />
+	<result column="romm_photo_url2" property="romm_photo_url2" />
+	<result column="par_room_id" property="par_room_id" />
+	<result column="cpn_branch_id" property="cpn_branch_id" />
+	<result column="cre_dt" property="cre_dt" />
+	<result column="st_id" property="st_id" />
+	<result column="oper_user" property="oper_user" />
+	</resultMap>
+	
+	<!-- 房间列表 -->
+	<select id="list" resultType="map">
+		select r.*,b.* from xgt_cpn_room as r
+		left join xyd_cpn_branch as b
+		on r.cpn_branch_id=b.cpn_branch_id
+		order by
+	room_id
+ desc	</select>
+
+	<!-- 房间列表 -->
+	<select id="list2" resultType="map">
+		select r.*,b.* from xgt_cpn_room as r
+		left join xyd_cpn_branch as b
+		on r.cpn_branch_id=b.cpn_branch_id
+		<if test="condition != null and condition != ''">
+			where (r.room_nm like CONCAT('%',#{condition},'%')
+			or r.room_yt like CONCAT('%',#{condition},'%'))
+		</if>
+		order by
+		room_id
+		desc	</select>
+	
+	<!-- 通过Id查询房间 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select * from xgt_cpn_room
+		where room_id = #{xgt_cpn_roomId}
+	</select>
+	
+	<select id="iQueryById" resultType="map">
+		select * from xgt_cpn_room where room_id = #{id}
+	</select>
+</mapper>

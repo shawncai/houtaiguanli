@@ -1,0 +1,21 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <br class="form-horizontal">
+        <input type="hidden" id="bill_id" value="${bs_billId}">
+        <label class="col-sm-3 control-label">配送更新:</label><select class="form-control" id="sendUpdate"><option value="2">配送中</option><option value="3">配送完成</option></select><br />
+        <label class="col-sm-3 control-label">配送时间:</label><input id="sendTime" class="form-control layer-date" placeholder="YYYY-MM-DD hh:mm:ss" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"><br>
+        <label class="col-sm-3 control-label">配送备注:</label><textarea id="send_remark" class="form-control" placeholder="请输入配送备注" >${send_remark}</textarea>
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="确定" id="ensure" icon="fa-check" clickFun="Bs_billInfoDlg.sendUpdate()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="Bs_billInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zsh/bs_bill/js/bs_bill_info.js"></script>
+<!--<script src="${ctxPath}/static/addons/zsh/bs_bill/js/bs_bill.js"></script>-->
+
+@}

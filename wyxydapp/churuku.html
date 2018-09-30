@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+	<body>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/jquery-2.1.0.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<header class="mui-bar mui-bar-nav" style="background: #4ca5f8;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #fff;"></a>
+			<h1 class="mui-title" style="color: #fff;font-weight: bold;font-size: 20px;">入库单</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" id="gonghuo">供货商 <span style="float: right;color: #f0ad4e;" id="xuan">选择</span></li>
+				<li class="mui-table-view-cell" id="cangku">仓库<span style="float: right;color: #f0ad4e;" id="xuan2">默认仓库</span></li>
+			</ul>
+			<div class="mui-part1" id="tableData" style="background: #fff;margin-top: 12px;">
+
+			</div>
+			<div class="mui-part2" style="margin-top: 15px;">
+
+				<ul class="mui-table-view mui-grid-view mui-grid-3">
+					<h3 style="color: #333;height: 40px;padding-top: 16px;padding-left: 16px;">选择商品</h3>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="width: 33%;" id="shangpintianjia"><img src="images/tianjia.png" width="50px"></li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="width: 33%;" id="shaomiao"><img src="images/erwei.png" width="50px"></li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="width: 33%;"><img src="images/saomiao.png" width="50px"></li>
+				</ul>
+			</div>
+
+			<div class="mui-part3" style="margin-top:22px ;height: 200px;">
+				<ul class="mui-table-view" style="height: 50px;">
+					<li class="mui-table-view-cell" style="font-size: 23px;padding-top: 15px;">合计金额<span id="total" class="total" style="float: right;">0元</span></li>
+				</ul>
+				<ul class="mui-table-view" style="height: 50px;margin-top: 20px;">
+					<li class="mui-table-view-cell" style="font-size: 23px;padding-top: 15px;">单据日期</li>
+				</ul>
+			</div>
+
+		</div>
+		<div class="mui-part5 mui-bar mui-bar-tab">
+			<ul class="mui-table-view" style="height: 65px;">
+				<li class="mui-table-view-cell" style="font-size: 23px;padding-top: 15px;float: left;width: 45%;height: 65px;padding-top: 25px;">合计:&nbsp;&nbsp;<span style="color: red;" id="heji">0</span></li>
+				<li class="mui-table-view-cell" style="float: left;font-size: 20px;width: 30%;background: #bbb;height: 65px;padding-top: 25px;color: #fff;">存为草稿</li>
+				<li class="mui-table-view-cell" style="float: right;font-size: 20px;width: 25%;height: 65px;padding-top: 25px;background: #4ca5f8;color: #fff;padding-left: 35px;">提交</li>
+			</ul>
+		</div>
+
+	</body>
+
+	<script>
+		mui.init({
+			swipeBack: true,
+			keyEventBind: {
+				backbutton: false, //Boolean(默认true)关闭back按键监听
+				menubutton: false //Boolean(默认true)关闭menu按键监听
+			},
+		});
+		var gonghuo = document.getElementById('gonghuo')
+		var xuan = document.getElementById('xuan')
+
+		mui.plusReady(function() {
+
+			gonghuo.addEventListener('tap', function() {
+				mui.openWindow({
+					id: 'gonghuo.html',
+					url: 'gonghuo.html'
+				});
+			})
+
+			var cangku = document.getElementById('cangku')
+			cangku.addEventListener('tap', function() {
+				mui.openWindow({
+					id: 'cangku.html',
+					url: 'cangku.html'
+				});
+			})
+
+			var shangpintianjia = document.getElementById('shangpintianjia')
+			shangpintianjia.addEventListener('tap', function() {
+				mui.openWindow({
+					id: 'chanping.html',
+					url: 'chanping.html'
+				});
+			})
+
+			var shaomiao = document.getElementById('shaomiao')
+			shaomiao.addEventListener('tap', function() {
+				mui.openWindow({
+					id: 'saomiao.html',
+					url: 'saomiao.html'
+				})
+			})
+
+		})
+
+		window.addEventListener("changeName", function(e) {
+
+			document.getElementById("xuan").innerHTML = e.detail.nm;
+		});
+		window.addEventListener("changeName1", function(e) {
+
+			document.getElementById("xuan2").innerHTML = e.detail.nm;
+		});
+		window.addEventListener("changeName3", function(e) {
+
+			$('#tableData').append(e.detail.pianduan);
+			$(function() {
+
+				mui(".mui-numbox").on("tap", ".add", function() {
+					var t = $(this).parent().find('input[class*=result]');
+					t.val(parseInt(t.val()) + 1);
+					setTotal();
+
+				})
+
+				mui(".mui-numbox").on('change', ".result", function() {
+
+					setTotal();
+				})
+
+				mui(".mui-numbox").on("tap", ".minus", function() {
+					var t = $(this).parent().find('input[class*=result]');
+					t.val(parseInt(t.val()) - 1);
+					if(parseInt(t.val()) < 0) {
+						t.val(0);
+					}
+					setTotal();
+				})
+				
+				function setTotal() {
+					var s = 0;
+					var v = 0;
+					var n = 0;
+					<!--计算总额--> 
+					$(".lt-rt").each(function() {
+						s += parseInt($(this).find('input[class*=result]').val()) * parseFloat($(this).siblings().find('span[class*=price]').text());
+						var ceshi = $(this).find('input[class*=result]').val();
+						console.log(ceshi)
+						var ceshi2 = $(this).siblings().find('span[class*=price]').text();
+						console.log(ceshi2)
+					});
+
+					$("#total").html(s.toFixed(2));
+					$('#heji').html(s.toFixed(2))
+
+					console.log(JSON.stringify(s))
+				}
+				setTotal();
+
+			})
+
+		});
+	</script>
+
+</html>

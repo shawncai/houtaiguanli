@@ -1,0 +1,62 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>${context.bizChName}管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <#NameCon id="condition"  placeholder="<% for(var i=0;i<context.list.~size;i++){ %><% if(context.list[i].isSearch==1){ %>${context.list[i].columnRemark}/<% } %><% } %>" />
+                            </div>
+                            <% for(var i=0;i<context.list.~size;i++){ %>
+                            <% if(context.list[i].isQuery==1){ %>
+                             <#selectSeach name="${context.list[i].columnRemark}" id="${context.list[i].columnName}" map="\${map${i}}" />
+                            <% } %>
+                            <% } %>
+                            <div class="col-sm-1">
+                                <#button name="搜索" icon="fa-search" clickFun="${context.bizEnBigName}.search()" />
+                            </div>
+                        </div>
+                        <div class="hidden-xs demoTable" id="demoTable" role="group">
+                            @if(shiro.hasPermission("/${context.bizEnName}/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="${context.bizEnBigName}.openAdd${context.bizEnBigName}()" />
+                            @}
+                            @if(shiro.hasPermission("/${context.bizEnName}/delete")){
+                                <#button name="删除" icon="fa-remove" clickFun="${context.bizEnBigName}.delete()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/${context.bizEnName}/export")){
+                                <#button name="导出" icon="fa-file-excel-o" clickFun="${context.bizEnBigName}.export()" space="true"/>
+                            @}
+                        </div>
+                        <#layUITable id="${context.bizEnBigName}Table"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="barDemo">
+    @if(shiro.hasPermission("/${context.bizEnName}/update")){
+   <a class="btn btn-outline btn-default"  lay-event="edit" title="修改"><i class="fa fa-edit"></i></a>
+    @}
+    @if(shiro.hasPermission("/${context.bizEnName}/detail")){
+     <a class="btn btn-outline btn-default"  lay-event="detail" title="详情"><i class="fa fa-file-text"></i></a>
+    @}
+</script>
+<script type="text/html" id="photo">
+ <% for(var i=0;i<context.list.~size;i++){ %>
+<% if(context.list[i].formType==6){ %>
+<img src="{{ d.${context.list[i].listColumn} }}" width="40px"  >
+ <% } %> <% } %>
+</script>
+<script src="\${ctxPath}/static/${context.scriptPath}/${context.moduleName}/js/${context.bizEnName}.js"></script>
+<style>
+    .layui-table-cell{
+    height:auto;
+    line-height: 41px;
+}</style>
+@}

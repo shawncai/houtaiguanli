@@ -1,0 +1,75 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<div class="form-horizontal">
+
+			<input type="hidden" id="prd_id" value="${xgt_goods_product.prd_id}">
+
+			<div class="row">
+				<div class="col-sm-6 b-r">
+
+					<#selectBrand id="prd_brand_id" name="生产品牌" map="${brandList}"
+						value="${xgt_goods_product.prd_brand_id}" underline="true"
+						style="width: 588px;" />
+						
+					<#input id="clsName" hidden="prd_cls_id" name="产品分类"
+						readonly="readonly" underline="true"
+						hiddenValue="${xgt_goods_product.prd_cls_id}" value="${clsNm}"
+						clickFun="Xgt_goods_clsIdDlg.showClsSelectTree(); return false;"
+						style="background-color: #ffffff !important;width: 520px;"
+						selectFlag="true" selectId="clsTreeDiv" selectTreeId="clsareaTree"
+						selectStyle="width:520px !important;" />
+
+					<#input id="prd_nm" name="产品名称" value="${xgt_goods_product.prd_nm}"
+						underline="true"  />
+						
+					<#input id="prd_no" name="产品标准编码"
+						value="${xgt_goods_product.prd_no}" underline="true"
+						 />
+
+					<#input id="prd_nm_dsc" name="产品描述"
+						value="${xgt_goods_product.prd_nm_dsc}" underline="true"
+						 />	
+					
+					<#avatar id="prd_nm_img" name="产品图片"
+						avatarImg="${xgt_goods_product.prd_nm_img}" underline="true"
+						 />
+				</div>
+				
+				<div class="col-sm-6">
+				
+					<#selectVendor id="prd_vendor_id" name="生产厂商" map="${vendorList}"
+						value="${xgt_goods_product.prd_vendor_id}" underline="true" />
+						
+					<#selectUnit id="prd_unit_id" name="单位" map="${unitList}"
+						value="${xgt_goods_product.prd_unit_id}" underline="true" />
+
+					<#input id="prd_nm_alias" name="产品简称"
+						value="${xgt_goods_product.prd_nm_alias}" underline="true"
+						 />
+
+					<#input id="prd_model" name="产品型号"
+						value="${xgt_goods_product.prd_model}" underline="true"
+						 />
+
+					<#input id="prd_price" name="产品售价"
+						value="${xgt_goods_product.prd_price}" underline="true"
+						 />
+				</div>
+			</div>
+			<div class="row btn-group-m-t">
+				<div class="row btn-group-m-t">
+					<div class="col-sm-10">
+						<#button btnCss="info" name="提交" id="ensure" icon="fa-check"
+							clickFun="Xgt_goods_productInfoDlg.editSubmit()" />
+						<#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser"
+							clickFun="Xgt_goods_productInfoDlg.close()" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script
+	src="${ctxPath}/static/addons/zcgl/products/js/xgt_goods_product_info.js"></script>
+@}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.orde.dao.Xyd_totalMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.zcgl.orde.model.Xyd_total">
+	<id column="msg_id" property="msg_id" />
+	<result column="msg_nm" property="msg_nm" />
+	<result column="msg_desc" property="msg_desc" />
+	<result column="order_staff" property="order_staff" />
+	</resultMap>
+</mapper>

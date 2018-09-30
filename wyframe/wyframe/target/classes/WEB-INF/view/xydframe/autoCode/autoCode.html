@@ -1,0 +1,250 @@
+@layout("/common/_container.html"){
+<style>.layui-table-cell{
+    overflow:visible !important;
+    height: auto;
+    line-height: 55px;
+}</style>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>代码生成</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">数据源</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" id="dataBase" name="title" type="text" value="${dataBase}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <#selectSt id="bizEnName" name="数据表" map="${tables}"/>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">模块名</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control"  name="title" id="moduleName"  placeholder="例如：bs_shop" >
+                        </div>
+                        <div class="col-sm-3">
+                        <div class="checkbox i-checks">
+                            <label>
+                                <input id="tname" type="checkBox" name="tname">
+                                <i></i> 表名
+                            </label>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" >业务名</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="bizChName"  placeholder="例如：商品" />
+                        </div>
+                        <div class="col-sm-3">
+                        <div class="checkbox i-checks">
+                            <label>
+                                <input id="tableremarks" type="checkBox" name="tableremarks">
+                                <i></i> 表名备注
+                            </label>
+                        </div>
+                        </div>
+                    </div>
+                    <table class="layui-table" id="demo" lay-filter="test"></table>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">布局</label>
+
+                            <div class="col-sm-10">
+                                <label class="checkbox-inline i-checks">
+                                    <input type="radio" value="1" name="layout">
+                                    一列
+                                </label>
+                                <label class="checkbox-inline i-checks">
+                                    <input type="radio" value="2" name="layout">
+                                    两列
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" >选择菜单</label>
+                        <div class="col-sm-4">
+                            <#input id="pcodeName" name="父级菜单" underline="true"
+                                    hidden="pcode" readonly="readonly"
+                                    clickFun="Code.showMenuSelectTree(); return false;"
+                                    style="background-color: #ffffff !important;"
+                                    selectFlag="true" selectId="pcodeTreeDiv" selectTreeId="pcodeTree" selectStyle="width:244px !important;"/>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">选择功能：</label>
+                        <div class="col-sm-10">
+                            <label class="checkbox-inline i-checks">
+                                <input type="checkbox"id="add" value="add">
+                                添加
+                            </label>
+                            <label class="checkbox-inline i-checks">
+                                <input type="checkbox" id="update" value="update">
+                                修改
+                            </label>
+                            <label class="checkbox-inline i-checks">
+                                <input type="checkbox" id="delete" value="delete">
+                                删除
+                            </label>
+                            <label class="checkbox-inline i-checks">
+                                <input type="checkbox" id="detail" value="detail">
+                                详情
+                            </label>
+                            <label class="checkbox-inline i-checks">
+                                <input type="checkbox" id="export" value="export">
+                                导出
+                            </label>
+                            <label class="checkbox-inline i-checks">
+                                <input type="checkbox" id="print" value="print">
+                                打印
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label class="col-sm-2 control-label">工程名</label>
+                        <div class="col-sm-3">
+                            <select class="form-control" id="project" name="工程名">
+                                <option value="public">public</option>
+                                <option value="zcgl">zcgl</option>
+                                <option value="zsh">zsh</option>
+                                <option value="fxb">fxb</option>
+                            </select>
+                        </div>
+
+
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">选择路径</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control"  name="title" id="path"  value="${path}" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button class="btn btn-primary" onclick="Generate()">代码生成</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="${ctxPath}/static/xydframe/system/autoCode/js/autoCode.js" ></script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script type="text/html" id="formTypeselected">
+    <div class="layui-input-inline">
+    <div class="layui-form-item " >
+    <select  name="city"  lay-filter="formTypeselected" style="z-index: 9999;">
+        <option value="0">input </option>
+        <option value="1">select</option>
+        <option value="2">tree </option>
+        <option value="3">checkBox</option>
+        <option value="4">time</option>
+        <option value="5">textArea</option>
+        <option value="6">img</option>
+    </select>
+    </div>
+    </div>
+
+</script>
+<script type="text/html" id="isSearchshifou">
+    <input type="checkbox" name="shi" value="{{d.isSearch}}" lay-skin="switch" lay-text="是|否"  lay-filter="isSearchshifou" {{ d.isSearch == 1 ? 'checked' : '' }}>
+</script>
+<script type="text/html" id="checkTypeselected">
+    <div class="layui-input-inline">
+        <div class="layui-form-item " >
+            <select  name="jiaoyan"  lay-filter="checkTypeselected" >
+                <option value="0" style="text-align: center">非空</option>
+                <option value="1">手机</option>
+                <option value="2">邮箱 </option>
+                <option value="3">中文</option>
+                <option value="4">英文</option>
+                <option value="5">数字</option>
+                <option value="6">自定义长度</option>
+            </select>
+        </div>
+    </div>
+
+</script>
+<script type="text/html" id="isQueryshifou">
+    <input type="checkbox" name="shi" value="{{d.isQuery}}" lay-skin="switch" lay-text="是|否" lay-filter="isQueryshifou" {{ d.isQuery == 1 ? 'checked ': '' }}>
+</script>
+<script type="text/html" id="fixedselected">
+    <div class="layui-input-inline">
+        <div class="layui-form-item " >
+            <select  name="guding"  lay-filter="fixedselected" >
+                <option value="0" >无</option>
+                <option value="1">左</option>
+                <option value="2">右 </option>
+
+            </select>
+        </div>
+    </div>
+
+</script>
+<script type="text/html" id="isLeftTreeshifou">
+    <input type="checkbox" name="shi" value="{{d.isLeftTree}}" lay-skin="switch" lay-text="是|否" lay-filter="isLeftTreeshifou" {{ d.isLeftTree == 1 ? 'checked ': '' }}>
+</script>
+<script type="text/html" id="isOrdershifou">
+    <input type="checkbox" name="shi" value="{{d.isOrder}}" lay-skin="switch" lay-text="是|否" lay-filter="isOrdershifou" {{ d.isOrder == 1 ? 'checked ': '' }}>
+</script>
+<script type="text/html" id="fieldChangeselected">
+    <div class="layui-input-inline">
+        <div class="layui-form-item " >
+            <select  name="guding"  lay-filter="fieldChangeselected" >
+                <option value="0" >不改变</option>
+                <option value="1">字典</option>
+                <option value="2">表字段 </option>
+
+            </select>
+        </div>
+    </div>
+
+</script>
+<script type="text/html" id="tablePageshifou">
+    <input type="checkbox" name="shi" value="{{d.tablePage}}" lay-skin="switch" lay-text="是|否" lay-filter="tablePageshifou" {{ d.tablePage == 1 ? 'checked ': '' }}>
+</script>
+
+<script type="text/html" id="addPageshifou">
+    <input type="checkbox" name="shi" value="{{d.addPage}}" lay-skin="switch" lay-text="是|否" lay-filter="addPageshifou" {{ d.addPage == 1 ? 'checked ': '' }}>
+</script>
+
+<script type="text/html" id="editPageshifou">
+    <input type="checkbox" name="shi" value="{{d.editPage}}" lay-skin="switch" lay-text="是|否" lay-filter="editPageshifou" {{ d.editPage == 1 ? 'checked ': '' }}>
+</script>
+
+<script type="text/html" id="detailPageshifou">
+    <input type="checkbox" name="shi" value="{{d.detailPage}}" lay-skin="switch" lay-text="是|否" lay-filter="detailPageshifou" {{ d.detailPage == 1 ? 'checked ': '' }}>
+</script>
+
+<script type="text/html" id="excelPageshifou">
+    <input type="checkbox" name="shi" value="{{d.excelPage}}" lay-skin="switch" lay-text="是|否" lay-filter="excelPageshifou" {{ d.excelPage == 1 ? 'checked ': '' }}>
+</script>
+
+<script type="text/html" id="printPageshifou">
+    <input type="checkbox" name="shi" value="{{d.printPage}}" lay-skin="switch" lay-text="是|否" lay-filter="printPageshifou" {{ d.printPage == 1 ? 'checked ': '' }}>
+</script>
+
+<script>
+    $(document).ready(function () {
+        $(".i-checks").iCheck({checkboxClass: "icheckbox_square-green", radioClass: "iradio_square-green",})
+    });
+</script>
+@}

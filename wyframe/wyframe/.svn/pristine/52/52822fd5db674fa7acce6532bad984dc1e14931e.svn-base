@@ -1,0 +1,61 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>部门管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                        	<div class="col-lg-2 col-sm-3">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">部门列表</div>
+                                    <div class="panel-body dept-tree">
+                                        <ul id="dept"></ul>
+                                    </div>
+                                </div>
+							</div>
+							<div class="col-lg-10 col-sm-9">
+							<div class="row">
+                            	<div class="col-lg-4 col-sm-3">
+                                	<#NameCon id="condition" name="名称" placeholder="部门名称"/>
+                            	</div>
+                            	<div class="col-sm-3">
+                                	<#button name="搜索" icon="fa-search" clickFun="Xyd_cpn_dept.search()"/>
+                            	</div>
+                            </div>
+                        <div class="hidden-xs" id="Xyd_cpn_deptTableToolbar" role="group">
+                            @if(shiro.hasPermission("/xyd_cpn_dept/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="Xyd_cpn_dept.openAddXyd_cpn_dept()"/>
+                            @}
+                        </div>
+                                <#layUITable id="deptTable"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="${ctxPath}/static/xydframe/system/dept/dept.js"></script>
+<script type="text/html" id="barDemo">
+    @if(shiro.hasPermission("/dept/update")){
+    <a   lay-event="edit" title="修改"><i class="fa fa-edit"></i></a>
+    @}
+    @if(shiro.hasPermission("/dept/detail")){
+    <a  lay-event="detail" title="详情"><i class="fa fa-file-text"></i></a>
+    @}
+    @if(shiro.hasPermission("/dept/delete")){
+    <a  lay-event="del" title="删除"><i class="fa fa fa-trash"></i></a>
+    @}
+</script>
+<style>
+    .layui-table-cell{
+        height:auto;
+        line-height: 37px;
+    }
+</style>
+@}

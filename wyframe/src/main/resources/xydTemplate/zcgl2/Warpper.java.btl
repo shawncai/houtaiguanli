@@ -1,0 +1,31 @@
+package ${warpper.packageName};
+
+<% for(import in warpper.warpperImports!){ %>
+import ${import};
+<% } %>
+
+/**
+ * ${context.bizChName}warpper接口
+ *
+ * @author wyFrame
+ * @Date ${tool.currentTime()}
+ */
+ 
+ public class ${context.bizEnBigName}Warpper extends BaseControllerWarpper{
+ 		public ${context.bizEnBigName}Warpper(Object obj){
+ 			super(obj);
+ 		}
+ 		
+ 		protected void warpTheMap(Map<String,Object> map){
+ 		<% for(var i=0; i<context.list.~size;i++){ %>
+ 		<% if(context.list[i].fieldChange==1){ %>
+ 			List<Map<String, Object>> list = ConstantFactory.me().getDictByName("${context.list[i].fieldTable}");
+                for (Map m : list) {
+                	if ((m.get("num")+"").equals(map.get("${context.list[i].columnName}")+"")) {
+                			map.put("${context.list[i].columnName}", m.get("name"));
+                	                    }
+                	                }
+ 		<% } %>
+ 		<% } %>
+ 		}
+ }

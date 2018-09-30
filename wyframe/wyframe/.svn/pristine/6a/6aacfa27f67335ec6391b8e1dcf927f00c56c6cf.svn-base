@@ -1,0 +1,45 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-6  col-sm-offset-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>代码生成</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">数据库表名</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="tableName" onblur="WsdlCode.initTable()" placeholder="例如：test.shop" /><!--  <span class="help-block m-b-none">例如:shop</span> -->
+                        </div>
+                         <div class="col-sm-1 control-label" style="text-align: left;font-size: 16px;">添加<input id="add" type="checkBox" style="width: 20px;height:20px;" /> </div>
+                        <div class="col-sm-1 control-label" style="text-align: left;font-size: 16px;">修改<input id="update" type="checkBox"  style="width: 20px;height:20px;" /> </div>
+                        <div class="col-sm-1 control-label" style="text-align: left;font-size: 16px;">删除<input id= "delete" type="checkBox"  style="width: 20px;height:20px;" /> </div>
+                        <div class="col-sm-1 control-label" style="text-align: left;font-size: 16px;">列表<input id= "list" type="checkBox"  style="width: 20px;height:20px;" /> </div>
+                        <div class="col-sm-1 control-label" style="text-align: left;font-size: 16px;">详情<input id= "detail" type="checkBox"  style="width: 20px;height:20px;" /> </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">所属模块</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="moduleName"  placeholder="例如：shop" /><!--  <span class="help-block m-b-none">例如:shop</span> -->
+                        </div>
+                     </div>
+                    <#table id="wsdlCodeTable"/>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">输出路径</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="path" placeholder="请输入项目所在路径" /> <span class="help-block m-b-none">默认路径为C:\xyd_zsh\xyd,可修改为您的项目的路径</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button class="btn btn-primary" onclick="WsdlCode.generate()">代码生成</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/xydframe/system/code/wsdlcode.js"></script>
+@}

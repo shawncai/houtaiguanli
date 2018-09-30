@@ -1,0 +1,52 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>企业管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="cpn_nm" name="名称" placeholder="企业名称/企业注册号"/>
+                            </div>
+                            <div class="col-sm-5">
+                                <#input id="cpnPname" name="企业分类" readonly="readonly"
+								hidden="cpn_cata_id" underline="true"
+								clickFun="Cpn_cata_paridDlg.showCpnSelectTree(); return false;"
+								style="background-color: #ffffff !important;width: 288px;" selectFlag="true"
+								selectId="cpnTreeDiv" selectTreeId="cpnareaTree"
+								selectStyle="width:288px !important;" />
+                            </div>
+                            <div class="col-sm-4">
+                                <#button name="搜索" icon="fa-search" clickFun="Xyd_cpn.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="Xyd_cpnTableToolbar" role="group">
+                            @if(shiro.hasPermission("/xyd_cpn/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="Xyd_cpn.openAddXyd_cpn()"/>
+                            @}
+                            @if(shiro.hasPermission("/xyd_cpn/update")){
+                                <#button name="修改" icon="fa-edit" clickFun="Xyd_cpn.openXyd_cpnDetail_update()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/xyd_cpn/delete")){
+                                <#button name="删除" icon="fa-remove" clickFun="Xyd_cpn.delete()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/xyd_cpn/export")){
+                                <#button name="导出" icon="fa-file-excel-o" clickFun="Xyd_cpn.export()" space="true"/>
+                            @}
+                             @if(shiro.hasPermission("/xyd_cpn/detail")){
+                                <#button name="详情" icon="fa-file-code-o" clickFun="Xyd_cpn.openXyd_cpnDetail()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="Xyd_cpnTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/xydcpn/js/xyd_cpn.js"></script>
+@}

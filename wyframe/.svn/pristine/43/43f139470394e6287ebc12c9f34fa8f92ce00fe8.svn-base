@@ -1,0 +1,29 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <form class="form-horizontal" id="signupForm">
+
+             <input type="hidden" id="chnl_id" value="${bs_sale_channel.chnl_id}">
+				
+			 <div class="row">
+                                               <#inputCol1 id='chnl_no' name='渠道编号' value='${bs_sale_channel.chnl_no}' />
+                                               <#inputCol1 id='chnl_nm' name='渠道名称' value='${bs_sale_channel.chnl_nm}' />
+                                               <#inputCol1 id='chnl_desc' name='渠道描述' value='${bs_sale_channel.chnl_desc}' />
+                                               <#inputCol1 id='chnl_phone' name='渠道联系方式' value='${bs_sale_channel.chnl_phone}' />
+                                               <#inputCol1 id='chnl_user_nm' name='渠道用户名称' value='${bs_sale_channel.chnl_user_nm}' />
+                                               
+                                               
+                                               <#selectCol1 id='xyd_st_id' name='状态' map='${map8}'  value='${bs_sale_channel.xyd_st_id}' />
+                                               
+                           </div>
+            <div class="row btn-group-m-t text-center">
+                <div class="col-sm-10">
+                    <#submit btnCss="info" iName="提交" id="ensure" icon="fa-check" clickFun="validate();Bs_sale_channelInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="Bs_sale_channelInfoDlg.close()"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zsh/bs_sale_channel/js/bs_sale_channel_info.js"></script>
+@}

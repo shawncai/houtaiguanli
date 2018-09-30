@@ -1,0 +1,67 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+           <input type="hidden" id="cpn_store_id" value="${xyd_cpn_store.cpn_store_id}">
+
+           <table class="table table-striped table-bordered table-hover" style="font-size:16px;">
+                <tbody>
+                 <tr>
+                <td class="td_title" style="text-align:center ">企业信息ID</td>
+            	<td class="td_content" style="text-align:center "><input id="cpn_id" value="${xyd_cpn_store.cpn_id}" readonly="readonly" class="form-control"/></td>
+           		<td class="td_title" style="text-align:center ">分支机构ID</td>
+                <td class="td_content" style="text-align:center "><input id="cpn_branch_id" value="${xyd_cpn_store.cpn_branch_id}" readonly="readonly" class="form-control"/></td>
+                </tr>
+                 <tr>
+                <td class="td_title" style="text-align:center ">仓库名称</td>
+            	<td class="td_content" style="text-align:center "><input id="cpn_store_nm" value="${xyd_cpn_store.cpn_store_nm}" readonly="readonly" class="form-control"/></td>
+           		<td class="td_title" style="text-align:center ">仓库标准编码</td>
+                <td class="td_content" style="text-align:center "><input id="cpn_store_code" value="${xyd_cpn_store.cpn_store_code}" readonly="readonly" class="form-control"/></td>
+                </tr>
+                 <tr>
+                <td class="td_title" style="text-align:center ">上级仓库ID</td>
+            	<td class="td_content" style="text-align:center "><input id="par_store_id" value="${xyd_cpn_store.par_store_id}" readonly="readonly" class="form-control"/></td>
+           		<td class="td_title" style="text-align:center ">状态</td>
+                <td class="td_content" style="text-align:center "><input id="st_id" value="${xyd_cpn_store.st_id}" readonly="readonly" class="form-control"/></td>
+                </tr>
+                 </tbody>
+                </table>
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="确定" id="ensure" icon="fa-check" clickFun="Xyd_cpn_storeInfoDlg.close()"/>
+                    <#button btnCss="danger" name="关闭" id="cancel" icon="fa-eraser" clickFun="Xyd_cpn_storeInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/cpn_store/js/xyd_cpn_store_info.js"></script>
+<script>
+
+	/**
+	 *参数表页面table
+	 */
+	var Xyd_cpn_store_detail = {
+	    id: "detailTable",	//表格id
+	    seItem: null,		//选中的条目
+	    table: null,
+	    layerIndex: -1
+	};
+
+	/**
+	 * 初始化表格的列
+	 */
+	Xyd_cpn_store_detail.initColumn = function () {
+	    return [
+	        {field: 'selectItem', checkbox: true}
+	    ];
+	    
+	};
+	var id = $("#cpn_store_id").val();
+	var defaultColunmss = Xyd_cpn_store_detail.initColumn();
+    var tabless = new BSTable(Xyd_cpn_store_detail.id, "/xyd_cpn_store/detail/"+id, defaultColunmss);
+    tabless.setPaginationType("client");
+  	Xyd_cpn_store_detail.table = tabless.init();
+</script>
+@}

@@ -1,0 +1,22 @@
+package ${dao.packageName};
+<% for(import in dao.imports!){ %>
+import ${import};
+ <% } %>
+/**
+ * ${context.bizChName}Dao
+ *
+ * @author wyFrame
+ * @Date ${tool.currentTime()}
+ */
+public interface ${context.bizEnBigName}Dao {
+	List<Map<String, Object>> list(@Param("condition") String condition<% for(var i=0; i<context.list.~size;i++){ %><% if(context.list[i].isQuery==1){ %>,@Param("${context.list[i].columnName}") ${context.list[i].javaType} ${context.list[i].columnName}<% } %><% } %>);
+
+	${context.bizEnBigName} queryById(@Param("${context.bizEnName}Id") Integer ${context.bizEnName}Id);
+	  <% for(var i=1; i<context.list.~size;i++){ %>
+             <% if(context.list[i].fieldChange==2){ %>
+    List<Map<String, Object>> getMap${i}();
+             <% } %>
+      <% } %>
+
+      void deleteByIds(@Param("list")  List<Integer> list);
+}

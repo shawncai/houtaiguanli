@@ -1,0 +1,398 @@
+<!doctype html>
+<html class="feedback">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/app.css" rel="stylesheet" />
+		<link href="css/feedback-page.css" rel="stylesheet" />
+		<link href="css/font-awesome.min.css" rel="stylesheet"/>
+		<link href="css/iconfont.css" rel="stylesheet" />
+		<link href="css/tupian.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/mui.picker.min.css" />
+		
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/common.js"></script>
+		<script src="js/mui.view.js"></script>
+		<script src="js/utitls.js"></script>
+		<script type="text/javascript" src="js/jquery-2.1.0.js"></script>
+		<script src="js/base64.js"></script>
+		<script type="text/javascript" src="js/md5.js"></script>
+		<script src="js/mui.picker.min.js"></script>
+	</head>
+  <style>
+            
+            .dynamic_images {  
+                width: 100%;  
+            }  
+              
+            .dynamic_images ul {  
+                margin: 0;  
+                padding: 10px;  
+            }  
+              
+            .dynamic_images ul li {  
+               float: left;
+                list-style: none;  
+                width: 75px;  
+            }  
+              
+            .dynamic_images ul li img {  
+                width: 98%;  
+                height: 75px;  
+            }  
+            
+            .mui-input-group .mui-input-row {
+                height: 40px;
+            }
+            .mui-input-row {
+                position: relative;
+            }
+            
+            mui.min.css:5
+            .mui-input-row {
+                clear: left;
+                overflow: hidden;
+            }
+            h5 {
+                margin: 5px 7px;
+            }
+            
+            .mui-page-content {
+
+                width: 100%;
+                height: 100%;
+                background-color: #efeff4;
+            }
+            .feedback p {
+                padding: 10px 15px 0;
+                font-size: 16px;
+                margin-top: 0;
+                margin-bottom: 10px;
+                color: #000;
+            }
+            .feedback textarea {
+                height: 160px;
+                margin-bottom: 0 !important;
+                padding-bottom: 0 !important;
+            }
+        </style>
+
+
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav" style="background: #4ca5f8;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #fff;"></a>
+			<h1 class="mui-title" style="color: #fff;font-weight: bold;font-size: 20px;">产品新增</h1>
+
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group">
+				
+				<div class="mui-input-row" style="height: 49px;" id="fenlei">
+					<label style="padding-top: 25px;">产品名称</label>
+					<input id="mingchen1" type="text" class="mui-input-clear" style="padding-top: 32px;">
+				</div>
+				<div class="mui-input-row" style="height: 49px;">
+					<label style="padding-top: 25px;">产品货号</label>
+					<input type="text" id="huohao" class="mui-input-clear" style="padding-top: 32px;">
+				</div>
+				<div class="mui-input-row" style="height: 49px;">
+					<label style="padding-top: 25px;">所属分类</label>
+					<input type="text" id="fenlei" class="mui-input-clear" style="padding-top: 32px;">
+				</div>
+				<div class="mui-input-row" style="height: 49px;">
+					<label style="padding-top: 25px;">规格</label>
+					<input type="text" id="guige" class="mui-input-clear" placeholder="" style="padding-top: 32px;">
+				</div>
+				<div class="mui-input-row" style="height: 49px;">
+					<label style="padding-top: 25px;">型号</label>
+					<input type="text" id="xinghao" class="mui-input-clear" placeholder="" style="padding-top: 32px;">
+				</div>
+				<div class="mui-input-row" style="height: 49px;">
+					<label style="padding-top: 25px;">条码</label>
+					<input type="text" id="tiaoma" class="mui-input-clear" placeholder="" style="padding-top: 32px;">
+				</div>
+				<div class="mui-input-row" style="height: 49px;">
+					<label style="padding-top: 25px;">单位</label>
+					<input type="text" id="danwei" class="mui-input-clear" placeholder="" style="padding-top: 32px;">
+				</div>
+				<div class="mui-input-row" style="height: 49px;">
+					<label style="padding-top: 25px;">备注</label>
+					<input type="text" id="beizhu" class="mui-input-clear" placeholder="" style="padding-top: 32px;">
+				</div>
+			</form>
+
+
+
+
+
+
+		</div>
+		
+		
+		
+		
+		
+		
+		<div class="content">  
+            <div class="mui-content-padded" style="margin: 5px;">
+                <form class="mui-input-group">
+                    <div class="feedback">
+                        <input type="hidden" id="image-path" value="">
+                        <div class="dynamic_images">  
+                            <ul>  
+                                <li><img src="images/iconfont-tianjia.png" id="addnew"></li>   
+                            </ul>  
+                        </div>  
+                    </div>
+        
+                    <div class="mui-button-row" style="clear: both;">
+                        <button id="saveBtn" type="button" class="mui-btn mui-btn-primary">上传</button>&nbsp;&nbsp;
+                    </div>
+                </form>
+            </div> 
+                    
+        </div>  
+
+		<div class="mui-part4 mui-bar mui-bar-tab" style="margin-top: 80px;">
+			<ul class="mui-table-view" style="height: 65px;">
+				<li class="mui-table-view-cell" id="shanchu" style="float: left;font-size: 27px;margin-left: 10%;margin-top: 10px;background: #bbb;width: 37%;text-align: center;">删除</li>
+				<li class="mui-table-view-cell" id="baocun" style="float: right;font-size: 27px;margin-right: 10%;margin-top: 10px;background: #4ca5f8;color: #fff;width: 37%;text-align: center;" >保存</li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		mui.init();
+		mui.plusReady(function() {
+			var baocun = document.getElementById('baocun')
+			baocun.addEventListener('tap', function() {
+				var yuanshi = {};
+				var mingchen1 = document.getElementById('mingchen1')
+				var huohao = document.getElementById('huohao')
+				var fenlei = document.getElementById('fenlei')
+				var guige = document.getElementById('guige')
+				var xinghao = document.getElementById('xinghao')
+				var tiaoma = document.getElementById('tiaoma')
+				var danwei = document.getElementById('danwei')
+				var beizhu = document.getElementById('beizhu')
+
+				yuanshi['prd_nm_alias'] = mingchen1.value;
+				yuanshi['prd_nm_dsc'] = huohao.value;
+				yuanshi['prd_cls_id'] = fenlei.value;
+				yuanshi['prd_spec'] = guige.value;
+				yuanshi['prd_model'] = xinghao.value;
+				yuanshi['prd_no'] = tiaoma.value;
+				yuanshi['prd_unit_id'] = danwei.value;
+				yuanshi['prd_remarks'] = beizhu.value;
+				var bianma = Base64.encode(JSON.stringify(yuanshi));
+				var suiji = md5(bianma + localStorage.randomKey);
+				var tou = localStorage.token
+				var DATA = {
+					'object': bianma,
+					'sign': suiji
+				}
+				mui.ajax('http://10.0.0.145/xgt_goods_product/add', {
+					data: JSON.stringify(DATA),
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': "" + 'Bearer ' + tou + ""
+					},
+					success: function(data) {
+						mui.toast("保存成功");
+						console.log(JSON.stringify(data))
+						console.log(JSON.stringify({
+							'Content-Type': 'application/json',
+							'Authorization': "" + 'Bearer ' + tou + ""
+						}))
+						mui.openWindow({
+							url: 'chanping.html',
+							id: 'chanping.html',
+						});
+						mui.back();
+						var list = plus.webview.currentWebview().opener();
+						//触发父页面的自定义事件(refresh),从而进行刷新
+						mui.fire(list, 'refresh');
+						//返回true,继续页面关闭逻辑
+						return true;
+
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type)
+					}
+				});
+			})
+			
+			
+			
+			
+			
+		})
+	</script>
+
+
+<script src="js/mui.min.js"></script>  
+<script>  
+    var files = []; 
+            (function($, doc) {
+                mui.init({
+                    swipeBack: true //启用右滑关闭功能
+                });
+            
+                
+                document.addEventListener("plusready", plusReady, false);  
+  
+                function plusReady() {
+                    var wv = plus.webview.currentWebview();
+                    document.getElementById("addnew").addEventListener("tap", function() {  
+                        showActionSheet();//拍照还是相册  
+                    });
+                    document.getElementById("platenum").value = wv.platenum;
+                  
+                    plus.nativeUI.closeWaiting();
+                  
+                }  
+            }(mui, document));
+             
+        
+            document.getElementById("saveBtn").addEventListener('tap', function() {
+                   upload();
+            });
+             
+             
+            // 上传文件  
+            function upload() {  
+                var tou = localStorage.token
+                var platenum = document.getElementById('platenum').value;
+                var imei = document.getElementById('imei').value;
+                var task = plus.uploader.createUpload('http://10.0.0.145/mgr/upload', {  
+                        method: "POST"  
+                    },
+                    function(t, status) { //上传完成  
+                        if (status == 200) {
+                            var result =jQuery.parseJSON(t.responseText);
+                            mui.toast(result.message);  
+                              
+                        } else {  
+                            console.log("上传失败：" + status);
+                        }  
+                    }
+                );  
+            
+                for (var i = 0; i < files.length; i++) {
+                    var f = files[i]; 
+                    task.addFile(f.path, {  
+                        key:"file"
+                    });
+                    
+                   }
+                task.setRequestHeader('Authorization', "" + 'Bearer ' + tou + "");
+                task.addData('platenum',platenum);
+                task.addData('imei',imei);
+                task.start();     
+                  
+            }  
+              
+            // 添加文件  
+            var index = 1;  
+            var newUrlAfterCompress;  
+            function appendFile(p) {  
+                files.push({ 
+                    path: p,
+                    name: "uploadkey_" + index
+                });  
+                index++;  
+            }  
+            // 产生一个随机数  
+            function getUid() {  
+                return Math.floor(Math.random() * 100000000 + 10000000).toString();  
+            }  
+              
+            
+              
+            function galleryImgs() { // 从相册中选择图片  
+                plus.gallery.pick(function(e) {  
+                    //$(".dynamic_images ul li").remove(".pickimg");  
+                    console.log("选择了"+e.files.length+"个图片");  
+                    for (var i = 0; i < e.files.length; i++) {  
+                        if (i < 9) {  
+                            $(".dynamic_images ul").prepend("<li class='pickimg'><img src='" + e.files[i] + "' /></li>");  
+                            var dstname="_downloads/"+getUid()+".jpg";//设置压缩后图片的路径  
+                            newUrlAfterCompress=compressImage(e.files[i],dstname);  
+                            appendFile(dstname);
+                        }  
+                    }  
+                }, function(e) {  
+                    console.log("取消选择图片");  
+                }, {  
+                    filter: "image",  
+                    multiple: true  
+                });  
+            }  
+              
+            //压缩图片，这个比较变态的方法，无法return  
+            function compressImage(src,dstname) {  
+                //var dstname="_downloads/"+getUid()+".jpg";  
+                plus.zip.compressImage({  
+                        src: src,  
+                        dst: dstname,  
+                        overwrite:true,  
+                        quality: 20  
+                    },  
+                    function(event) {  
+                        //console.log("Compress success:"+event.target);  
+                        return event.target;  
+                    },  
+                    function(error) {  
+                        console.log(error);  
+                        return src;  
+                        //alert("Compress error!");  
+                    });  
+                  
+            }  
+            
+              
+            function showActionSheet() {  
+                var bts = [{  
+                    title: "拍照"  
+                }, {  
+                    title: "从相册选择"  
+                }];  
+                plus.nativeUI.actionSheet({  
+                        cancel: "取消",  
+                        buttons: bts  
+                    },  
+                    function(e) {  
+                        if (e.index == 1) {  
+                            getImage();  
+                        } else if (e.index == 2) {  
+                            galleryImgs();  
+                        }  
+                    }  
+                );  
+            }  
+            //拍照  
+            function getImage() {  
+                var cmr = plus.camera.getCamera();  
+                cmr.captureImage(function(p) {  
+                    plus.io.resolveLocalFileSystemURL(p, function(entry) {  
+                        var localurl = entry.toLocalURL(); //  
+                        //$(".dynamic_images ul li").remove(".pickimg");  
+                        $(".dynamic_images ul").prepend("<li class='pickimg'><img src='" + localurl + "' /></li>");  
+                         var dstname="_downloads/"+getUid()+".jpg";//设置压缩后图片的路径  
+                            newUrlAfterCompress=compressImage(localurl,dstname);  
+                            appendFile(dstname); 
+                    });  
+                });  
+            }  
+</script>  
+
+
+</html>

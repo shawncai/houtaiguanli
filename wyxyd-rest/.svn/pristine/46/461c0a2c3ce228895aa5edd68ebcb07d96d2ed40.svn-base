@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.rest.addons.zcgl.cpn_dept.dao.Xyd_cpn_deptMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.rest.addons.zcgl.cpn_dept.model.Xyd_cpn_dept">
+	<id column="cpn_dept_id" property="cpn_dept_id" />
+	<result column="cpn_id" property="cpn_id" />
+	<result column="cpn_branch_id" property="cpn_branch_id" />
+	<result column="cpn_dept_nm" property="cpn_dept_nm" />
+	<result column="cpn_dept_code" property="cpn_dept_code" />
+	<result column="par_cpn_dept_id" property="par_cpn_dept_id" />
+	<result column="st_id" property="st_id" />
+	</resultMap>
+</mapper>

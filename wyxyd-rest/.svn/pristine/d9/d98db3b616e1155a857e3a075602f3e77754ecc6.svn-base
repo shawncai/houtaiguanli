@@ -1,0 +1,20 @@
+package wy.rest.addons.zsh.bs_sale_channel.dao;
+import org.apache.ibatis.annotations.Param;
+import wy.rest.addons.zsh.bs_sale_channel.model.Bs_sale_channel;
+
+import java.util.List;
+import java.util.Map;
+/**
+ * 销售渠道Dao
+ *
+ * @author wyFrame
+ * @Date 2018-07-25 14:10:16
+ */
+public interface Bs_sale_channelDao {
+	List<Map<String, Object>> list(@Param("condition") String condition, @Param("xyd_st_id") Integer xyd_st_id);
+
+	Bs_sale_channel queryById(@Param("bs_sale_channelId") Integer bs_sale_channelId);
+    List<Map<String, Object>> getMap9();
+
+      void deleteByIds(@Param("list") List<Integer> list);
+}

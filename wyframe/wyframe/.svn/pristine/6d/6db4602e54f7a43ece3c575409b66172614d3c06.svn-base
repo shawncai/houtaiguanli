@@ -1,0 +1,89 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <form class="form-horizontal" id="signupForm">
+
+            <input type="hidden" id="prd_brand_id"
+                   value="${xgt_goods_prd_brand.prd_brand_id}">
+
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <#inputzcc7 id="prd_brand_nm" name="品牌名称" value="${xgt_goods_prd_brand.prd_brand_nm}" underline="true" />
+                </div>
+                <div class="col-sm-12 col-xs-12">
+                    <#inputzcc7 id="brandName" hidden="par_prd_brand_id" hiddenValue="${xgt_goods_prd_brand.par_prd_brand_id}" value="${pBrandName}" name="上级品牌"  underline="true"
+                            clickFun="Xgt_goods_prd_brandInfoDlg.showBrandSelectTree(); return false;"
+                            style="background-color: #ffffff !important;" selectFlag="true"
+                            selectId="brandTreeDiv" selectTreeId="brandareaTree"
+                            selectStyle="width:213px !important;margin-left: 239px" />
+                </div>
+
+                <div class="col-xs-12 col-xs-12">
+                    <#inputzcc7 id="prd_brand_alias" name="品牌代码" value="${xgt_goods_prd_brand.prd_brand_alias}"  underline="true" />
+                </div>
+                <div class="col-xs-12 col-xs-12">
+                    <#inputzcc7 id="prd_brand_remarks" name="品牌介绍" value="${xgt_goods_prd_brand.prd_brand_remarks}" underline="true" />
+
+                </div>
+
+            </div>
+            <div class="row btn-group-m-t">
+                <div class="row btn-group-m-t">
+                    <div class="col-sm-12 col-xs-12 text-center">
+                        <button type="submit" name="submit" class="btn btn-info " onclick="Xgt_goods_prd_brandInfoDlg.editSubmit()" id="ensure">
+                            <i class="fa fa-check"></i>&nbsp;提交
+                        </button>
+                        <#button btnCss="danger" name="返回" id="ensure" icon="fa-eraser"
+                                clickFun="Xgt_goods_prd_brandInfoDlg.close()" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="${ctxPath}/static/addons/zcgl/prdBrand/js/xgt_goods_prd_brand_info.js"></script>
+<script src="${ctxPath}/static/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="${ctxPath}/static/js/plugins/validate/messages_zh.min.js"></script>
+<script>
+    $().ready(function() {
+        var e = "<i class='fa fa-times-circle'></i> ";
+        $("#signupForm").validate({
+            rules: {
+                prd_brand_nm: {
+                    required: !0,
+                },
+                prd_brand_alias: {
+                    required: !0,
+                },
+                prd_brand_remarks: {
+                    required: !0,
+                },
+            },
+            messages: {
+                prd_brand_nm: {
+                    required: e + "请输入品牌名称",
+                },
+                prd_brand_alias: {
+                    required: e + "请输入品牌代码",
+                },
+                prd_brand_remarks: {
+                    required: e + "请输入品牌介绍",
+                },
+
+            },
+            showErrors: function (errorMap, errorList) {
+                var msg = "";
+                $.each(errorList, function (i, v) {
+                    //msg += (v.message + "\r\n");
+                    //在此处用了layer的方法,显示效果更美观
+                    layer.tips(v.message, v.element, { tips:[2,'red'],time: 2000 });
+                    return false;
+                });
+            },
+            /* 失去焦点时不验证 */
+            onfocusout: false
+        })
+
+    });
+</script>
+@}

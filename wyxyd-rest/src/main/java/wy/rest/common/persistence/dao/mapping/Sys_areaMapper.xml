@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.rest.common.persistence.dao.Sys_areaMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.rest.common.persistence.model.Sys_area">
+	<id column="area_id" property="area_id" />
+	<result column="area_nm" property="area_nm" />
+	<result column="par_area_id" property="par_area_id" />
+	<result column="prov_id" property="prov_id" />
+	<result column="prov_nm" property="prov_nm" />
+	<result column="city_id" property="city_id" />
+	<result column="city_nm" property="city_nm" />
+	<result column="region_id" property="region_id" />
+	<result column="region_nm" property="region_nm" />
+	<result column="street_id" property="street_id" />
+	<result column="street_nm" property="street_nm" />
+	<result column="area_deep" property="area_deep" />
+	<result column="area_sort" property="area_sort" />
+	</resultMap>
+</mapper>

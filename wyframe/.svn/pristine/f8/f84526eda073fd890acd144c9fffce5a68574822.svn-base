@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.prdUnit.dao.Xgt_goods_prd_unitMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.addons.zcgl.prdUnit.model.Xgt_goods_prd_unit">
+	<id column="prd_unit_id" property="prd_unit_id" />
+	<result column="prd_unit_nm" property="prd_unit_nm" />
+	<result column="prd_unit_alias" property="prd_unit_alias" />
+	</resultMap>
+</mapper>

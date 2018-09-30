@@ -1,0 +1,14 @@
+package wy.addons.zsh.bs_shop.dao;
+
+import com.baomidou.mybatisplus.mapper.BaseMapper;
+import wy.addons.zsh.bs_shop.model.Bs_shop;
+
+/**
+ * 商品Mapper接口
+ *
+ * @author wyFrame
+ * @Date 2018-07-25 14:33:23
+ */
+ public interface Bs_shopMapper extends BaseMapper<Bs_shop>{
+ 
+ }

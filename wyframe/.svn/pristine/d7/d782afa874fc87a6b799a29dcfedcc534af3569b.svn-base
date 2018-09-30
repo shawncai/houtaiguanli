@@ -1,0 +1,30 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+           <input type="hidden" id="${context.list[0].columnName}" value="\${${context.bizEnName}.${context.list[0].columnName}}">
+
+      		 <div class="row">
+                  	<% if(context.layout==1){ %>
+                    <% for(var i=1;i<context.list.~size;i++){ %>
+                       ${context.list[i].detailForm}
+                    <% } %>
+              <% } %>
+               <% if(context.layout==2){ %>
+                    <% for(var i=1;i<context.list.~size;i++){ %>
+                     ${context.list[i].detailForm}
+                    <% } %>
+                <% } %>
+                                 </div>
+            <div class="row btn-group-m-t text-center">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="确定" id="ensure" icon="fa-check" clickFun="${context.bizEnBigName}InfoDlg.close()"/>
+                    <#button btnCss="danger" name="关闭" id="cancel" icon="fa-eraser" clickFun="${context.bizEnBigName}InfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="\${ctxPath}/static/${context.scriptPath}/${context.moduleName}/js/${context.bizEnName}_info.js"></script>
+@}

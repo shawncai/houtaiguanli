@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.addons.zcgl.outStore.dao.Xgt_goods_store_bill_outDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="wy.addons.zcgl.outStore.model.Xgt_goods_store_bill_out">
+        <id column="bill_out_id" property="bill_out_id"/>
+        <result column="prd_vendor_id" property="prd_vendor_id"/>
+        <result column="bill_no" property="bill_no"/>
+        <result column="out_bill_type" property="out_bill_type"/>
+        <result column="bill_dsc" property="bill_dsc"/>
+        <result column="rel_bill_id" property="rel_bill_id"/>
+        <result column="cpn_store_id" property="cpn_store_id"/>
+        <result column="cpn_id" property="cpn_id"/>
+        <result column="shop_num" property="shop_num"/>
+        <result column="print_num" property="print_num"/>
+        <result column="aud_st_id" property="aud_st_id"/>
+        <result column="be_total_amounts" property="be_total_amounts"/>
+        <result column="aud_user" property="aud_user"/>
+        <result column="cpn_branch_id" property="cpn_branch_id"/>
+        <result column="cre_dt" property="cre_dt"/>
+        <result column="st_id" property="st_id"/>
+        <result column="oper_user" property="oper_user"/>
+    </resultMap>
+
+    <select id="getCreateTimeCount" resultType="java.lang.String">
+        select count(*) from xgt_goods_store_bill_out
+        where cre_dt
+        BETWEEN CONCAT(#{startTime},' 00:00:00') and CONCAT(#{startTime},' 23:59:59')
+    </select>
+
+    <!-- 出库单列表 -->
+    <select id="list" resultType="map">
+        select * from xgt_goods_store_bill_out where out_bill_type = 22 order by
+        bill_out_id
+        desc	</select>
+
+    <select id="showDetail" resultType="map">
+      select * from xgt_goods_store_bill_out_dtl where bill_out_id = #{id}
+    </select>
+
+    <!-- 通过Id查询入库单 -->
+    <select id="queryById" resultMap="BaseResultMap">
+        select * from xgt_goods_store_bill_out
+        where bill_out_id = #{xgt_goods_store_billId}
+    </select>
+
+    <!-- 查询参数 -->
+    <select id="param" resultType="map">
+        select * from xgt_goods_product where prd_id in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <!-- 参数表列表 -->
+    <select id="paramsList" resultType="map">
+        select * from xgt_goods_product
+    </select>
+
+    <select id="selectDetail" resultType="map">
+        select * from xgt_goods_store_bill_out_dtl  where bill_out_id = #{id}
+    </select>
+
+    <select id="selectStoreId" resultType="map">
+        select * from xgt_goods_store_bill where bill_out_id = #{bill_out_id}
+    </select>
+
+    <!-- 查询订单详情 -->
+    <select id="selectBillDtl" resultType="map">
+        select * from xgt_goods_store_bill_dtl  where bill_id = #{bill_id}
+    </select>
+
+    <insert id="insertTotal" useGeneratedKeys="true" keyProperty="map.bill_out_id">
+        insert into xgt_goods_store_bill_out(prd_vendor_id,cpn_store_id,brok_user,cre_dt,st_id,oper_user,cpn_id,cpn_branch_id,out_bill_type,bill_dsc,bill_no,aud_st_id,shop_num,be_total_amounts)
+        values(#{map.prd_vendor_id},#{map.cpn_store_id},#{map.brok_user},#{map.cre_dt},#{map.st_id},#{map.oper_user},#{map.cpn_id},#{map.cpn_branch_id},#{map.out_bill_type},#{map.bill_dsc},#{map.bill_no},#{map.aud_st_id},#{map.shop_num},#{map.be_total_amounts})
+    </insert>
+
+
+    <insert id="insertDetail" parameterType="map">
+        insert into
+        xgt_goods_store_bill_out_dtl(bill_out_id,prd_id,out_num,prd_cls_id,prd_unit_id,prd_brand_id,prd_vendor_id,prd_price,prd_nm,cpn_id,cpn_branch_id,amounts)
+        values
+        <foreach collection="map2" item="item" index="index" separator=",">
+            (#{item.bill_out_id},#{item.prd_id},#{item.out_num},#{item.prd_cls_id},#{item.prd_unit_id},#{item.prd_brand_id},#{item.prd_vendor_id},#{item.prd_price},#{item.prd_nm},#{item.cpn_id},#{item.cpn_branch_id},#{item.amounts})
+        </foreach>
+    </insert>
+
+    <insert id="addGoodsStore" parameterType="map">
+        insert into
+        xgt_goods_store(bill_id,bill_no,prd_id,prd_cls_id,prd_unit_id,prd_brand_id,prd_vendor_id,cpn_store_id,in_num,prd_price,cpn_id,cpn_branch_id)
+        values
+        <foreach collection="billDtl" item="item" index="index" separator=",">
+            (#{item.bill_id},#{item.bill_no},#{item.prd_id},#{item.prd_cls_id},#{item.prd_unit_id},#{item.prd_brand_id},#{item.prd_vendor_id},#{item.cpn_store_id},#{item.in_num},#{item.prd_price},#{item.cpn_id},#{item.cpn_branch_id})
+        </foreach>
+    </insert>
+
+    <delete id="deleteParam">
+		delete from xgt_goods_store_bill where bill_id = #{xgt_goods_store_billId}
+	</delete>
+
+    <delete id="deleteTotal">
+		delete from xgt_goods_store_bill_dtl where bill_id = #{xgt_goods_store_billId}
+	</delete>
+
+    <delete id="deleteDetl">
+		delete from xgt_goods_store_bill_dtl where bill_id = #{id}
+	</delete>
+
+    <select id="iQueryById" resultType="map">
+		select * from xgt_goods_store_bill where bill_id = #{id}
+	</select>
+    <update id="updateState">
+		update xgt_goods_store_bill set st_id = #{st_id} where bill_id = #{bill_id}
+	</update>
+    <update id="deleteState">
+        update xgt_goods_store_bill_out set aud_st_id = -1 ,aud_user = #{userId} where bill_out_id = #{id}
+    </update>
+    <select id="quertyMatDistributors" resultType="map">
+		select * from bs_bill where SEND_CHNL_ID is null
+	</select>
+
+    <update id="updateInState">
+        update xgt_goods_store_bill_out set aud_st_id = 2 ,aud_user = #{userId} where bill_out_id = #{id}
+    </update>
+
+    <update id="updateTotal">
+        update xgt_goods_store_bill_out set shop_num=#{shop_num} where bill_out_id = #{bill_out_id}
+    </update>
+    <delete id="deleteDetl">
+        delete from xgt_goods_store_bill_out_dtl where bill_out_id = #{id}
+    </delete>
+    <delete id="deleteDetail">
+        delete from xgt_goods_store_bill_out_dtl where bill_out_id=#{bill_out_id}
+    </delete>
+    <update id="updateSubmit">
+        update xgt_goods_store_bill_out set st_id=2,aud_st_id = 1 where bill_out_id = #{bill_out_id}
+    </update>
+
+    <select id="selectOrders" resultType="map">
+        SELECT <include refid="Base_Column_List" />
+        from xgt_goods_store_bill_out
+        WHERE out_bill_type != 3
+        <if test="name != null and name != ''">
+            and (bill_no like CONCAT('%',#{name},'%')
+            or bill_dsc like CONCAT('%',#{name},'%'))
+        </if>
+        <if test="st_id != null and st_id != 0">
+            and st_id = #{st_id}
+        </if>
+        <if test="aud_st_id != null and aud_st_id != 0">
+            and aud_st_id = #{aud_st_id}
+        </if>
+    </select>
+
+    <sql id="Base_Column_List">
+        bill_out_id,prd_vendor_id,bill_no,out_bill_type,bill_dsc,rel_bill_id,
+        cpn_store_id,shop_num,be_total_amounts,dep_rate,coup_amounts,coup_total_amounts,
+        use_user,brok_user,bill_dt,print_num,cpn_id,cpn_branch_id,mdi_dt,cre_dt,
+        st_id,oper_user,aud_st_id,aud_user
+    </sql>
+
+    <select id="selectOtherOrders" resultType="map">
+    SELECT <include refid="Base_Column_List" />
+    from xgt_goods_store_bill_out
+    WHERE out_bill_type != 3
+    and (id = #{userId})
+    <if test="name != null and name != ''">
+        and (bill_no like CONCAT('%',#{name},'%')
+        or bill_dsc like CONCAT('%',#{name},'%'))
+    </if>
+    <if test="st_id != null and st_id != 0">
+        and st_id = #{st_id}
+    </if>
+    <if test="aud_st_id != null and aud_st_id != 0">
+        and aud_st_id = #{aud_st_id}
+    </if>
+    </select>
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.rest.addons.zsh.bs_sale_channel.dao.Bs_sale_channelDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="wy.rest.addons.zsh.bs_sale_channel.model.Bs_sale_channel">
+	<id column="chnl_id" property="chnl_id" />
+	<result column="chnl_no" property="chnl_no" />
+	<result column="chnl_nm" property="chnl_nm" />
+	<result column="chnl_desc" property="chnl_desc" />
+	<result column="chnl_phone" property="chnl_phone" />
+	<result column="chnl_user_nm" property="chnl_user_nm" />
+	<result column="xyd_st_id" property="xyd_st_id" />
+	<result column="xyd_cre_dt" property="xyd_cre_dt" />
+	<result column="xyd_up_dt" property="xyd_up_dt" />
+	<result column="id" property="id" />
+	</resultMap>
+	
+
+	
+	<!-- 通过Id查询销售渠道 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		select * from bs_sale_channel
+		where chnl_id = #{bs_sale_channelId}
+	</select>
+
+		<!-- 销售渠道列表 -->
+    	<select id="list" resultType="map">
+    		select bs_sale_channel.*,user.name from bs_sale_channel
+                    LEFT JOIN user on bs_sale_channel.id =user.id
+            where 1=1
+    		<if test="condition != null and condition != ''">
+            and (1&lt;1)
+            </if>
+            <if test="xyd_st_id != null and xyd_st_id !=0">
+            and xyd_st_id=#{xyd_st_id}
+             </if>
+    		order by chnl_id desc
+    	</select>
+        <select id="getMap9" resultType="map">
+              select name name,id num from user
+        </select>
+        <update id="deleteByIds" parameterType="list">
+            UPDATE bs_sale_channel SET xyd_st_id = -1 where chnl_id in
+           <foreach collection="list" item="item" open="(" separator="," close=")">
+                   #{item}
+             </foreach>
+        </update>
+</mapper>

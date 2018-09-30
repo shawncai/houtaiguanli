@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wy.xydframe.system.dao.RoleDao">
+
+	<sql id="Base_Column_List">
+		id, num, pid, name, deptid, tips, version
+	</sql>
+	
+	<sql id="Base_Column_Role">
+		id, pid
+	</sql>
+	
+	<sql id="Base_Column_Name">
+		name
+	</sql>
+	
+	<sql id="Base_Column_Pid">
+		pid
+	</sql>
+	
+	<select id="selectRoles" resultType="String" parameterType="String">
+		select
+		<include refid="Base_Column_Name" />
+		from role where id=#{roleid}
+	</select>
+
+	<select id="showRoles" resultType="map">
+		select
+		a1.*
+		from role a1 ,
+		(select b1.id from role b1 where b1.id = #{roleId}
+		UNION
+		select b1.id from role b1 where b1.pid = #{roleId}
+		union
+		select b1.id from role b1,role b2 where b1.pid=b2.id and b2.pid = #{roleId}
+		union
+		select b1.id from role b1,role b2, role b3 where b1.pid=b2.id and b2.pid=b3.id and b3.pid =  #{roleId}
+		) m1
+		where a1.id=m1.id
+
+	</select>
+	
+	<select id="getRolesId" resultType="Integer">
+		select 
+		<include refid="Base_Column_Role" />
+		from role
+		where id=#{userRoleId} or pid=#{userRoleId}
+	</select>
+
+	<delete id="deleteRolesById">
+		delete from relation where roleid = #{roleId}
+	</delete>
+	
+	<select id="getRolesPid" resultType="Integer" parameterType="Integer">
+		select
+		<include refid="Base_Column_Pid" />
+		from role
+		where id=#{roleId}
+	</select>
+
+	<!-- 查询企业组织tre列表 -->
+	<select id="tree" resultType="wy.core.node.ZTreeNode">
+		select id, pid,name,
+		(
+		CASE
+		WHEN (pid = 0 OR pid IS NULL) THEN
+		'true'
+		ELSE
+		'false'
+		END
+		) as isOpen from role
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+		</where>
+	</select>
+
+	<select id="roleTreeList" resultType="wy.core.node.ZTreeNode">
+		select id "id",pId
+		"pId",name as "name",(case when (pId=0 or pId is null) then 'true'
+		else 'false' end) "open" from role
+	</select>
+	
+	<select id="roleSomeTreeList" resultType="wy.core.node.ZTreeNode">
+		select r.id "id",r.pId
+		"pId",r.name as "name",(case when (pId=0 or pId is null) then 'true'
+		else 'false' end) "open" from role r
+		inner join (
+		SELECT
+		ID
+		FROM
+		role
+		WHERE
+		ID IN
+		<foreach collection="list" index="index" item="item" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+		) r2 on r.id = r2.id
+	</select>
+
+	<select id="roleTreeListByRoleId" resultType="wy.core.node.ZTreeNode">
+		SELECT
+		r.id "id",
+		pId "pId",
+		NAME AS "name",
+		(
+		CASE
+		WHEN (pId = 0 OR pId IS NULL) THEN
+		'true'
+		ELSE
+		'false'
+		END
+		) "open",
+		(
+		CASE
+		WHEN (r1.ID = 0 OR r1.ID IS NULL) THEN
+		'false'
+		ELSE
+		'true'
+		END
+		) "checked"
+		FROM
+		role r
+		LEFT JOIN (
+		SELECT
+		ID
+		FROM
+		role
+		WHERE
+		ID IN 
+		<foreach collection="array" index="index" item="item" open="(" separator="," close=")">  
+        	#{item}
+    	</foreach>
+		) r1 ON r.ID = r1.ID
+		ORDER BY
+		pId,
+		num ASC
+	</select>
+	
+	<select id="roleSomeTreeListByRoleId" resultType="wy.core.node.ZTreeNode">
+		SELECT
+		r.id "id",
+		r.pId "pId",
+		r.NAME AS "name",
+		(
+		CASE
+		WHEN (r.pId = 0 OR r.pId IS NULL) THEN
+		'true'
+		ELSE
+		'false'
+		END
+		) "open",
+		(
+		CASE
+		WHEN (r1.ID = 0 OR r1.ID IS NULL) THEN
+		'false'
+		ELSE
+		'true'
+		END
+		) "checked"
+		FROM
+		role r
+		LEFT JOIN (
+		SELECT
+		ID
+		FROM
+		role
+		WHERE
+		ID IN 
+		<foreach collection="array" index="index" item="item" open="(" separator="," close=")">  
+        	#{item}
+    	</foreach>
+		) r1 ON r.ID = r1.ID 
+		inner join (
+		SELECT
+		ID
+		FROM
+		role
+		WHERE
+		ID IN
+		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		) r3 on r.id = r3.id 
+		ORDER BY
+		r.pId,
+		r.num ASC
+	</select>
+
+
+</mapper>

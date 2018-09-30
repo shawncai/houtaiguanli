@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="${ctxPath}/static/css_chuku/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="${ctxPath}/static/css_chuku/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="${ctxPath}/static/css_chuku/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link href="${ctxPath}/static/js_chuku/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
+    <link href="${ctxPath}/static/css_chuku/animate.css" rel="stylesheet">
+    <link href="${ctxPath}/static/css_chuku/style.css?v=4.1.0" rel="stylesheet">
+    <link href="${ctxPath}/static/css_chuku/base.css" rel="stylesheet">
+    <link href="${ctxPath}/static/layui/css/modules/layer/default/layer.css" rel="stylesheet">
+    <script src="${ctxPath}/static/js_chuku/jquery.min.js?v=2.1.4"></script>
+    <script src="${ctxPath}/static/js_chuku/ajax-object.js"></script>
+    <script src="${ctxPath}/static/js_chuku/Feng.js"></script>
+    <script type="text/javascript">
+        Feng.addCtx("${ctxPath}");
+        Feng.sessionTimeoutRegistry();
+    </script>
+
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight" >
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-title">
+                    <div class="text-nowrap" style="float:left">NO.<span >${xgt_goods_store_bill_out.bill_no}</span></div>
+                    <h3 class="name" style="width:106px;float: left;margin-left: 32%">出库单修改</h3>
+                    <div class="anniu " style="padding-left: 88%;">
+                        <button type="button" class="btn btn-info  btn-xs" id="seach">查询</button>
+                        <button type="button" class="btn btn-info  btn-xs" id="print">打印</button>
+                        <div class="btn-group">
+                            <button data-toggle="dropdown" class="btn btn-info btn-xs dropdown-toggle">批量
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" style="min-width:100%;">
+                                <li>
+                                    <a >导入</a>
+                                </li>
+                                <li>
+                                    <a  class="font-bold">导出</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <input type="hidden" id="bill_out_id"
+                           value="${xgt_goods_store_bill_out.bill_out_id}">
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-4">
+
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型
+                                    </button>
+                                </div>
+                                <input id="in_bill_type" value="${xgt_goods_store_bill_out.out_bill_type}" class="form-control" readonly="readonly">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">出库单描述
+                                    </button>
+                                </div>
+                                <input id="bill_dsc" value="${xgt_goods_store_bill_out.bill_dsc}" class="form-control" readonly="readonly" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">仓库ID
+                                    </button>
+                                </div>
+                                <input id="cpn_store_id" value="${xgt_goods_store_bill_out.cpn_store_id}" class="form-control" readonly="readonly" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">创建时间
+                                    </button>
+                                </div>
+                                <input id="cre_dt" value="${xgt_goods_store_bill_out.cre_dt}" class="form-control" readonly="readonly" />
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态
+                                    </button>
+                                </div>
+                                <input id="st_id" value="${xgt_goods_store_bill_out.st_id}" class="form-control" readonly="readonly" />
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">操作人
+                                    </button>
+                                </div>
+                                <input id="oper_user" value="${xgt_goods_store_bill_out.oper_user}" class="form-control" readonly="readonly" />
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="hidden-xs" id="detailTableToolbar" role="group">
+                        <button type="button" class="btn btn-outline btn-default"  id="btn_add">
+                            <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline btn-default" id="btn_delete">
+                            <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <table id="detailTable" data-mobile-responsive="true">
+                        <thead>
+                        <tr>
+
+                            <th data-field="selectItem" data-checkbox="true"></th>
+
+                        </tr>
+                        </thead>
+                    </table>
+                    <div class="row btn-group-m-t">
+                        <div class="col-sm-10">
+
+                            <button type="button"  class=" btn-info  btn-sm"  name="保存" id="keep"
+                            /><i class="glyphicon glyphicon-ok"></i>保存</button>
+                            <button type="button"  class=" btn-info  btn-sm"  name="提交" id="submit"
+                            /><i class="glyphicon glyphicon-ok"></i>提交</button>
+                            <button type="button" class=" btn-danger btn-sm"  name="取消" id="cancel"
+                                    onclick="Xgt_goods_store_billInfoDlg.close()" /><i class="glyphicon glyphicon-remove"></i>取消</button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <!-- End Example Toolbar -->
+        </div>
+    </div>
+</div>
+
+<script src="${ctxPath}/static/js_chuku/bootstrap.min.js?v=3.3.6"></script>
+<script src="${ctxPath}/static/js_chuku/layer1/layer.js"></script>
+<!-- 自定义js -->
+
+<script src="${ctxPath}/static/js_chuku/project_table.js"></script>
+<!-- Bootstrap table -->
+<script src="${ctxPath}/static/js_chuku/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="${ctxPath}/static/js_chuku/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+<script src="${ctxPath}/static/js_chuku/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="${ctxPath}/static/js_chuku/bootstrap3-editable/js/bootstrap-editable.js"></script>
+<script src="${ctxPath}/static/js_chuku/bootstrap-table-editable.js"></script>
+<!-- Peity -->
+<script src="${ctxPath}/static/js_chuku/bootstrap-table-object.js"></script>
+<script src="${ctxPath}/static/addons/zcgl/outStore/js/xgt_goods_store_bill_info.js"></script>
+
+
+<script src="${ctxPath}/static/js_chuku/laydate/laydate.js"></script>
+<script>
+
+    /**
+     *参数表页面table
+     */
+    var Xgt_goods_store_billParam = {
+        id: "detailTable",  //表格id
+        seItem: null,   //选中的条目
+        table: null,
+        layerIndex: -1
+    };
+
+    /**
+     * 初始化表格的列
+     */
+    Xgt_goods_store_billParam.initColumn = function () {
+        return [
+            {field: 'selectItem', checkbox: true},
+            {title: '序号', field: 'SHOP',formatter:function(value,row,index){row.SHOP = index;return index+1;}, align: 'center', valign: 'middle'},
+            {title: '操作',  field:'Button', formatter:operateFormatter,events: operateEvents, align: 'center', valign: 'middle',sortable: true,}
+            ,         {title: '产品ID', field: 'prd_id', align: 'center', valign: 'middle', sortable: true},
+            {title: '产品名称', field: 'prd_nm', align: 'center', valign: 'middle', sortable: true},
+            {title: '仓库数量', field: 'sum',formatter:numb, align: 'center', valign: 'middle', sortable: true},
+            {title: '出库数量', editable: {type: 'text', title: '数量', validate: function (v) {if (isNaN(v)) return '数量必须是数字';var age = parseInt(v);if (age <= 0) return '数量必须是正整数';}
+            },field: 'out_num',formatter:numb, align: 'center', valign: 'middle', sortable: true}
+            ,         {title: '生产品牌ID', field: 'prd_brand_id',visible: false, align: 'center', valign: 'middle', sortable: true}
+            ,         {title: '生产厂商ID', field: 'prd_vendor_id',visible: false, align: 'center', valign: 'middle', sortable: true}
+            ,         {title: '产品分类ID', field: 'prd_cls_id',visible: false, align: 'center', valign: 'middle', sortable: true}
+            ,         {title: '单位ID', field: 'prd_unit_id',visible: false, align: 'center', valign: 'middle', sortable: true}
+            ,         {title: '产品标准编码', field: 'prd_no',visible: false, align: 'center', valign: 'middle', sortable: true}
+            ,         {title: '产品型号', field: 'prd_model',visible: false, align: 'center', valign: 'middle', sortable: true}
+            ,         {title: '产品简称', field: 'prd_nm_alias',visible: false, align: 'center', valign: 'middle', sortable: true}
+            ,         {title: '产品描述', field: 'prd_nm_dsc',visible: false, align: 'center', valign: 'middle', sortable: true}
+            ,         {title: '产品上市日期', field: 'prd_crt_dt',visible: false, align: 'center', valign: 'middle', sortable: true}
+            ,         {title: '产品售价', field: 'prd_price', align: 'center', valign: 'middle', sortable: true}
+            ,         {title: '创建时间', field: 'cre_dt',visible: false, align: 'center', valign: 'middle', sortable: true}
+            ,          {title: '状态', field: 'st_id', align: 'center', valign: 'middle', sortable: true}
+            ,         {title: '操作人', field: 'oper_user', align: 'center', valign: 'middle', sortable: true}
+            ,         {title: '金额',  field:'amounts', formatter:numbz, align: 'center', valign: 'middle',sortable: true,}
+        ];
+
+    };
+
+    function numb(value, row, index) {
+        if(value == undefined) return "0";
+        else return value;
+    }
+    function numbz(value, row, index) {
+        if(value == undefined) return "0.00";
+        else return parseFloat(value).toFixed(2)
+            ;
+
+    }
+
+    function operateFormatter(value, row, index) {
+        return [
+            '<a class="remove" href="javascript:void(0)" title="Remove">',
+            '<i class="glyphicon glyphicon-remove"></i>',
+            '</a>'
+        ].join('');
+    }
+    window.operateEvents = {
+        'click .remove': function (e, value, row, index) {
+            $('#detailTable').bootstrapTable('remove', {
+                field: 'SHOP',
+                values: [row.SHOP]
+            });
+            var data =$('#detailTable').bootstrapTable('getData');
+            var some= data.length;
+            var sum=0.00;
+            for (var i = 0; i < some; i++) {
+
+                var obj =data[i].amounts;
+                if (obj!=undefined) {
+                    sum+=obj;
+                }
+            }
+            console.log(sum)
+            $('#totalAmount').html(parseFloat(sum).toFixed(2));
+        },
+    };
+
+    $('#detailTable').off('editable-save.bs.table');
+    $('#detailTable').on('editable-save.bs.table',function(e,field,row,oldValue,$el){
+        if(row.out_num>row.sum){ layer.msg('不能超过仓库数量', {icon: 5}); $('#detailTable').bootstrapTable('updateCell', {
+            index:row.SHOP,
+            field:'out_num',
+            value:0
+        });
+            $('#detailTable').bootstrapTable('updateCell', {
+                index:row.SHOP,
+                field:'amounts',
+                value:0.00
+            });
+
+            return false}
+        var total=row.out_num*row.prd_price;
+
+        $('#detailTable').bootstrapTable('updateCell', {
+            index:row.SHOP,
+            field:'amounts',
+            value:total
+        });
+
+
+    })
+
+
+
+
+    var $table = $('#detailTable'),
+        $button = $('#btn_delete');
+    $(function () {
+        $button.click(function () {
+            var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
+                return row.prd_id;
+            });
+            $table.bootstrapTable('remove', {
+                field: 'prd_id',
+                values: ids
+            });
+
+        });
+    });
+
+
+    $('#btn_add').on('click', function() {
+        var selectContent1 = $("#detailTable").bootstrapTable('getData');
+        var some = selectContent1.length;
+        var str = "0,";
+        for (var i = 0; i < some; i++) {
+
+            var obj = selectContent1[i].prd_id;
+            str += obj + ",";
+        }
+        layer.open({
+            type: 2,
+            title: '商品搜索',
+            area: ['100%', '100%'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            shadeClose: true,
+            content: Feng.ctxPath + '/xgt_goods_store_bill_out/xgt_goods_store_bill_edit_add/'+str+"-"+$('#cpn_store_id').val()
+        })
+
+    })
+
+
+    $('#keep').click(function(){
+        var bill_out_id=$('#bill_out_id').val();
+        var selectContent = $("#detailTable").bootstrapTable('getData');
+        console.log(selectContent);
+        var operation = function(){
+            var ajax = new $ax(Feng.ctxPath + "/xgt_goods_store_bill_out/keep", function (data) {
+                Feng.success("修改成功!");
+                window.load();
+                parent.layer.closeAll();
+            }, function (data) {
+                Feng.error("修改失败!" + data.responseJSON.message + "!");
+
+            });
+            ajax.set('iData',JSON.stringify(selectContent));
+            ajax.set('bill_out_id',bill_out_id)
+            ajax.start();
+        }
+        Feng.confirm("是否保存?", operation);
+
+    });
+    $('#submit').click(function(){
+        var bill_out_id=$('#bill_out_id').val();
+        var selectContent = $("#detailTable").bootstrapTable('getData');
+        console.log(selectContent);
+        var operation = function(){
+            var ajax = new $ax(Feng.ctxPath + "/xgt_goods_store_bill_out/submit", function (data) {
+                Feng.success("修改成功!");
+                window.load();
+                parent.layer.closeAll();
+            }, function (data) {
+                Feng.error("修改失败!" + data.responseJSON.message + "!");
+
+            });
+            ajax.set('iData',JSON.stringify(selectContent));
+            ajax.set('bill_out_id',bill_out_id)
+            ajax.start();
+        }
+        Feng.confirm("是否提交?", operation);
+
+    });
+
+
+
+    var id = $("#bill_out_id").val();
+    var store_id =$('#cpn_store_id').val();
+    var defaultColunmss = Xgt_goods_store_billParam.initColumn();
+    var tabless = new BSTable(Xgt_goods_store_billParam.id, "/xgt_goods_store_bill_out/detail/"+id+","+store_id, defaultColunmss);
+    tabless.setPaginationType("client");
+    Xgt_goods_store_billParam.table = tabless.init();
+
+    function removeParam(){
+        var selected = $('#' + Xgt_goods_store_billParam.id).bootstrapTable('getSelections');
+        var str = "";
+        for(var i =0;i<selected.length;i++){
+            str=str+selected[i].prd_id+".";
+        }
+        var operation = function(){
+            var ajax = new $ax(Feng.ctxPath + "/xgt_goods_store_bill/deleteParam/"+str, function (data) {
+                Feng.success("删除成功!");
+                Xgt_goods_store_billParam.table.refresh();
+            }, function (data) {
+                Feng.error("删除失败!" + data.responseJSON.message + "!");
+            });
+            ajax.start();
+        }
+        Feng.confirm("是否刪除?", operation);
+    }
+
+    /**
+     * 点击添加订单
+     */
+    Xgt_goods_store_billParam.appendXyd_total = function () {
+        var index = layer.open({
+            type: 2,
+            title: '添加参数',
+            area: ['100%', '100%'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            content: Feng.ctxPath + '/xyd_total/xyd_total_add_param'
+        });
+        this.layerIndex = index;
+    };
+
+
+</script>
+</body>
+</html>
